@@ -10,4 +10,6 @@
     <color name="white_light">#F2F2F2</color>
     <color name="grey_light">#BDBDBD</color>
     <color name="grey_dark">#AAAAAA</color>
+
+    <color name="colorTransparentWhite">#cccccc</color>
 </resources>
