@@ -24,4 +24,9 @@
         <item name="android:strokeColor">@color/black_dark</item>
     </style>
 
+    <style name="BottomNavigationTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/grey_light</item>
+        <item name="android:textColorSecondary">@color/grey_dark</item>
+    </style>
+
 </resources>
