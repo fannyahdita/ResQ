@@ -34,7 +34,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:padding="5dp"
-        android:src="@drawable/ic_temukansaya"
+        android:src="@drawable/ic_temukansaya_button"
         app:layout_constraintStart_toStartOf="parent"
         android:contentDescription="@string/bottom_sheet_behavior"
         app:layout_constraintEnd_toEndOf="parent"
