@@ -13,6 +13,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         actionBar = this.supportActionBar!!
+        actionBar.setHomeAsUpIndicator(R.mipmap.ic_logo_round)
+        actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = "RES-Q"
         actionBar.elevation = 0F
     }
