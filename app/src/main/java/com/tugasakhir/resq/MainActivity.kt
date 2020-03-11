@@ -8,6 +8,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
 
     lateinit var toolbar: ActionBar
+    private lateinit var actionBar : ActionBar
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,6 +45,11 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
+        actionBar = this.supportActionBar!!
+        actionBar.setHomeAsUpIndicator(R.mipmap.ic_logo_round)
+        actionBar.setDisplayHomeAsUpEnabled(true)
+        actionBar.title = "RES-Q"
+        actionBar.elevation = 0F
     }
 
 }
