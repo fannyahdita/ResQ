@@ -18,7 +18,7 @@
         android:id="@+id/image_onboard_background"
         android:layout_width="425dp"
         android:layout_height="461dp"
-        android:src="@drawable/ic_background_onboarding"
+        android:src="@drawable/ic_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -38,14 +38,14 @@
             style="@style/BlackButton"
             android:layout_width="189dp"
             android:layout_height="wrap_content"
-            android:text="Bantu Saya" />
+            android:text="@string/button_onboard_victim" />
 
         <Button
             android:id="@+id/button_onboard_rescuer_signup"
             style="@style/OutlinedBorder"
             android:layout_width="189dp"
             android:layout_height="wrap_content"
-            android:text="Saya ingin Membantu" />
+            android:text="@string/button_onboard_rescuer" />
 
     </LinearLayout>
 
