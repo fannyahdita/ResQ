@@ -12,13 +12,23 @@
         android:screenOrientation="portrait">
 
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.CustomTheme">
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".OnboardingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
         <meta-data

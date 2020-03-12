@@ -1,0 +1,26 @@
+package com.tugasakhir.resq
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_onboarding.*
+
+class OnboardingActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_onboarding)
+
+        button_onboard_victim_signup.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        button_onboard_rescuer_signup.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+}
