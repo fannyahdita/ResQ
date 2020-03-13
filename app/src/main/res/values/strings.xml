@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ResQ</string>
+
+    // onboarding
+    <string name="button_onboard_victim">Bantu Saya</string>
+    <string name="button_onboard_rescuer">Saya ingin Membantu</string>
+
+
 </resources>
