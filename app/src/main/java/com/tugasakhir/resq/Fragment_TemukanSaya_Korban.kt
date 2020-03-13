@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 class Fragment_TemukanSaya_Korban : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_temukansaya, container, false)
+        inflater.inflate(R.layout.fragment_temukansaya_korban, container, false)
 
     companion object {
         fun newInstance(): Fragment_TemukanSaya_Korban = Fragment_TemukanSaya_Korban()

@@ -3,7 +3,9 @@ package com.tugasakhir.resq
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,11 +19,15 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_posko -> {
-
+                toolbar.title = "Posko"
+                val poskoFragment = Fragment_Posko_Korban.newInstance()
+                openFragment(poskoFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_temukan -> {
-
+                toolbar.title = "Temukan Saya"
+                val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
+                openFragment(temukanSayaFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_kontak -> {
@@ -50,6 +56,20 @@ class MainActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = "RES-Q"
         actionBar.elevation = 0F
+
+        navigation_temukan.setOnClickListener {
+            toolbar.title = "Temukan Saya"
+            val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
+            openFragment(temukanSayaFragment)
+        }
+
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 }
