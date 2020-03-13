@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white_light">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="24dp"
+        android:paddingStart="30dp"
         android:paddingTop="40dp"
-        android:paddingEnd="24dp"
+        android:paddingEnd="30dp"
         android:paddingBottom="40dp">
 
         <TextView
@@ -18,9 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
-            android:text="Nama Lengkap"
+            android:text="@string/signup_name_rescuer"
             android:textColor="@color/black_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edittext_signup_name"
@@ -28,7 +30,11 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_border_edittext"
-            android:inputType="textPersonName" />
+            android:fontFamily="@font/source_sans_pro"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:text="Andi Burhanuddin" />
 
         <TextView
             android:id="@+id/textview_signup_email"
@@ -36,9 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro"
-            android:text="Alamat Email"
+            android:text="@string/signup_email_rescuer"
             android:textColor="@color/black_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edittext_signup_email"
@@ -46,7 +53,11 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_border_edittext"
-            android:inputType="textEmailAddress" />
+            android:fontFamily="@font/source_sans_pro"
+            android:inputType="textEmailAddress"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:text="andi@xyz.com" />
 
         <TextView
             android:id="@+id/textview_signup_phone"
@@ -54,9 +65,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro"
-            android:text="No. HP"
+            android:text="@string/signup_phone_rescuer"
             android:textColor="@color/black_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edittext_signup_phone"
@@ -64,7 +76,11 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_border_edittext"
-            android:inputType="phone" />
+            android:fontFamily="@font/source_sans_pro"
+            android:inputType="phone"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:text="08123456789" />
 
         <TextView
             android:id="@+id/textview_signup_instansi"
@@ -72,9 +88,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro"
-            android:text="Instansi"
+            android:text="@string/signup_instansi_rescuer"
             android:textColor="@color/black_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edittext_signup_instansi"
@@ -82,7 +99,11 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_border_edittext"
-            android:inputType="text" />
+            android:fontFamily="@font/source_sans_pro"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:text="Aksi Cepat Tanggap" />
 
         <TextView
             android:id="@+id/textview_signup_division"
@@ -90,9 +111,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro"
-            android:text="Divisi"
+            android:text="@string/signup_division_rescuer"
             android:textColor="@color/black_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edittext_signup_division"
@@ -100,7 +122,11 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_border_edittext"
-            android:inputType="text" />
+            android:fontFamily="@font/source_sans_pro"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:text="Rescuer" />
 
         <TextView
             android:id="@+id/textview_signup_employeenum"
@@ -108,9 +134,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro"
-            android:text="No. ID Karyawan"
+            android:text="@string/signup_employeeid_rescuer"
             android:textColor="@color/black_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edittext_signup_employeenum"
@@ -118,7 +145,11 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_border_edittext"
-            android:inputType="text" />
+            android:fontFamily="@font/source_sans_pro"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:text="ACT56788" />
 
         <TextView
             android:id="@+id/textview_signup_password"
@@ -126,9 +157,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro"
-            android:text="Kata Sandi"
+            android:text="@string/signup_password_rescuer"
             android:textColor="@color/black_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edittext_signup_password"
@@ -136,7 +168,11 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_border_edittext"
-            android:inputType="textPassword" />
+            android:fontFamily="@font/source_sans_pro"
+            android:inputType="textPassword"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            tools:text="1234567" />
 
         <TextView
             android:id="@+id/textview_signup_repeat_password"
@@ -144,9 +180,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/source_sans_pro"
-            android:text="Ulangi Kata Sandi"
+            android:text="@string/signup_repeat_rescuer"
             android:textColor="@color/black_dark"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edittext_signup_repeat_password"
@@ -154,34 +191,29 @@
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_border_edittext"
-            android:inputType="textPassword" />
-
+            android:fontFamily="@font/source_sans_pro"
+            android:inputType="textPassword"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_marginBottom="30dp"
+            tools:text="1234567" />
 
         <Button
             android:id="@+id/button_signup_continue"
             style="@style/BlackButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:text="Lanjut" />
+            android:text="@string/button_signup" />
 
         <TextView
+            android:id="@+id/button_signup_tosignin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/raleway"
-            android:text="Masuk sebagai rescuer"
-            android:textSize="15sp" />
+            android:textSize="18sp"
+            android:text="@string/button_tosignin"
+            android:layout_gravity="center"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/raleway"
-            android:text="Saya ingin dibantu"
-            android:textSize="15sp" />
     </LinearLayout>
 </ScrollView>

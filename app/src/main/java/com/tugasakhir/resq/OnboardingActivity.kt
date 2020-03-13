@@ -21,7 +21,6 @@ class OnboardingActivity : AppCompatActivity() {
         button_onboard_rescuer_signup.setOnClickListener{
             val intent = Intent(this, SignUpRescuerActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 }

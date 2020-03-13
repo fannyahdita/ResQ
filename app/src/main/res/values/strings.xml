@@ -5,5 +5,17 @@
     <string name="button_onboard_victim">Bantu Saya</string>
     <string name="button_onboard_rescuer">Saya ingin Membantu</string>
 
-
+    //sign up rescuer
+    <string name="signup_name_rescuer">Nama Lengkap</string>
+    <string name="signup_email_rescuer">Alamat Email</string>
+    <string name="signup_phone_rescuer">No. HP</string>
+    <string name="signup_instansi_rescuer">Instansi</string>
+    <string name="signup_division_rescuer">Divisi</string>
+    <string name="signup_employeeid_rescuer">No. ID Karyawan</string>
+    <string name="signup_password_rescuer">Kata Sandi</string>
+    <string name="signup_repeat_rescuer">Ulangi Kata Sandi</string>
+    <string name="button_signup">Buat Akun</string>
+    <string name="button_tosignin"> Sudah Punya Akun? <u>Masuk</u> </string>
+    <string name="button_signin">Masuk</string>
+    <string name="button_tosignup">Belum punya akun? <u>Buat Akun</u></string>
 </resources>
