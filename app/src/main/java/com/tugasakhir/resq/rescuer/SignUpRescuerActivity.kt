@@ -70,7 +70,7 @@ class SignUpRescuerActivity : AppCompatActivity() {
                                 progressbar_signup.visibility = View.GONE
                                 Toast.makeText(
                                     this@SignUpRescuerActivity,
-                                    "Akun berhasil dibuat", Toast.LENGTH_LONG
+                                    getString(R.string.toast_account_created), Toast.LENGTH_LONG
                                 ).show()
 
                                 val intent = Intent(this, MainActivity::class.java)
@@ -106,55 +106,55 @@ class SignUpRescuerActivity : AppCompatActivity() {
         val division = spinner_signup_division.selectedItem.toString()
 
         if (name.isEmpty()) {
-            edittext_signup_name.error = "Wajib diisi"
+            edittext_signup_name.error = getString(R.string.field_is_empty)
             edittext_signup_name.requestFocus()
             return
         }
 
         if (email.isEmpty()) {
-            edittext_signup_email.error = "Wajib diisi"
+            edittext_signup_email.error = getString(R.string.field_is_empty)
             edittext_signup_email.requestFocus()
             return
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edittext_signup_email.error = "Input Email tidak sesuai"
+            edittext_signup_email.error = getString(R.string.email_is_not_valid)
             edittext_signup_email.requestFocus()
             return
         }
 
         if (phone.isEmpty()) {
-            edittext_signup_phone.error = "Wajib diisi"
+            edittext_signup_phone.error = getString(R.string.field_is_empty)
             edittext_signup_phone.requestFocus()
             return
         }
 
         if (employeeID.isEmpty()) {
-            edittext_signup_employeenum.error = "Wajib diisi"
+            edittext_signup_employeenum.error = getString(R.string.field_is_empty)
             edittext_signup_employeenum.requestFocus()
             return
         }
 
         if(password.length < 6) {
-            edittext_signup_password.error = "Kata sandi minimal terdiri dari 6 karakter"
+            edittext_signup_password.error = getString(R.string.password_must_six_char)
             edittext_signup_password.requestFocus()
             return
         }
 
         if (password.isEmpty()) {
-            edittext_signup_password.error = "Wajib diisi"
+            edittext_signup_password.error = getString(R.string.field_is_empty)
             edittext_signup_password.requestFocus()
             return
         }
 
         if (repeatPassword.isEmpty()) {
-            edittext_signup_repeat_password.error = "Wajib diisi"
+            edittext_signup_repeat_password.error = getString(R.string.field_is_empty)
             edittext_signup_repeat_password.requestFocus()
             return
         }
 
         if (repeatPassword != password) {
-            edittext_signup_repeat_password.error = "Kata sandi tidak sesuai"
+            edittext_signup_repeat_password.error = getString(R.string.password_is_not_matched)
             edittext_signup_repeat_password.requestFocus()
             return
         }

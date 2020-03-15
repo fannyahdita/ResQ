@@ -3,6 +3,7 @@ package com.tugasakhir.resq.rescuer
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -70,13 +71,19 @@ class SignInRescuerActivity : AppCompatActivity() {
         val password = textview_signin_password.text.toString().trim()
 
         if (email.isEmpty()) {
-            edittext_signin_email.error = "Wajib diisi"
+            edittext_signin_email.error = getString(R.string.field_is_empty)
+            edittext_signin_email.requestFocus()
+            return
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            edittext_signin_email.error = getString(R.string.email_is_not_valid)
             edittext_signin_email.requestFocus()
             return
         }
 
         if (password.isEmpty()) {
-            edittext_signin_password.error = "Wajib diisi"
+            edittext_signin_password.error = getString(R.string.field_is_empty)
             edittext_signin_password.requestFocus()
             return
         }
@@ -94,7 +101,7 @@ class SignInRescuerActivity : AppCompatActivity() {
                     progressbar_signin.visibility = View.GONE
                     Log.d("TAG", "signInWithEmail:success")
                     Toast.makeText(
-                        this@SignInRescuerActivity, "Berhasil masuk",
+                        this@SignInRescuerActivity, getString(R.string.toast_logged_in),
                         Toast.LENGTH_LONG
                     ).show()
 

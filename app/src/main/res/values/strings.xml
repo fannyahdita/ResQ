@@ -29,6 +29,12 @@
         <item>Medis</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    //Form Error messages and Toast messages
+    <string name="field_is_empty">Wajib diisi</string>
+    <string name="password_must_six_char">Kata sandi minimal terdiri dari 6 karakter</string>
+    <string name="password_is_not_matched">Kata sandi tidak sesuai</string>
+    <string name="email_is_not_valid">Masukan email tidak sesuai</string>
+    <string name="toast_account_created">Akun berhasil dibuat</string>
+    <string name="toast_logged_in">Berhasil masuk</string>
+
 </resources>
