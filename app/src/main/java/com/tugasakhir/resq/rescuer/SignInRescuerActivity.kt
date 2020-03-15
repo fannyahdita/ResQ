@@ -89,22 +89,24 @@ class SignInRescuerActivity : AppCompatActivity() {
     private fun loggingInUser(email: String, password: String) {
         progressbar_signin.visibility = View.VISIBLE
         firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(
-                this
-            ) { p0 ->
-                if (p0.isSuccessful) {
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
                     progressbar_signin.visibility = View.GONE
+                    Log.d("TAG", "signInWithEmail:success")
                     Toast.makeText(
                         this@SignInRescuerActivity, "Berhasil masuk",
                         Toast.LENGTH_LONG
                     ).show()
+
+                    val user = firebaseAuth.currentUser
                     finish()
                     val intent = Intent(this@SignInRescuerActivity, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     progressbar_signin.visibility = View.GONE
                     Toast.makeText(
-                        this@SignInRescuerActivity, p0.exception?.message,
+                        this@SignInRescuerActivity, task.exception?.message,
                         Toast.LENGTH_LONG
                     ).show()
                 }

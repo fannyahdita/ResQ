@@ -3,7 +3,9 @@ package com.tugasakhir.resq
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tugasakhir.resq.rescuer.ProfileRescuerFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +31,9 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_akun -> {
 
+                actionBar.title = "Profil"
+                val profileRescuerFragemnt =   ProfileRescuerFragment.newInstance()
+                openFragment(profileRescuerFragemnt)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -48,6 +53,13 @@ class MainActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = "RES-Q"
         actionBar.elevation = 0F
+    }
+
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 
