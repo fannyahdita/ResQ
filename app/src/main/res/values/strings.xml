@@ -18,4 +18,14 @@
     <string name="button_tosignin"> Sudah Punya Akun? <u>Masuk</u> </string>
     <string name="button_signin">Masuk</string>
     <string name="button_tosignup">Belum punya akun? <u>Buat Akun</u></string>
+
+    //spinner
+    <string-array name="instansi_array">
+        <item>Aksi Cepat Tanggap</item>
+        <item>CT Arsa</item>
+    </string-array>
+    <string-array name="division_array">
+        <item>Rescuer</item>
+        <item>Medis</item>
+    </string-array>
 </resources>
