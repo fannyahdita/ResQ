@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer
+package com.tugasakhir.resq.rescuer.model
 
 data class Rescuer(
     val name: String = "",

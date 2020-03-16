@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer
+package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.activity_rescuer_signup.*
 
 
@@ -62,7 +63,15 @@ class SignUpRescuerActivity : AppCompatActivity() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { p0 ->
                 if (p0.isSuccessful) {
-                    val rescuer = Rescuer(name, email, phone, instansi, division, employeeId, false)
+                    val rescuer = Rescuer(
+                        name,
+                        email,
+                        phone,
+                        instansi,
+                        division,
+                        employeeId,
+                        false
+                    )
                     FirebaseDatabase.getInstance().getReference("Rescuers")
                         .child(FirebaseAuth.getInstance().currentUser!!.uid)
                         .setValue(rescuer).addOnCompleteListener { task ->

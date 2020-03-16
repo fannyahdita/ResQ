@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.tugasakhir.resq.rescuer.ProfileRescuerFragment
+import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
 
 class MainActivity : AppCompatActivity() {
 

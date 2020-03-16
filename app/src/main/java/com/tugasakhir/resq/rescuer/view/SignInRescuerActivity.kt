@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer
+package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
 import android.os.Bundle

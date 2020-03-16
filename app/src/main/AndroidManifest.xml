@@ -34,12 +34,12 @@
         </activity>
 
         <activity
-            android:name=".rescuer.SignUpRescuerActivity"
+            android:name=".rescuer.view.SignUpRescuerActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
         <activity
-            android:name=".rescuer.SignInRescuerActivity"
+            android:name=".rescuer.view.SignInRescuerActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 

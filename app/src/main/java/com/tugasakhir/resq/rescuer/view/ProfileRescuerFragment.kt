@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer
+package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -15,12 +14,14 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 
 class ProfileRescuerFragment : Fragment() {
 
     companion object {
-        fun newInstance(): ProfileRescuerFragment = ProfileRescuerFragment()
+        fun newInstance(): ProfileRescuerFragment =
+            ProfileRescuerFragment()
     }
 
     private lateinit var firebaseAuth: FirebaseAuth
