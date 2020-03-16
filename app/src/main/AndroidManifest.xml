@@ -41,6 +41,11 @@
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
+        <activity
+            android:name=".korban.OTPActivity"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

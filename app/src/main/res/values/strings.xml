@@ -14,6 +14,13 @@
     <string name="button_signin">Masuk</string>
     <string name="button_signin_underline"><u>Masuk</u></string>
     <string name="button_tosignup">Belum punya akun?</string>
+    
+    //OTP korban
+    <string name="message_otp">Masukkan 4 digit angka yang masuk melalui pesan. Jangan berikan OTP kepada orang lain.</string>
+    <string name="button_otp_sendagain"><u>Kirim Ulang OTP</u></string>
+    <string name="button_sendotp">Kirim</string>
+
+
 
 
 </resources>

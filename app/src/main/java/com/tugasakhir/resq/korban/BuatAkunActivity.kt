@@ -25,6 +25,12 @@ class BuatAkunActivity : AppCompatActivity() {
             val intent = Intent(this, MasukActivity::class.java)
             startActivity(intent)
         }
+
+        button_signup_continue.setOnClickListener{
+            val intent = Intent(this, OTPActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 }
