@@ -5,5 +5,15 @@
     <string name="button_onboard_victim">Bantu Saya</string>
     <string name="button_onboard_rescuer">Saya ingin Membantu</string>
 
+    // buat akun korban
+    <string name="signup_name">Nama Lengkap</string>
+    <string name="signup_phone">No. HP</string>
+    <string name="button_signup">Buat Akun</string>
+    <string name="button_signup_underline"> <u>Buat Akun</u></string>
+    <string name="button_tosignin"> Sudah Punya Akun? </string>
+    <string name="button_signin">Masuk</string>
+    <string name="button_signin_underline"><u>Masuk</u></string>
+    <string name="button_tosignup">Belum punya akun?</string>
+
 
 </resources>
