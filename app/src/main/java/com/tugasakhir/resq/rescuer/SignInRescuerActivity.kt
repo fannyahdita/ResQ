@@ -68,7 +68,7 @@ class SignInRescuerActivity : AppCompatActivity() {
 
     private fun isValidUser() {
         val email = edittext_signin_email.text.toString().trim()
-        val password = textview_signin_password.text.toString().trim()
+        val password = edittext_signin_password.text.toString().trim()
 
         if (email.isEmpty()) {
             edittext_signin_email.error = getString(R.string.field_is_empty)
@@ -88,8 +88,7 @@ class SignInRescuerActivity : AppCompatActivity() {
             return
         }
 
-        Log.wtf("SIGN IN: ", email)
-        Log.wtf("PASSWORD: ", password)
+        Log.wtf("SIGN IN: ", "$email $password")
         loggingInUser(email, password)
     }
 
