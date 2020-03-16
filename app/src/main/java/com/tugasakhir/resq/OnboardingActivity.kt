@@ -12,14 +12,13 @@ import kotlinx.android.synthetic.main.activity_onboarding.*
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var firebaseUser: FirebaseUser
-    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         firebaseUser = FirebaseAuth.getInstance().currentUser!!
 
-        if(firebaseUser != null) {
+        if (firebaseUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
@@ -29,13 +28,13 @@ class OnboardingActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_onboarding)
 
-        button_onboard_victim_signup.setOnClickListener{
+        button_onboard_victim_signup.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        button_onboard_rescuer_signup.setOnClickListener{
+        button_onboard_rescuer_signup.setOnClickListener {
             val intent = Intent(this, SignInRescuerActivity::class.java)
             startActivity(intent)
         }

@@ -18,14 +18,17 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_posko -> {
+                actionBar.title = "Posko"
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_temukan -> {
+                actionBar.title = "Temukan saya"
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_kontak -> {
+                actionBar.title = "Kontak"
 
                 return@OnNavigationItemSelectedListener true
             }

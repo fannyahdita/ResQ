@@ -26,7 +26,6 @@ class ProfileRescuerFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var user : FirebaseUser
-    private lateinit var firebaseDatabase: FirebaseDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
