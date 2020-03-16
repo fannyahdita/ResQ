@@ -14,13 +14,13 @@ class OnboardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_onboarding)
 
         button_onboard_victim_signup.setOnClickListener{
-            val intent = Intent(this, BuatAkunActivity::class.java)
+            val intent = Intent(this, MasukActivity::class.java)
             startActivity(intent)
             finish()
         }
 
         button_onboard_rescuer_signup.setOnClickListener{
-            val intent = Intent(this, MasukActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
         }

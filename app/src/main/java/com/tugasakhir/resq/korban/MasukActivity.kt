@@ -1,9 +1,11 @@
 package com.tugasakhir.resq.korban
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.R
+import kotlinx.android.synthetic.main.activity_korban_masuk.*
 
 class MasukActivity : AppCompatActivity() {
 
@@ -18,5 +20,11 @@ class MasukActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = "MASUK"
         actionBar.elevation = 0F
+
+        button_signin_tosignup.setOnClickListener {
+            val intent = Intent(this, BuatAkunActivity::class.java)
+            startActivity(intent)
+        }
     }
+
 }
