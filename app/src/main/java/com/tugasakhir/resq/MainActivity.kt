@@ -6,6 +6,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,6 +57,12 @@ class MainActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = "RES-Q"
         actionBar.elevation = 0F
+
+        navigation_temukan.setOnClickListener {
+            actionBar.title = "Temukan Saya"
+//            val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
+//            openFragment(temukanSayaFragment)
+        }
     }
 
     private fun openFragment(fragment: Fragment) {

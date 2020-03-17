@@ -184,7 +184,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="30dp"
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
                 android:inputType="textPassword"
@@ -197,8 +196,8 @@
                 style="@style/BlackButton"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:layout_marginTop="30dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
                 android:text="@string/button_signup" />
 
             <TextView
