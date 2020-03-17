@@ -1,6 +1,7 @@
 package com.tugasakhir.resq.korban
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.R
@@ -18,5 +19,11 @@ class OTPActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = "OTP"
         actionBar.elevation = 0F
+
+        val name = intent.getStringExtra(EXTRA_NAME)
+        val phone = intent.getStringExtra(EXTRA_PHONE)
+
+        Log.wtf("OTP NAME: ", name)
+        Log.wtf("OTP PHONE: ", phone)
     }
 }

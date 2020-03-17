@@ -20,6 +20,12 @@
     <string name="button_otp_sendagain"><u>Kirim Ulang OTP</u></string>
     <string name="button_sendotp">Kirim</string>
 
+    //Form Error messages and Toast messages
+    <string name="field_is_empty">Wajib diisi</string>
+    <string name="email_is_not_valid">Masukan email tidak sesuai</string>
+    <string name="toast_account_created">Akun berhasil dibuat</string>
+    <string name="toast_logged_in">Berhasil masuk</string>
+
 
 
 

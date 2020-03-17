@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "866879669174-5kqdq8lkmrejqbegijpt83egab1dveik.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tugasakhir.resq",
+            "certificate_hash": "0565114d8570af7351322263e34ad03c04b3c208"
+          }
+        },
+        {
           "client_id": "866879669174-5qrmq17rl57vrktp6urf04i3pl164mbt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
