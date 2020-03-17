@@ -38,9 +38,7 @@
         <item name="android:background">@drawable/shape_filled_button</item>
         <item name="android:textColor">@color/white_light</item>
         <item name="android:fontFamily">@font/raleway</item>
-        <item name="android:layout_margin">5dp</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:buttonCornerRadius">10dp</item>
     </style>
 
     <style name="OutlinedBorder">
