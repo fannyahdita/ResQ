@@ -21,6 +21,7 @@ class PoskoRescuerFragment : Fragment() {
     }
 
     companion object {
-
+        fun newInstance(): PoskoRescuerFragment =
+            PoskoRescuerFragment()
     }
 }

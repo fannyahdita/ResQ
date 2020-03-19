@@ -5,7 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tugasakhir.resq.rescuer.view.HomeFragment
+import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
+import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,12 +18,15 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_beranda -> {
-
+                actionBar.title = "Res-Q"
+                val homeFragment = HomeFragment.newInstance()
+                openFragment(homeFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_posko -> {
                 actionBar.title = "Posko"
-
+                val poskoRescuerFragment = PoskoRescuerFragment.newInstance()
+                openFragment(poskoRescuerFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_temukan -> {
@@ -34,7 +40,6 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_akun -> {
-
                 actionBar.title = "Profil"
                 val profileRescuerFragemnt =   ProfileRescuerFragment.newInstance()
                 openFragment(profileRescuerFragemnt)
@@ -60,8 +65,8 @@ class MainActivity : AppCompatActivity() {
 
         navigation_temukan.setOnClickListener {
             actionBar.title = "Temukan Saya"
-//            val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
-//            openFragment(temukanSayaFragment)
+            val temukanSayaFragment = TemukanSayaRescuerFragment.newInstance()
+            openFragment(temukanSayaFragment)
         }
     }
 
