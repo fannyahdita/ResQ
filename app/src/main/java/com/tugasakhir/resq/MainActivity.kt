@@ -1,53 +1,52 @@
 package com.tugasakhir.resq
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tugasakhir.resq.rescuer.view.HomeFragment
-import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
-import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var actionBar : ActionBar
+    private lateinit var actionBar: ActionBar
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_beranda -> {
-                actionBar.title = "Res-Q"
-                val homeFragment = HomeFragment.newInstance()
-                openFragment(homeFragment)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_posko -> {
-                actionBar.title = "Posko"
-                val poskoRescuerFragment = PoskoRescuerFragment.newInstance()
-                openFragment(poskoRescuerFragment)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_temukan -> {
-                actionBar.title = "Temukan saya"
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_beranda -> {
+                    actionBar.title = "Res-Q"
+                    val homeFragment = HomeFragment.newInstance()
+                    openFragment(homeFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_posko -> {
+                    actionBar.title = "Posko"
+                    val poskoFragment = Fragment_Posko_Korban.newInstance()
+                    openFragment(poskoFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_temukan -> {
+                    actionBar.title = "Temukan saya"
 
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_kontak -> {
-                actionBar.title = "Kontak"
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_kontak -> {
+                    actionBar.title = "Kontak"
 
-                return@OnNavigationItemSelectedListener true
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_akun -> {
+                    actionBar.title = "Profil"
+                    val profileRescuerFragemnt = ProfileRescuerFragment.newInstance()
+                    openFragment(profileRescuerFragemnt)
+                    return@OnNavigationItemSelectedListener true
+                }
             }
-            R.id.navigation_akun -> {
-                actionBar.title = "Profil"
-                val profileRescuerFragemnt =   ProfileRescuerFragment.newInstance()
-                openFragment(profileRescuerFragemnt)
-                return@OnNavigationItemSelectedListener true
-            }
+            false
         }
-        false
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,9 +64,10 @@ class MainActivity : AppCompatActivity() {
 
         navigation_temukan.setOnClickListener {
             actionBar.title = "Temukan Saya"
-            val temukanSayaFragment = TemukanSayaRescuerFragment.newInstance()
+            val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
             openFragment(temukanSayaFragment)
         }
+
     }
 
     private fun openFragment(fragment: Fragment) {
@@ -76,7 +76,6 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
 
 
 }
