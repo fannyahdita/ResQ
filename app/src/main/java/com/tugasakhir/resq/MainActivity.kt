@@ -10,6 +10,7 @@ import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
 import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,8 +26,8 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_posko -> {
                 actionBar.title = "Posko"
-                val poskoRescuerFragment = PoskoRescuerFragment.newInstance()
-                openFragment(poskoRescuerFragment)
+                val poskoFragment = Fragment_Posko_Korban.newInstance()
+                openFragment(poskoFragment)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_temukan -> {
@@ -65,9 +66,10 @@ class MainActivity : AppCompatActivity() {
 
         navigation_temukan.setOnClickListener {
             actionBar.title = "Temukan Saya"
-            val temukanSayaFragment = TemukanSayaRescuerFragment.newInstance()
+            val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
             openFragment(temukanSayaFragment)
         }
+
     }
 
     private fun openFragment(fragment: Fragment) {
