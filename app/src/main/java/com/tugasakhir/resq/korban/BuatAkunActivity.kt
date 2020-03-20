@@ -3,6 +3,7 @@ package com.tugasakhir.resq.korban
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.R
@@ -19,7 +20,6 @@ class BuatAkunActivity : AppCompatActivity() {
         setContentView(R.layout.activity_korban_buatakun)
 
         actionBar = this.supportActionBar!!
-        actionBar.setHomeAsUpIndicator(R.mipmap.ic_logo_round)
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = "BUAT AKUN"
         actionBar.elevation = 0F
@@ -28,6 +28,17 @@ class BuatAkunActivity : AppCompatActivity() {
             registerUser()
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun registerUser() {
