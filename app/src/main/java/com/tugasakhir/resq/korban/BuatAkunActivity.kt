@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +28,9 @@ class BuatAkunActivity : AppCompatActivity() {
         actionBar.elevation = 0F
 
         button_signup_continue.setOnClickListener{
+            progressbar_phone.visibility = View.VISIBLE
+            it.isClickable = false
+            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
@@ -64,6 +68,7 @@ class BuatAkunActivity : AppCompatActivity() {
 
 
     fun senddata(phone: String) {
+        progressbar_phone.visibility = View.GONE
         val intent = Intent(this, OTPActivity::class.java).apply {
             putExtra(EXTRA_PHONE, phone)
         }

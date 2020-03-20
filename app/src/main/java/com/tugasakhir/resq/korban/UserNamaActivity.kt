@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
@@ -32,11 +33,13 @@ class UserNamaActivity : AppCompatActivity() {
         val phone = intent.getStringExtra(EXTRA_PHONE)
 
         button_signup_continue.setOnClickListener{
+            progressbar_name.visibility = View.VISIBLE
+            it.isClickable = false
+            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
             )
-
             val name = edittext_signup_name.text.toString().trim()
             Log.wtf("NAMANYA ADALAH  : ", name)
             korbanDatabase(name, phone)
@@ -52,7 +55,7 @@ class UserNamaActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
 
                     Toast.makeText(this, getString(R.string.toast_account_created), Toast.LENGTH_SHORT).show()
-
+                    progressbar_name.visibility = View.GONE
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
