@@ -1,8 +1,10 @@
 package com.tugasakhir.resq.korban
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +32,11 @@ class UserNamaActivity : AppCompatActivity() {
         val phone = intent.getStringExtra(EXTRA_PHONE)
 
         button_signup_continue.setOnClickListener{
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
+                currentFocus!!.applicationWindowToken, 0
+            )
+
             val name = edittext_signup_name.text.toString().trim()
             Log.wtf("NAMANYA ADALAH  : ", name)
             korbanDatabase(name, phone)

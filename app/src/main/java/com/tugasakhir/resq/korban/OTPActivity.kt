@@ -1,8 +1,10 @@
 package com.tugasakhir.resq.korban
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +47,10 @@ class OTPActivity : AppCompatActivity() {
         Log.wtf("OTP PHONE: ", phone)
 
         button_sendotp.setOnClickListener{
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
+                currentFocus!!.applicationWindowToken, 0
+            )
             authenticate(phone)
         }
         button_sendagain.setOnClickListener{
