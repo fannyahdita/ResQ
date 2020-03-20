@@ -1,53 +1,58 @@
 package com.tugasakhir.resq
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.tugasakhir.resq.rescuer.view.HomeFragment
+import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var toolbar: ActionBar
-    private lateinit var actionBar : ActionBar
+    private lateinit var actionBar: ActionBar
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_beranda -> {
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_beranda -> {
+                    actionBar.title = "Res-Q"
+                    val homeFragment = HomeFragment.newInstance()
+                    openFragment(homeFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_posko -> {
+                    actionBar.title = "Posko"
+                    val poskoFragment = Fragment_Posko_Korban.newInstance()
+                    openFragment(poskoFragment)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_temukan -> {
+                    actionBar.title = "Temukan saya"
 
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_posko -> {
-                toolbar.title = "Posko"
-                val poskoFragment = Fragment_Posko_Korban.newInstance()
-                openFragment(poskoFragment)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_temukan -> {
-                toolbar.title = "Temukan Saya"
-                val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
-                openFragment(temukanSayaFragment)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_kontak -> {
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_kontak -> {
+                    actionBar.title = "Kontak"
 
-                return@OnNavigationItemSelectedListener true
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_akun -> {
+                    actionBar.title = "Profil"
+                    val profileRescuerFragemnt = ProfileRescuerFragment.newInstance()
+                    openFragment(profileRescuerFragemnt)
+                    return@OnNavigationItemSelectedListener true
+                }
             }
-            R.id.navigation_akun -> {
-
-                return@OnNavigationItemSelectedListener true
-            }
+            false
         }
-        false
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        toolbar = supportActionBar!!
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
@@ -58,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         actionBar.elevation = 0F
 
         navigation_temukan.setOnClickListener {
-            toolbar.title = "Temukan Saya"
+            actionBar.title = "Temukan Saya"
             val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
             openFragment(temukanSayaFragment)
         }
@@ -71,7 +76,6 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-
 
 
 }
