@@ -5,12 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthProvider
 import com.tugasakhir.resq.R
 import kotlinx.android.synthetic.main.activity_korban_buatakun.*
 
-const val EXTRA_NAME = "com.tugasakhir.resq.korban.NAME"
 const val EXTRA_PHONE = "com.tugasakhir.resq.korban.PHONE"
 
 class BuatAkunActivity : AppCompatActivity() {
@@ -27,11 +24,6 @@ class BuatAkunActivity : AppCompatActivity() {
         actionBar.title = "BUAT AKUN"
         actionBar.elevation = 0F
 
-        button_signup_tosignin.setOnClickListener{
-            val intent = Intent(this, MasukActivity::class.java)
-            startActivity(intent)
-        }
-
         button_signup_continue.setOnClickListener{
             registerUser()
         }
@@ -39,14 +31,7 @@ class BuatAkunActivity : AppCompatActivity() {
     }
 
     private fun registerUser() {
-        val name = edittext_signup_name.text.toString().trim()
         val phone = edittext_signup_phone.text.toString().trim()
-
-        if (name.isEmpty()) {
-            edittext_signup_name.error = getString(R.string.field_is_empty)
-            edittext_signup_name.requestFocus()
-            return
-        }
 
         if (phone.isEmpty()) {
             edittext_signup_phone.error = getString(R.string.field_is_empty)
@@ -54,17 +39,15 @@ class BuatAkunActivity : AppCompatActivity() {
             return
         }
 
-        Log.wtf("NAME: ", name)
         Log.wtf("PHONE: ", phone)
 
-        senddata(name, phone)
+        senddata(phone)
 
     }
 
 
-    fun senddata(name: String, phone: String) {
+    fun senddata(phone: String) {
         val intent = Intent(this, OTPActivity::class.java).apply {
-            putExtra(EXTRA_NAME, name)
             putExtra(EXTRA_PHONE, phone)
         }
         startActivity(intent)

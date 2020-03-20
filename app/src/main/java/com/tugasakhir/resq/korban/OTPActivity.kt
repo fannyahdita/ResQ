@@ -3,22 +3,22 @@ package com.tugasakhir.resq.korban
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.*
+import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.model.Korban
 import kotlinx.android.synthetic.main.activity_korban_otp.*
 import java.util.concurrent.TimeUnit
 
 class OTPActivity : AppCompatActivity() {
 
-    val TAG = "OTP"
+    val TAG = "PHONE AUTH OTP"
 
     private lateinit var actionBar : ActionBar
     lateinit var mCallbacks : PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -36,23 +36,25 @@ class OTPActivity : AppCompatActivity() {
         actionBar.title = "OTP"
         actionBar.elevation = 0F
 
-        val name = intent.getStringExtra(EXTRA_NAME)
         val phone = intent.getStringExtra(EXTRA_PHONE)
 
         mAuth = FirebaseAuth.getInstance()
 
         verify(phone)
 
-        Log.wtf("OTP NAME: ", name)
         Log.wtf("OTP PHONE: ", phone)
 
         button_sendotp.setOnClickListener{
-            authenticate()
+            authenticate(phone)
+        }
+        button_sendagain.setOnClickListener{
+            verify(phone)
         }
 
     }
 
     private fun verify(phone: String) {
+        Log.d(TAG, "VERIFIKASI PHONE")
         verificationCallbacks()
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -67,18 +69,10 @@ class OTPActivity : AppCompatActivity() {
     private fun verificationCallbacks() {
         mCallbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
                 Log.d(TAG, "onVerificationCompleted:$credential")
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
-                // This callback is invoked in an invalid request for verification is made,
-                // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", p0)
 
                 if (p0 is FirebaseAuthInvalidCredentialsException) {
@@ -86,39 +80,52 @@ class OTPActivity : AppCompatActivity() {
                     // ...
                 } else if (p0 is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
-                    // ...
                 }
-
-                // Show a message and update the UI
-                // ...
             }
 
             override fun onCodeSent(verfication: String, p1: PhoneAuthProvider.ForceResendingToken) {
                 super.onCodeSent(verfication, p1)
                 verificationId = verfication.toString()
+                Log.d(TAG, "onCodeSent" + verificationId)
+
             }
 
         }
     }
 
-    private fun authenticate() {
+    private fun authenticate(phone: String) {
         val code = edittext_otp1.text.toString().trim()
 
         val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, code)
 
-        signInWithPhoneAuthCredential(credential)
+        signInWithPhoneAuthCredential(credential, phone)
     }
 
-    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+    private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential, phone: String) {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-
                     Log.d(TAG, "signInWithCredential:success")
+                    Log.d(TAG, "CREATED AT 1 " + (task.result?.user?.metadata?.creationTimestamp).toString())
+                    Log.d(TAG, "CREATED AT 2 " + (task.result?.user?.metadata?.lastSignInTimestamp).toString())
+
+                    if (task.result?.user?.metadata?.creationTimestamp != task.result?.user?.metadata?.lastSignInTimestamp) {
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+
+                        Log.d(TAG, "AKUN LAMA INI YAAA")
+                    } else {
+                        val intent = Intent(this, UserNamaActivity::class.java)
+                        intent.putExtra(EXTRA_PHONE, phone)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                        finish()
+
+                        Log.d(TAG, "AKUN BARU YAAA")
+                    }
 
                     val user = task.result?.user
                     // ...
@@ -131,11 +138,6 @@ class OTPActivity : AppCompatActivity() {
                 }
             }
     }
-
-    private fun checkUser() {
-
-    }
-
 
 
 

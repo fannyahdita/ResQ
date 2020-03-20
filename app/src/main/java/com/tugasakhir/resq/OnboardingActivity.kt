@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.korban.BuatAkunActivity
-import com.tugasakhir.resq.korban.MasukActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : AppCompatActivity() {
@@ -14,7 +13,7 @@ class OnboardingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_onboarding)
 
         button_onboard_victim_signup.setOnClickListener{
-            val intent = Intent(this, MasukActivity::class.java)
+            val intent = Intent(this, BuatAkunActivity::class.java)
             startActivity(intent)
             finish()
         }
