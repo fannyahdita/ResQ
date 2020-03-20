@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.tugasakhir.resq.rescuer.view.SignInRescuerActivity
+import com.tugasakhir.resq.korban.BuatAkunActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
 class OnboardingActivity : AppCompatActivity() {
@@ -25,8 +26,8 @@ class OnboardingActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_onboarding)
 
-        button_onboard_victim_signup.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+        button_onboard_victim_signup.setOnClickListener{
+            val intent = Intent(this, BuatAkunActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -34,6 +35,7 @@ class OnboardingActivity : AppCompatActivity() {
         button_onboard_rescuer_signup.setOnClickListener {
             val intent = Intent(this, SignInRescuerActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }
