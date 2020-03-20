@@ -37,12 +37,12 @@
         </activity>
 
         <activity
-            android:name=".korban.MasukActivity"
+            android:name=".korban.OTPActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
         <activity
-            android:name=".korban.OTPActivity"
+            android:name=".korban.UserNamaActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 

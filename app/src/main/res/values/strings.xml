@@ -12,6 +12,7 @@
     <string name="button_signup_underline"> <u>Buat Akun</u></string>
     <string name="button_tosignin"> Sudah Punya Akun? </string>
     <string name="button_signin">Masuk</string>
+    <string name="button_name_continue">Lanjut</string>
     <string name="button_signin_underline"><u>Masuk</u></string>
     <string name="button_tosignup">Belum punya akun?</string>
     
