@@ -1,11 +1,13 @@
 package com.tugasakhir.resq.rescuer.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +42,10 @@ class SignUpRescuerActivity : AppCompatActivity() {
         }
 
         button_signup_finish.setOnClickListener {
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
+                currentFocus!!.applicationWindowToken, 0
+            )
             registerUser()
         }
 
@@ -171,7 +177,6 @@ class SignUpRescuerActivity : AppCompatActivity() {
         Log.wtf("SIGN  UP: ", email)
         Log.wtf("PASSWORD: ", password)
         addNewRescuerAccount(email, password, name, phone, employeeID, instansi, division)
-
 
     }
 }

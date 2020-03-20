@@ -1,9 +1,11 @@
 package com.tugasakhir.resq.korban
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.R
@@ -25,6 +27,10 @@ class BuatAkunActivity : AppCompatActivity() {
         actionBar.elevation = 0F
 
         button_signup_continue.setOnClickListener{
+            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
+                currentFocus!!.applicationWindowToken, 0
+            )
             registerUser()
         }
 
