@@ -43,6 +43,7 @@
         <Button
             android:id="@+id/button_onboard_rescuer_signup"
             style="@style/OutlinedBorder"
+            android:layout_marginTop="5dp"
             android:layout_width="189dp"
             android:layout_height="wrap_content"
             android:text="@string/button_onboard_rescuer" />
