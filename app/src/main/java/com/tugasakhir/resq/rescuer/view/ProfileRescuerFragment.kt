@@ -40,22 +40,22 @@ class ProfileRescuerFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val ref = FirebaseDatabase.getInstance().getReference("Rescuers").child(user.uid)
+//        val ref = FirebaseDatabase.getInstance().getReference("Rescuers").child(user.uid)
 
-        test_email_profile_rescuer.text = user.email.toString()
+//        test_email_profile_rescuer.text = user.email.toString()
 
-        val rescuerListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val rescuer = dataSnapshot.getValue(Rescuer::class.java)
-                test_name_profile_rescuer.text = rescuer?.name
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                Log.d("PROFILE : ", p0.message)
-            }
-        }
-
-        ref.addListenerForSingleValueEvent(rescuerListener)
+//        val rescuerListener = object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                val rescuer = dataSnapshot.getValue(Rescuer::class.java)
+//                test_name_profile_rescuer.text = rescuer?.name
+//            }
+//
+//            override fun onCancelled(p0: DatabaseError) {
+//                Log.d("PROFILE : ", p0.message)
+//            }
+//        }
+//
+//        ref.addListenerForSingleValueEvent(rescuerListener)
 
         button_logout.setOnClickListener {
             firebaseAuth.signOut()

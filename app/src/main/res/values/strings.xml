@@ -14,10 +14,6 @@
     <string name="signup_employeeid_rescuer">No. ID Karyawan</string>
     <string name="signup_password_rescuer">Kata Sandi</string>
     <string name="signup_repeat_rescuer">Ulangi Kata Sandi</string>
-    <string name="button_signup">Buat Akun</string>
-    <string name="button_tosignin"> Sudah Punya Akun? <u>Masuk</u> </string>
-    <string name="button_signin">Masuk</string>
-    <string name="button_tosignup">Belum punya akun? <u>Buat Akun</u></string>
 
     //spinner
     <string-array name="instansi_array">
@@ -36,5 +32,25 @@
     <string name="email_is_not_valid">Masukan email tidak sesuai</string>
     <string name="toast_account_created">Akun berhasil dibuat</string>
     <string name="toast_logged_in">Berhasil masuk</string>
+
+    // buat akun korban
+    <string name="signup_name">Nama Lengkap</string>
+    <string name="signup_phone">No. HP</string>
+    <string name="button_signup">Buat Akun</string>
+    <string name="button_signup_underline"> <u>Buat Akun</u></string>
+    <string name="button_tosignin"> Sudah Punya Akun? </string>
+    <string name="button_signin">Masuk</string>
+    <string name="button_name_continue">Lanjut</string>
+    <string name="button_signin_underline"><u>Masuk</u></string>
+    <string name="button_tosignup">Belum punya akun?</string>
+
+    //OTP korban
+    <string name="message_otp">Masukkan 4 digit angka yang masuk melalui pesan. Jangan berikan OTP kepada orang lain.</string>
+    <string name="button_otp_sendagain"><u>Kirim Ulang OTP</u></string>
+    <string name="button_sendotp">Kirim</string>
+
+
+
+
 
 </resources>
