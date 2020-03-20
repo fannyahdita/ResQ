@@ -2,19 +2,14 @@ package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 
 class ProfileRescuerFragment : Fragment() {
@@ -25,7 +20,7 @@ class ProfileRescuerFragment : Fragment() {
     }
 
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var user : FirebaseUser
+    private lateinit var user: FirebaseUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +54,7 @@ class ProfileRescuerFragment : Fragment() {
 
         button_logout.setOnClickListener {
             firebaseAuth.signOut()
-            val intent = Intent(activity, SignInRescuerActivity::class.java)
+            val intent = Intent(activity, OnboardingActivity::class.java)
             startActivity(intent)
             activity!!.finish()
         }
