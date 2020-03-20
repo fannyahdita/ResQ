@@ -5,5 +5,36 @@
     <string name="button_onboard_victim">Bantu Saya</string>
     <string name="button_onboard_rescuer">Saya ingin Membantu</string>
 
+    //sign up rescuer
+    <string name="signup_name_rescuer">Nama Lengkap</string>
+    <string name="signup_email_rescuer">Alamat Email</string>
+    <string name="signup_phone_rescuer">No. HP</string>
+    <string name="signup_instansi_rescuer">Instansi</string>
+    <string name="signup_division_rescuer">Divisi</string>
+    <string name="signup_employeeid_rescuer">No. ID Karyawan</string>
+    <string name="signup_password_rescuer">Kata Sandi</string>
+    <string name="signup_repeat_rescuer">Ulangi Kata Sandi</string>
+    <string name="button_signup">Buat Akun</string>
+    <string name="button_tosignin"> Sudah Punya Akun? <u>Masuk</u> </string>
+    <string name="button_signin">Masuk</string>
+    <string name="button_tosignup">Belum punya akun? <u>Buat Akun</u></string>
+
+    //spinner
+    <string-array name="instansi_array">
+        <item>Aksi Cepat Tanggap</item>
+        <item>CT Arsa</item>
+    </string-array>
+    <string-array name="division_array">
+        <item>Rescuer</item>
+        <item>Medis</item>
+    </string-array>
+
+    //Form Error messages and Toast messages
+    <string name="field_is_empty">Wajib diisi</string>
+    <string name="password_must_six_char">Kata sandi minimal terdiri dari 6 karakter</string>
+    <string name="password_is_not_matched">Kata sandi tidak sesuai</string>
+    <string name="email_is_not_valid">Masukan email tidak sesuai</string>
+    <string name="toast_account_created">Akun berhasil dibuat</string>
+    <string name="toast_logged_in">Berhasil masuk</string>
 
 </resources>
