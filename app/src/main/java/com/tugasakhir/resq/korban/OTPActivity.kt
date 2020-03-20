@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
@@ -47,6 +48,9 @@ class OTPActivity : AppCompatActivity() {
         Log.wtf("OTP PHONE: ", phone)
 
         button_sendotp.setOnClickListener{
+            progressbar_otp.visibility = View.VISIBLE
+            it.isClickable = false
+            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
@@ -54,6 +58,7 @@ class OTPActivity : AppCompatActivity() {
             authenticate(phone)
         }
         button_sendagain.setOnClickListener{
+            progressbar_otp.visibility = View.VISIBLE
             verify(phone)
         }
 
@@ -69,6 +74,8 @@ class OTPActivity : AppCompatActivity() {
             TimeUnit.SECONDS,
             this,
             mCallbacks)
+
+        progressbar_otp.visibility = View.GONE
 
     }
 
@@ -117,6 +124,7 @@ class OTPActivity : AppCompatActivity() {
                     Log.d(TAG, "CREATED AT 2 " + (task.result?.user?.metadata?.lastSignInTimestamp).toString())
 
                     if (task.result?.user?.metadata?.creationTimestamp != task.result?.user?.metadata?.lastSignInTimestamp) {
+                        progressbar_otp.visibility = View.GONE
                         val intent = Intent(this, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
@@ -124,6 +132,7 @@ class OTPActivity : AppCompatActivity() {
 
                         Log.d(TAG, "AKUN LAMA INI YAAA")
                     } else {
+                        progressbar_otp.visibility = View.GONE
                         val intent = Intent(this, UserNamaActivity::class.java)
                         intent.putExtra(EXTRA_PHONE, phone)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

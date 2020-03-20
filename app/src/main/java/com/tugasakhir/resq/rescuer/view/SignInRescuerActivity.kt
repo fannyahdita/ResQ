@@ -42,6 +42,8 @@ class SignInRescuerActivity : AppCompatActivity() {
         }
 
         button_signin_finish.setOnClickListener {
+            it.isClickable = false
+            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
