@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
@@ -21,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_rescuer_signin.*
 class SignInRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
-    private lateinit var authStateListener: FirebaseAuth.AuthStateListener
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +42,9 @@ class SignInRescuerActivity : AppCompatActivity() {
         button_signin_finish.setOnClickListener {
             it.isClickable = false
             it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
             )
             isValidUser()
@@ -74,7 +73,7 @@ class SignInRescuerActivity : AppCompatActivity() {
             return
         }
 
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             edittext_signin_email.error = getString(R.string.email_is_not_valid)
             edittext_signin_email.requestFocus()
             return
@@ -101,8 +100,6 @@ class SignInRescuerActivity : AppCompatActivity() {
                         this@SignInRescuerActivity, getString(R.string.toast_logged_in),
                         Toast.LENGTH_LONG
                     ).show()
-
-                    val user = firebaseAuth.currentUser
                     finish()
                     val intent = Intent(this@SignInRescuerActivity, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
