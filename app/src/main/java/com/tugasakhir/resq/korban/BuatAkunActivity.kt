@@ -27,6 +27,8 @@ class BuatAkunActivity : AppCompatActivity() {
         actionBar.title = "BUAT AKUN"
         actionBar.elevation = 0F
 
+        button_signup_continue.isClickable = true
+        button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button)
         button_signup_continue.setOnClickListener{
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(

@@ -108,6 +108,8 @@ class SignInRescuerActivity : AppCompatActivity() {
 
                 } else {
                     progressbar_signin.visibility = View.GONE
+                    button_signin_finish.isClickable = true
+                    button_signin_finish.setBackgroundResource(R.drawable.shape_filled_button)
                     Toast.makeText(
                         this@SignInRescuerActivity, task.exception?.message,
                         Toast.LENGTH_LONG

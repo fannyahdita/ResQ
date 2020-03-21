@@ -14,9 +14,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.Korban
-import kotlinx.android.synthetic.main.activity_korban_buatakun.*
 import kotlinx.android.synthetic.main.activity_korban_nama.*
-import kotlinx.android.synthetic.main.activity_korban_nama.button_signup_continue
 
 class UserNamaActivity : AppCompatActivity() {
 
@@ -34,9 +32,10 @@ class UserNamaActivity : AppCompatActivity() {
 
         val phone = intent.getStringExtra(EXTRA_PHONE)
 
-        button_signup_continue.setOnClickListener{
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
+        button_signup_continue.setOnClickListener {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
             )
             val name = edittext_signup_name.text.toString().trim()
@@ -56,7 +55,11 @@ class UserNamaActivity : AppCompatActivity() {
             .setValue(korban).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
 
-                    Toast.makeText(this, getString(R.string.toast_account_created), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.toast_account_created),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     progressbar_name.visibility = View.GONE
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -64,6 +67,9 @@ class UserNamaActivity : AppCompatActivity() {
                     finish()
 
                 } else {
+                    progressbar_name.visibility = View.GONE
+                    button_signup_continue.isClickable = true
+                    button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button)
                     Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
                 }
             }

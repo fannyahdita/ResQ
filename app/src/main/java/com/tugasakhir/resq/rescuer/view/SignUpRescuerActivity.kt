@@ -83,8 +83,8 @@ class SignUpRescuerActivity : AppCompatActivity() {
                     FirebaseDatabase.getInstance().getReference("Rescuers")
                         .child(FirebaseAuth.getInstance().currentUser!!.uid)
                         .setValue(rescuer).addOnCompleteListener { task ->
+                            progressbar_signup.visibility = View.GONE
                             if (task.isSuccessful) {
-                                progressbar_signup.visibility = View.GONE
                                 Toast.makeText(
                                     this@SignUpRescuerActivity,
                                     getString(R.string.toast_account_created), Toast.LENGTH_LONG
@@ -95,7 +95,8 @@ class SignUpRescuerActivity : AppCompatActivity() {
                                 finish()
 
                             } else {
-                                progressbar_signup.visibility = View.GONE
+                                button_signup_finish.isClickable = true
+                                button_signup_finish.setBackgroundResource(R.drawable.shape_filled_button)
                                 Toast.makeText(
                                     this@SignUpRescuerActivity,
                                     task.exception?.message, Toast.LENGTH_LONG
@@ -104,6 +105,8 @@ class SignUpRescuerActivity : AppCompatActivity() {
                         }
                 } else {
                     progressbar_signup.visibility = View.GONE
+                    button_signup_finish.isClickable = true
+                    button_signup_finish.setBackgroundResource(R.drawable.shape_filled_button)
                     Toast.makeText(
                         this@SignUpRescuerActivity,
                         p0.exception?.message, Toast.LENGTH_LONG
