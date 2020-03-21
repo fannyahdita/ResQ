@@ -42,8 +42,6 @@ class SignUpRescuerActivity : AppCompatActivity() {
         }
 
         button_signup_finish.setOnClickListener {
-            it.isClickable = false
-            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
@@ -68,6 +66,8 @@ class SignUpRescuerActivity : AppCompatActivity() {
                                      phone: String, employeeId: String,
                                      instansi: String, division: String) {
         progressbar_signup.visibility = View.VISIBLE
+        button_signup_finish.isClickable = false
+        button_signup_finish.setBackgroundResource(R.drawable.shape_filled_button_clicked)
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { p0 ->
                 if (p0.isSuccessful) {
