@@ -14,7 +14,6 @@
     <item
         android:id="@+id/navigation_lokasi"
         android:icon="@drawable/ic_posko_icon"
-        android:enabled="false"
         android:title=""/>
 
     <item
