@@ -14,7 +14,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.Korban
+import kotlinx.android.synthetic.main.activity_korban_buatakun.*
 import kotlinx.android.synthetic.main.activity_korban_nama.*
+import kotlinx.android.synthetic.main.activity_korban_nama.button_signup_continue
 
 class UserNamaActivity : AppCompatActivity() {
 
@@ -33,9 +35,6 @@ class UserNamaActivity : AppCompatActivity() {
         val phone = intent.getStringExtra(EXTRA_PHONE)
 
         button_signup_continue.setOnClickListener{
-            progressbar_name.visibility = View.VISIBLE
-            it.isClickable = false
-            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
@@ -48,6 +47,9 @@ class UserNamaActivity : AppCompatActivity() {
     }
 
     private fun korbanDatabase(name: String, phone: String) {
+        progressbar_name.visibility = View.VISIBLE
+        button_signup_continue.isClickable = false
+        button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button_clicked)
         val korban = Korban(name, phone)
         FirebaseDatabase.getInstance().getReference("Korban")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)

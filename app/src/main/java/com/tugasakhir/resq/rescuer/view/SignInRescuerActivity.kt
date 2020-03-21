@@ -40,8 +40,6 @@ class SignInRescuerActivity : AppCompatActivity() {
         }
 
         button_signin_finish.setOnClickListener {
-            it.isClickable = false
-            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager =
                 getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if (currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
@@ -91,6 +89,8 @@ class SignInRescuerActivity : AppCompatActivity() {
 
     private fun loggingInUser(email: String, password: String) {
         progressbar_signin.visibility = View.VISIBLE
+        button_signin_finish.isClickable = false
+        button_signin_finish.setBackgroundResource(R.drawable.shape_filled_button_clicked)
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {

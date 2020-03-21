@@ -28,9 +28,6 @@ class BuatAkunActivity : AppCompatActivity() {
         actionBar.elevation = 0F
 
         button_signup_continue.setOnClickListener{
-            progressbar_phone.visibility = View.VISIBLE
-            it.isClickable = false
-            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
@@ -61,6 +58,10 @@ class BuatAkunActivity : AppCompatActivity() {
         }
 
         Log.wtf("PHONE: ", phone)
+
+        progressbar_phone.visibility = View.VISIBLE
+        button_signup_continue.isClickable = false
+        button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button_clicked)
 
         senddata(phone)
 

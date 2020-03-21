@@ -48,9 +48,6 @@ class OTPActivity : AppCompatActivity() {
         Log.wtf("OTP PHONE: ", phone)
 
         button_sendotp.setOnClickListener{
-            progressbar_otp.visibility = View.VISIBLE
-            it.isClickable = false
-            it.setBackgroundResource(R.drawable.shape_filled_button_clicked)
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
@@ -111,6 +108,9 @@ class OTPActivity : AppCompatActivity() {
 
         val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, code)
 
+        progressbar_otp.visibility = View.VISIBLE
+        button_sendotp.isClickable = false
+        button_sendotp.setBackgroundResource(R.drawable.shape_filled_button_clicked)
         signInWithPhoneAuthCredential(credential, phone)
     }
 
