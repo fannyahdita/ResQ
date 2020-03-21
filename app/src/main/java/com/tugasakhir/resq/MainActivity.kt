@@ -2,6 +2,7 @@ package com.tugasakhir.resq
 
 import android.os.Bundle
 import android.os.Handler
+import android.view.Menu
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.tugasakhir.resq.rescuer.view.HomeFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
@@ -18,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            item.setCheckable(true)
             when (item.itemId) {
                 R.id.navigation_beranda -> {
                     actionBar.title = "Res-Q"
@@ -57,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
+
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         actionBar = this.supportActionBar!!
@@ -67,10 +71,20 @@ class MainActivity : AppCompatActivity() {
 
         navigation_temukan.setOnClickListener {
             actionBar.title = "Temukan Saya"
+            disableNavigation(bottomNavigation)
             val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
             openFragment(temukanSayaFragment)
         }
 
+    }
+
+    private fun disableNavigation(bottomNavigation: BottomNavigationView) {
+        var menuBar : Menu = bottomNavigation.menu
+        for (i in 0 until menuBar.size()) {
+            if (i != 2) {
+                menuBar.getItem(i).setCheckable(false)
+            }
+        }
     }
 
     private fun openFragment(fragment: Fragment) {
