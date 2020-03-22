@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">ResQ</string>
 
+    //actionBar title
+    <string name="app_name_actionbar">ResQ</string>
+    <string name="contact_actionbar">Kontak</string>
+    <string name="profile_actionbar">Profil</string>
+    <string name="home_actionbar">Beranda</string>
+    <string name="posko_actionbar">Posko</string>
+    <string name="signup_actionbar">Buat Akun</string>
+    <string name="signin_actionbar">Masuk</string>
+    <string name="otp_actionbar">Verifikasi OTP</string>
+    <string name="temukansaya_actionbar">Temukan Saya</string>
+    <string name="victim_name_actionbar">Masukkan Nama</string>
+
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>
     <string name="button_onboard_rescuer">Saya ingin Membantu</string>
@@ -43,6 +55,7 @@
     <string name="email_is_not_valid">Masukan email tidak sesuai</string>
     <string name="toast_account_created">Akun berhasil dibuat</string>
     <string name="toast_logged_in">Berhasil masuk</string>
+    <string name="toast_exit">Tekan sekali lagi untuk keluar</string>
 
     //OTP korban
     <string name="message_otp">Masukkan 4 digit angka yang masuk melalui pesan. Jangan berikan OTP kepada orang lain.</string>

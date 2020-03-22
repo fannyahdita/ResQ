@@ -27,7 +27,7 @@ class UserNamaActivity : AppCompatActivity() {
         actionBar = this.supportActionBar!!
         actionBar.setHomeAsUpIndicator(R.mipmap.ic_logo_round)
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "MASUKKAN NAMA"
+        actionBar.title = getString(R.string.victim_name_actionbar)
         actionBar.elevation = 0F
 
         val phone = intent.getStringExtra(EXTRA_PHONE)
@@ -40,7 +40,7 @@ class UserNamaActivity : AppCompatActivity() {
             )
             val name = edittext_signup_name.text.toString().trim()
             Log.wtf("NAMANYA ADALAH  : ", name)
-            korbanDatabase(name, phone)
+            korbanDatabase(name, phone!!)
         }
 
     }

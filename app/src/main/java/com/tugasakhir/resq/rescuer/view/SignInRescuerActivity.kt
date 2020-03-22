@@ -28,7 +28,7 @@ class SignInRescuerActivity : AppCompatActivity() {
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "BUAT AKUN"
+        actionBar.title = getString(R.string.signin_actionbar)
         actionBar.elevation = 0F
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -83,7 +83,6 @@ class SignInRescuerActivity : AppCompatActivity() {
             return
         }
 
-        Log.wtf("SIGN IN: ", "$email $password")
         loggingInUser(email, password)
     }
 

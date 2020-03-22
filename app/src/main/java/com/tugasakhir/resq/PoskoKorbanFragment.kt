@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class Fragment_Posko_Korban : Fragment() {
+class PoskoKorbanFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -16,6 +16,6 @@ class Fragment_Posko_Korban : Fragment() {
         inflater.inflate(R.layout.fragment_posko_korban, container, false)
 
     companion object {
-        fun newInstance(): Fragment_Posko_Korban = Fragment_Posko_Korban()
+        fun newInstance(): PoskoKorbanFragment = PoskoKorbanFragment()
     }
 }

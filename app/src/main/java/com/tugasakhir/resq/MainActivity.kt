@@ -28,18 +28,18 @@ class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            item.setCheckable(true)
+            item.isCheckable = true
             when (item.itemId) {
                 R.id.navigation_beranda -> {
-                    actionBar.title = "Res-Q"
+                    actionBar.title = getString(R.string.app_name_actionbar)
                     val homeFragment = HomeFragment.newInstance()
                     openFragment(homeFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_posko -> {
-                    actionBar.title = "Posko"
+                    actionBar.title = getString(R.string.posko_actionbar)
                     if (isKorban) {
-                        val poskoKorban = Fragment_Posko_Korban.newInstance()
+                        val poskoKorban = PoskoKorbanFragment.newInstance()
                         openFragment(poskoKorban)
                     } else {
                         val poskoRescuer = PoskoRescuerFragment.newInstance()
@@ -47,20 +47,14 @@ class MainActivity : AppCompatActivity() {
                     }
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigation_temukan -> {
-                    actionBar.title = "Temukan saya"
-
-                    return@OnNavigationItemSelectedListener true
-                }
                 R.id.navigation_kontak -> {
-                    actionBar.title = "Kontak"
-
+                    actionBar.title = getString(R.string.contact_actionbar)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_akun -> {
-                    actionBar.title = "Profil"
-                    val profileRescuerFragemnt = ProfileRescuerFragment.newInstance()
-                    openFragment(profileRescuerFragemnt)
+                    actionBar.title = getString(R.string.profile_actionbar)
+                    val profileRescuerFragment = ProfileRescuerFragment.newInstance()
+                    openFragment(profileRescuerFragment)
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -77,8 +71,6 @@ class MainActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
-                    Log.d("DatabaseReference : ", p0.toString())
-                    Log.d("DatabaseReference : ", "korban $isKorban")
                     showTemukanSaya(isKorban)
                 }
 
@@ -92,13 +84,13 @@ class MainActivity : AppCompatActivity() {
         actionBar = this.supportActionBar!!
         actionBar.setHomeAsUpIndicator(R.mipmap.ic_logo_round)
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "RES-Q"
+        actionBar.title = getString(R.string.app_name_actionbar)
         actionBar.elevation = 0F
 
         navigation_temukan.setOnClickListener {
-            actionBar.title = "Temukan Saya"
+            actionBar.title = getString(R.string.temukansaya_actionbar)
             disableNavigation(navigationView)
-            val temukanSayaFragment = Fragment_TemukanSaya_Korban.newInstance()
+            val temukanSayaFragment = TemukanSayaKorbanFragment.newInstance()
             openFragment(temukanSayaFragment)
             showTemukanSaya(isKorban)
         }
@@ -107,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showTemukanSaya(isKorban: Boolean) {
         if (isKorban) {
-            val temukanSayaKorban = Fragment_TemukanSaya_Korban.newInstance()
+            val temukanSayaKorban = TemukanSayaKorbanFragment.newInstance()
             openFragment(temukanSayaKorban)
         } else {
             val temukanSayaRescuer = TemukanSayaRescuerFragment.newInstance()
@@ -116,10 +108,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun disableNavigation(bottomNavigation: BottomNavigationView) {
-        var menuBar : Menu = bottomNavigation.menu
+        val menuBar: Menu = bottomNavigation.menu
         for (i in 0 until menuBar.size()) {
             if (i != 2) {
-                menuBar.getItem(i).setCheckable(false)
+                menuBar.getItem(i).isCheckable = false
             }
         }
     }
@@ -137,9 +129,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         this.doubleBackToExitPressedOnce = true
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.toast_exit), Toast.LENGTH_SHORT).show()
 
-        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+        Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
 
