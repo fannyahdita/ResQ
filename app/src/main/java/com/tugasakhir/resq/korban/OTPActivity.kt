@@ -159,6 +159,7 @@ class OTPActivity : AppCompatActivity() {
                     // ...
                 } else {
                     // false OTP input
+                    progressbar_otp.visibility = View.GONE
                     button_sendotp.isClickable = true
                     button_sendotp.setBackgroundResource(R.drawable.shape_filled_button)
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
