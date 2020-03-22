@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
 import kotlinx.android.synthetic.main.activity_korban_buatakun.*
 
@@ -48,7 +49,8 @@ class BuatAkunActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                val intent = Intent(this, OnboardingActivity::class.java)
+                startActivity(intent)
                 finish()
                 true
             }
