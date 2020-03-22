@@ -39,6 +39,12 @@ class BuatAkunActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        button_signup_continue.isClickable = true
+        button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button)
+        super.onResume()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -51,7 +57,7 @@ class BuatAkunActivity : AppCompatActivity() {
     }
 
     private fun registerUser() {
-        val phone = edittext_signup_phone.text.toString().trim()
+        val phone = "+62" + edittext_signup_phone.text.toString().trim()
 
         if (phone.isEmpty()) {
             edittext_signup_phone.error = getString(R.string.field_is_empty)

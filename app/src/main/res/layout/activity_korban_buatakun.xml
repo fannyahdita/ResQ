@@ -32,18 +32,31 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/textview_codenumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="+62"
+                android:textColor="@color/black_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_signup_phone" />
+
             <EditText
                 android:id="@+id/edittext_signup_phone"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="50dp"
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
                 android:inputType="phone"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_signup_phone"
+                app:layout_constraintStart_toEndOf="@id/textview_codenumber"
+                app:layout_constraintTop_toTopOf="@id/textview_codenumber"
                 tools:text="08123456789" />
 
             <Button
