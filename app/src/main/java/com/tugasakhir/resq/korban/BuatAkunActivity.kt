@@ -24,9 +24,11 @@ class BuatAkunActivity : AppCompatActivity() {
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "BUAT AKUN"
+        actionBar.title = getString(R.string.signin_actionbar)
         actionBar.elevation = 0F
 
+        button_signup_continue.isClickable = true
+        button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button)
         button_signup_continue.setOnClickListener{
             val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
@@ -55,7 +57,7 @@ class BuatAkunActivity : AppCompatActivity() {
     }
 
     private fun registerUser() {
-        val phone = edittext_signup_phone.text.toString().trim()
+        val phone = "+62" + edittext_signup_phone.text.toString().trim()
 
         if (phone.isEmpty()) {
             edittext_signup_phone.error = getString(R.string.field_is_empty)
