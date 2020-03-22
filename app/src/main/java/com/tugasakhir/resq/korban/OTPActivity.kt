@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -91,10 +92,12 @@ class OTPActivity : AppCompatActivity() {
         mCallbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 Log.d(TAG, "onVerificationCompleted:$credential")
+                Toast.makeText(this@OTPActivity, "Kode verifikasi sudah terkirim", Toast.LENGTH_SHORT).show()
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
                 Log.w(TAG, "onVerificationFailed", p0)
+                Toast.makeText(this@OTPActivity, "Gagal mengirim kode verifikasi. Pastikan nomor yang dimasukkan benar.", Toast.LENGTH_SHORT).show()
 
                 if (p0 is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
@@ -125,7 +128,13 @@ class OTPActivity : AppCompatActivity() {
             signInWithPhoneAuthCredential(credential, phone)
 
         } catch (e: Exception) {
-            Toast.makeText(this, "Verification code is wrong", Toast.LENGTH_SHORT).show()
+            val builder = AlertDialog.Builder(this@OTPActivity)
+            builder.setTitle("Verifikasi Gagal")
+            builder.setMessage("Pastikan kode verifikasi yang Anda masukkan benar")
+            builder.setNeutralButton("Oke"){_,_ ->
+            }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
         }
 
     }
