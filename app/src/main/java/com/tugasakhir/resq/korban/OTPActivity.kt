@@ -4,9 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
@@ -33,7 +36,6 @@ class OTPActivity : AppCompatActivity() {
         setContentView(R.layout.activity_korban_otp)
 
         actionBar = this.supportActionBar!!
-        actionBar.setHomeAsUpIndicator(R.mipmap.ic_logo_round)
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = getString(R.string.otp_actionbar)
         actionBar.elevation = 0F
@@ -61,6 +63,17 @@ class OTPActivity : AppCompatActivity() {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun verify(phone: String) {
         Log.d("PHONE AUTH OTP", "PHONE VERIFICATION")
         verificationCallbacks()
@@ -81,10 +94,12 @@ class OTPActivity : AppCompatActivity() {
         mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 Log.d("PHONE AUTH OTP", "onVerificationCompleted:$credential")
+                Toast.makeText(this@OTPActivity, "Kode verifikasi sudah terkirim", Toast.LENGTH_SHORT).show()
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
                 Log.w("PHONE AUTH OTP", "onVerificationFailed", p0)
+                Toast.makeText(this@OTPActivity, "Gagal mengirim kode verifikasi. Pastikan nomor yang dimasukkan benar.", Toast.LENGTH_SHORT).show()
 
                 if (p0 is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
@@ -110,12 +125,24 @@ class OTPActivity : AppCompatActivity() {
     private fun authenticate(phone: String) {
         val code = edittext_otp1.text.toString().trim()
 
-        val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, code)
+        try {
+            val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, code)
+            progressbar_otp.visibility = View.VISIBLE
+            button_sendotp.isClickable = false
+            button_sendotp.setBackgroundResource(R.drawable.shape_filled_button_clicked)
+            signInWithPhoneAuthCredential(credential, phone)
 
-        progressbar_otp.visibility = View.VISIBLE
-        button_sendotp.isClickable = false
-        button_sendotp.setBackgroundResource(R.drawable.shape_filled_button_clicked)
-        signInWithPhoneAuthCredential(credential, phone)
+        } catch (e: Exception) {
+            val builder = AlertDialog.Builder(this@OTPActivity)
+            builder.setTitle("Verifikasi Gagal")
+            builder.setMessage("Pastikan kode verifikasi yang Anda masukkan benar")
+            builder.setNeutralButton("Oke"){_,_ ->
+
+            }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
+
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential, phone: String) {
