@@ -2,7 +2,7 @@
     <string name="app_name">ResQ</string>
 
     //actionBar title
-    <string name="app_name_actionbar">ResQ</string>
+    <string name="app_name_actionbar">Res-Q</string>
     <string name="contact_actionbar">Kontak</string>
     <string name="profile_actionbar">Profil</string>
     <string name="home_actionbar">Beranda</string>

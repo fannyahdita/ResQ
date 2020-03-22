@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit
 
 class OTPActivity : AppCompatActivity() {
 
-    val TAG = "PHONE AUTH OTP"
 
     private lateinit var actionBar: ActionBar
     lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
@@ -43,7 +42,7 @@ class OTPActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
 
-        verify(phone!!)
+        verify(phone)
 
         Log.wtf("OTP PHONE: ", phone)
 
@@ -63,7 +62,7 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private fun verify(phone: String) {
-        Log.d(TAG, "VERIFIKASI PHONE")
+        Log.d("PHONE AUTH OTP", "PHONE VERIFICATION")
         verificationCallbacks()
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -81,11 +80,11 @@ class OTPActivity : AppCompatActivity() {
     private fun verificationCallbacks() {
         mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.d(TAG, "onVerificationCompleted:$credential")
+                Log.d("PHONE AUTH OTP", "onVerificationCompleted:$credential")
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
-                Log.w(TAG, "onVerificationFailed", p0)
+                Log.w("PHONE AUTH OTP", "onVerificationFailed", p0)
 
                 if (p0 is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
@@ -100,8 +99,8 @@ class OTPActivity : AppCompatActivity() {
                 p1: PhoneAuthProvider.ForceResendingToken
             ) {
                 super.onCodeSent(verfication, p1)
-                verificationId = verfication.toString()
-                Log.d(TAG, "onCodeSent$verificationId")
+                verificationId = verfication
+                Log.d("PHONE AUTH OTP", "onCodeSent$verificationId")
 
             }
 
@@ -124,13 +123,13 @@ class OTPActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
+                    Log.d("PHONE AUTH OTP", "signInWithCredential:success")
                     Log.d(
-                        TAG,
+                        "PHONE AUTH OTP",
                         "CREATED AT 1 " + (task.result?.user?.metadata?.creationTimestamp).toString()
                     )
                     Log.d(
-                        TAG,
+                        "PHONE AUTH OTP",
                         "CREATED AT 2 " + (task.result?.user?.metadata?.lastSignInTimestamp).toString()
                     )
 
@@ -142,7 +141,7 @@ class OTPActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
 
-                        Log.d(TAG, "AKUN LAMA INI YAAA")
+                        Log.d("PHONE AUTH OTP", "AKUN LAMA INI YAAA")
                     } else {
                         progressbar_otp.visibility = View.GONE
                         val intent = Intent(this, UserNamaActivity::class.java)
@@ -152,7 +151,7 @@ class OTPActivity : AppCompatActivity() {
                         startActivity(intent)
                         finish()
 
-                        Log.d(TAG, "AKUN BARU YAAA")
+                        Log.d("PHONE AUTH OTP", "AKUN BARU YAAA")
                     }
 
                     val user = task.result?.user
@@ -162,7 +161,7 @@ class OTPActivity : AppCompatActivity() {
                     progressbar_otp.visibility = View.GONE
                     button_sendotp.isClickable = true
                     button_sendotp.setBackgroundResource(R.drawable.shape_filled_button)
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Log.w("PHONE AUTH OTP", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
                     }
