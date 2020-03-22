@@ -80,6 +80,8 @@ class MainActivity : AppCompatActivity() {
                 }
             })
 
+        disableNavigation(navigationView)
+
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         actionBar = this.supportActionBar!!
@@ -90,7 +92,6 @@ class MainActivity : AppCompatActivity() {
 
         navigation_temukan.setOnClickListener {
             actionBar.title = getString(R.string.temukansaya_actionbar)
-            disableNavigation(navigationView)
             val temukanSayaFragment = TemukanSayaKorbanFragment.newInstance()
             openFragment(temukanSayaFragment)
             showTemukanSaya(isKorban)
