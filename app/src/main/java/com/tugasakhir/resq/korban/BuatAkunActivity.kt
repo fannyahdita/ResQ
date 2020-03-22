@@ -37,6 +37,12 @@ class BuatAkunActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        button_signup_continue.isClickable = true
+        button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button)
+        super.onResume()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
