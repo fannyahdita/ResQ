@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -34,7 +35,6 @@ class OTPActivity : AppCompatActivity() {
         setContentView(R.layout.activity_korban_otp)
 
         actionBar = this.supportActionBar!!
-        actionBar.setHomeAsUpIndicator(R.mipmap.ic_logo_round)
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = "OTP"
         actionBar.elevation = 0F
@@ -59,6 +59,17 @@ class OTPActivity : AppCompatActivity() {
             verify(phone)
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun verify(phone: String) {
@@ -106,12 +117,17 @@ class OTPActivity : AppCompatActivity() {
     private fun authenticate(phone: String) {
         val code = edittext_otp1.text.toString().trim()
 
-        val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, code)
+        try {
+            val credential: PhoneAuthCredential = PhoneAuthProvider.getCredential(verificationId, code)
+            progressbar_otp.visibility = View.VISIBLE
+            button_sendotp.isClickable = false
+            button_sendotp.setBackgroundResource(R.drawable.shape_filled_button_clicked)
+            signInWithPhoneAuthCredential(credential, phone)
 
-        progressbar_otp.visibility = View.VISIBLE
-        button_sendotp.isClickable = false
-        button_sendotp.setBackgroundResource(R.drawable.shape_filled_button_clicked)
-        signInWithPhoneAuthCredential(credential, phone)
+        } catch (e: Exception) {
+            Toast.makeText(this, "Verification code is wrong", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential, phone: String) {
