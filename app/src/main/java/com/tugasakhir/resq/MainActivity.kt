@@ -75,7 +75,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d("DatabaseReference : ", "user with id $user is ot exist")
+                    Log.d("DatabaseReference : ", "user with id $user is not exist")
+                    Toast.makeText(this@MainActivity, p0.message, Toast.LENGTH_SHORT).show()
                 }
             })
 
