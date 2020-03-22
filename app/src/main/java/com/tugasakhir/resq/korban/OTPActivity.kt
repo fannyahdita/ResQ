@@ -36,14 +36,14 @@ class OTPActivity : AppCompatActivity() {
         actionBar = this.supportActionBar!!
         actionBar.setHomeAsUpIndicator(R.mipmap.ic_logo_round)
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "OTP"
+        actionBar.title = getString(R.string.otp_actionbar)
         actionBar.elevation = 0F
 
         val phone = intent.getStringExtra(EXTRA_PHONE)
 
         mAuth = FirebaseAuth.getInstance()
 
-        verify(phone)
+        verify(phone!!)
 
         Log.wtf("OTP PHONE: ", phone)
 
@@ -101,7 +101,7 @@ class OTPActivity : AppCompatActivity() {
             ) {
                 super.onCodeSent(verfication, p1)
                 verificationId = verfication.toString()
-                Log.d(TAG, "onCodeSent" + verificationId)
+                Log.d(TAG, "onCodeSent$verificationId")
 
             }
 

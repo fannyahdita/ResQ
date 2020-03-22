@@ -24,7 +24,7 @@ class BuatAkunActivity : AppCompatActivity() {
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "BUAT AKUN"
+        actionBar.title = getString(R.string.signin_actionbar)
         actionBar.elevation = 0F
 
         button_signup_continue.isClickable = true
