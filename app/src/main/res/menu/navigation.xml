@@ -4,12 +4,12 @@
     <item
         android:id="@+id/navigation_beranda"
         android:icon="@drawable/ic_beranda_icon"
-        android:title="Beranda"/>
+        android:title="@string/home_actionbar"/>
 
     <item
         android:id="@+id/navigation_posko"
         android:icon="@drawable/ic_posko_icon"
-        android:title="Posko"/>
+        android:title="@string/posko_actionbar"/>
 
     <item
         android:id="@+id/navigation_lokasi"
@@ -19,10 +19,10 @@
     <item
         android:id="@+id/navigation_kontak"
         android:icon="@drawable/ic_kontak_icon"
-        android:title="Kontak"/>
+        android:title="@string/contact_actionbar"/>
 
     <item
         android:id="@+id/navigation_akun"
         android:icon="@drawable/ic_akun_icon"
-        android:title="Akun"/>
+        android:title="@string/posko_actionbar"/>
 </menu>

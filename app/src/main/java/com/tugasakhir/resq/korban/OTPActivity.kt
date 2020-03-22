@@ -13,21 +13,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.*
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.model.Korban
 import kotlinx.android.synthetic.main.activity_korban_otp.*
 import java.util.concurrent.TimeUnit
 
 class OTPActivity : AppCompatActivity() {
 
-    val TAG = "PHONE AUTH OTP"
 
-    private lateinit var actionBar : ActionBar
-    lateinit var mCallbacks : PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    lateinit var mAuth : FirebaseAuth
+    private lateinit var actionBar: ActionBar
+    lateinit var mCallbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    lateinit var mAuth: FirebaseAuth
     var verificationId = ""
 
 
@@ -37,7 +37,7 @@ class OTPActivity : AppCompatActivity() {
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "OTP"
+        actionBar.title = getString(R.string.otp_actionbar)
         actionBar.elevation = 0F
 
         val phone = intent.getStringExtra(EXTRA_PHONE)
@@ -48,14 +48,15 @@ class OTPActivity : AppCompatActivity() {
 
         Log.wtf("OTP PHONE: ", phone)
 
-        button_sendotp.setOnClickListener{
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
+        button_sendotp.setOnClickListener {
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
             )
             authenticate(phone)
         }
-        button_sendagain.setOnClickListener{
+        button_sendagain.setOnClickListener {
             progressbar_otp.visibility = View.VISIBLE
             verify(phone)
         }
@@ -74,7 +75,7 @@ class OTPActivity : AppCompatActivity() {
     }
 
     private fun verify(phone: String) {
-        Log.d(TAG, "VERIFIKASI PHONE")
+        Log.d("PHONE AUTH OTP", "PHONE VERIFICATION")
         verificationCallbacks()
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
@@ -82,21 +83,22 @@ class OTPActivity : AppCompatActivity() {
             60,
             TimeUnit.SECONDS,
             this,
-            mCallbacks)
+            mCallbacks
+        )
 
         progressbar_otp.visibility = View.GONE
 
     }
 
     private fun verificationCallbacks() {
-        mCallbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+        mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.d(TAG, "onVerificationCompleted:$credential")
+                Log.d("PHONE AUTH OTP", "onVerificationCompleted:$credential")
                 Toast.makeText(this@OTPActivity, "Kode verifikasi sudah terkirim", Toast.LENGTH_SHORT).show()
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
-                Log.w(TAG, "onVerificationFailed", p0)
+                Log.w("PHONE AUTH OTP", "onVerificationFailed", p0)
                 Toast.makeText(this@OTPActivity, "Gagal mengirim kode verifikasi. Pastikan nomor yang dimasukkan benar.", Toast.LENGTH_SHORT).show()
 
                 if (p0 is FirebaseAuthInvalidCredentialsException) {
@@ -107,10 +109,13 @@ class OTPActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onCodeSent(verfication: String, p1: PhoneAuthProvider.ForceResendingToken) {
+            override fun onCodeSent(
+                verfication: String,
+                p1: PhoneAuthProvider.ForceResendingToken
+            ) {
                 super.onCodeSent(verfication, p1)
-                verificationId = verfication.toString()
-                Log.d(TAG, "onCodeSent" + verificationId)
+                verificationId = verfication
+                Log.d("PHONE AUTH OTP", "onCodeSent$verificationId")
 
             }
 
@@ -132,6 +137,7 @@ class OTPActivity : AppCompatActivity() {
             builder.setTitle("Verifikasi Gagal")
             builder.setMessage("Pastikan kode verifikasi yang Anda masukkan benar")
             builder.setNeutralButton("Oke"){_,_ ->
+
             }
             val dialog: AlertDialog = builder.create()
             dialog.show()
@@ -144,41 +150,51 @@ class OTPActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
-                    Log.d(TAG, "CREATED AT 1 " + (task.result?.user?.metadata?.creationTimestamp).toString())
-                    Log.d(TAG, "CREATED AT 2 " + (task.result?.user?.metadata?.lastSignInTimestamp).toString())
+                    Log.d("PHONE AUTH OTP", "signInWithCredential:success")
+                    Log.d(
+                        "PHONE AUTH OTP",
+                        "CREATED AT 1 " + (task.result?.user?.metadata?.creationTimestamp).toString()
+                    )
+                    Log.d(
+                        "PHONE AUTH OTP",
+                        "CREATED AT 2 " + (task.result?.user?.metadata?.lastSignInTimestamp).toString()
+                    )
 
                     if (task.result?.user?.metadata?.creationTimestamp != task.result?.user?.metadata?.lastSignInTimestamp) {
                         progressbar_otp.visibility = View.GONE
                         val intent = Intent(this, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
 
-                        Log.d(TAG, "AKUN LAMA INI YAAA")
+                        Log.d("PHONE AUTH OTP", "AKUN LAMA INI YAAA")
                     } else {
                         progressbar_otp.visibility = View.GONE
                         val intent = Intent(this, UserNamaActivity::class.java)
                         intent.putExtra(EXTRA_PHONE, phone)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                         finish()
 
-                        Log.d(TAG, "AKUN BARU YAAA")
+                        Log.d("PHONE AUTH OTP", "AKUN BARU YAAA")
                     }
 
                     val user = task.result?.user
                     // ...
                 } else {
-                    // Sign in failed, display a message and update the UI
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    // false OTP input
+                    progressbar_otp.visibility = View.GONE
+                    button_sendotp.isClickable = true
+                    button_sendotp.setBackgroundResource(R.drawable.shape_filled_button)
+                    Log.w("PHONE AUTH OTP", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
                     }
                 }
             }
     }
-
 
 
 }
