@@ -15,7 +15,7 @@ class FormTemukanKorbanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-            R.layout.fragment_temukansayaform_korban,
+            R.layout.activity_temukansayaform_korban,
             container,
             false
         )
