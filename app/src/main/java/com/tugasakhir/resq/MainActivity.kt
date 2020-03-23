@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_akun -> {
                     actionBar.title = getString(R.string.profile_actionbar)
-                    val profileRescuerFragment = ProfileRescuerFragment.newInstance()
+                    val profileRescuerFragment = ProfileRescuerFragment.newInstance(isKorban)
                     openFragment(profileRescuerFragment)
                     return@OnNavigationItemSelectedListener true
                 }
@@ -106,7 +106,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
             startActivity(intent)
-            finish()
         }
     }
 
