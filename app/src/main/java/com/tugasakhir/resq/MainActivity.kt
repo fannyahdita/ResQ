@@ -20,7 +20,7 @@ import com.tugasakhir.resq.korban.view.TemukanSayaActivity
 import com.tugasakhir.resq.rescuer.view.HomeFragment
 import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
-import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerFragment
+import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -69,12 +69,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val homeFragment = HomeFragment.newInstance()
+        openFragment(homeFragment)
+
         val user = FirebaseAuth.getInstance().currentUser?.uid
         FirebaseDatabase.getInstance().reference.child("Korban/$user")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
-                    showTemukanSaya(isKorban)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -82,6 +84,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, p0.message, Toast.LENGTH_SHORT).show()
                 }
             })
+
 
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
@@ -104,8 +107,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, TemukanSayaActivity::class.java)
             startActivity(intent)
         } else {
-            val temukanSayaRescuer = TemukanSayaRescuerFragment.newInstance()
-            openFragment(temukanSayaRescuer)
+            val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
