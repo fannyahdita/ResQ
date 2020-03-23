@@ -74,6 +74,9 @@
     <string name="tv_dewasa">Dewasa</string>
     <string name="tv_anak">Anak-anak</string>
     <string name="tv_infotambahan">Informasi Tambahan</string>
+    <string name="usia_lansia">Usia > 60 tahun</string>
+    <string name="usia_dewasa">Usia 10 - 60 tahun</string>
+    <string name="usia_anak">Usia &lt; 10 tahun </string>
     <string name="tv_infotambahan_detail">* Infokan apabila ada ibu hamil/penyandang disabilitas/orang dengan penyakit tertentu</string>
     <string name="status_1">Lokasi telah dikirimkan</string>
     <string name="status_2">Lokasi telah diterima</string>
