@@ -44,6 +44,11 @@
         </activity>
 
         <activity
+            android:name=".rescuer.view.TemukanSayaRescuerActivity"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+
+        <activity
             android:name=".korban.view.BuatAkunActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
