@@ -7,6 +7,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import kotlinx.android.synthetic.main.activity_temukansaya_korban.*
 
 class TemukanSayaActivity : AppCompatActivity() {
 
@@ -20,6 +21,11 @@ class TemukanSayaActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
+
+        temukansaya_button.setOnClickListener {
+            val intent = Intent(this, FormTemukanKorbanActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
