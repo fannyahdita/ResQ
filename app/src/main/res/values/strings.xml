@@ -62,5 +62,8 @@
     <string name="button_otp_sendagain"><u>Kirim Ulang OTP</u></string>
     <string name="button_sendotp">Kirim</string>
 
+    //Fitur temukan saya
+    <string name="temukansaya_uppercase">TEMUKAN SAYA</string>
+    <string name="bagikan_lokasi">Bagikan lokasimu agar kami dapat segera ke lokasimu dan membantumu</string>
 
 </resources>
