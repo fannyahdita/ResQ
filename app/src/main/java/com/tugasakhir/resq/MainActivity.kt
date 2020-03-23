@@ -1,5 +1,6 @@
 package com.tugasakhir.resq
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -17,7 +18,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.rescuer.view.HomeFragment
 import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
-import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerFragment
+import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -66,12 +67,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val homeFragment = HomeFragment.newInstance()
+        openFragment(homeFragment)
+
         val user = FirebaseAuth.getInstance().currentUser?.uid
         FirebaseDatabase.getInstance().reference.child("Korban/$user")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
-                    showTemukanSaya(isKorban)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -80,7 +83,6 @@ class MainActivity : AppCompatActivity() {
                 }
             })
 
-        disableNavigation(navigationView)
 
         navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
@@ -92,8 +94,6 @@ class MainActivity : AppCompatActivity() {
 
         navigation_temukan.setOnClickListener {
             actionBar.title = getString(R.string.temukansaya_actionbar)
-            val temukanSayaFragment = TemukanSayaKorbanFragment.newInstance()
-            openFragment(temukanSayaFragment)
             showTemukanSaya(isKorban)
         }
 
@@ -104,8 +104,9 @@ class MainActivity : AppCompatActivity() {
             val temukanSayaKorban = TemukanSayaKorbanFragment.newInstance()
             openFragment(temukanSayaKorban)
         } else {
-            val temukanSayaRescuer = TemukanSayaRescuerFragment.newInstance()
-            openFragment(temukanSayaRescuer)
+            val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
