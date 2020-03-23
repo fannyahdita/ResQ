@@ -1,5 +1,6 @@
 package com.tugasakhir.resq
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -15,7 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.korban.view.PoskoKorbanFragment
-import com.tugasakhir.resq.korban.view.TemukanSayaKorbanFragment
+import com.tugasakhir.resq.korban.view.TemukanSayaActivity
 import com.tugasakhir.resq.rescuer.view.HomeFragment
 import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
@@ -93,8 +94,6 @@ class MainActivity : AppCompatActivity() {
         navigation_temukan.setOnClickListener {
             actionBar.title = getString(R.string.temukansaya_actionbar)
             disableNavigation(navigationView)
-            val temukanSayaFragment = TemukanSayaKorbanFragment.newInstance()
-            openFragment(temukanSayaFragment)
             showTemukanSaya(isKorban)
         }
 
@@ -102,8 +101,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showTemukanSaya(isKorban: Boolean) {
         if (isKorban) {
-            val temukanSayaKorban = TemukanSayaKorbanFragment.newInstance()
-            openFragment(temukanSayaKorban)
+            val intent = Intent(this, TemukanSayaActivity::class.java)
+            startActivity(intent)
         } else {
             val temukanSayaRescuer = TemukanSayaRescuerFragment.newInstance()
             openFragment(temukanSayaRescuer)
