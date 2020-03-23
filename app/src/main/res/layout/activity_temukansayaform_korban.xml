@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_light">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="30dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="40dp"
+            tools:context=".View.SettingProfileActivity">
+
+            <TextView
+                android:id="@+id/textview_bantuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/tv_bantuan"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <RadioGroup
+                android:id="@+id/radio_jenisbantuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_bantuan">
+
+                <RadioButton
+                    android:id="@+id/rb_evakuasi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:buttonTint="@color/black_light"
+                    android:text="@string/rb_evakuasi" />
+
+                <RadioButton
+                    android:id="@+id/rb_makanan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black_light"
+                    android:text="@string/rb_makanan" />
+
+                <RadioButton
+                    android:id="@+id/rb_medis"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/black_light"
+                    android:text="@string/rb_medis" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/textview_jumlahorang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/tv_jumlahorang"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radio_jenisbantuan" />
+
+            <TextView
+                android:id="@+id/textview_lansia"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/tv_lansia"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlahorang" />
+
+            <TextView
+                android:id="@+id/textview_usialansia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/usia_lansia"
+                android:textColor="@color/grey_dark"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_lansia" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/textview_lansia"
+                app:layout_constraintTop_toTopOf="@id/textview_lansia"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <Button
+                    android:id="@+id/decrease_lansia"
+                    style="@style/OutlinedBorder"
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:onClick="increaseInteger"
+                    android:text="-"
+                    android:textAlignment="center"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:id="@+id/integer_number_lansia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black_dark"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/increase_lansia"
+                    style="@style/OutlinedBorder"
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:onClick="increaseInteger"
+                    android:text="+"
+                    android:layout_gravity="center"
+                    android:textSize="26sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textview_dewasa"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/tv_dewasa"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_usialansia" />
+
+            <TextView
+                android:id="@+id/textview_usiadewasa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/usia_dewasa"
+                android:textColor="@color/grey_dark"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_dewasa" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/textview_dewasa"
+                app:layout_constraintTop_toTopOf="@id/textview_dewasa"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <Button
+                    android:id="@+id/decrease_dewasa"
+                    style="@style/OutlinedBorder"
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:onClick="increaseInteger"
+                    android:text="-"
+                    android:textAlignment="center"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:id="@+id/integer_number_dewasa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black_dark"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/increase_dewasa"
+                    style="@style/OutlinedBorder"
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:onClick="increaseInteger"
+                    android:text="+"
+                    android:layout_gravity="center"
+                    android:textSize="26sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textview_anak"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/tv_anak"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_usiadewasa" />
+
+            <TextView
+                android:id="@+id/textview_usiaanak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/usia_anak"
+                android:textColor="@color/grey_dark"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_anak" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/textview_anak"
+                app:layout_constraintTop_toTopOf="@id/textview_anak"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <Button
+                    android:id="@+id/decrease_anak"
+                    style="@style/OutlinedBorder"
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:onClick="increaseInteger"
+                    android:text="-"
+                    android:textAlignment="center"
+                    android:textSize="26sp" />
+
+                <TextView
+                    android:id="@+id/integer_number_anak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_gravity="center"
+                    android:text="0"
+                    android:textColor="@color/black_dark"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/increase_anak"
+                    style="@style/OutlinedBorder"
+                    android:layout_width="40dp"
+                    android:layout_height="38dp"
+                    android:onClick="increaseInteger"
+                    android:text="+"
+                    android:layout_gravity="center"
+                    android:textSize="26sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textview_infotambahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/tv_infotambahan"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_usiaanak" />
+
+            <TextView
+                android:id="@+id/textview_infotambahan_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/tv_infotambahan_detail"
+                android:textColor="@color/grey_dark"
+                android:textStyle="italic"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_infotambahan" />
+
+            <EditText
+                android:id="@+id/edittext_infotambahan"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shape_border_edittext"
+                android:fontFamily="@font/source_sans_pro"
+                android:inputType="textPersonName"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_infotambahan_detail"
+                tools:text="Ada yang asma" />
+
+            <Button
+                android:id="@+id/button_send"
+                style="@style/BlackButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:clickable="true"
+                android:text="@string/button_sendotp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edittext_infotambahan" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbar_name"
+            style="@style/ProgressBarTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </RelativeLayout>
+</ScrollView>
