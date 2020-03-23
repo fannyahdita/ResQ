@@ -1,5 +1,6 @@
 package com.tugasakhir.resq.rescuer.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -32,6 +33,7 @@ class WaterLevelActivity : AppCompatActivity() {
 
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private fun startWebView() {
         progressbar_water_level.max = 100
         webview_water_level.settings.javaScriptEnabled = true
