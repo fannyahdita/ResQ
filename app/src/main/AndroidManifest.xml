@@ -49,17 +49,22 @@
         </activity>
 
         <activity
-            android:name=".korban.BuatAkunActivity"
+            android:name=".korban.view.BuatAkunActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
         <activity
-            android:name=".korban.OTPActivity"
+            android:name=".korban.view.OTPActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
         <activity
-            android:name=".korban.UserNamaActivity"
+            android:name=".korban.view.UserNamaActivity"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
+
+        <activity
+            android:name=".korban.view.TemukanSayaActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 
