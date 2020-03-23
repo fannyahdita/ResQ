@@ -14,6 +14,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tugasakhir.resq.korban.view.PoskoKorbanFragment
+import com.tugasakhir.resq.korban.view.TemukanSayaKorbanFragment
 import com.tugasakhir.resq.rescuer.view.HomeFragment
 import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
