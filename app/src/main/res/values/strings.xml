@@ -65,5 +65,20 @@
     //Fitur temukan saya
     <string name="temukansaya_uppercase">TEMUKAN SAYA</string>
     <string name="bagikan_lokasi">Bagikan lokasimu agar kami dapat segera ke lokasimu dan membantumu</string>
+    <string name="rb_evakuasi">Evakuasi</string>
+    <string name="rb_medis">Bantuan Medis</string>
+    <string name="rb_makanan">Bantuan Makanan</string>
+    <string name="tv_bantuan">Bantuan yang dibutuhkan</string>
+    <string name="tv_jumlahorang">Jumalah orang</string>
+    <string name="tv_lansia">Lansia</string>
+    <string name="tv_dewasa">Dewasa</string>
+    <string name="tv_anak">Anak-anak</string>
+    <string name="tv_infotambahan">Informasi Tambahan</string>
+    <string name="tv_infotambahan_detail">* Infokan apabila ada ibu hamil/penyandang disabilitas/orang dengan penyakit tertentu</string>
+    <string name="status_1">Lokasi telah dikirimkan</string>
+    <string name="status_2">Lokasi telah diterima</string>
+    <string name="status_3">Bantuan sedang dalam perjalanan</string>
+    <string name="button_batalkan">Batalkan</string>
+    <string name="button_kirimpesan">Kirim Pesan</string>
 
 </resources>
