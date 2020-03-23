@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.korban
+package com.tugasakhir.resq.korban.view
 
 import android.content.Context
 import android.content.Intent
