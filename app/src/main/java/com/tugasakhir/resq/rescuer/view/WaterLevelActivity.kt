@@ -67,6 +67,7 @@ class WaterLevelActivity : AppCompatActivity() {
             webview_water_level.goBack()
         } else {
             super.onBackPressed()
+            finish()
         }
     }
 
