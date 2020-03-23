@@ -12,6 +12,7 @@
     <string name="otp_actionbar">Verifikasi OTP</string>
     <string name="temukansaya_actionbar">Temukan Saya</string>
     <string name="victim_name_actionbar">Masukkan Nama</string>
+    <string name="water_level_actionbar">Ketinggian Air</string>
 
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>

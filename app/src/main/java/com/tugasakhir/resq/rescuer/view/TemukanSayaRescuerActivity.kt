@@ -14,7 +14,7 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_temukansaya_rescuer)
+        setContentView(R.layout.activity_temukansaya_rescuer)
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
