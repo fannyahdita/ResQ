@@ -15,7 +15,7 @@ class Status1TemukanKorbanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_temukansayastatus_korban)
+        setContentView(R.layout.fragment_temukansayastatus2_korban)
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
