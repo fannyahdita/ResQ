@@ -64,6 +64,7 @@
     <string name="toast_account_created">Akun berhasil dibuat</string>
     <string name="toast_logged_in">Berhasil masuk</string>
     <string name="toast_exit">Tekan sekali lagi untuk keluar</string>
+    <string name="toast_profile_changed">"Profi berhasil diubah"</string>
 
     //OTP korban
     <string name="message_otp">Masukkan 4 digit angka yang masuk melalui pesan. Jangan berikan OTP kepada orang lain.</string>
