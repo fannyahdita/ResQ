@@ -56,25 +56,6 @@ class ProfileRescuerFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        if (role == "rescuer") {
-            val ref = FirebaseDatabase.getInstance().getReference("Rescuers").child(user.uid)
-            val rescuerFragment = object : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    val rescuer = p0.getValue(Rescuer::class.java)
-                    textview_profile_name.text = rescuer?.name
-                    textview_profile_rescuer_division.text = rescuer?.division
-                }
-
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.wtf("ProfileFragmentError : ", p0.message)
-                }
-            }
-
-            ref.addListenerForSingleValueEvent(rescuerFragment)
-        } else {
-            textview_profile_name.text = "Nama korban"
-        }
-
         button_logout.setOnClickListener {
             button_logout.setTextColor(resources.getColor(R.color.white_light))
             button_logout.setBackgroundResource(R.drawable.shape_bordered_button_clicked)
@@ -84,5 +65,35 @@ class ProfileRescuerFragment : Fragment() {
             activity!!.finish()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (role == "rescuer") {
+            val ref = FirebaseDatabase.getInstance().getReference("Rescuers").child(user.uid)
+            val rescuerFragment = object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    val rescuer = p0.getValue(Rescuer::class.java)
+                    textview_profile_name.text = rescuer?.name
+                    textview_profile_rescuer_division.text = rescuer?.division
+                    textview_profile_rescuer_phone.text = rescuer?.phone
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.wtf("ProfileFragmentError : ", p0.message)
+                }
+
+            }
+
+            ref.addListenerForSingleValueEvent(rescuerFragment)
+
+            button_profile_editprofile.setOnClickListener {
+                val intent = Intent(activity, EditProfileRescuerActivity::class.java)
+                startActivity(intent)
+            }
+        } else {
+            textview_profile_name.text = "Nama korban"
+        }
     }
 }
