@@ -2,6 +2,7 @@ package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,7 +27,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        textview_tips_home.text = Html.fromHtml(getString(R.string.tips_title_home))
         button_waterlevel_beranda.setOnClickListener {
             button_waterlevel_beranda.setBackgroundResource(R.drawable.shape_bordered_button_clicked)
             button_waterlevel_beranda.setTextColor(resources.getColor(R.color.white_dark))
