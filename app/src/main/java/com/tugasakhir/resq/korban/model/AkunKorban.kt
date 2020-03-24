@@ -1,6 +1,6 @@
 package com.tugasakhir.resq.korban.model
 
-data class Korban(
+data class AkunKorban(
     val name: String = "",
     val phone: String = ""
 )
