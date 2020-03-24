@@ -33,7 +33,7 @@
                 android:layout_height="115dp"
                 android:layout_marginStart="5dp"
                 android:background="@drawable/shape_temukansaya_background"
-                app:layout_constraintTop_toTopOf="@id/image_status1"
+                app:layout_constraintTop_toTopOf="@id/image_status2"
                 app:layout_constraintStart_toEndOf="@id/image_status2" />
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:text="Aviliani"
                 android:textColor="@color/black_light"
                 android:textAlignment="center"
