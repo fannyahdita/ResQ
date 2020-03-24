@@ -47,7 +47,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
             .child("phone")
             .setValue(phone)
 
-        Toast.makeText(this, "Profi berhasil diubah", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.toast_profile_changed), Toast.LENGTH_LONG).show()
         finish()
     }
 
