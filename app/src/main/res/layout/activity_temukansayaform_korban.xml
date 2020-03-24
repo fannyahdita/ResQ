@@ -105,9 +105,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/textview_lansia"
                 app:layout_constraintTop_toTopOf="@id/textview_lansia"
                 app:layout_constraintRight_toRightOf="parent">
 
@@ -171,9 +169,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/textview_dewasa"
                 app:layout_constraintTop_toTopOf="@id/textview_dewasa"
                 app:layout_constraintRight_toRightOf="parent">
 
@@ -237,9 +233,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toEndOf="@id/textview_anak"
                 app:layout_constraintTop_toTopOf="@id/textview_anak"
                 app:layout_constraintRight_toRightOf="parent">
 
