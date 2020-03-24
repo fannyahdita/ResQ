@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_light">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:paddingStart="30dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="40dp"
+            tools:context=".View.SettingProfileActivity">
+
+            <ImageView
+                android:id="@+id/image_status3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_status_3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:id="@+id/view_detail"
+                android:layout_width="235dp"
+                android:layout_height="115dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/shape_temukansaya_background"
+                app:layout_constraintTop_toTopOf="@id/image_status3"
+                app:layout_constraintStart_toEndOf="@id/image_status3" />
+
+            <TextView
+                android:id="@+id/textview_nama_rescuer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:text="Aviliani"
+                android:textColor="@color/black_light"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="@id/image_status3"
+                app:layout_constraintStart_toEndOf="@id/image_status3"/>
+
+            <TextView
+                android:id="@+id/textview_nomor_rescuer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="0898989898998"
+                android:textColor="@color/black_dark"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="@id/textview_nama_rescuer"
+                app:layout_constraintTop_toBottomOf="@id/textview_nama_rescuer" />
+
+            <Button
+                android:id="@+id/button_kirimpesan"
+                style="@style/BlackButton"
+                android:layout_width="100dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:text="@string/button_kirimpesan"
+                app:layout_constraintLeft_toLeftOf="@id/textview_nomor_rescuer"
+                app:layout_constraintTop_toBottomOf="@id/textview_nomor_rescuer" />
+
+            <Button
+                android:id="@+id/button_batalkan"
+                style="@style/OutlinedBorder"
+                android:layout_width="100dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="5dp"
+                android:clickable="true"
+                android:text="@string/button_batalkan"
+                app:layout_constraintTop_toTopOf="@id/button_kirimpesan"
+                app:layout_constraintStart_toEndOf="@id/button_kirimpesan" />
+
+            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:paddingStart="30dp"-->
+            <!--            android:paddingEnd="30dp"-->
+            <!--            android:paddingBottom="40dp"-->
+            <!--            app:layout_constraintRight_toRightOf="parent"-->
+            <!--            app:layout_constraintTop_toTopOf="@id/image_status1"-->
+            <!--            tools:context=".View.SettingProfileActivity">-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/textview_nama_rescuer"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="40dp"-->
+            <!--                android:fontFamily="@font/source_sans_pro"-->
+            <!--                android:text="Aviliani"-->
+            <!--                android:textColor="@color/black_dark"-->
+            <!--                android:textAlignment="center"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:gravity="center"-->
+            <!--                android:textSize="18sp"-->
+            <!--                app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/textview_nomor_rescuer"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:fontFamily="@font/source_sans_pro"-->
+            <!--                android:text="0898989898998"-->
+            <!--                android:textColor="@color/black_dark"-->
+            <!--                android:textAlignment="center"-->
+            <!--                android:textStyle="bold"-->
+            <!--                android:gravity="center"-->
+            <!--                android:textSize="18sp"-->
+            <!--                app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/textview_nama_rescuer" />-->
+
+
+            <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+            <ImageView
+                android:id="@+id/image_garis_status3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_garis_status3"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_status3"/>
+
+            <TextView
+                android:id="@+id/textview_status3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/bg_status_temukansaya"
+                android:fontFamily="@font/raleway"
+                android:text="@string/status_3"
+                android:textColor="@color/black_dark"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_status3" />
+
+            <TextView
+                android:id="@+id/textview_status2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="26dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/bg_status_temukansaya_non"
+                android:fontFamily="@font/raleway"
+                android:text="@string/status_2"
+                android:textColor="@color/black_dark"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_status3" />
+
+            <TextView
+                android:id="@+id/textview_status1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginVertical="26dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/bg_status_temukansaya_non"
+                android:fontFamily="@font/raleway"
+                android:text="@string/status_1"
+                android:textColor="@color/black_dark"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_status2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbar_name"
+            style="@style/ProgressBarTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </RelativeLayout>
+</ScrollView>
