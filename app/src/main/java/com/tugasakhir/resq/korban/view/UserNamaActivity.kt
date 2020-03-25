@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.model.Korban
+import com.tugasakhir.resq.korban.model.AkunKorban
 import kotlinx.android.synthetic.main.activity_korban_nama.*
 
 class UserNamaActivity : AppCompatActivity() {
@@ -49,8 +49,8 @@ class UserNamaActivity : AppCompatActivity() {
         progressbar_name.visibility = View.VISIBLE
         button_signup_continue.isClickable = false
         button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button_clicked)
-        val korban = Korban(name, phone)
-        FirebaseDatabase.getInstance().getReference("Korban")
+        val korban = AkunKorban(name, phone)
+        FirebaseDatabase.getInstance().getReference("AkunKorban")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
             .setValue(korban).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
