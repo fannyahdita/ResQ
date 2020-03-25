@@ -1,22 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_light">
 
-    <TextView
-        android:id="@+id/textview_test_temukansaya_rescuer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/raleway"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="TEMUKAN SAYA PUNYA RESCUER"/>
+    <fragment
+        android:id="@+id/fragment_map_rescuer"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_detail_marker"
+        android:layout_width="match_parent"
+        android:layout_height="209dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white_light"
+        android:paddingStart="20dp"
+        android:visibility="gone"
+        tools:visibility="visible">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/button_close_detail"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_victim_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/source_sans_pro"
+            android:maxLines="1"
+            android:layout_marginEnd="20dp"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_close_detail"
+            tools:text="Bukit Cimanggu City Blok M5B No 20 Cluster Royal Lake side kacecamatan hshdhhrjdfh" />
+
+        <TextView
+            android:id="@+id/textview_victim_latitude_longitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_victim_address"
+            tools:text="-56.86520173, 67.97981735" />
+
+        <Button
+            android:id="@+id/button_detail_victim"
+            style="@style/BlackButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/button_victim_data"
+            app:layout_constraintEnd_toEndOf="@id/button_i_want_to_help"
+            app:layout_constraintStart_toStartOf="@id/button_i_want_to_help"
+            app:layout_constraintTop_toBottomOf="@id/textview_victim_latitude_longitude" />
+
+        <Button
+            android:id="@+id/button_i_want_to_help"
+            style="@style/OutlinedBorder"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:text="@string/button_i_want_to_help"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_detail_victim" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
