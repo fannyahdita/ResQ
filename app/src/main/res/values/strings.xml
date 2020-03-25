@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ResQ</string>
+    <string name="google_maps_key">AIzaSyBePgHkMuyK5-s3iC4Ka_-h5eyPo1K0eAI</string>
 
     //actionBar title
     <string name="app_name_actionbar">Res-Q</string>
