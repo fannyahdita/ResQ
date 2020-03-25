@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:text="Data Korban"
+            android:text="@string/button_victim_data"
             app:layout_constraintEnd_toEndOf="@id/button_i_want_to_help"
             app:layout_constraintStart_toStartOf="@id/button_i_want_to_help"
             app:layout_constraintTop_toBottomOf="@id/textview_victim_latitude_longitude" />
@@ -76,7 +76,7 @@
             android:layout_marginTop="10dp"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="Saya Ingin Membantu"
+            android:text="@string/button_i_want_to_help"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_detail_victim" />
