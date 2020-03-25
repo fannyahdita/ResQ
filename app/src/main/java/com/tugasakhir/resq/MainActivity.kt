@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         openFragment(homeFragment)
 
         val user = FirebaseAuth.getInstance().currentUser?.uid
-        FirebaseDatabase.getInstance().reference.child("Korban/$user")
+        FirebaseDatabase.getInstance().reference.child("AkunKorban/$user")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
