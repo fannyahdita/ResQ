@@ -10,15 +10,20 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.model.InfoKorban
 import kotlinx.android.synthetic.main.activity_temukansayaform_korban.*
+import kotlinx.android.synthetic.main.activity_temukansayaform_korban.progressbar_name
 
 class FormTemukanKorbanActivity : AppCompatActivity() {
 
@@ -29,11 +34,16 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
     var status: Int = 0
     var long: String = ""
     var lat: String = ""
-    var isEvakuasi: Boolean = false
+    var isEvakuasi: Boolean = true
     var isMakanan: Boolean = false
     var isMedis: Boolean = false
+    var idKorban: String = ""
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
+
+    private lateinit var firebaseAuth: FirebaseAuth
+
+    lateinit var ref : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,23 +54,33 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
+        firebaseAuth = FirebaseAuth.getInstance()
+
+
+        ref = FirebaseDatabase.getInstance().getReference("InfoKorban")
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
+        getIdKorban()
 
         radio_jenisbantuan.setOnCheckedChangeListener { group, checkedId ->
             if (R.id.rb_evakuasi == checkedId) {
                 isEvakuasi = true
+                isMedis = false
+                isMakanan = false
             } else if (R.id.rb_makanan == checkedId) {
                 isMakanan = true
+                isEvakuasi = false
+                isMedis = false
             } else if (R.id.rb_medis == checkedId) {
                 isMedis = true
+                isEvakuasi = false
+                isMakanan = false
             }
         }
 
         button_send.setOnClickListener {
             getDataKorban()
-//            val intent = Intent(this, Status1TemukanKorbanActivity::class.java)
-//            startActivity(intent)
         }
 
         decrease_lansia.setOnClickListener {
@@ -127,21 +147,52 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
         }
     }
 
+    private fun getIdKorban() {
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        FirebaseDatabase.getInstance().reference.child("AkunKorban/$user")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    idKorban = p0.key.toString()
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("DatabaseReference : ", "user with id $user is not exist")
+                    Toast.makeText(this@FormTemukanKorbanActivity, p0.message, Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
+
     private fun getDataKorban() {
+        progressbar_name.visibility = View.VISIBLE
+
         val lansia = integer_number_lansia.text.toString().trim()
         val dewasa = integer_number_dewasa.text.toString().trim()
         val anak = integer_number_anak.text.toString().trim()
         val infoTambahan = edittext_infotambahan.text.toString().trim()
 
-        val builder = AlertDialog.Builder(this@FormTemukanKorbanActivity)
-        builder.setTitle("Datanya")
-        builder.setMessage("Latitude" + lat + " Longitude" + long + " jumlah Lansia " + lansia + " jumlah dewasa " + dewasa + " jumlah anak " + anak +
-            " info tambahan " + infoTambahan + " evakuasi " + isEvakuasi.toString() + " makanan " + isMakanan.toString() + " medis " + isMedis.toString())
-        builder.setNeutralButton("Oke"){_,_ ->
+        val userId = ref.push().key.toString()
 
+        val korban = InfoKorban(idKorban, lat, long, lansia.toInt(), dewasa.toInt(), anak.toInt(), infoTambahan, isMakanan, isMedis, isEvakuasi)
+        ref.child(userId).setValue(korban).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+//                val builder = AlertDialog.Builder(this@FormTemukanKorbanActivity)
+//                builder.setTitle("Datanya")
+//                builder.setMessage("Latitude" + lat + " Longitude" + long + " jumlah Lansia " + lansia + " jumlah dewasa " + dewasa + " jumlah anak " + anak +
+//                        " info tambahan " + infoTambahan + " evakuasi " + isEvakuasi.toString() + " makanan " + isMakanan.toString() + " medis " + isMedis.toString())
+//                builder.setNeutralButton("Oke"){_,_ ->
+//                }
+//                val dialog: AlertDialog = builder.create()
+//                dialog.show()
+                progressbar_name.visibility = View.GONE
+                val intent = Intent(this, Status1TemukanKorbanActivity::class.java)
+                startActivity(intent)
+
+
+            } else {
+
+            }
         }
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
+
 
     }
 
