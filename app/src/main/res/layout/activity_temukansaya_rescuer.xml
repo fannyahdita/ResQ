@@ -18,7 +18,9 @@
         android:layout_height="209dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white_light"
-        android:visibility="gone">
+        android:paddingStart="20dp"
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/button_close_detail"
@@ -34,13 +36,15 @@
             android:id="@+id/textview_victim_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
+            android:ellipsize="end"
             android:fontFamily="@font/source_sans_pro"
+            android:maxLines="1"
+            android:layout_marginEnd="20dp"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Jalan Tebet Raya No. 4" />
+            app:layout_constraintTop_toBottomOf="@id/button_close_detail"
+            tools:text="Bukit Cimanggu City Blok M5B No 20 Cluster Royal Lake side kacecamatan hshdhhrjdfh" />
 
         <TextView
             android:id="@+id/textview_victim_latitude_longitude"

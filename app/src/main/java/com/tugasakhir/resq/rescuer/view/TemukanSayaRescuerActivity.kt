@@ -1,11 +1,11 @@
 package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,15 +19,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.model.Korban
 import kotlinx.android.synthetic.main.activity_temukansaya_rescuer.*
+import java.util.*
 
 class TemukanSayaRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var googleMap: GoogleMap
-    private lateinit var korban: Korban
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +52,8 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                         val longitude = it.child("longitude").value.toString().toDouble()
                         val victimId = it.child("idKorban").value.toString()
 
-                        Log.d("MAPSSS : ", "$latitude, $longitude, $victimId")
                         setMaps(latitude, longitude, victimId, uid)
+
                     }
                 }
 
@@ -65,14 +64,29 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     }
 
     private fun setMaps(latitude: Double, longitude: Double, victimId: String, uid: String) {
-        mapFragment.getMapAsync {
-            googleMap = it
+        mapFragment.getMapAsync { it ->
             val location = LatLng(latitude, longitude)
-            googleMap.addMarker(MarkerOptions().position(location).title(victimId))
-            googleMap.animateCamera(CameraUpdateFactory.newLatLng(location))
+            it.isMyLocationEnabled = true
+            it.addMarker(MarkerOptions().position(location).title(victimId))
+            it.animateCamera(CameraUpdateFactory.newLatLng(location))
+            it.setOnMarkerClickListener {
+                layout_detail_marker.visibility = View.VISIBLE
+                button_close_detail.setOnClickListener {
+                    layout_detail_marker.visibility = View.GONE
+                }
+                textview_victim_latitude_longitude.text = "${it.position.latitude}, ${it.position.longitude}"
+                textview_victim_address.text =
+                    getAddress(it.position.latitude, it.position.longitude)
+                return@setOnMarkerClickListener true
+            }
         }
     }
 
+    private fun getAddress(latitude: Double, longitude: Double): String {
+        val geocode = Geocoder(this, Locale.getDefault())
+        val address = geocode.getFromLocation(latitude, longitude, 1)
+        return address[0].getAddressLine(0)
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
