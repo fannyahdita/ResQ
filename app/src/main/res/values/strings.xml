@@ -13,6 +13,7 @@
     <string name="temukansaya_actionbar">Temukan Saya</string>
     <string name="victim_name_actionbar">Masukkan Nama</string>
     <string name="water_level_actionbar">Ketinggian Muka Air</string>
+    <string name="edit_profil_actionbar">Ubah Profil</string>
 
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>
@@ -49,6 +50,12 @@
     <string name="signup_phone">No. HP</string>
     <string name="button_name_continue">Lanjut</string>
 
+    // Home
+    <string name="location_home">Lokasi Anda</string>
+    <string name="tips_title_home"><![CDATA[<b>Tangkas Tanggap Tangguh</b><br>Menghadapi Bencana Banjir]]></string>
+    <string name="waterlevel_button">Informasi ketinggian Pintu Air</string>
+    <string name="bnpb_home">Badan Nasional Penanggulangan Bencana</string>
+
     //Form Error messages and Toast messages
     <string name="field_is_empty">Wajib diisi</string>
     <string name="password_must_six_char">Kata sandi minimal terdiri dari 6 karakter</string>
@@ -57,6 +64,7 @@
     <string name="toast_account_created">Akun berhasil dibuat</string>
     <string name="toast_logged_in">Berhasil masuk</string>
     <string name="toast_exit">Tekan sekali lagi untuk keluar</string>
+    <string name="toast_profile_changed">"Profi berhasil diubah"</string>
 
     //OTP korban
     <string name="message_otp">Masukkan 4 digit angka yang masuk melalui pesan. Jangan berikan OTP kepada orang lain.</string>
@@ -90,4 +98,16 @@
     <string name="button_batalkan">Batalkan</string>
     <string name="button_kirimpesan">Kirim Pesan</string>
 
+    //Edit Profil
+    <string name="choose_photo_edit">Ubah Foto Profil</string>
+    <string name="edit_photo_edit">Pilih Foto</string>
+    <string name="change_photo">Ganti</string>
+    <string name="name_edit_profile">Nama Lengkap</string>
+    <string name="phone_profile">No. HP</string>
+    <string name="instansi_profile">Instansi</string>
+    <string name="division_profile">Divisi</string>
+    <string name="employeeid_profile">EmployeeID</string>
+    <string name="email_profile">Email</string>
+    <string name="password_profile">Ubah Kata Sandi</string>
+    <string name="edit_profile_save">Simpan</string>
 </resources>
