@@ -77,7 +77,7 @@
     <string name="log_out_button">Keluar</string>
     <string name="history_title">Riwayat Pertolongan</string>
 
-    //Fitur temukan saya
+    //temukan saya korban
     <string name="temukansaya_uppercase">TEMUKAN SAYA</string>
     <string name="bagikan_lokasi">Bagikan lokasimu agar kami dapat segera ke lokasimu dan membantumu</string>
     <string name="rb_evakuasi">Evakuasi</string>
@@ -98,6 +98,10 @@
     <string name="status_3">Bantuan sedang dalam perjalanan</string>
     <string name="button_batalkan">Batalkan</string>
     <string name="button_kirimpesan">Kirim Pesan</string>
+
+    //temukan saya rescuer
+    <string name="button_victim_data">Data Korban</string>
+    <string name="button_i_want_to_help">Saya Ingin Membantu</string>
 
     //Edit Profil
     <string name="choose_photo_edit">Ubah Foto Profil</string>
