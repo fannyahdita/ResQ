@@ -76,7 +76,7 @@
         </activity>
 
         <activity
-            android:name=".korban.view.Status1TemukanKorbanActivity"
+            android:name=".korban.view.StatusTemukanKorbanActivity"
             android:theme="@style/AppTheme.CustomTheme">
         </activity>
 

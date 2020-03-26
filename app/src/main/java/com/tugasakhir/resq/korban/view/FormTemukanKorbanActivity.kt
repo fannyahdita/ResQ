@@ -184,7 +184,7 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
 //                val dialog: AlertDialog = builder.create()
 //                dialog.show()
                 progressbar_name.visibility = View.GONE
-                val intent = Intent(this, Status1TemukanKorbanActivity::class.java)
+                val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
                 startActivity(intent)
 
 
