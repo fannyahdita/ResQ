@@ -90,7 +90,7 @@
     <string name="tv_anak">Anak-anak</string>
     <string name="tv_infotambahan">Informasi Tambahan</string>
     <string name="usia_lansia">Usia > 60 tahun</string>
-    <string name="usia_dewasa">Usia 10 - 60 tahun</string>
+    <string name="usia_dewasa">Usia 10 – 60 tahun</string>
     <string name="usia_anak">Usia &lt; 10 tahun </string>
     <string name="tv_infotambahan_detail">* Infokan apabila ada ibu hamil/penyandang disabilitas/orang dengan penyakit tertentu</string>
     <string name="status_1">Lokasi telah dikirimkan</string>
@@ -102,6 +102,8 @@
     //temukan saya rescuer
     <string name="button_victim_data">Data Korban</string>
     <string name="button_i_want_to_help">Saya Ingin Membantu</string>
+    <string name="lat_long"><![CDATA[%s, %s]]></string>
+    <string name="detail_victim"><![CDATA[<br><b>%s</b><br><br>%s<br><br><b>Jumlah Orang:</b><br>%s lansia<br>%s dewasa<br>%s anak<br><br><b>Info Tambahan:</b><br>%s]]></string>
 
     //Edit Profil
     <string name="choose_photo_edit">Ubah Foto Profil</string>
