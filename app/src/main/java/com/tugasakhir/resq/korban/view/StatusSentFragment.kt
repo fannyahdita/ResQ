@@ -27,15 +27,15 @@ class StatusSentFragment : Fragment() {
         button_batalkan.setOnClickListener {
 
             val builder = AlertDialog.Builder(activity!!)
-            builder.setTitle("Batalkan Permintaan Bantuan")
-            builder.setMessage("Bantuan Anda akan segera ditangani, apakah Anda yakin ingin membatalkan?")
-            builder.setNegativeButton("Tetap Batalkan"){_,_ ->
+            builder.setTitle(R.string.alert_batalkan)
+            builder.setMessage(R.string.alert_batalkan_status1)
+            builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
                 val intent = Intent(activity, MainActivity::class.java)
                 startActivity(intent)
                 activity!!.finish()
             }
 
-            builder.setPositiveButton("Jangan Batalkan"){_,_ ->
+            builder.setPositiveButton(R.string.alert_jangan_batalkan){_,_ ->
 
             }
             val dialog: AlertDialog = builder.create()
