@@ -66,8 +66,10 @@
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".korban.view.Status1TemukanKorbanActivity"
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:name=".korban.view.StatusTemukanKorbanActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.CustomTheme">
+        </activity>
 
         <activity
             android:name=".rescuer.view.WaterLevelActivity"

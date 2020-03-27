@@ -1,10 +1,9 @@
 package com.tugasakhir.resq.korban.model
 
-data class Korban(
+data class InfoKorban(
     val idKorban: String = "",
     val latitude: String = "",
     val longitude: String = "",
-    val isEvacuated: Boolean = false,
     val jumlahLansia: Int = 0,
     val jumlahDewasa: Int = 0,
     val jumlahAnak: Int = 0,

@@ -97,6 +97,12 @@
     <string name="status_3">Bantuan sedang dalam perjalanan</string>
     <string name="button_batalkan">Batalkan</string>
     <string name="button_kirimpesan">Kirim Pesan</string>
+    <string name="alert_batalkan_status1">Bantuan Anda akan segera ditangani, apakah Anda yakin ingin membatalkan?</string>
+    <string name="alert_batalkan_status2">Bantuan Anda sudah ditangani oleh tim penolong, apakah Anda yakin ingin membatalkan?</string>
+    <string name="alert_batalkan_status3">Bantuan Anda sudah dalam perjalanan, apakah Anda yakin ingin membatalkan?</string>
+    <string name="alert_batalkan">Batalkan Permintaan Bantuan</string>
+    <string name="alert_jangan_batalkan">Jangan Batalkan</string>
+    <string name="alert_tetap_batalkan">Tetap Batalkan</string>
 
     //temukan saya rescuer
     <string name="button_victim_data">Data Korban</string>
