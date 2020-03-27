@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.Korban
-import com.tugasakhir.resq.rescuer.InfoKorbanData
+import com.tugasakhir.resq.rescuer.VictimInfoData
 import kotlinx.android.synthetic.main.activity_temukansaya_rescuer.*
 
 class TemukanSayaRescuerActivity : AppCompatActivity() {
@@ -27,7 +27,7 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var korban: Korban
-    private lateinit var infoKorbanData: InfoKorbanData
+    private lateinit var victimInfoData: VictimInfoData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
-        infoKorbanData = InfoKorbanData()
+        victimInfoData = VictimInfoData()
 
         layout_detail_marker.visibility = View.GONE
 
@@ -50,13 +50,18 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         button_close_detail.setOnClickListener { layout_detail_marker.visibility = View.GONE }
     }
 
-    private fun setMaps(korban: Korban, victimId: String) {
-        mapFragment.getMapAsync { gmap ->
+    private fun setMaps(korban: Korban, victimInfoId: String) {
+        mapFragment.getMapAsync { gMap ->
             val location = LatLng(korban.latitude.toDouble(), korban.longitude.toDouble())
-            gmap.isMyLocationEnabled = true
-            gmap.addMarker(MarkerOptions().position(location).title(victimId))
-            gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
-            gmap.setOnMarkerClickListener { marker ->
+            gMap.isMyLocationEnabled = true
+            gMap.addMarker(
+                MarkerOptions().position(location).title("$victimInfoId-${korban.idKorban}")
+            )
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
+            gMap.setOnMarkerClickListener { marker ->
+
+                val allIds = marker.title.split("-")
+
                 layout_detail_marker.visibility = View.VISIBLE
                 textview_victim_latitude_longitude.text = Html.fromHtml(
                     getString(
@@ -65,13 +70,19 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                     )
                 )
                 textview_victim_address.text =
-                    infoKorbanData.getAddress(
+                    victimInfoData.getAddress(
                         marker.position.latitude,
                         marker.position.longitude,
                         this
                     )
                 button_detail_victim.setOnClickListener {
-                    infoKorbanData.setDetailMaps(marker.title.toString(), this)
+                    victimInfoData.setDetailMaps(allIds[0], this)
+                }
+
+                button_i_want_to_help.setOnClickListener {
+                    //kirim id infoKorban
+                    //intent ke help victim
+                    //bikin korbantertolong
                 }
                 return@setOnMarkerClickListener true
             }

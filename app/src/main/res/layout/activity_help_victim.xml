@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textview_name_victim_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="27sp"
+            android:textStyle="bold"
+            tools:text="Budi Haryono" />
+
+        <TextView
+            android:id="@+id/textview_help_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="20sp"
+            tools:text="Bantuan Evakuasi" />
+
+        <TextView
+            android:id="@+id/textview_address_victim_help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="20sp"
+            tools:text="Bukit Cimanggu City Blok M5B no 20 Cluster Royal Lakeside, Tanah Sareal, Sukadamai, Kota Bogor, Jawa Barat, 16165 Indonesia" />
+
+        <TextView
+            android:id="@+id/textview_title_victim_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/source_sans_pro"
+            android:text="Jumlah Orang: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textview_number_of_elderly_victim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="20sp"
+            tools:text="0 Lansia" />
+
+        <TextView
+            android:id="@+id/textview_number_of_adult_victim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="20sp"
+            tools:text="0 Dewasa" />
+
+        <TextView
+            android:id="@+id/textview_number_of_child_victim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="20sp"
+            tools:text="0 Anak" />
+
+        <TextView
+            android:id="@+id/textview_title_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/source_sans_pro"
+            android:text="Informasi Tambahan: "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textview_victim_additional_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="20sp"
+            tools:text="Butuh bantuan untuk mengangkut ibu hamil" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp">
+
+            <Button
+                android:id="@+id/button_open_maps_help"
+                style="@style/OutlinedBorder"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:text="Buka Peta"
+                app:layout_constraintEnd_toStartOf="@id/button_open_chat_help"
+                app:layout_constraintStart_toStartOf="@id/button_rescuer_on_the_way"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_open_chat_help"
+                style="@style/OutlinedBorder"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:text="Kirim Pesan"
+                app:layout_constraintEnd_toEndOf="@id/button_rescuer_on_the_way"
+                app:layout_constraintStart_toEndOf="@id/button_open_maps_help"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/button_rescuer_on_the_way"
+                style="@style/BlackButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:text="Saya Menuju Korban"
+                app:layout_constraintTop_toBottomOf="@id/button_open_maps_help" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

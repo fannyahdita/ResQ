@@ -13,7 +13,7 @@ import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.Korban
 import java.util.*
 
-class InfoKorbanData {
+class VictimInfoData {
 
     fun setDetailMaps(victimId: String, context: Context) {
         FirebaseDatabase.getInstance().getReference("InfoKorban")
@@ -97,4 +97,5 @@ class InfoKorbanData {
         val address = geocode.getFromLocation(latitude, longitude, 1)
         return address[0].getAddressLine(0)
     }
+
 }
