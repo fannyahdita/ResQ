@@ -65,12 +65,16 @@ class VictimInfoData {
 
     private fun makeAlertDialog(korban: InfoKorban, name: String, context: Context) {
         val alertDialog = AlertDialog.Builder(context)
-        val bantuan = if (korban.bantuanMakanan) {
-            "Bantuan Makanan"
-        } else if (korban.bantuanMedis) {
-            "Bantuan Medis"
-        } else {
-            "Bantuan Evakuasi"
+        val helpType = when {
+            korban.bantuanMakanan -> {
+                "Bantuan Makanan"
+            }
+            korban.bantuanMedis -> {
+                "Bantuan Medis"
+            }
+            else -> {
+                "Bantuan Evakuasi"
+            }
         }
         val address = getAddress(korban.latitude.toDouble(), korban.longitude.toDouble(), context)
         alertDialog.setTitle(name)
@@ -78,7 +82,7 @@ class VictimInfoData {
             Html.fromHtml(
                 context.getString(
                     R.string.detail_victim,
-                    bantuan,
+                    helpType,
                     address,
                     korban.jumlahLansia.toString(),
                     korban.jumlahDewasa.toString(),

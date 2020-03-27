@@ -109,6 +109,11 @@
     <string name="button_i_want_to_help">Saya Ingin Membantu</string>
     <string name="lat_long"><![CDATA[%s, %s]]></string>
     <string name="detail_victim"><![CDATA[<br><b>%s</b><br><br>%s<br><br><b>Jumlah Orang:</b><br>%s lansia<br>%s dewasa<br>%s anak<br><br><b>Info Tambahan:</b><br>%s]]></string>
+    <string name="victim_number">Jumlah Orang:</string>
+    <string name="additional_info">Informasi Tambahan:</string>
+    <string name="number_of_elderly"><![CDATA[<b>%s</b> Lansia]]></string>
+    <string name="number_of_adults"><![CDATA[<b>%s</b> Dewasa]]></string>
+    <string name="number_of_children"><![CDATA[<b>%s</b> Anak-anak]]></string>
 
     //Edit Profil
     <string name="choose_photo_edit">Ubah Foto Profil</string>
