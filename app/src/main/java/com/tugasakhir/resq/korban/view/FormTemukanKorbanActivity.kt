@@ -186,6 +186,7 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
                 progressbar_name.visibility = View.GONE
                 val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
                 startActivity(intent)
+                finish()
 
 
             } else {

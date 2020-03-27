@@ -17,10 +17,8 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
-import com.tugasakhir.resq.rescuer.view.HomeFragment
-import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
 
-class Status1TemukanKorbanActivity : AppCompatActivity() {
+class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var mHandler: Handler
@@ -31,16 +29,17 @@ class Status1TemukanKorbanActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.fragment_main_status_korban)
 
-        val homeFragment = HomeFragment.newInstance()
-        openFragment(homeFragment)
+        val statusSent = StatusSentFragment.newInstance()
+        openFragment(statusSent)
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
+        updateStatus()
         mHandler = Handler()
 
         runnableCode.run()
@@ -52,16 +51,22 @@ class Status1TemukanKorbanActivity : AppCompatActivity() {
 //            checkStatus()
             updateFragment(accept, running)
 
-            Toast.makeText(this@Status1TemukanKorbanActivity, "Jalanin Runnable", Toast.LENGTH_LONG).show()
-            if (!running) {
-                running = true
-            } else {
+            Toast.makeText(this@StatusTemukanKorbanActivity, "Jalanin Runnable", Toast.LENGTH_LONG).show()
+            if (!accept) {
                 accept = true
+            } else {
+                running = true
             }
 
             mHandler.postDelayed(this, 10000)
 
         }
+    }
+
+    private fun updateStatus() {
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(true)
+
     }
 
     private fun checkStatus() {
@@ -70,24 +75,24 @@ class Status1TemukanKorbanActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     val korbanTertolong = p0.getValue(KorbanTertolong::class.java)
-                    updateFragment(korbanTertolong!!.isAccepted, korbanTertolong!!.isRunning)
+                    updateFragment(korbanTertolong!!.isAccepted, korbanTertolong!!.isOntheWay)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
                     Log.d("DatabaseReference : ", "user with id $user is not exist")
-                    Toast.makeText(this@Status1TemukanKorbanActivity, p0.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@StatusTemukanKorbanActivity, p0.message, Toast.LENGTH_SHORT).show()
                 }
             })
 
     }
 
     private fun updateFragment(isAccepted: Boolean, isRunning: Boolean) {
-        if (isAccepted) {
-            val poskoKorban = PoskoKorbanFragment.newInstance()
-            openFragment(poskoKorban)
-        } else if (isRunning) {
-            val poskoRescuer = PoskoRescuerFragment.newInstance()
-            openFragment(poskoRescuer)
+        if (isRunning) {
+            val runningFragment = StatusRunningFragment.newInstance()
+            openFragment(runningFragment)
+        } else if (isAccepted) {
+            val acceptedFragment = StatusAcceptedFragment.newInstance()
+            openFragment(acceptedFragment)
         }
     }
 
@@ -103,11 +108,20 @@ class Status1TemukanKorbanActivity : AppCompatActivity() {
             android.R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        mHandler.removeCallbacks(runnableCode)
+
+        val user = FirebaseAuth.getInstance().currentUser?.uid
+        FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
+
     }
 
 }
