@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.model.Korban
+import com.tugasakhir.resq.korban.model.InfoKorban
 import java.util.*
 
 class VictimInfoData {
@@ -36,11 +36,10 @@ class VictimInfoData {
                         .child(uid).child("name")
                         .addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
-                                val korban = Korban(
+                                val korban = InfoKorban(
                                     uid,
                                     latitude,
                                     longitude,
-                                    false,
                                     elderly,
                                     adult,
                                     children,
@@ -64,7 +63,7 @@ class VictimInfoData {
             })
     }
 
-    private fun makeAlertDialog(korban: Korban, name: String, context: Context) {
+    private fun makeAlertDialog(korban: InfoKorban, name: String, context: Context) {
         val alertDialog = AlertDialog.Builder(context)
         val bantuan = if (korban.bantuanMakanan) {
             "Bantuan Makanan"
