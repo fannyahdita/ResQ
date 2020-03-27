@@ -24,6 +24,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     var accept: Boolean = false
     var running: Boolean = false
+    var finish: Boolean = false
     var userId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,9 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
-        userId = intent.getStringExtra(EXTRA_ID_INFOKORBAN)
+        if (intent.getStringExtra(EXTRA_PREV_ACTIVITY) == "Form") {
+            userId = intent.getStringExtra(EXTRA_ID_INFOKORBAN)
+        }
 
         updateStatus()
         mHandler = Handler()
@@ -50,15 +53,17 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     val runnableCode = object: Runnable {
         override fun run() {
-            checkStatus(userId)
-            updateFragment(accept, running)
+//            checkStatus(userId)
+            updateFragment(accept, running, finish)
 
             Toast.makeText(this@StatusTemukanKorbanActivity, "Jalanin Runnable", Toast.LENGTH_LONG).show()
-//            if (!accept) {
-//                accept = true
-//            } else {
-//                running = true
-//            }
+            if (!accept) {
+                accept = true
+            } else if (!running) {
+                running = true
+            } else if (!finish) {
+                finish = true
+            }
 
             mHandler.postDelayed(this, 10000)
 
@@ -80,8 +85,11 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                     children.forEach {
                         Log.d("IDINFOKORBAN 1 : ", userId)
                         Log.d("IDINFOKORBAN 2 : ", it.child("idInfoKorban").value.toString())
-                        if (userId.equals(it.child("idInfoKorban").value.toString()) && it.child("finished").value!!.equals(false)) {
-                            updateFragment(it.child("accepted").value!!.equals(true), it.child("onTheWay").value!!.equals(true))
+                        if (userId.equals(it.child("idInfoKorban").value.toString())) {
+                            updateFragment(it.child("accepted").value!!.equals(true),
+                                it.child("onTheWay").value!!.equals(true),
+                                it.child("finished").value!!.equals(true)
+                            )
                         }
                     }
                 }
@@ -93,8 +101,15 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     }
 
-    private fun updateFragment(isAccepted: Boolean, isRunning: Boolean) {
-        if (isRunning) {
+    private fun updateFragment(isAccepted: Boolean, isRunning: Boolean, isFinished: Boolean) {
+        if (isFinished) {
+            val user = FirebaseAuth.getInstance().currentUser?.uid
+            FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if (isRunning) {
             val runningFragment = StatusRunningFragment.newInstance()
             openFragment(runningFragment)
         } else if (isAccepted) {
@@ -125,9 +140,6 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         super.onDestroy()
 
         mHandler.removeCallbacks(runnableCode)
-
-        val user = FirebaseAuth.getInstance().currentUser?.uid
-        FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
 
     }
 
