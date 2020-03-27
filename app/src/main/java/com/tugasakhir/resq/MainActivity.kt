@@ -80,7 +80,9 @@ class MainActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
-                    isAskingHelp = p0.child("askingHelp").value!!.equals(true)
+                    if (isKorban) {
+                        isAskingHelp = p0.child("askingHelp").value!!.equals(true)
+                    }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {

@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.InfoKorban
 import kotlinx.android.synthetic.main.activity_temukansayaform_korban.*
@@ -129,7 +130,8 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
                 finish()
                 true
             }
