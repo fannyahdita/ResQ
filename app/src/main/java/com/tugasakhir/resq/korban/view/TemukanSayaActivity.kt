@@ -25,6 +25,7 @@ class TemukanSayaActivity : AppCompatActivity() {
         temukansaya_button.setOnClickListener {
             val intent = Intent(this, FormTemukanKorbanActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

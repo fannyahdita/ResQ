@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.korban.view.PoskoKorbanFragment
+import com.tugasakhir.resq.korban.view.StatusTemukanKorbanActivity
 import com.tugasakhir.resq.korban.view.TemukanSayaActivity
 import com.tugasakhir.resq.rescuer.view.HomeFragment
 import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private var isKorban: Boolean = false
+    private var isAskingHelp: Boolean = false
     private var doubleBackToExitPressedOnce = false
 
     private val mOnNavigationItemSelectedListener =
@@ -73,10 +75,14 @@ class MainActivity : AppCompatActivity() {
         openFragment(homeFragment)
 
         val user = FirebaseAuth.getInstance().currentUser?.uid
+
         FirebaseDatabase.getInstance().reference.child("AkunKorban/$user")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
+                    if (isKorban) {
+                        isAskingHelp = p0.child("askingHelp").value!!.equals(true)
+                    }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -104,11 +110,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun showTemukanSaya(isKorban: Boolean) {
         if (isKorban) {
-            val intent = Intent(this, TemukanSayaActivity::class.java)
-            startActivity(intent)
+            if (isAskingHelp) {
+                val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this, TemukanSayaActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         } else {
             val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 
