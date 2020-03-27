@@ -16,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.model.KorbanTertolong
 
 class StatusTemukanKorbanActivity : AppCompatActivity() {
 
@@ -25,6 +24,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     var accept: Boolean = false
     var running: Boolean = false
+    var userId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +39,8 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
+        userId = intent.getStringExtra(EXTRA_ID_INFOKORBAN)
+
         updateStatus()
         mHandler = Handler()
 
@@ -48,15 +50,15 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     val runnableCode = object: Runnable {
         override fun run() {
-//            checkStatus()
+            checkStatus(userId)
             updateFragment(accept, running)
 
             Toast.makeText(this@StatusTemukanKorbanActivity, "Jalanin Runnable", Toast.LENGTH_LONG).show()
-            if (!accept) {
-                accept = true
-            } else {
-                running = true
-            }
+//            if (!accept) {
+//                accept = true
+//            } else {
+//                running = true
+//            }
 
             mHandler.postDelayed(this, 10000)
 
@@ -69,18 +71,23 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     }
 
-    private fun checkStatus() {
+    private fun checkStatus(userId: String) {
         val user = FirebaseAuth.getInstance().currentUser?.uid
-        FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$user")
-            .addValueEventListener(object : ValueEventListener {
+        FirebaseDatabase.getInstance().getReference("KorbanTertolong")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    val korbanTertolong = p0.getValue(KorbanTertolong::class.java)
-                    updateFragment(korbanTertolong!!.isAccepted, korbanTertolong!!.isOntheWay)
+                    val children = p0.children
+                    children.forEach {
+                        Log.d("IDINFOKORBAN 1 : ", userId)
+                        Log.d("IDINFOKORBAN 2 : ", it.child("idInfoKorban").value.toString())
+                        if (userId.equals(it.child("idInfoKorban").value.toString()) && it.child("finished").value!!.equals(false)) {
+                            updateFragment(it.child("accepted").value!!.equals(true), it.child("onTheWay").value!!.equals(true))
+                        }
+                    }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d("DatabaseReference : ", "user with id $user is not exist")
-                    Toast.makeText(this@StatusTemukanKorbanActivity, p0.message, Toast.LENGTH_SHORT).show()
+                    Log.d("TemukanSayaError : ", p0.message)
                 }
             })
 

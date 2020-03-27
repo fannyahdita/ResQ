@@ -26,6 +26,8 @@ import com.tugasakhir.resq.korban.model.InfoKorban
 import kotlinx.android.synthetic.main.activity_temukansayaform_korban.*
 import kotlinx.android.synthetic.main.activity_temukansayaform_korban.progressbar_name
 
+const val EXTRA_ID_INFOKORBAN = "com.tugasakhir.resq.korban.ID_INFOKORBAN"
+
 class FormTemukanKorbanActivity : AppCompatActivity() {
 
     private lateinit var actionBar : ActionBar
@@ -187,6 +189,7 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
 //                dialog.show()
                 progressbar_name.visibility = View.GONE
                 val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
+                intent.putExtra(EXTRA_ID_INFOKORBAN, userId)
                 startActivity(intent)
                 finish()
 
