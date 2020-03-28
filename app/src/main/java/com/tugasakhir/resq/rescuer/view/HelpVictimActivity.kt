@@ -48,14 +48,14 @@ class HelpVictimActivity : AppCompatActivity() {
                     val children = p0.children
                     children.forEach {
                         if (idRescuer == it.child("idRescuer").value.toString()) {
-//                            val helpedVictimId = it.key.toString()
+                            val helpedVictimId = it.key.toString()
                             val victimInfoId = it.child("idInfoKorban").value.toString()
                             isOnTheWay = it.child("isOnTheWay").value.toString() == "true"
                             if(isOnTheWay) {
                                 button_rescuer_on_the_way.visibility = View.GONE
                                 button_rescuer_finish.visibility = View.VISIBLE
                             }
-                            getInfoVictim(victimInfoId)
+                            getInfoVictim(victimInfoId, helpedVictimId)
                         }
                     }
                 }
@@ -67,7 +67,7 @@ class HelpVictimActivity : AppCompatActivity() {
 
     }
 
-    private fun getInfoVictim(victimInfoId: String) {
+    private fun getInfoVictim(victimInfoId: String, helpedVictimId: String) {
         FirebaseDatabase.getInstance().getReference("InfoKorban")
             .child(victimInfoId)
             .addValueEventListener(object : ValueEventListener {
@@ -101,7 +101,7 @@ class HelpVictimActivity : AppCompatActivity() {
                                     isEvacuationNeeded
                                 )
 
-                                setLayout(victimInfo, p0.value.toString())
+                                setLayout(victimInfo, p0.value.toString(), helpedVictimId)
                             }
 
                             override fun onCancelled(p0: DatabaseError) {
@@ -116,7 +116,7 @@ class HelpVictimActivity : AppCompatActivity() {
             })
     }
 
-    private fun setLayout(victimInfo: InfoKorban, victimName: String) {
+    private fun setLayout(victimInfo: InfoKorban, victimName: String, helpedVictimId: String) {
         textview_name_victim_help.text = victimName
         val helpType = when {
             victimInfo.bantuanMakanan -> {
@@ -148,12 +148,25 @@ class HelpVictimActivity : AppCompatActivity() {
         button_rescuer_on_the_way.setOnClickListener {
             button_rescuer_finish.visibility = View.VISIBLE
             button_rescuer_on_the_way.visibility = View.GONE
-            //isOnTheWay = true
+            FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
+                .child("onTheWay").setValue(true)
         }
 
         button_rescuer_finish.setOnClickListener {
-            //isFinished = true
+            //isFinished = true yang lain false
+            FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
+                .child("accepted").setValue(false)
+            FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
+                .child("onTheWay").setValue(false)
+            FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
+                .child("finished").setValue(true)
+            //isHelping false
+            FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")
+                .child("helping").setValue(false)
             //intent ke halaman maps
+            val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 
