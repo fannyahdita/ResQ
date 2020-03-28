@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/source_sans_pro"
-            android:text="Informasi Tambahan: "
+            android:text="@string/additional_info"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -104,7 +104,7 @@
                 style="@style/OutlinedBorder"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:text="Buka Peta"
+                android:text="@string/open_maps"
                 app:layout_constraintEnd_toStartOf="@id/button_open_chat_help"
                 app:layout_constraintStart_toStartOf="@id/button_rescuer_on_the_way"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -115,7 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="5dp"
-                android:text="Kirim Pesan"
+                android:text="@string/send_chat"
                 app:layout_constraintEnd_toEndOf="@id/button_rescuer_on_the_way"
                 app:layout_constraintStart_toEndOf="@id/button_open_maps_help"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -126,8 +126,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:text="Saya Menuju Korban"
-                app:layout_constraintTop_toBottomOf="@id/button_open_maps_help" />
+                android:text="@string/on_the_way_to_victim"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/button_open_maps_help"
+                tools:visibility="gone" />
+
+            <Button
+                android:id="@+id/button_rescuer_finish"
+                style="@style/BlackButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/finish_help_victim"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/button_open_maps_help"
+                tools:visibility="visible" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

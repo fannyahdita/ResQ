@@ -114,6 +114,10 @@
     <string name="number_of_elderly"><![CDATA[<b>%s</b> Lansia]]></string>
     <string name="number_of_adults"><![CDATA[<b>%s</b> Dewasa]]></string>
     <string name="number_of_children"><![CDATA[<b>%s</b> Anak-anak]]></string>
+    <string name="open_maps">Buka Peta</string>
+    <string name="send_chat">Kirim Pesan</string>
+    <string name="on_the_way_to_victim">Saya Menuju Korban</string>
+    <string name="finish_help_victim">Selesai</string>
 
     //Edit Profil
     <string name="choose_photo_edit">Ubah Foto Profil</string>
