@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -23,10 +24,12 @@ class HelpVictimActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private var idRescuer: String = ""
     private lateinit var victimInfoData: VictimInfoData
+    private var isOnTheWay : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help_victim)
+
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
@@ -47,8 +50,11 @@ class HelpVictimActivity : AppCompatActivity() {
                         if (idRescuer == it.child("idRescuer").value.toString()) {
 //                            val helpedVictimId = it.key.toString()
                             val victimInfoId = it.child("idInfoKorban").value.toString()
-                            Log.d("victimInfoId", victimInfoId)
-
+                            isOnTheWay = it.child("isOnTheWay").value.toString() == "true"
+                            if(isOnTheWay) {
+                                button_rescuer_on_the_way.visibility = View.GONE
+                                button_rescuer_finish.visibility = View.VISIBLE
+                            }
                             getInfoVictim(victimInfoId)
                         }
                     }
@@ -137,6 +143,18 @@ class HelpVictimActivity : AppCompatActivity() {
             Html.fromHtml(getString(R.string.number_of_children, victimInfo.jumlahAnak.toString()))
 
         textview_victim_additional_information.text = victimInfo.infoTambahan
+
+
+        button_rescuer_on_the_way.setOnClickListener {
+            button_rescuer_finish.visibility = View.VISIBLE
+            button_rescuer_on_the_way.visibility = View.GONE
+            //isOnTheWay = true
+        }
+
+        button_rescuer_finish.setOnClickListener {
+            //isFinished = true
+            //intent ke halaman maps
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
