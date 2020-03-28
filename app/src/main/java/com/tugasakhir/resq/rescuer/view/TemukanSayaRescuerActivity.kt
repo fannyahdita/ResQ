@@ -6,10 +6,12 @@ import android.text.Html
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -30,6 +32,9 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var korban: InfoKorban
     private lateinit var victimInfoData: VictimInfoData
+    private var isAccepted: Boolean = false
+    private var isOnTheWay: Boolean = false
+    private var isFinished: Boolean = false
     private var idRescuer = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,22 +59,39 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         button_close_detail.setOnClickListener { layout_detail_marker.visibility = View.GONE }
     }
 
-    private fun setMaps(korban: InfoKorban, victimInfoId: String) {
+    private fun setMaps(korban: InfoKorban, victimInfoId: String, isAccepted: Boolean, isOnTheWay: Boolean, isFinished: Boolean) {
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(korban.latitude.toDouble(), korban.longitude.toDouble())
             gMap.isMyLocationEnabled = true
-            gMap.addMarker(
-                MarkerOptions().position(location).title(victimInfoId)
-            )
             gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
+            if (isAccepted or isOnTheWay) {
+                Log.d(victimInfoId, "isAccepted or isOnTheWay")
+                gMap.addMarker(
+                    MarkerOptions().position(location).title("$victimInfoId true")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+            } else if (isFinished) {
+                Log.d(victimInfoId, "Finished gak muncul")
+                gMap.addMarker(MarkerOptions().position(location).visible(false))
+            } else {
+                Log.d(victimInfoId, "tolong aku")
+                gMap.addMarker(
+                    MarkerOptions().position(location).title("$victimInfoId false")
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                )
+            }
+
             gMap.setOnMarkerClickListener { marker ->
-
-
+                val idStatus = marker.title.toString().split(" ")
+                if(idStatus[1].toBoolean()) {
+                    Toast.makeText(this, getString(R.string.victim_already_handled), Toast.LENGTH_SHORT).show()
+                    return@setOnMarkerClickListener true
+                }
                 layout_detail_marker.visibility = View.VISIBLE
                 textview_victim_latitude_longitude.text = Html.fromHtml(
                     getString(
                         R.string.lat_long,
-                        marker.position.latitude.toString(), marker.position.longitude.toString()
+                        marker.position.latitude.toString(),
+                        marker.position.longitude.toString()
                     )
                 )
                 textview_victim_address.text =
@@ -79,11 +101,11 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                         this
                     )
                 button_detail_victim.setOnClickListener {
-                    victimInfoData.setDetailMaps(marker.title.toString(), this)
+                    victimInfoData.setDetailMaps(idStatus[0], this)
                 }
 
                 button_i_want_to_help.setOnClickListener {
-                    makeHelpedVictim(idRescuer, marker.title.toString())
+                    makeHelpedVictim(idRescuer, idStatus[0])
                 }
                 return@setOnMarkerClickListener true
             }
@@ -95,18 +117,18 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
-                    children.forEach {
-                        val latitude = it.child("latitude").value.toString()
-                        val longitude = it.child("longitude").value.toString()
-                        val elderly = it.child("jumlahLansia").value.toString().toInt()
-                        val adult = it.child("jumlahDewasa").value.toString().toInt()
-                        val child = it.child("jumlahAnak").value.toString().toInt()
-                        val info = it.child("infoTambahan").value.toString()
-                        val isFoodNeeded = it.child("bantuanMakanan").value.toString().toBoolean()
-                        val isMedicNeeded = it.child("bantuanMedis").value.toString().toBoolean()
+                    children.forEach { info ->
+                        val latitude = info.child("latitude").value.toString()
+                        val longitude = info.child("longitude").value.toString()
+                        val elderly = info.child("jumlahLansia").value.toString().toInt()
+                        val adult = info.child("jumlahDewasa").value.toString().toInt()
+                        val child = info.child("jumlahAnak").value.toString().toInt()
+                        val additionalInfo = info.child("infoTambahan").value.toString()
+                        val isFoodNeeded = info.child("bantuanMakanan").value.toString().toBoolean()
+                        val isMedicNeeded = info.child("bantuanMedis").value.toString().toBoolean()
                         val isEvacuationNeeded =
-                            it.child("bantuanEvakuasi").value.toString().toBoolean()
-                        val uid = it.child("idKorban").value.toString()
+                            info.child("bantuanEvakuasi").value.toString().toBoolean()
+                        val uid = info.child("idKorban").value.toString()
 
                         korban = InfoKorban(
                             uid,
@@ -115,14 +137,42 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                             elderly,
                             adult,
                             child,
-                            info,
+                            additionalInfo,
                             isFoodNeeded,
                             isMedicNeeded,
                             isEvacuationNeeded
                         )
 
-                        setMaps(korban, it.key.toString())
+                        getStatus(korban, info.key.toString())
 
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("TemukanSayaError : ", p0.message)
+                }
+            })
+    }
+
+    private fun getStatus(korban: InfoKorban, victimInfoId: String) {
+        FirebaseDatabase.getInstance().getReference("KorbanTertolong")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(ds: DataSnapshot) {
+                    ds.children.forEach { helped ->
+                        Log.d("infoo ID Korban", victimInfoId)
+                        if (victimInfoId == helped.child("idInfoKorban").value.toString()) {
+                            Log.d("masuk sini", (victimInfoId == helped.child("idInfoKorban").value.toString()).toString())
+                            isAccepted = helped.child("accepted").value.toString().toBoolean()
+                            isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
+                            isFinished = helped.child("finished").value.toString().toBoolean()
+                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isFinished)
+                        } else {
+                            Log.d("keluar", (victimInfoId == helped.child("idInfoKorban").value.toString()).toString())
+                            isAccepted = false
+                            isOnTheWay = false
+                            isFinished = false
+                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isFinished)
+                        }
                     }
                 }
 
@@ -173,5 +223,7 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
 
 }
