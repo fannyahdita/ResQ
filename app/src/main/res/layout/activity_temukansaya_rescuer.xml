@@ -18,7 +18,6 @@
         android:layout_height="209dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white_light"
-        android:paddingStart="20dp"
         android:visibility="gone"
         tools:visibility="visible">
 
@@ -34,16 +33,18 @@
 
         <TextView
             android:id="@+id/textview_victim_address"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="20dp"
             android:ellipsize="end"
             android:fontFamily="@font/source_sans_pro"
             android:maxLines="1"
-            android:layout_marginEnd="20dp"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_close_detail"
+            app:layout_goneMarginEnd="30dp"
             tools:text="Bukit Cimanggu City Blok M5B No 20 Cluster Royal Lake side kacecamatan hshdhhrjdfh" />
 
         <TextView

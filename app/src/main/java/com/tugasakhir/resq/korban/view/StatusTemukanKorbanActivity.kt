@@ -75,7 +75,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     val korbanTertolong = p0.getValue(KorbanTertolong::class.java)
-                    updateFragment(korbanTertolong!!.isAccepted, korbanTertolong!!.isOntheWay)
+                    updateFragment(korbanTertolong!!.isAccepted, korbanTertolong!!.isOnTheWay)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {

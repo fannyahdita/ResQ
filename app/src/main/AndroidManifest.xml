@@ -76,7 +76,11 @@
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".rescuer.view.EditProfileRescuerActivity"
+        android:name=".rescuer.view.EditProfileRescuerActivity"
+        android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".rescuer.view.HelpVictimActivity"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <meta-data
