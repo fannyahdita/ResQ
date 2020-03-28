@@ -64,20 +64,24 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             val location = LatLng(korban.latitude.toDouble(), korban.longitude.toDouble())
             gMap.isMyLocationEnabled = true
             gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
-            if (isAccepted or isOnTheWay) {
-                Log.d(victimInfoId, "isAccepted or isOnTheWay")
-                gMap.addMarker(
-                    MarkerOptions().position(location).title("$victimInfoId true")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
-            } else if (isFinished) {
-                Log.d(victimInfoId, "Finished gak muncul")
-                gMap.addMarker(MarkerOptions().position(location).visible(false))
-            } else {
-                Log.d(victimInfoId, "tolong aku")
-                gMap.addMarker(
-                    MarkerOptions().position(location).title("$victimInfoId false")
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-                )
+            when {
+                isAccepted or isOnTheWay -> {
+                    Log.d(victimInfoId, "isAccepted or isOnTheWay")
+                    gMap.addMarker(
+                        MarkerOptions().position(location).title("$victimInfoId true")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                }
+                isFinished -> {
+                    Log.d(victimInfoId, "Finished gak muncul")
+                    gMap.addMarker(MarkerOptions().position(location).visible(false))
+                }
+                else -> {
+                    Log.d(victimInfoId, "tolong aku")
+                    gMap.addMarker(
+                        MarkerOptions().position(location).title("$victimInfoId false")
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                    )
+                }
             }
 
             gMap.setOnMarkerClickListener { marker ->
@@ -224,6 +228,9 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         }
     }
 
-
-
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
 }
