@@ -132,4 +132,11 @@
     <string name="email_profile">Email</string>
     <string name="password_profile">Ubah Kata Sandi</string>
     <string name="edit_profile_save">Simpan</string>
+
+    //Posko
+    <string name="petunjuk"><u>Dapatkan Petunjuk</u></string>
+    <string name="kapasitas">Kapasitas : </string>
+    <string name="fasilitas">Fasilitas : </string>
+    <string name="posko_pembuat">Ditambahkan oleh : </string>
+    <string name="posko_kontak">Kontak : </string>
 </resources>

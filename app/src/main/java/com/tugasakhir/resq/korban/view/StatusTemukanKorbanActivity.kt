@@ -16,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.model.KorbanTertolong
 
 class StatusTemukanKorbanActivity : AppCompatActivity() {
 
@@ -25,6 +24,8 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     var accept: Boolean = false
     var running: Boolean = false
+//    var finish: Boolean = false
+    var idInfoKorban: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,11 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
+//        if (intent.getStringExtra(EXTRA_PREV_ACTIVITY) == "Form") {
+//            userId = intent.getStringExtra(EXTRA_ID_INFOKORBAN)
+//        }
+        getIdKorban()
+
         updateStatus()
         mHandler = Handler()
 
@@ -48,15 +54,18 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     val runnableCode = object: Runnable {
         override fun run() {
-//            checkStatus()
-            updateFragment(accept, running)
+            checkStatus(idInfoKorban)
+//            updateFragment(accept, running, finish)
+//            getIdKorban()
 
             Toast.makeText(this@StatusTemukanKorbanActivity, "Jalanin Runnable", Toast.LENGTH_LONG).show()
-            if (!accept) {
-                accept = true
-            } else {
-                running = true
-            }
+//            if (!accept) {
+//                accept = true
+//            } else if (!running) {
+//                running = true
+//            } else if (!finish) {
+//                finish = true
+//            }
 
             mHandler.postDelayed(this, 10000)
 
@@ -69,25 +78,70 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     }
 
-    private fun checkStatus() {
+    private fun getIdKorban() {
         val user = FirebaseAuth.getInstance().currentUser?.uid
-        FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$user")
-            .addValueEventListener(object : ValueEventListener {
+        FirebaseDatabase.getInstance().getReference("InfoKorban")
+            .addListenerForSingleValueEvent(object  : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    val korbanTertolong = p0.getValue(KorbanTertolong::class.java)
-                    updateFragment(korbanTertolong!!.isAccepted, korbanTertolong!!.isOnTheWay)
+                    val children = p0.children
+                    children.forEach {
+                        Log.d("ID KORBAN 1 : ", user)
+                        Log.d("ID KORBAN 2 : ", it.child("idKorban").value.toString())
+
+                        if (user == it.child("idKorban").value.toString()) {
+                            Toast.makeText(this@StatusTemukanKorbanActivity, "Sudah dapet idInfoKorban : " + it.child("idKorban").value.toString(), Toast.LENGTH_LONG).show()
+                            checkStatus(it.key.toString())
+                        }
+
+                    }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d("DatabaseReference : ", "user with id $user is not exist")
-                    Toast.makeText(this@StatusTemukanKorbanActivity, p0.message, Toast.LENGTH_SHORT).show()
+                    Log.d("TemukanSayaError : ", p0.message)                }
+            })
+
+    }
+
+
+    private fun checkStatus(userId: String) {
+        FirebaseDatabase.getInstance().getReference("KorbanTertolong")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    val children = p0.children
+                    children.forEach {
+                        Log.d("ID KORBAN INFO 1 : ", userId)
+                        Log.d("ID KORBAN INFO 2 : ", it.child("idInfoKorban").value.toString())
+                        Toast.makeText(this@StatusTemukanKorbanActivity, "Masuk chcek KorbanTertolong" + it.child("idInfoKorban").value.toString(), Toast.LENGTH_LONG).show()
+
+                        if (userId == it.child("idInfoKorban").value.toString() &&
+                            it.child("finished").value!!.toString() == "false") {
+                            idInfoKorban = userId
+                            Toast.makeText(this@StatusTemukanKorbanActivity, "Mau update fragment : " + it.child("idInfoKorban").value.toString(), Toast.LENGTH_LONG).show()
+                            updateFragment(
+                                it.child("accepted").value!!.equals(true),
+                                it.child("onTheWay").value!!.equals(true),
+                                it.child("finished").value!!.equals(true)
+                            )
+                        }
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("TemukanSayaError : ", p0.message)
                 }
             })
 
     }
 
-    private fun updateFragment(isAccepted: Boolean, isRunning: Boolean) {
-        if (isRunning) {
+    private fun updateFragment(isAccepted: Boolean, isRunning: Boolean, isFinished: Boolean) {
+        if (isFinished) {
+            val user = FirebaseAuth.getInstance().currentUser?.uid
+            FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        } else if (isRunning) {
             val runningFragment = StatusRunningFragment.newInstance()
             openFragment(runningFragment)
         } else if (isAccepted) {
@@ -118,9 +172,6 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         super.onDestroy()
 
         mHandler.removeCallbacks(runnableCode)
-
-        val user = FirebaseAuth.getInstance().currentUser?.uid
-        FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
 
     }
 

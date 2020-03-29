@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tugasakhir.resq.korban.view.EXTRA_PREV_ACTIVITY
 import com.tugasakhir.resq.korban.view.PoskoKorbanFragment
 import com.tugasakhir.resq.korban.view.StatusTemukanKorbanActivity
 import com.tugasakhir.resq.korban.view.TemukanSayaActivity
@@ -113,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         if (isKorban) {
             if (isAskingHelp) {
                 val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
+                intent.putExtra(EXTRA_PREV_ACTIVITY, "Main")
                 startActivity(intent)
                 finish()
             } else {
