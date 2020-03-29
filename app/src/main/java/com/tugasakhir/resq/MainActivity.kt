@@ -19,10 +19,7 @@ import com.tugasakhir.resq.korban.view.EXTRA_PREV_ACTIVITY
 import com.tugasakhir.resq.korban.view.PoskoKorbanFragment
 import com.tugasakhir.resq.korban.view.StatusTemukanKorbanActivity
 import com.tugasakhir.resq.korban.view.TemukanSayaActivity
-import com.tugasakhir.resq.rescuer.view.HomeFragment
-import com.tugasakhir.resq.rescuer.view.PoskoRescuerFragment
-import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
-import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerActivity
+import com.tugasakhir.resq.rescuer.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private var isKorban: Boolean = false
     private var isAskingHelp: Boolean = false
+    private var isHelping: Boolean = false
     private var doubleBackToExitPressedOnce = false
 
     private val mOnNavigationItemSelectedListener =
@@ -77,12 +75,14 @@ class MainActivity : AppCompatActivity() {
 
         val user = FirebaseAuth.getInstance().currentUser?.uid
 
+        setIsHelping(user!!)
+
         FirebaseDatabase.getInstance().reference.child("AkunKorban/$user")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
                     if (isKorban) {
-                        isAskingHelp = p0.child("askingHelp").value!!.equals(true)
+                        isAskingHelp = p0.child("askingHelp").value!!.equals("true")
                     }
                 }
 
@@ -102,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         actionBar.elevation = 0F
 
         navigation_temukan.setOnClickListener {
+            Log.d("isHelpingDalamOnclick ", isHelping.toString())
             actionBar.title = getString(R.string.temukansaya_actionbar)
             disableNavigation(navigationView)
             showTemukanSaya(isKorban)
@@ -122,9 +123,15 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         } else {
-            val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
-            startActivity(intent)
-            finish()
+            if (isHelping) {
+                val intent = Intent(this, HelpVictimActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 
@@ -155,5 +162,21 @@ class MainActivity : AppCompatActivity() {
         Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
     }
 
+    private fun setIsHelping(rescuerId: String) {
+        Log.d("isHelping user", rescuerId)
+        FirebaseDatabase.getInstance().getReference("Rescuers")
+            .child(rescuerId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    if (p0.exists()) {
+                        isHelping = p0.child("helping").value.toString() == "true"
+                        Log.d("isHelping 1", isHelping.toString())
+                    }
+                }
 
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("IsHelpingRescuerError: ", p0.message)
+                }
+            })
+    }
 }

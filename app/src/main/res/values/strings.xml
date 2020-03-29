@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ResQ</string>
-    <string name="google_maps_key">AIzaSyBePgHkMuyK5-s3iC4Ka_-h5eyPo1K0eAI</string>
 
     //actionBar title
     <string name="app_name_actionbar">Res-Q</string>
@@ -66,6 +65,7 @@
     <string name="toast_logged_in">Berhasil masuk</string>
     <string name="toast_exit">Tekan sekali lagi untuk keluar</string>
     <string name="toast_profile_changed">"Profi berhasil diubah"</string>
+    <string name="victim_already_handled">Korban sedang dalam proses bantuan</string>
 
     //OTP korban
     <string name="message_otp">Masukkan 4 digit angka yang masuk melalui pesan. Jangan berikan OTP kepada orang lain.</string>
@@ -90,7 +90,7 @@
     <string name="tv_anak">Anak-anak</string>
     <string name="tv_infotambahan">Informasi Tambahan</string>
     <string name="usia_lansia">Usia > 60 tahun</string>
-    <string name="usia_dewasa">Usia 10 - 60 tahun</string>
+    <string name="usia_dewasa">Usia 10 – 60 tahun</string>
     <string name="usia_anak">Usia &lt; 10 tahun </string>
     <string name="tv_infotambahan_detail">* Infokan apabila ada ibu hamil/penyandang disabilitas/orang dengan penyakit tertentu</string>
     <string name="status_1">Lokasi telah dikirimkan</string>
@@ -108,6 +108,17 @@
     //temukan saya rescuer
     <string name="button_victim_data">Data Korban</string>
     <string name="button_i_want_to_help">Saya Ingin Membantu</string>
+    <string name="lat_long"><![CDATA[%s, %s]]></string>
+    <string name="detail_victim"><![CDATA[<br><b>%s</b><br><br>%s<br><br><b>Jumlah Orang:</b><br>%s lansia<br>%s dewasa<br>%s anak<br><br><b>Info Tambahan:</b><br>%s]]></string>
+    <string name="victim_number">Jumlah Orang:</string>
+    <string name="additional_info">Informasi Tambahan:</string>
+    <string name="number_of_elderly"><![CDATA[<b>%s</b> Lansia]]></string>
+    <string name="number_of_adults"><![CDATA[<b>%s</b> Dewasa]]></string>
+    <string name="number_of_children"><![CDATA[<b>%s</b> Anak-anak]]></string>
+    <string name="open_maps">Buka Peta</string>
+    <string name="send_chat">Kirim Pesan</string>
+    <string name="on_the_way_to_victim">Saya Menuju Korban</string>
+    <string name="finish_help_victim">Selesai</string>
 
     //Edit Profil
     <string name="choose_photo_edit">Ubah Foto Profil</string>
