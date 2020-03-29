@@ -26,6 +26,9 @@ import com.tugasakhir.resq.korban.model.InfoKorban
 import kotlinx.android.synthetic.main.activity_temukansayaform_korban.*
 import kotlinx.android.synthetic.main.activity_temukansayaform_korban.progressbar_name
 
+const val EXTRA_ID_INFOKORBAN = "com.tugasakhir.resq.korban.ID_INFOKORBAN"
+const val EXTRA_PREV_ACTIVITY = "com.tugasakhir.resq.korban.ID_PREV_ACTIVITY"
+
 class FormTemukanKorbanActivity : AppCompatActivity() {
 
     private lateinit var actionBar : ActionBar
@@ -177,16 +180,10 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
         val korban = InfoKorban(idKorban, lat, long, lansia.toInt(), dewasa.toInt(), anak.toInt(), infoTambahan, isMakanan, isMedis, isEvakuasi)
         ref.child(userId).setValue(korban).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-//                val builder = AlertDialog.Builder(this@FormTemukanKorbanActivity)
-//                builder.setTitle("Datanya")
-//                builder.setMessage("Latitude" + lat + " Longitude" + long + " jumlah Lansia " + lansia + " jumlah dewasa " + dewasa + " jumlah anak " + anak +
-//                        " info tambahan " + infoTambahan + " evakuasi " + isEvakuasi.toString() + " makanan " + isMakanan.toString() + " medis " + isMedis.toString())
-//                builder.setNeutralButton("Oke"){_,_ ->
-//                }
-//                val dialog: AlertDialog = builder.create()
-//                dialog.show()
                 progressbar_name.visibility = View.GONE
                 val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
+                intent.putExtra(EXTRA_ID_INFOKORBAN, userId)
+                intent.putExtra(EXTRA_PREV_ACTIVITY, "Form")
                 startActivity(intent)
                 finish()
 

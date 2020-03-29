@@ -5,5 +5,7 @@ data class KorbanTertolong(
     val idInfoKorban: String = "",
     val isAccepted: Boolean = false,
     val isOnTheWay: Boolean = false,
-    val isFinished: Boolean = false
+    val isRescuerArrived: Boolean = false,
+    val isFinished: Boolean = false,
+    val date : String = ""
 )
