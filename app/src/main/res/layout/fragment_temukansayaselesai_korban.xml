@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_light">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="30dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="40dp"
+            tools:context=".View.SettingProfileActivity">
+
+            <TextView
+                android:id="@+id/textview_bantuan_selesai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/bantuan_selesai"
+                android:textColor="@color/black_dark"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_rincian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/rincian_bantuan"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_bantuan_selesai" />
+
+            <TextView
+                android:id="@+id/textview_jenis_bantuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/jenis_bantuan"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_rincian" />
+
+            <TextView
+                android:id="@+id/textview_jenis_bantuan_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="10dp"
+                android:text="Evakuasi"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/textview_jenis_bantuan"
+                app:layout_constraintTop_toTopOf="@id/textview_jenis_bantuan" />
+
+            <TextView
+                android:id="@+id/textview_jumlah_orang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/victim_number"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jenis_bantuan" />
+
+            <TextView
+                android:id="@+id/textview_jumlah_lansia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="20dp"
+                android:text="Lansia"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlah_orang" />
+
+            <TextView
+                android:id="@+id/textview_jumlah_dewasa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="20dp"
+                android:text="Dewasa"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlah_lansia" />
+
+            <TextView
+                android:id="@+id/textview_jumlah_anak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="20dp"
+                android:text="Anak"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlah_dewasa" />
+
+            <TextView
+                android:id="@+id/textview_info_tambahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/additional_info"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlah_anak" />
+
+            <TextView
+                android:id="@+id/textview_info_tambahan_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="10dp"
+                android:text="Listrik belum mati"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/textview_info_tambahan"
+                app:layout_constraintTop_toTopOf="@id/textview_info_tambahan" />
+
+            <TextView
+                android:id="@+id/textview_info_rescuer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/rincian_rescuer"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_info_tambahan_val" />
+
+            <TextView
+                android:id="@+id/textview_nama_rescuer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="Andi"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_info_rescuer" />
+
+            <TextView
+                android:id="@+id/textview_nomor_rescuer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="089898989898"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_nama_rescuer" />
+
+            <Button
+                android:id="@+id/button_selesai"
+                style="@style/BlackButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:clickable="true"
+                android:text="@string/finish_help_victim"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_nomor_rescuer" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbar_phone"
+            style="@style/ProgressBarTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </RelativeLayout>
+</ScrollView>
