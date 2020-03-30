@@ -104,6 +104,10 @@
     <string name="alert_batalkan">Batalkan Permintaan Bantuan</string>
     <string name="alert_jangan_batalkan">Jangan Batalkan</string>
     <string name="alert_tetap_batalkan">Tetap Batalkan</string>
+    <string name="bantuan_selesai">Permintaan bantuan Anda telah selesai</string>
+    <string name="rincian_bantuan">Rincian</string>
+    <string name="rincian_rescuer">Dibantu oleh</string>
+    <string name="jenis_bantuan">Jenis Bantuan : </string>
 
     //temukan saya rescuer
     <string name="button_victim_data">Data Korban</string>
