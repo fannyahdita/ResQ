@@ -47,8 +47,10 @@ class HelpVictimActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach {
+                        Log.d("HelpVictim", "mau masuk euy ${it.child("rescuerArrived").value.toString()}}")
                         if (idRescuer == it.child("idRescuer").value.toString() &&
-                            it.child("rescuerArrived").value != "true") {
+                            it.child("rescuerArrived").value.toString() == "false") {
+                            Log.d("HelpVictim", "masuk euy")
                             val helpedVictimId = it.key.toString()
                             val victimInfoId = it.child("idInfoKorban").value.toString()
                             isOnTheWay = it.child("OnTheWay").value.toString() == "true"
@@ -136,6 +138,7 @@ class HelpVictimActivity : AppCompatActivity() {
             victimInfo.longitude.toDouble(),
             this
         )
+
         textview_number_of_elderly_victim.text =
             Html.fromHtml(getString(R.string.number_of_elderly, victimInfo.jumlahLansia.toString()))
         textview_number_of_adult_victim.text =
@@ -145,7 +148,7 @@ class HelpVictimActivity : AppCompatActivity() {
 
         textview_victim_additional_information.text = victimInfo.infoTambahan
 
-
+        //button
         button_rescuer_on_the_way.setOnClickListener {
             button_rescuer_arrived.visibility = View.VISIBLE
             button_rescuer_on_the_way.visibility = View.GONE
@@ -168,6 +171,15 @@ class HelpVictimActivity : AppCompatActivity() {
             val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        button_open_maps_help.setOnClickListener {
+            val location = "${victimInfo.latitude} ${victimInfo.longitude}"
+            val bundle = Bundle()
+            bundle.putString("location", location)
+            val intent = Intent(this, OpenMapsActivity::class.java)
+            intent.putExtras(bundle)
+            startActivity(intent)
         }
     }
 

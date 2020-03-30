@@ -67,13 +67,7 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         button_close_detail.setOnClickListener { layout_detail_marker.visibility = View.GONE }
     }
 
-    private fun setMaps(
-        korban: InfoKorban,
-        victimInfoId: String,
-        isAccepted: Boolean,
-        isOnTheWay: Boolean,
-        isRescuerArrived: Boolean
-    ) {
+    private fun setMaps(korban: InfoKorban, victimInfoId: String, isAccepted: Boolean, isOnTheWay: Boolean, isRescuerArrived: Boolean) {
         Log.d("MASUK SETMAPS", victimInfoId)
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(korban.latitude.toDouble(), korban.longitude.toDouble())
@@ -98,11 +92,11 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                     )
                 }
                 isRescuerArrived -> {
-                    Log.d(victimInfoId, "Finished gak muncul")
+                    Log.d(victimInfoId, "$isRescuerArrived Finished gak muncul")
                     gMap.addMarker(MarkerOptions().position(location).visible(false))
                 }
                 else -> {
-                    Log.d(victimInfoId, "tolong aku")
+                    Log.d(victimInfoId, "$isRescuerArrived tolong aku")
                     gMap.addMarker(
                         MarkerOptions().position(location).title("$victimInfoId false")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
@@ -195,31 +189,18 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                 if (p0.child("KorbanTertolong").exists()) {
                     val helpedVictim = p0.child("KorbanTertolong")
                     helpedVictim.children.forEach { helped ->
-                        Log.d("MASUK FOR", victimInfoId)
-                        Log.d("infoo ID Korban", victimInfoId)
-                        Log.d("infoo ID Korban", helped.key.toString())
-                        if (victimInfoId == helped.child("idInfoKorban").value.toString()) {
-                            Log.d(
-                                "masuk sini",
-                                (victimInfoId == helped.child("idInfoKorban").value.toString()).toString()
-                            )
+                        if (victimInfoId == helped.child("idInfoKorban").value) {
+                            Log.d("masuk sini", (victimInfoId == helped.child("idInfoKorban").value.toString()).toString())
+                            Log.d("rescuer arrived 1", (helped.child("rescuerArrived").value.toString()))
                             isAccepted = helped.child("accepted").value.toString().toBoolean()
                             isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
-                            isRescuerArrived =
-                                helped.child("rescuerArrived").value.toString().toBoolean()
-                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
-                        } else {
-                            Log.d(
-                                "keluar",
-                                (victimInfoId == helped.child("idInfoKorban").value.toString()).toString()
-                            )
-                            isAccepted = false
-                            isOnTheWay = false
-                            isRescuerArrived = false
+                            isRescuerArrived = helped.child("rescuerArrived").value.toString().toBoolean()
                             setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                         }
                     }
                 } else {
+                    Log.d("korban tertolong", "kosong")
+                    Log.d("rescuer arrived, korban tertolong kosong", "rescuerArrived false dong")
                     isAccepted = false
                     isOnTheWay = false
                     isRescuerArrived = false
