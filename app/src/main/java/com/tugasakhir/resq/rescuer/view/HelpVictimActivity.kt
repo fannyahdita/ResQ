@@ -47,13 +47,14 @@ class HelpVictimActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach {
-                        if (idRescuer == it.child("idRescuer").value.toString()) {
+                        if (idRescuer == it.child("idRescuer").value.toString() &&
+                            it.child("rescuerArrived").value != "true") {
                             val helpedVictimId = it.key.toString()
                             val victimInfoId = it.child("idInfoKorban").value.toString()
-                            isOnTheWay = it.child("isOnTheWay").value.toString() == "true"
+                            isOnTheWay = it.child("OnTheWay").value.toString() == "true"
                             if(isOnTheWay) {
                                 button_rescuer_on_the_way.visibility = View.GONE
-                                button_rescuer_finish.visibility = View.VISIBLE
+                                button_rescuer_arrived.visibility = View.VISIBLE
                             }
                             getInfoVictim(victimInfoId, helpedVictimId)
                         }
@@ -146,20 +147,20 @@ class HelpVictimActivity : AppCompatActivity() {
 
 
         button_rescuer_on_the_way.setOnClickListener {
-            button_rescuer_finish.visibility = View.VISIBLE
+            button_rescuer_arrived.visibility = View.VISIBLE
             button_rescuer_on_the_way.visibility = View.GONE
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
                 .child("onTheWay").setValue(true)
         }
 
-        button_rescuer_finish.setOnClickListener {
-            //isFinished = true yang lain false
+        button_rescuer_arrived.setOnClickListener {
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
                 .child("accepted").setValue(false)
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
                 .child("onTheWay").setValue(false)
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
-                .child("finished").setValue(true)
+                .child("rescuerArrived").setValue(true)
+
             //isHelping false
             FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")
                 .child("helping").setValue(false)

@@ -31,6 +31,7 @@ import com.tugasakhir.resq.korban.model.InfoKorban
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.VictimInfoData
 import kotlinx.android.synthetic.main.activity_temukansaya_rescuer.*
+import java.util.*
 
 class TemukanSayaRescuerActivity : AppCompatActivity() {
 
@@ -40,7 +41,7 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     private lateinit var victimInfoData: VictimInfoData
     private var isAccepted: Boolean = false
     private var isOnTheWay: Boolean = false
-    private var isFinished: Boolean = false
+    private var isRescuerArrived: Boolean = false
     private var idRescuer = ""
     private val permissionId = 42
 
@@ -71,12 +72,12 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         victimInfoId: String,
         isAccepted: Boolean,
         isOnTheWay: Boolean,
-        isFinished: Boolean
+        isRescuerArrived: Boolean
     ) {
         Log.d("MASUK SETMAPS", victimInfoId)
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(korban.latitude.toDouble(), korban.longitude.toDouble())
-            if(checkPermissions()) {
+            if (checkPermissions()) {
                 if (isLocationEnabled()) {
                     gMap.isMyLocationEnabled = true
                 } else {
@@ -96,7 +97,7 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                     )
                 }
-                isFinished -> {
+                isRescuerArrived -> {
                     Log.d(victimInfoId, "Finished gak muncul")
                     gMap.addMarker(MarkerOptions().position(location).visible(false))
                 }
@@ -204,8 +205,9 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                             )
                             isAccepted = helped.child("accepted").value.toString().toBoolean()
                             isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
-                            isFinished = helped.child("finished").value.toString().toBoolean()
-                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isFinished)
+                            isRescuerArrived =
+                                helped.child("rescuerArrived").value.toString().toBoolean()
+                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                         } else {
                             Log.d(
                                 "keluar",
@@ -213,15 +215,15 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                             )
                             isAccepted = false
                             isOnTheWay = false
-                            isFinished = false
-                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isFinished)
+                            isRescuerArrived = false
+                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                         }
                     }
                 } else {
                     isAccepted = false
                     isOnTheWay = false
-                    isFinished = false
-                    setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isFinished)
+                    isRescuerArrived = false
+                    setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                 }
             }
 
@@ -239,7 +241,9 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             rescuerId, victimInfoId,
             isAccepted = true,
             isOnTheWay = false,
-            isFinished = false
+            isRescuerArrived = false,
+            isFinished = false,
+            date = victimInfoData.getCurrentDateTime().toString("dd/MM/yyy HH:mm")
         )
 
         ref.child(idHelpedVictim).setValue(helpedVictim).addOnCompleteListener {
@@ -280,10 +284,12 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     }
 
     private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
             &&
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION
+            ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
@@ -292,7 +298,8 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     }
 
     private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -301,8 +308,16 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
             permissionId
         )
     }
+}
+
+private fun Date.toString(s: String, locale: Locale = Locale.getDefault()): String {
+    val formatter = java.text.SimpleDateFormat(s, locale)
+    return formatter.format(this)
 }

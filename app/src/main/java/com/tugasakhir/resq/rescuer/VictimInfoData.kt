@@ -11,6 +11,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.InfoKorban
+import java.text.SimpleDateFormat
 import java.util.*
 
 class VictimInfoData {
@@ -101,4 +102,7 @@ class VictimInfoData {
         return address[0].getAddressLine(0)
     }
 
+    fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }
 }
