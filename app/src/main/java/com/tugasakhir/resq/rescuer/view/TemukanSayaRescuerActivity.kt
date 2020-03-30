@@ -172,7 +172,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                         )
 
                         getStatus(korban, info.key.toString())
-
                     }
                 }
 
@@ -188,22 +187,33 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.child("KorbanTertolong").exists()) {
                     val helpedVictim = p0.child("KorbanTertolong")
+                    Log.d("jumlah anak", helpedVictim.childrenCount.toString())
+                    var index = 1
                     helpedVictim.children.forEach { helped ->
-                        if (victimInfoId == helped.child("idInfoKorban").value) {
+                        if (victimInfoId == helped.child("idInfoKorban").value.toString()) {
                             Log.d("masuk sini", (victimInfoId == helped.child("idInfoKorban").value.toString()).toString())
                             Log.d("rescuer arrived 1", (helped.child("rescuerArrived").value.toString()))
-                            isAccepted = helped.child("accepted").value.toString().toBoolean()
-                            isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
-                            isRescuerArrived = helped.child("rescuerArrived").value.toString().toBoolean()
+                            val isAccepted = helped.child("accepted").value.toString().toBoolean()
+                            val isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
+                            val isRescuerArrived = helped.child("rescuerArrived").value.toString().toBoolean()
+                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
+                            index++
+                            return
+                        } else if (helpedVictim.childrenCount == index.toLong()) {
+                            Log.d("$victimInfoId masuk sini 2", "${helped.child("idInfoKorban").value}")
+                            val isAccepted = false
+                            val isOnTheWay = false
+                            val isRescuerArrived = false
                             setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                         }
+                        index++
                     }
                 } else {
                     Log.d("korban tertolong", "kosong")
                     Log.d("rescuer arrived, korban tertolong kosong", "rescuerArrived false dong")
-                    isAccepted = false
-                    isOnTheWay = false
-                    isRescuerArrived = false
+                    val isAccepted = false
+                    val isOnTheWay = false
+                    val isRescuerArrived = false
                     setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                 }
             }
