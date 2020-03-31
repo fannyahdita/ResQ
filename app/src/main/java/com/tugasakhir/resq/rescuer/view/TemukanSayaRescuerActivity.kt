@@ -39,9 +39,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var korban: InfoKorban
     private lateinit var victimInfoData: VictimInfoData
-    private var isAccepted: Boolean = false
-    private var isOnTheWay: Boolean = false
-    private var isRescuerArrived: Boolean = false
     private var idRescuer = ""
     private val permissionId = 42
 

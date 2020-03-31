@@ -168,7 +168,7 @@ class HelpVictimActivity : AppCompatActivity() {
             FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")
                 .child("helping").setValue(false)
             //intent ke halaman maps
-            val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
+            val intent = Intent(this, ThankYouRescuerActivity::class.java)
             startActivity(intent)
             finish()
         }

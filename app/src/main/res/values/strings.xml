@@ -120,6 +120,8 @@
     <string name="send_chat">Kirim Pesan</string>
     <string name="on_the_way_to_victim">Saya Menuju Korban</string>
     <string name="finish_help_victim">Selesai</string>
+    <string name="thank_you"><b>TERIMA KASIH TELAH MEMBANTU</b></string>
+    <string name="go_to_temukan_saya">Kembali ke Peta Korban</string>
 
     //Edit Profil
     <string name="choose_photo_edit">Ubah Foto Profil</string>
