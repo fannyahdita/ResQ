@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_posko -> {
                     actionBar.title = getString(R.string.posko_actionbar)
                     if (isKorban) {
-//                        val poskoKorban = PoskoKorbanFragment.newInstance()
-//                        openFragment(poskoKorban)
+                        val poskoKorban = PoskoKorbanFragment.newInstance()
+                        openFragment(poskoKorban)
                     } else {
                         val poskoRescuer = PoskoRescuerFragment.newInstance()
                         openFragment(poskoRescuer)

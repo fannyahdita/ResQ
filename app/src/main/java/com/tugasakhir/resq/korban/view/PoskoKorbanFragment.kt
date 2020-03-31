@@ -75,7 +75,7 @@ class PoskoKorbanFragment : Fragment(), OnMapReadyCallback {
             gMap.addMarker(
                 MarkerOptions().position(location).title("Test Map")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-            )
+            ).showInfoWindow()
 
             gMap.setOnMarkerClickListener { marker ->
                 val detailPosko = DetailPoskoFragment.newInstance()
