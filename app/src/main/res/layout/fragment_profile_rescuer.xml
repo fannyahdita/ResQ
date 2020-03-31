@@ -6,38 +6,104 @@
     android:layout_height="match_parent"
     android:background="@color/white_light">
 
-    <TextView
-        android:id="@+id/test_email_profile_rescuer"
+    <View
+        android:id="@+id/view_profile_background"
+        android:layout_width="match_parent"
+        android:layout_height="155dp"
+        android:background="@drawable/shape_profile_background"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/raleway"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_empty_pict"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="fannyahdc@gmail.com" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/test_name_profile_rescuer"
+        android:id="@+id/textview_profile_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="31dp"
         android:fontFamily="@font/raleway"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_email_profile_rescuer"
-        tools:text="HI, FANNYAH DITA CAHYA" />
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Andi Burhanuddin" />
+
+    <TextView
+        android:id="@+id/textview_profile_rescuer_division"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:fontFamily="@font/raleway"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
+        app:layout_constraintTop_toBottomOf="@id/textview_profile_name"
+        tools:text="Rescuer" />
+
+    <TextView
+        android:id="@+id/textview_profile_rescuer_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:fontFamily="@font/raleway"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
+        app:layout_constraintTop_toBottomOf="@id/textview_profile_rescuer_division"
+        tools:text="Rescuer" />
 
     <Button
-        android:id="@+id/button_logout"
+        android:id="@+id/button_profile_editprofile"
         style="@style/BlackButton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginTop="5dp"
-        android:text="Log out"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="13dp"
+        android:text="@string/edit_profile_button"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
+        app:layout_constraintTop_toBottomOf="@id/textview_profile_rescuer_phone" />
+
+    <Button
+        android:id="@+id/button_logout"
+        style="@style/OutlinedBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="5dp"
+        android:text="@string/log_out_button"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/button_profile_editprofile"
+        app:layout_constraintTop_toBottomOf="@id/textview_profile_rescuer_phone" />
+
+    <TextView
+        android:id="@+id/textview_profile_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="21dp"
+        android:text="@string/history_title"
+        android:fontFamily="@font/raleway"
+        android:textStyle="bold"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/test_name_profile_rescuer" />
+        app:layout_constraintTop_toBottomOf="@id/view_profile_background"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_profile_history" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

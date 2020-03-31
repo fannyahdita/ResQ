@@ -1,6 +1,21 @@
 <resources>
     <string name="app_name">ResQ</string>
 
+    //actionBar title
+    <string name="app_name_actionbar">Res-Q</string>
+    <string name="contact_actionbar">Kontak</string>
+    <string name="profile_actionbar">Profil</string>
+    <string name="home_actionbar">Beranda</string>
+    <string name="posko_actionbar">Posko</string>
+    <string name="signup_actionbar">Buat Akun</string>
+    <string name="signin_actionbar">Masuk</string>
+    <string name="otp_actionbar">Verifikasi OTP</string>
+    <string name="temukansaya_actionbar">Temukan Saya</string>
+    <string name="victim_name_actionbar">Masukkan Nama</string>
+    <string name="water_level_actionbar">Ketinggian Muka Air</string>
+    <string name="edit_profil_actionbar">Ubah Profil</string>
+    <string name="open_maps_actionbar">Peta</string>
+
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>
     <string name="button_onboard_rescuer">Saya ingin Membantu</string>
@@ -36,6 +51,12 @@
     <string name="signup_phone">No. HP</string>
     <string name="button_name_continue">Lanjut</string>
 
+    // Home
+    <string name="location_home">Lokasi Anda</string>
+    <string name="tips_title_home"><![CDATA[<b>Tangkas Tanggap Tangguh</b><br>Menghadapi Bencana Banjir]]></string>
+    <string name="waterlevel_button">Informasi ketinggian Pintu Air</string>
+    <string name="bnpb_home">Badan Nasional Penanggulangan Bencana</string>
+
     //Form Error messages and Toast messages
     <string name="field_is_empty">Wajib diisi</string>
     <string name="password_must_six_char">Kata sandi minimal terdiri dari 6 karakter</string>
@@ -43,11 +64,82 @@
     <string name="email_is_not_valid">Masukan email tidak sesuai</string>
     <string name="toast_account_created">Akun berhasil dibuat</string>
     <string name="toast_logged_in">Berhasil masuk</string>
+    <string name="toast_exit">Tekan sekali lagi untuk keluar</string>
+    <string name="toast_profile_changed">"Profi berhasil diubah"</string>
+    <string name="victim_already_handled">Korban sedang dalam proses bantuan</string>
 
     //OTP korban
     <string name="message_otp">Masukkan 4 digit angka yang masuk melalui pesan. Jangan berikan OTP kepada orang lain.</string>
     <string name="button_otp_sendagain"><u>Kirim Ulang OTP</u></string>
     <string name="button_sendotp">Kirim</string>
 
+    //Profil Rescuer
+    <string name="edit_profile_button">Ubah Profil</string>
+    <string name="log_out_button">Keluar</string>
+    <string name="history_title">Riwayat Pertolongan</string>
 
+    //temukan saya korban
+    <string name="temukansaya_uppercase">TEMUKAN SAYA</string>
+    <string name="bagikan_lokasi">Bagikan lokasimu agar kami dapat segera ke lokasimu dan membantumu</string>
+    <string name="rb_evakuasi">Evakuasi</string>
+    <string name="rb_medis">Bantuan Medis</string>
+    <string name="rb_makanan">Bantuan Makanan</string>
+    <string name="tv_bantuan">Bantuan yang dibutuhkan</string>
+    <string name="tv_jumlahorang">Jumalah orang</string>
+    <string name="tv_lansia">Lansia</string>
+    <string name="tv_dewasa">Dewasa</string>
+    <string name="tv_anak">Anak-anak</string>
+    <string name="tv_infotambahan">Informasi Tambahan</string>
+    <string name="usia_lansia">Usia > 60 tahun</string>
+    <string name="usia_dewasa">Usia 10 – 60 tahun</string>
+    <string name="usia_anak">Usia &lt; 10 tahun </string>
+    <string name="tv_infotambahan_detail">* Infokan apabila ada ibu hamil/penyandang disabilitas/orang dengan penyakit tertentu</string>
+    <string name="status_1">Lokasi telah dikirimkan</string>
+    <string name="status_2">Lokasi telah diterima</string>
+    <string name="status_3">Bantuan sedang dalam perjalanan</string>
+    <string name="button_batalkan">Batalkan</string>
+    <string name="button_kirimpesan">Kirim Pesan</string>
+    <string name="alert_batalkan_status1">Bantuan Anda akan segera ditangani, apakah Anda yakin ingin membatalkan?</string>
+    <string name="alert_batalkan_status2">Bantuan Anda sudah ditangani oleh tim penolong, apakah Anda yakin ingin membatalkan?</string>
+    <string name="alert_batalkan_status3">Bantuan Anda sudah dalam perjalanan, apakah Anda yakin ingin membatalkan?</string>
+    <string name="alert_batalkan">Batalkan Permintaan Bantuan</string>
+    <string name="alert_jangan_batalkan">Jangan Batalkan</string>
+    <string name="alert_tetap_batalkan">Tetap Batalkan</string>
+
+    //temukan saya rescuer
+    <string name="button_victim_data">Data Korban</string>
+    <string name="button_i_want_to_help">Saya Ingin Membantu</string>
+    <string name="lat_long"><![CDATA[%s, %s]]></string>
+    <string name="detail_victim"><![CDATA[<br><b>%s</b><br><br>%s<br><br><b>Jumlah Orang:</b><br>%s lansia<br>%s dewasa<br>%s anak<br><br><b>Info Tambahan:</b><br>%s]]></string>
+    <string name="victim_number">Jumlah Orang:</string>
+    <string name="additional_info">Informasi Tambahan:</string>
+    <string name="number_of_elderly"><![CDATA[<b>%s</b> Lansia]]></string>
+    <string name="number_of_adults"><![CDATA[<b>%s</b> Dewasa]]></string>
+    <string name="number_of_children"><![CDATA[<b>%s</b> Anak-anak]]></string>
+    <string name="open_maps">Buka Peta</string>
+    <string name="send_chat">Kirim Pesan</string>
+    <string name="on_the_way_to_victim">Saya Menuju Korban</string>
+    <string name="finish_help_victim">Selesai</string>
+    <string name="thank_you"><b>TERIMA KASIH TELAH MEMBANTU</b></string>
+    <string name="go_to_temukan_saya">Kembali ke Peta Korban</string>
+
+    //Edit Profil
+    <string name="choose_photo_edit">Ubah Foto Profil</string>
+    <string name="edit_photo_edit">Pilih Foto</string>
+    <string name="change_photo">Ganti</string>
+    <string name="name_edit_profile">Nama Lengkap</string>
+    <string name="phone_profile">No. HP</string>
+    <string name="instansi_profile">Instansi</string>
+    <string name="division_profile">Divisi</string>
+    <string name="employeeid_profile">EmployeeID</string>
+    <string name="email_profile">Email</string>
+    <string name="password_profile">Ubah Kata Sandi</string>
+    <string name="edit_profile_save">Simpan</string>
+
+    //Posko
+    <string name="petunjuk"><u>Dapatkan Petunjuk</u></string>
+    <string name="kapasitas">Kapasitas : </string>
+    <string name="fasilitas">Fasilitas : </string>
+    <string name="posko_pembuat">Ditambahkan oleh : </string>
+    <string name="posko_kontak">Kontak : </string>
 </resources>

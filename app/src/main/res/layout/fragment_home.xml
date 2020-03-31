@@ -1,64 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white_light"
-    android:paddingStart="30dp"
-    android:paddingEnd="30dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textview_judul_lokasi_beranda"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/source_sans_pro"
-        android:text="Lokasi Anda"
-        android:textColor="@color/black_dark"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/white_light"
+        android:paddingBottom="100dp">
 
-    <TextView
-        android:id="@+id/textview_lokasi_beranda"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/shape_border_edittext"
-        android:fontFamily="@font/raleway"
-        android:paddingStart="10dp"
-        android:paddingTop="5dp"
-        android:paddingEnd="10dp"
-        android:textColor="@color/black_dark"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_judul_lokasi_beranda"
-        tools:text="Jalan Tebet No 4" />
+        <TextView
+            android:id="@+id/textview_judul_lokasi_beranda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:fontFamily="@font/source_sans_pro"
+            android:text="@string/location_home"
+            android:textColor="@color/black_dark"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_waterlevel_beranda"
-        style="@style/OutlinedBorder"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        android:text="Informasi Ketinggian Pintu Air"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_lokasi_beranda" />
+        <TextView
+            android:id="@+id/textview_lokasi_beranda"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/shape_border_edittext"
+            android:fontFamily="@font/raleway"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="10dp"
+            android:textColor="@color/black_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_judul_lokasi_beranda"
+            tools:text="Jalan Tebet No 4" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="30dp"
-        android:background="@color/grey_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_waterlevel_beranda" />
+        <Button
+            android:id="@+id/button_waterlevel_beranda"
+            style="@style/OutlinedBorder"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:text="@string/waterlevel_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_lokasi_beranda" />
 
+        <TextView
+            android:id="@+id/textview_tips_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/raleway"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_waterlevel_beranda"
+            tools:text="Tangkas Tanggap Tangguh"
+            tools:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textview_bnpb_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/raleway"
+            android:text="@string/bnpb_home"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_tips_home" />
+
+        <ImageView
+            android:id="@+id/button_prabencana_home"
+            android:layout_width="match_parent"
+            android:layout_height="143dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="33dp"
+            android:src="@drawable/ic_button_image_prabencana"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_bnpb_home" />
+
+        <ImageView
+            android:id="@+id/button_saat_bencana_home"
+            android:layout_width="match_parent"
+            android:layout_height="143dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="33dp"
+            android:src="@drawable/ic_button_image_saatbencana"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_prabencana_home" />
+
+        <ImageView
+            android:id="@+id/button_pasca_bencana_home"
+            android:layout_width="match_parent"
+            android:layout_height="143dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="33dp"
+            android:src="@drawable/ic_button_image_pascabencana"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_saat_bencana_home" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:text="Illustrasi oleh  : BNPB"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/button_pasca_bencana_home" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

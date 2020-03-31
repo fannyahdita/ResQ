@@ -28,7 +28,7 @@ class SignInRescuerActivity : AppCompatActivity() {
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = "BUAT AKUN"
+        actionBar.title = getString(R.string.signin_actionbar)
         actionBar.elevation = 0F
 
         firebaseAuth = FirebaseAuth.getInstance()
@@ -83,7 +83,6 @@ class SignInRescuerActivity : AppCompatActivity() {
             return
         }
 
-        Log.wtf("SIGN IN: ", "$email $password")
         loggingInUser(email, password)
     }
 
@@ -108,6 +107,8 @@ class SignInRescuerActivity : AppCompatActivity() {
 
                 } else {
                     progressbar_signin.visibility = View.GONE
+                    button_signin_finish.isClickable = true
+                    button_signin_finish.setBackgroundResource(R.drawable.shape_filled_button)
                     Toast.makeText(
                         this@SignInRescuerActivity, task.exception?.message,
                         Toast.LENGTH_LONG
