@@ -81,6 +81,7 @@ class PoskoKorbanFragment : Fragment(), OnMapReadyCallback {
                 val detailPosko = DetailPoskoFragment.newInstance()
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.container, detailPosko)
+                transaction.addToBackStack(null)
                 transaction.commit()
                 return@setOnMarkerClickListener true
             }
