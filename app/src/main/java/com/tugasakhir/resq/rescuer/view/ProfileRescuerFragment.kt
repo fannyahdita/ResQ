@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 
@@ -93,7 +94,21 @@ class ProfileRescuerFragment : Fragment() {
                 startActivity(intent)
             }
         } else {
-            textview_profile_name.text = "Nama korban"
+            val ref = FirebaseDatabase.getInstance().getReference("AkunKorban").child(user.uid)
+            val korbanFragment = object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    val korban = p0.getValue(AkunKorban::class.java)
+                    textview_profile_name.text = korban?.name
+                    textview_profile_rescuer_division.text = korban?.phone
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.wtf("ProfileFragmentError : ", p0.message)
+                }
+
+            }
+
+            ref.addListenerForSingleValueEvent(korbanFragment)
         }
     }
 }
