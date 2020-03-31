@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
+import com.tugasakhir.resq.korban.view.EditProfileKorbanActivity
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 
@@ -109,6 +110,11 @@ class ProfileRescuerFragment : Fragment() {
             }
 
             ref.addListenerForSingleValueEvent(korbanFragment)
+
+            button_profile_editprofile.setOnClickListener {
+                val intent = Intent(activity, EditProfileKorbanActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }
