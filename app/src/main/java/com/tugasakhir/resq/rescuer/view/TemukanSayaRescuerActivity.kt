@@ -1,7 +1,12 @@
 package com.tugasakhir.resq.rescuer.view
 
+import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Html
 import android.util.Log
 import android.view.MenuItem
@@ -9,6 +14,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -25,6 +31,7 @@ import com.tugasakhir.resq.korban.model.InfoKorban
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.VictimInfoData
 import kotlinx.android.synthetic.main.activity_temukansaya_rescuer.*
+import java.util.*
 
 class TemukanSayaRescuerActivity : AppCompatActivity() {
 
@@ -32,10 +39,8 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var korban: InfoKorban
     private lateinit var victimInfoData: VictimInfoData
-    private var isAccepted: Boolean = false
-    private var isOnTheWay: Boolean = false
-    private var isFinished: Boolean = false
     private var idRescuer = ""
+    private val permissionId = 42
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,24 +64,36 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         button_close_detail.setOnClickListener { layout_detail_marker.visibility = View.GONE }
     }
 
-    private fun setMaps(korban: InfoKorban, victimInfoId: String, isAccepted: Boolean, isOnTheWay: Boolean, isFinished: Boolean) {
+    private fun setMaps(korban: InfoKorban, victimInfoId: String, isAccepted: Boolean, isOnTheWay: Boolean, isRescuerArrived: Boolean) {
+        Log.d("MASUK SETMAPS", victimInfoId)
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(korban.latitude.toDouble(), korban.longitude.toDouble())
-            gMap.isMyLocationEnabled = true
+            if (checkPermissions()) {
+                if (isLocationEnabled()) {
+                    gMap.isMyLocationEnabled = true
+                } else {
+                    Toast.makeText(this, "Please turn on your location", Toast.LENGTH_LONG).show()
+                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivity(intent)
+                }
+            } else {
+                requestPermissions()
+            }
             gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
             when {
                 isAccepted or isOnTheWay -> {
                     Log.d(victimInfoId, "isAccepted or isOnTheWay")
                     gMap.addMarker(
                         MarkerOptions().position(location).title("$victimInfoId true")
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                    )
                 }
-                isFinished -> {
-                    Log.d(victimInfoId, "Finished gak muncul")
+                isRescuerArrived -> {
+                    Log.d(victimInfoId, "$isRescuerArrived Finished gak muncul")
                     gMap.addMarker(MarkerOptions().position(location).visible(false))
                 }
                 else -> {
-                    Log.d(victimInfoId, "tolong aku")
+                    Log.d(victimInfoId, "$isRescuerArrived tolong aku")
                     gMap.addMarker(
                         MarkerOptions().position(location).title("$victimInfoId false")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
@@ -86,8 +103,12 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
 
             gMap.setOnMarkerClickListener { marker ->
                 val idStatus = marker.title.toString().split(" ")
-                if(idStatus[1].toBoolean()) {
-                    Toast.makeText(this, getString(R.string.victim_already_handled), Toast.LENGTH_SHORT).show()
+                if (idStatus[1].toBoolean()) {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.victim_already_handled),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return@setOnMarkerClickListener true
                 }
                 layout_detail_marker.visibility = View.VISIBLE
@@ -148,7 +169,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                         )
 
                         getStatus(korban, info.key.toString())
-
                     }
                 }
 
@@ -159,31 +179,46 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     }
 
     private fun getStatus(korban: InfoKorban, victimInfoId: String) {
-        FirebaseDatabase.getInstance().getReference("KorbanTertolong")
-            .addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(ds: DataSnapshot) {
-                    ds.children.forEach { helped ->
-                        Log.d("infoo ID Korban", victimInfoId)
+        Log.d("MASUK GETSTATUS", victimInfoId)
+        FirebaseDatabase.getInstance().reference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.child("KorbanTertolong").exists()) {
+                    val helpedVictim = p0.child("KorbanTertolong")
+                    Log.d("jumlah anak", helpedVictim.childrenCount.toString())
+                    var index = 1
+                    helpedVictim.children.forEach { helped ->
                         if (victimInfoId == helped.child("idInfoKorban").value.toString()) {
                             Log.d("masuk sini", (victimInfoId == helped.child("idInfoKorban").value.toString()).toString())
-                            isAccepted = helped.child("accepted").value.toString().toBoolean()
-                            isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
-                            isFinished = helped.child("finished").value.toString().toBoolean()
-                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isFinished)
-                        } else {
-                            Log.d("keluar", (victimInfoId == helped.child("idInfoKorban").value.toString()).toString())
-                            isAccepted = false
-                            isOnTheWay = false
-                            isFinished = false
-                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isFinished)
+                            Log.d("rescuer arrived 1", (helped.child("rescuerArrived").value.toString()))
+                            val isAccepted = helped.child("accepted").value.toString().toBoolean()
+                            val isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
+                            val isRescuerArrived = helped.child("rescuerArrived").value.toString().toBoolean()
+                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
+                            index++
+                            return
+                        } else if (helpedVictim.childrenCount == index.toLong()) {
+                            Log.d("$victimInfoId masuk sini 2", "${helped.child("idInfoKorban").value}")
+                            val isAccepted = false
+                            val isOnTheWay = false
+                            val isRescuerArrived = false
+                            setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                         }
+                        index++
                     }
+                } else {
+                    Log.d("korban tertolong", "kosong")
+                    Log.d("rescuer arrived, korban tertolong kosong", "rescuerArrived false dong")
+                    val isAccepted = false
+                    val isOnTheWay = false
+                    val isRescuerArrived = false
+                    setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                 }
+            }
 
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.d("TemukanSayaError : ", p0.message)
-                }
-            })
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("TemukanSayaError : ", p0.message)
+            }
+        })
     }
 
     private fun makeHelpedVictim(rescuerId: String, victimInfoId: String) {
@@ -194,7 +229,9 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             rescuerId, victimInfoId,
             isAccepted = true,
             isOnTheWay = false,
-            isFinished = false
+            isRescuerArrived = false,
+            isFinished = false,
+            date = victimInfoData.getCurrentDateTime().toString("dd/MM/yyy HH:mm")
         )
 
         ref.child(idHelpedVictim).setValue(helpedVictim).addOnCompleteListener {
@@ -233,4 +270,42 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+            &&
+            ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            permissionId
+        )
+    }
+}
+
+private fun Date.toString(s: String, locale: Locale = Locale.getDefault()): String {
+    val formatter = java.text.SimpleDateFormat(s, locale)
+    return formatter.format(this)
 }
