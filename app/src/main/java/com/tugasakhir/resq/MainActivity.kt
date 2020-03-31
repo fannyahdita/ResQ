@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_posko -> {
                     actionBar.title = getString(R.string.posko_actionbar)
                     if (isKorban) {
-                        val poskoKorban = PoskoKorbanFragment.newInstance()
-                        openFragment(poskoKorban)
+//                        val poskoKorban = PoskoKorbanFragment.newInstance()
+//                        openFragment(poskoKorban)
                     } else {
                         val poskoRescuer = PoskoRescuerFragment.newInstance()
                         openFragment(poskoRescuer)
@@ -82,7 +82,8 @@ class MainActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
                     if (isKorban) {
-                        isAskingHelp = p0.child("askingHelp").value!!.equals("true")
+                        isAskingHelp = p0.child("askingHelp").value!!.toString() == "true"
+                        Log.d("isAsking 1", isAskingHelp.toString())
                     }
                 }
 
