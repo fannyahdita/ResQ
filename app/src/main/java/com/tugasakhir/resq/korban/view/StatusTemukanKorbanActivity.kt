@@ -17,15 +17,16 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 
+
 class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var mHandler: Handler
 
-    var accept: Boolean = false
-    var running: Boolean = false
-//    var finish: Boolean = false
-    var idInfoKorban: String = ""
+    var rescuerName: String = ""
+    var rescuerPhone: String = ""
+
+    var isAlreadyFinished: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +41,6 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
-//        if (intent.getStringExtra(EXTRA_PREV_ACTIVITY) == "Form") {
-//            userId = intent.getStringExtra(EXTRA_ID_INFOKORBAN)
-//        }
-        getIdKorban()
-
         updateStatus()
         mHandler = Handler()
 
@@ -54,19 +50,9 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     val runnableCode = object: Runnable {
         override fun run() {
-            checkStatus(idInfoKorban)
-//            updateFragment(accept, running, finish)
-//            getIdKorban()
+            getIdKorban()
 
             Toast.makeText(this@StatusTemukanKorbanActivity, "Jalanin Runnable", Toast.LENGTH_LONG).show()
-//            if (!accept) {
-//                accept = true
-//            } else if (!running) {
-//                running = true
-//            } else if (!finish) {
-//                finish = true
-//            }
-
             mHandler.postDelayed(this, 10000)
 
         }
@@ -89,7 +75,6 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                         Log.d("ID KORBAN 2 : ", it.child("idKorban").value.toString())
 
                         if (user == it.child("idKorban").value.toString()) {
-                            Toast.makeText(this@StatusTemukanKorbanActivity, "Sudah dapet idInfoKorban : " + it.child("idKorban").value.toString(), Toast.LENGTH_LONG).show()
                             checkStatus(it.key.toString())
                         }
 
@@ -111,16 +96,19 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                     children.forEach {
                         Log.d("ID KORBAN INFO 1 : ", userId)
                         Log.d("ID KORBAN INFO 2 : ", it.child("idInfoKorban").value.toString())
-                        Toast.makeText(this@StatusTemukanKorbanActivity, "Masuk chcek KorbanTertolong" + it.child("idInfoKorban").value.toString(), Toast.LENGTH_LONG).show()
 
                         if (userId == it.child("idInfoKorban").value.toString() &&
                             it.child("finished").value!!.toString() == "false") {
-                            idInfoKorban = userId
-                            Toast.makeText(this@StatusTemukanKorbanActivity, "Mau update fragment : " + it.child("idInfoKorban").value.toString(), Toast.LENGTH_LONG).show()
+
+                            val idKorbanTertolong = it.key.toString()
+                            val idRescuer = it.child("idRescuer").value.toString()
+
+                            getRescuerData(idRescuer)
                             updateFragment(
                                 it.child("accepted").value!!.equals(true),
                                 it.child("onTheWay").value!!.equals(true),
-                                it.child("finished").value!!.equals(true)
+                                it.child("rescuerArrived").value!!.equals(true),
+                                userId, idKorbanTertolong, idRescuer
                             )
                         }
                     }
@@ -133,22 +121,34 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     }
 
-    private fun updateFragment(isAccepted: Boolean, isRunning: Boolean, isFinished: Boolean) {
-        if (isFinished) {
-            val user = FirebaseAuth.getInstance().currentUser?.uid
-            FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
-
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else if (isRunning) {
-            val runningFragment = StatusRunningFragment.newInstance()
+    private fun updateFragment(isAccepted: Boolean, isRunning: Boolean, isRescuerArrived: Boolean, idInfoKorban: String, idKorbanTertolong: String, idRescuer: String) {
+        if (isRescuerArrived && !isAlreadyFinished && rescuerName != "") {
+            isAlreadyFinished = true
+            val finishFragment = StatusFinishedFragment.newInstance(rescuerName, rescuerPhone, idInfoKorban, idKorbanTertolong)
+            openFragment(finishFragment)
+        } else if (isRunning && rescuerName != "") {
+            val runningFragment = StatusRunningFragment.newInstance(rescuerName, rescuerPhone)
             openFragment(runningFragment)
-        } else if (isAccepted) {
-            val acceptedFragment = StatusAcceptedFragment.newInstance()
+        } else if (isAccepted && rescuerName != "") {
+            val acceptedFragment = StatusAcceptedFragment.newInstance(idInfoKorban, idKorbanTertolong, rescuerName, rescuerPhone)
             openFragment(acceptedFragment)
         }
     }
+
+    private fun getRescuerData(idRescuer: String?) {
+        FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    rescuerName = p0.child("name").value.toString()
+                    rescuerPhone = p0.child("phone").value.toString()
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("TemukanSayaError : ", p0.message)
+                }
+            })
+    }
+
 
     private fun openFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
