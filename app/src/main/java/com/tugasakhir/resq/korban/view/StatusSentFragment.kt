@@ -22,8 +22,6 @@ import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.progres
 
 class StatusSentFragment : Fragment() {
 
-    var isAvail: Boolean = false
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -89,6 +87,7 @@ class StatusSentFragment : Fragment() {
     }
 
     private fun confirmRemoveData(userId: String) {
+        var index = 1
         FirebaseDatabase.getInstance().getReference("KorbanTertolong")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
@@ -96,8 +95,11 @@ class StatusSentFragment : Fragment() {
                     children.forEach {
 
                         if (userId == it.child("idInfoKorban").value.toString()) {
-                            isAvail = true
+                            return
+                        } else if (p0.childrenCount == index.toLong()) {
+                            FirebaseDatabase.getInstance().reference.child("InfoKorban/$userId").removeValue()
                         }
+                        index++
                     }
                 }
 
@@ -105,11 +107,6 @@ class StatusSentFragment : Fragment() {
                     Log.d("TemukanSayaError : ", p0.message)
                 }
             })
-
-        if (!isAvail) {
-            FirebaseDatabase.getInstance().reference.child("InfoKorban/$userId").removeValue()
-        }
-        progressbar_name.visibility = View.GONE
 
     }
 }

@@ -12,6 +12,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.*
+import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.button_batalkan
+import kotlinx.android.synthetic.main.fragment_temukansayastatus3_korban.*
 
 class StatusRunningFragment : Fragment() {
 
@@ -26,27 +28,21 @@ class StatusRunningFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        button_batalkan.setOnClickListener {
-            val builder = AlertDialog.Builder(activity!!)
-            builder.setTitle(R.string.alert_batalkan)
-            builder.setMessage(R.string.alert_batalkan_status3)
-            builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
-                val user = FirebaseAuth.getInstance().currentUser?.uid
-                FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
+        val rescuerName = arguments!!.getString("rescuerName")
+        val rescuerPhone = arguments!!.getString("rescuerPhone")
 
-                val intent = Intent(activity, MainActivity::class.java)
-                startActivity(intent)
-                activity!!.finish()
-            }
+        textview_nama_rescuer.text = rescuerName
+        textview_nomor_rescuer.text = rescuerPhone
 
-            builder.setPositiveButton(R.string.alert_jangan_batalkan){_,_ ->
-
-            }
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
-        }
     }
     companion object {
-        fun newInstance(): StatusRunningFragment = StatusRunningFragment()
+        fun newInstance(rescuerName: String, rescuerPhone: String): StatusRunningFragment {
+            val args = Bundle()
+            args.putString("rescuerName", rescuerName)
+            args.putString("rescuerPhone", rescuerPhone)
+            val fragment = StatusRunningFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

@@ -20,173 +20,172 @@
             tools:context=".View.SettingProfileActivity">
 
             <TextView
-                android:id="@+id/textview_lokasi_posko"
-                android:layout_width="wrap_content"
+                android:id="@+id/textview_bantuan_selesai"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="Masjid Almujahidin"
+                android:text="@string/bantuan_selesai"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="24sp"
+                android:gravity="center"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textview_kapasitas"
+                android:id="@+id/textview_rincian"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="Kapasitas : "
+                android:text="@string/rincian_bantuan"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_lokasi_posko" />
+                app:layout_constraintTop_toBottomOf="@id/textview_bantuan_selesai" />
 
             <TextView
-                android:id="@+id/textview_nilai_kapasitas"
+                android:id="@+id/textview_jenis_bantuan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="100 KK"
+                android:text="@string/jenis_bantuan"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/textview_kapasitas"
-                app:layout_constraintTop_toTopOf="@id/textview_kapasitas" />
-
-            <fragment
-                android:id="@+id/fragment_map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_kapasitas"/>
-
-            <View
-                android:id="@+id/view_detail"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/shape_temukansaya_background"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragment_map" />
-
-            <ImageView
-                android:id="@+id/image_ping"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="24dp"
-                android:src="@drawable/ic_ping_location_small"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragment_map" />
+                app:layout_constraintTop_toBottomOf="@id/textview_rincian" />
 
             <TextView
-                android:id="@+id/textview_alamat_posko"
-                android:layout_width="230dp"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/source_sans_pro"
-                android:layout_marginStart="20dp"
-                android:text="Jalan Agung Raya 2 RT 011 RW 04 Nomor 11 Lenteng Agung, Kecamatan jagakarsa, Jakarta Selatan"
-                android:textColor="@color/black_dark"
-                android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/image_ping"
-                app:layout_constraintTop_toTopOf="@id/image_ping" />
-
-            <TableRow
-                android:id="@+id/hr"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey_dark"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_alamat_posko"/>
-
-            <TextView
-                android:id="@+id/tombol_petunjuk"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/petunjuk"
-                android:textColor="@color/black_dark"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/hr" />
-
-            <TextView
-                android:id="@+id/textview_fasilitas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/fasilitas"
-                android:textColor="@color/black_dark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_detail" />
-
-            <TextView
-                android:id="@+id/textview_ditambahkan_oleh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/posko_pembuat"
-                android:textColor="@color/black_dark"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_fasilitas" />
-
-            <TextView
-                android:id="@+id/textview_penambah"
+                android:id="@+id/textview_jenis_bantuan_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
                 android:layout_marginStart="10dp"
+                android:text="Evakuasi"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/textview_jenis_bantuan"
+                app:layout_constraintTop_toTopOf="@id/textview_jenis_bantuan" />
+
+            <TextView
+                android:id="@+id/textview_jumlah_orang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/victim_number"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jenis_bantuan" />
+
+            <TextView
+                android:id="@+id/textview_jumlah_lansia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlah_orang" />
+
+            <TextView
+                android:id="@+id/textview_jumlah_dewasa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlah_lansia" />
+
+            <TextView
+                android:id="@+id/textview_jumlah_anak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlah_dewasa" />
+
+            <TextView
+                android:id="@+id/textview_info_tambahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/additional_info"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_jumlah_anak" />
+
+            <TextView
+                android:id="@+id/textview_info_tambahan_val"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@id/textview_info_tambahan"
+                app:layout_constraintTop_toTopOf="@id/textview_info_tambahan" />
+
+            <TextView
+                android:id="@+id/textview_info_rescuer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/rincian_rescuer"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_info_tambahan_val" />
+
+            <TextView
+                android:id="@+id/textview_nama_rescuer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
                 android:text="Andi"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/textview_ditambahkan_oleh"
-                app:layout_constraintTop_toTopOf="@id/textview_ditambahkan_oleh"/>
-
-            <TextView
-                android:id="@+id/textview_kontak"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/posko_kontak"
-                android:textColor="@color/black_dark"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_ditambahkan_oleh" />
+                app:layout_constraintTop_toBottomOf="@id/textview_info_rescuer" />
 
             <TextView
-                android:id="@+id/textview_nilai_kontak"
+                android:id="@+id/textview_nomor_rescuer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
-                android:layout_marginStart="10dp"
-                android:text="0812121212"
+                android:text="089898989898"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
-                app:layout_constraintStart_toEndOf="@id/textview_kontak"
-                app:layout_constraintTop_toTopOf="@id/textview_kontak"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_nama_rescuer" />
+
+            <Button
+                android:id="@+id/button_selesai"
+                style="@style/BlackButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:clickable="true"
+                android:text="@string/finish_help_victim"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_nomor_rescuer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar
-            android:id="@+id/progressbar_name"
+            android:id="@+id/progressbar_phone"
             style="@style/ProgressBarTheme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

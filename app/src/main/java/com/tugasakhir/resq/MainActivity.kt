@@ -82,7 +82,8 @@ class MainActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
                     if (isKorban) {
-                        isAskingHelp = p0.child("askingHelp").value!!.equals("true")
+                        isAskingHelp = p0.child("askingHelp").value!!.toString() == "true"
+                        Log.d("isAsking 1", isAskingHelp.toString())
                     }
                 }
 
