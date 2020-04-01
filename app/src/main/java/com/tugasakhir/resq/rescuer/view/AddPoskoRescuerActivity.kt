@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.R
 
 class AddPoskoRescuerActivity : AppCompatActivity() {
+
     private lateinit var actionBar: ActionBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
