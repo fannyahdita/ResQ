@@ -17,5 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/button_add_posko"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/BlackButton"
+        android:layout_margin="20dp"
+        android:text="TAMBAHKAN POSKO"
+        app:layout_constraintTop_toBottomOf="@id/textview_test_posko_rescuer"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

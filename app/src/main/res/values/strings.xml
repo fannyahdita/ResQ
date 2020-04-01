@@ -15,6 +15,7 @@
     <string name="water_level_actionbar">Ketinggian Muka Air</string>
     <string name="edit_profil_actionbar">Ubah Profil</string>
     <string name="open_maps_actionbar">Peta</string>
+    <string name="add_posko_actionbar">Tambah Posko</string>
 
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>

@@ -122,28 +122,20 @@
                 android:id="@+id/fragment_edit_posko_address"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="500dp"
                 android:layout_marginTop="10dp" />
-
-            <Button
-                style="@style/OutlinedBorder"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/add_posko_locate_me" />
 
             <EditText
                 android:id="@+id/edittext_edit_posko_address"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
-                android:inputType="textLongMessage"
+                android:inputType="textMultiLine"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
-                android:scrollHorizontally="true"
-                android:visibility="gone"
+                android:maxLines="5"
                 tools:text="Jl. Gandaria Utara No 30" />
 
             <TextView
@@ -177,6 +169,7 @@
                 android:textSize="18sp" />
 
             <CheckBox
+                android:id="@+id/checkbox_medic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
@@ -185,6 +178,7 @@
                 android:textSize="18sp" />
 
             <CheckBox
+                android:id="@+id/checkbox_bed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
@@ -193,6 +187,7 @@
                 android:textSize="18sp" />
 
             <CheckBox
+                android:id="@+id/checkbox_kitchen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
@@ -201,6 +196,7 @@
                 android:textSize="18sp" />
 
             <CheckBox
+                android:id="@+id/checkbox_logistic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
@@ -209,6 +205,7 @@
                 android:textSize="18sp" />
 
             <CheckBox
+                android:id="@+id/checkbox_wc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
@@ -232,7 +229,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
-                android:inputType="textLongMessage"
+                android:inputType="textMultiLine"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 tools:text="tersedia makanan untuk bayi " />
