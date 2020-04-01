@@ -93,9 +93,6 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
                     17f
                 )
             )
-            var currentMarker = it.addMarker(
-                MarkerOptions().position(LatLng(latitude!!, longitude!!)).draggable(true)
-            )
             edittext_edit_posko_address.setText(getAddress(latitude!!, longitude!!))
             it.setOnMarkerDragListener(object : GoogleMap.OnMarkerDragListener {
                 override fun onMarkerDrag(p0: Marker?) {
@@ -113,11 +110,9 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
                 }
             })
             it.setOnCameraIdleListener {
-                currentMarker.remove()
                 val center = it.cameraPosition.target
                 latitude = center.latitude
                 longitude = center.longitude
-                currentMarker = it.addMarker(MarkerOptions().position(center))
                 edittext_edit_posko_address.setText(getAddress(latitude!!, longitude!!))
             }
         }
