@@ -97,6 +97,10 @@
             android:name=".rescuer.view.ThankYouRescuerActivity"
             android:theme="@style/AppTheme.CustomTheme" />
 
+        <activity
+            android:name=".rescuer.view.AddPoskoRescuerActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />

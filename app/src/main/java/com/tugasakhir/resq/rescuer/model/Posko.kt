@@ -2,6 +2,8 @@ package com.tugasakhir.resq.rescuer.model
 
 class Posko (
     val idRescuer : String = "",
+    val latitude : Long = 0,
+    val longitude : Long = 0,
     val poskoName : String = "",
     val city : String = "",
     val district : String = "",
