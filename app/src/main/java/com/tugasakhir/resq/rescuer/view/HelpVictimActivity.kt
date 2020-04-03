@@ -88,7 +88,6 @@ class HelpVictimActivity : AppCompatActivity() {
                     val uid = p0.child("idKorban").value.toString()
 
                     FirebaseDatabase.getInstance().reference.child("AkunKorban/$uid")
-                        .child("name")
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
                                 val victimInfo = InfoKorban(
@@ -104,7 +103,8 @@ class HelpVictimActivity : AppCompatActivity() {
                                     isEvacuationNeeded
                                 )
 
-                                setLayout(victimInfo, p0.value.toString(), helpedVictimId)
+                                setLayout(victimInfo, p0.child("name").value.toString(),
+                                    p0.child("phone").value.toString(), helpedVictimId)
                             }
 
                             override fun onCancelled(p0: DatabaseError) {
@@ -119,8 +119,9 @@ class HelpVictimActivity : AppCompatActivity() {
             })
     }
 
-    private fun setLayout(victimInfo: InfoKorban, victimName: String, helpedVictimId: String) {
+    private fun setLayout(victimInfo: InfoKorban, victimName: String, victimNumber : String, helpedVictimId: String) {
         textview_name_victim_help.text = victimName
+        textview_phone_number_victim.text = victimNumber
         val helpType = when {
             victimInfo.bantuanMakanan -> {
                 "Bantuan Makanan"

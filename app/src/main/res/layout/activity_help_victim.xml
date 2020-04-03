@@ -41,6 +41,17 @@
             tools:text="Bukit Cimanggu City Blok M5B no 20 Cluster Royal Lakeside, Tanah Sareal, Sukadamai, Kota Bogor, Jawa Barat, 16165 Indonesia" />
 
         <TextView
+            android:id="@+id/textview_phone_number_victim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/source_sans_pro"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:autoLink="phone"
+            tools:text="081234567890" />
+
+        <TextView
             android:id="@+id/textview_title_victim_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

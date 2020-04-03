@@ -15,6 +15,7 @@
     <string name="water_level_actionbar">Ketinggian Muka Air</string>
     <string name="edit_profil_actionbar">Ubah Profil</string>
     <string name="open_maps_actionbar">Peta</string>
+    <string name="add_posko_actionbar">Tambah Posko</string>
 
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>
@@ -146,4 +147,25 @@
     <string name="fasilitas">Fasilitas : </string>
     <string name="posko_pembuat">Ditambahkan oleh : </string>
     <string name="posko_kontak">Kontak : </string>
+
+    //Edit Posko
+    <string name="add_posko_name">Nama Posko</string>
+    <string name="add_posko_name_detail">Sertakan nama lokasi seperti nama Sekolah atau Masjid atau sebutan tempat yang dapat mudah dikenali</string>
+    <string name="add_posko_city">Kota Administratif</string>
+    <string name="add_posko_district">Kecamatan</string>
+    <string name="add_posko_sub_district">Kelurahan</string>
+    <string name="add_posko_address">Alamat</string>
+    <string name="add_posko_capacity">Kapasitas Kepala Keluarga</string>
+    <string name="add_posko_facility">Fasilitas</string>
+    <string name="add_posko_radio_button_bed">Tempat Tidur</string>
+    <string name="add_posko_radio_button_medic">Medis</string>
+    <string name="add_posko_radio_button_logistic">Logistik (Makanan dan Baju Bersih)</string>
+    <string name="add_posko_radio_button_kitchen">Dapur Umum</string>
+    <string name="add_posko_radio_button_wc">WC Umum</string>
+    <string name="add_posko_additional_info">Keterangan Tambahan</string>
+    <string name="add_posko_contact_name">Nama Koordinator Posko</string>
+    <string name="add_posko_contact_number">Nomor Telepon Koordinator Posko</string>
+    <string name="add_posko_locate_me">Gunakan Lokasi</string>
+    <string name="add_posko_make_posko">Buat Posko</string>
+
 </resources>
