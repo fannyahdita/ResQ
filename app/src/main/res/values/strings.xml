@@ -16,6 +16,7 @@
     <string name="edit_profil_actionbar">Ubah Profil</string>
     <string name="open_maps_actionbar">Peta</string>
     <string name="add_posko_actionbar">Tambah Posko</string>
+    <string name="buku_saku_actionbar">Buku Saku</string>
 
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>
@@ -54,7 +55,7 @@
 
     // Home
     <string name="location_home">Lokasi Anda</string>
-    <string name="tips_title_home"><![CDATA[<b>Tangkas Tanggap Tangguh</b><br>Menghadapi Bencana Banjir]]></string>
+    <string name="tips_title_home"><![CDATA[<b>Buku Saku</b><br>Menghadapi Bencana]]></string>
     <string name="waterlevel_button">Informasi ketinggian Pintu Air</string>
     <string name="bnpb_home">Badan Nasional Penanggulangan Bencana</string>
 

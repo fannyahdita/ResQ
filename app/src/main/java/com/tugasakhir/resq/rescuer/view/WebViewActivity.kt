@@ -14,19 +14,24 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
-import kotlinx.android.synthetic.main.activity_water_level.*
+import kotlinx.android.synthetic.main.activity_web_view.*
 
-class WaterLevelActivity : AppCompatActivity() {
+class WebViewActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
+    private var url : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_water_level)
+        setContentView(R.layout.activity_web_view)
+
+        val bundle = intent.extras
+        val title = bundle?.getString("actionbar")
+        url = bundle?.getString("link")
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = getString(R.string.water_level_actionbar)
+        actionBar.title = title
         actionBar.elevation = 0F
 
         startWebView()
@@ -37,7 +42,7 @@ class WaterLevelActivity : AppCompatActivity() {
     private fun startWebView() {
         progressbar_water_level.max = 100
         webview_water_level.settings.javaScriptEnabled = true
-        webview_water_level.loadUrl("https://bpbd.jakarta.go.id/waterlevel")
+        webview_water_level.loadUrl(url)
         webview_water_level.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)

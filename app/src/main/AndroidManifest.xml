@@ -78,7 +78,7 @@
         </activity>
 
         <activity
-            android:name=".rescuer.view.WaterLevelActivity"
+            android:name=".rescuer.view.WebViewActivity"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
