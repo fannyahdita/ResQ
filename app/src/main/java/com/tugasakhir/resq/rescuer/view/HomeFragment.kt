@@ -1,6 +1,7 @@
 package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.view.LayoutInflater
@@ -31,8 +32,23 @@ class HomeFragment : Fragment() {
         button_waterlevel_beranda.setOnClickListener {
             button_waterlevel_beranda.setBackgroundResource(R.drawable.shape_bordered_button_clicked)
             button_waterlevel_beranda.setTextColor(resources.getColor(R.color.white_dark))
-            val intent = Intent(activity, WaterLevelActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString("actionbar", getString(R.string.water_level_actionbar))
+            bundle.putString("link", "https://bpbd.jakarta.go.id/waterlevel")
+            val intent = Intent(activity, WebViewActivity::class.java)
+            intent.putExtras(bundle)
             startActivity(intent)
         }
+
+        button_buku_saku.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://siaga.bnpb.go.id/hkb/po-content/uploads/documents/Buku_Saku-10Jan18_FA.pdf"))
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        button_waterlevel_beranda.setBackgroundResource(R.drawable.shape_bordered_button)
+        button_waterlevel_beranda.setTextColor(resources.getColor(R.color.black_dark))
     }
 }
