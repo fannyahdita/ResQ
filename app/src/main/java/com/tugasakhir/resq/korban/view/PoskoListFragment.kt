@@ -5,11 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -17,13 +15,14 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.PoskoAdapter
 import com.tugasakhir.resq.rescuer.model.Posko
+import kotlinx.android.synthetic.main.fragment_list_posko.*
 
 class PoskoListFragment: Fragment() {
 
     private val poskoAdapter = PoskoAdapter()
+    private lateinit var currentPosko: Posko
 
-    lateinit var rootView: View
-    lateinit var recyclerView: RecyclerView
+    var TAG = "LIST POSKO "
     val listPosko: ArrayList<Posko?> = ArrayList()
 
     override fun onCreateView(
@@ -31,42 +30,22 @@ class PoskoListFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        rootView = inflater.inflate(R.layout.fragment_list_posko, container, false)
-        initView()
-        return rootView
-
+        return inflater.inflate(R.layout.fragment_list_posko, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        onCreateComponent()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d(TAG, "MASUK INIT")
+        posko_recycler_view.layoutManager = LinearLayoutManager(activity)
+        posko_recycler_view.adapter = poskoAdapter
+
+        fetchPoskoData()
+
+
     }
 
     companion object {
-        var TAG = PoskoListFragment::class.java.simpleName
-        const val ARG_POSITION: String = "positioin"
-
-        fun newInstance(): PoskoListFragment {
-            var fragment = PoskoListFragment();
-            val args = Bundle()
-            args.putInt(ARG_POSITION, 1)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
-    private fun onCreateComponent() {
-    }
-
-    private fun initView() {
-        fetchPoskoData()
-    }
-
-    private fun initializeRecyclerView() {
-        recyclerView = rootView.findViewById(R.id.posko_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
-        recyclerView.adapter = poskoAdapter
-        poskoAdapter.setPosko(listPosko)
+        fun newInstance(): PoskoListFragment = PoskoListFragment()
     }
 
     private fun fetchPoskoData() {
@@ -74,18 +53,60 @@ class PoskoListFragment: Fragment() {
             .addListenerForSingleValueEvent(object  : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
-                    children.forEach {
-                        val posko = p0.getValue(Posko::class.java)
-                        listPosko.add(posko)
+                    children.forEach {posko ->
+                        val address = posko.child("address").value.toString()
+                        val capacity = posko.child("capacity").value.toString().toLong()
+                        val city = posko.child("city").value.toString()
+                        val contactName = posko.child("contactName").value.toString()
+                        val contactNumber = posko.child("contactNumber").value.toString()
+                        val createdAt = posko.child("createdAt").value.toString()
+                        val district = posko.child("district").value.toString()
+                        val hasBed = posko.child("hasBed").value.toString().toBoolean()
+                        val hasKitchen = posko.child("hasKitchen").value.toString().toBoolean()
+                        val hasLogistic = posko.child("hasLogistic").value.toString().toBoolean()
+                        val hasMedic = posko.child("hasMedic").value.toString().toBoolean()
+                        val hasWC = posko.child("hasWC").value.toString().toBoolean()
+                        val idRescuer = posko.child("idRescuer").value.toString()
+                        val latitude = posko.child("latitude").value.toString().toDouble()
+                        val longitude = posko.child("longitude").value.toString().toDouble()
+                        val open = posko.child("open").value.toString().toBoolean()
+                        val poskoName = posko.child("poskoName").value.toString()
+                        val subDistrict = posko.child("subDistrict").value.toString()
+
+                        currentPosko = Posko(
+                            idRescuer,
+                            latitude,
+                            longitude,
+                            poskoName,
+                            city,
+                            district,
+                            subDistrict,
+                            address,
+                            capacity,
+                            hasMedic,
+                            hasKitchen,
+                            hasWC,
+                            hasLogistic,
+                            hasBed,
+                            createdAt,
+                            contactName,
+                            contactNumber,
+                            open
+                        )
+
+                        listPosko.add(currentPosko)
+
                     }
+                    poskoAdapter.setPosko(listPosko)
+                    Toast.makeText(activity, listPosko.size.toString(), Toast.LENGTH_SHORT).show()
                 }
+
 
                 override fun onCancelled(p0: DatabaseError) {
                     Log.d("TemukanSayaError : ", p0.message)
                 }
             })
 
-        initializeRecyclerView()
     }
 
 
