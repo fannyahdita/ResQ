@@ -7,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.view.PoskoDetailActivity
-import com.tugasakhir.resq.korban.view.PoskoDetailFragment
 import com.tugasakhir.resq.rescuer.model.Posko
-import kotlinx.android.synthetic.main.list_posko.view.*
+import kotlinx.android.synthetic.main.item_list_posko.view.*
 import java.io.Serializable
 
 class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
@@ -28,7 +25,7 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_posko, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list_posko, parent, false)
         return ViewHolder(view)
     }
 

@@ -103,7 +103,26 @@ class ProfileRescuerFragment : Fragment() {
                 startActivity(intent)
             }
         } else {
-            victimProfile()
+            val ref = FirebaseDatabase.getInstance().getReference("AkunKorban").child(user.uid)
+            val korbanFragment = object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    val korban = p0.getValue(AkunKorban::class.java)
+                    textview_profile_name.text = korban?.name
+                    textview_profile_rescuer_division.text = korban?.phone
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.wtf("ProfileFragmentError : ", p0.message)
+                }
+
+            }
+
+            ref.addListenerForSingleValueEvent(korbanFragment)
+
+            button_profile_editprofile.setOnClickListener {
+                val intent = Intent(activity, EditProfileKorbanActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -141,28 +160,5 @@ class ProfileRescuerFragment : Fragment() {
                     Log.d("RescuerHistory", p0.message)
                 }
             })
-    }
-
-    private fun victimProfile() {
-        val ref = FirebaseDatabase.getInstance().getReference("AkunKorban").child(user.uid)
-        val korbanFragment = object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                val korban = p0.getValue(AkunKorban::class.java)
-                textview_profile_name.text = korban?.name
-                textview_profile_rescuer_division.text = korban?.phone
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                Log.wtf("ProfileFragmentError : ", p0.message)
-            }
-
-        }
-
-        ref.addListenerForSingleValueEvent(korbanFragment)
-
-        button_profile_editprofile.setOnClickListener {
-            val intent = Intent(activity, EditProfileKorbanActivity::class.java)
-            startActivity(intent)
-        }
     }
 }

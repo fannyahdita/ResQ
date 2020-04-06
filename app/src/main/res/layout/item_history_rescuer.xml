@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="wrap_content"
     android:background="@color/white_light"
     app:cardCornerRadius="5dp"
     app:cardElevation="4dp"
@@ -36,7 +36,8 @@
             android:fontFamily="@font/source_sans_pro"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/textview_history_item_rescuer_name"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="06/04/2020 16:00"/>
 
         <TextView
             android:id="@+id/textview_history_item_rescuer_help_type"
