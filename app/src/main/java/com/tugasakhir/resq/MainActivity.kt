@@ -15,10 +15,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.tugasakhir.resq.korban.view.EXTRA_PREV_ACTIVITY
-import com.tugasakhir.resq.korban.view.PoskoKorbanFragment
-import com.tugasakhir.resq.korban.view.StatusTemukanKorbanActivity
-import com.tugasakhir.resq.korban.view.TemukanSayaActivity
+import com.tugasakhir.resq.korban.view.*
 import com.tugasakhir.resq.rescuer.view.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -43,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_posko -> {
                     actionBar.title = getString(R.string.posko_actionbar)
                     if (isKorban) {
-                        val poskoKorban = PoskoKorbanFragment.newInstance()
+                        val poskoKorban = PoskoListFragment.newInstance()
                         openFragment(poskoKorban)
                     } else {
                         val poskoRescuer = PoskoRescuerFragment.newInstance()
