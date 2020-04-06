@@ -1,6 +1,5 @@
 package com.tugasakhir.resq.rescuer.adapter
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -33,10 +32,12 @@ class HistoryRescuerAdapter : RecyclerView.Adapter<HistoryRescuerAdapter.ViewHol
         holder.itemView.textview_history_item_rescuer_datetime.text = currentHelpedVictim.date
 
         FirebaseDatabase.getInstance().getReference("InfoKorban").child(infoVictimId)
-            .addValueEventListener(object : ValueEventListener{
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    val address = victimInfoData.getAddress(p0.child("latitude").value.toString().toDouble(),
-                        p0.child("longitude").value.toString().toDouble(), holder.itemView.context)
+                    val address = victimInfoData.getAddress(
+                        p0.child("latitude").value.toString().toDouble(),
+                        p0.child("longitude").value.toString().toDouble(), holder.itemView.context
+                    )
 
                     holder.itemView.textview_history_item_rescuer_address.text = address
 
@@ -56,10 +57,12 @@ class HistoryRescuerAdapter : RecyclerView.Adapter<HistoryRescuerAdapter.ViewHol
 
                     val idVictimAccount = p0.child("idKorban").value.toString()
 
-                    FirebaseDatabase.getInstance().getReference("AkunKorban/$idVictimAccount").child("name")
-                        .addValueEventListener(object : ValueEventListener{
+                    FirebaseDatabase.getInstance().getReference("AkunKorban/$idVictimAccount")
+                        .child("name")
+                        .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
-                                holder.itemView.textview_history_item_rescuer_name.text = p0.value.toString()
+                                holder.itemView.textview_history_item_rescuer_name.text =
+                                    p0.value.toString()
                             }
 
                             override fun onCancelled(p0: DatabaseError) {
@@ -79,7 +82,7 @@ class HistoryRescuerAdapter : RecyclerView.Adapter<HistoryRescuerAdapter.ViewHol
         return helpedVictim.size
     }
 
-    fun setHelpedVictim(helpedVictim : List<KorbanTertolong>) {
+    fun setHelpedVictim(helpedVictim: List<KorbanTertolong>) {
         this.helpedVictim = helpedVictim
         notifyDataSetChanged()
     }
