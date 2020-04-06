@@ -1,6 +1,7 @@
 package com.tugasakhir.resq.korban
 
 import android.content.Intent
+import android.location.Location
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +45,13 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
         holder.textview_alamat_posko.text = currentPosko?.address
         holder.textview_kapasitas.text = currentPosko?.capacity.toString()
         holder.textview_jarak.text = currentPosko?.city
+
+        val results = FloatArray(1)
+        Location.distanceBetween("-6.3302658".toDouble(), "106.8388629".toDouble(), "-6.353942".toDouble(), "106.832185".toDouble(), results)
+
+        val distance = results[0].toString().split(".")[0] + " m"
+        holder.textview_jarak.text = distance
+
 
         holder.itemView.posko_card.setOnClickListener {
 //            val detailPosko = PoskoDetailFragment.newInstance()
