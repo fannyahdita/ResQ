@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -16,8 +17,11 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
+import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.korban.view.EditProfileKorbanActivity
+import com.tugasakhir.resq.rescuer.adapter.HistoryRescuerAdapter
 import com.tugasakhir.resq.rescuer.model.Rescuer
+import kotlinx.android.synthetic.main.fragment_list_posko.*
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 
 class ProfileRescuerFragment : Fragment() {
@@ -43,6 +47,8 @@ class ProfileRescuerFragment : Fragment() {
 
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
+    private lateinit var rescuerHistory: ArrayList<KorbanTertolong>
+    private var historyRescuerAdapter = HistoryRescuerAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,7 +63,7 @@ class ProfileRescuerFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        rescuerHistory = ArrayList()
         button_logout.setOnClickListener {
             button_logout.setTextColor(resources.getColor(R.color.white_light))
             button_logout.setBackgroundResource(R.drawable.shape_bordered_button_clicked)
@@ -90,31 +96,73 @@ class ProfileRescuerFragment : Fragment() {
 
             ref.addListenerForSingleValueEvent(rescuerFragment)
 
+            getHistoryRescuer()
+
             button_profile_editprofile.setOnClickListener {
                 val intent = Intent(activity, EditProfileRescuerActivity::class.java)
                 startActivity(intent)
             }
         } else {
-            val ref = FirebaseDatabase.getInstance().getReference("AkunKorban").child(user.uid)
-            val korbanFragment = object : ValueEventListener {
+            victimProfile()
+        }
+    }
+
+    private fun getHistoryRescuer() {
+        val idRescuer = FirebaseAuth.getInstance().currentUser?.uid
+        FirebaseDatabase.getInstance().getReference("KorbanTertolong")
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    val korban = p0.getValue(AkunKorban::class.java)
-                    textview_profile_name.text = korban?.name
-                    textview_profile_rescuer_division.text = korban?.phone
+                    p0.children.forEach {
+                        if (it.child("idRescuer").value.toString() == idRescuer) {
+                            val idVictimInfo = it.child("idInfoKorban").value.toString()
+                            val date = it.child("date").value.toString()
+                            val isOnTheWay = it.child("onTheWay").value.toString().toBoolean()
+                            val isRescuerArrived =
+                                it.child("rescuerArrived").value.toString().toBoolean()
+                            val isFinished = it.child("finished").value.toString().toBoolean()
+                            val isAccepted = it.child("accepted").value.toString().toBoolean()
+
+                            if (isRescuerArrived) {
+                                val helpedVictim = KorbanTertolong(
+                                    idRescuer, idVictimInfo, isAccepted,
+                                    isOnTheWay, isRescuerArrived, isFinished, date
+                                )
+                                rescuerHistory.add(helpedVictim)
+                            }
+                        }
+                    }
+
+                    recyclerview_history.layoutManager = LinearLayoutManager(activity)
+                    recyclerview_history.adapter = historyRescuerAdapter
+                    historyRescuerAdapter.setHelpedVictim(rescuerHistory)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.wtf("ProfileFragmentError : ", p0.message)
+                    Log.d("RescuerHistory", p0.message)
                 }
+            })
+    }
 
+    private fun victimProfile() {
+        val ref = FirebaseDatabase.getInstance().getReference("AkunKorban").child(user.uid)
+        val korbanFragment = object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                val korban = p0.getValue(AkunKorban::class.java)
+                textview_profile_name.text = korban?.name
+                textview_profile_rescuer_division.text = korban?.phone
             }
 
-            ref.addListenerForSingleValueEvent(korbanFragment)
-
-            button_profile_editprofile.setOnClickListener {
-                val intent = Intent(activity, EditProfileKorbanActivity::class.java)
-                startActivity(intent)
+            override fun onCancelled(p0: DatabaseError) {
+                Log.wtf("ProfileFragmentError : ", p0.message)
             }
+
+        }
+
+        ref.addListenerForSingleValueEvent(korbanFragment)
+
+        button_profile_editprofile.setOnClickListener {
+            val intent = Intent(activity, EditProfileKorbanActivity::class.java)
+            startActivity(intent)
         }
     }
 }
