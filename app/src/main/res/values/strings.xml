@@ -148,6 +148,8 @@
     <string name="fasilitas">Fasilitas : </string>
     <string name="posko_pembuat">Ditambahkan oleh : </string>
     <string name="posko_kontak">Kontak : </string>
+    <string name="title_recycler_view">POSKO TERDEKAT</string>
+    <string name="add_posko"><u>Tambahkan</u></string>
 
     //Edit Posko
     <string name="add_posko_name">Nama Posko</string>

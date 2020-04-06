@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white_light"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="50dp">
 
         <Button
             android:id="@+id/button_waterlevel_beranda"
@@ -44,13 +45,13 @@
 
         <ImageView
             android:id="@+id/button_buku_saku"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="-55dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="30dp"
-            android:src="@drawable/ic_buku_saku_2" />
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_buku_saku" />
 
     </LinearLayout>
 </ScrollView>

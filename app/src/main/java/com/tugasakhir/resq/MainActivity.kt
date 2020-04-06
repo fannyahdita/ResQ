@@ -16,7 +16,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.korban.view.*
-import com.tugasakhir.resq.rescuer.view.*
+import com.tugasakhir.resq.rescuer.view.HelpVictimActivity
+import com.tugasakhir.resq.rescuer.view.HomeFragment
+import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
+import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -39,17 +42,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_posko -> {
                     actionBar.title = getString(R.string.posko_actionbar)
-                    if (isKorban) {
-                        val poskoKorban = PoskoListFragment.newInstance()
-                        openFragment(poskoKorban)
-                    } else {
-                        val poskoRescuer = PoskoRescuerFragment.newInstance()
-                        openFragment(poskoRescuer)
-                    }
+                    val poskoKorban = PoskoListFragment.newInstance(isKorban)
+                    openFragment(poskoKorban)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_kontak -> {
                     actionBar.title = getString(R.string.contact_actionbar)
+                    val callCenterFragment = CallCenterFragment.newInstance()
+                    openFragment(callCenterFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_akun -> {
