@@ -17,10 +17,9 @@ import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.PoskoAdapter
 import com.tugasakhir.resq.rescuer.model.Posko
 import com.tugasakhir.resq.rescuer.view.AddPoskoRescuerActivity
-import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
 import kotlinx.android.synthetic.main.fragment_list_posko.*
 
-class PoskoListFragment: Fragment() {
+class PoskoListFragment : Fragment() {
 
     private val poskoAdapter = PoskoAdapter()
     private lateinit var currentPosko: Posko
@@ -28,7 +27,7 @@ class PoskoListFragment: Fragment() {
 
     companion object {
         const val ROLE = ""
-        fun newInstance(isKorban: Boolean): PoskoListFragment{
+        fun newInstance(isKorban: Boolean): PoskoListFragment {
             val fragment = PoskoListFragment()
             val bundle = Bundle()
             if (isKorban) {
@@ -41,7 +40,7 @@ class PoskoListFragment: Fragment() {
         }
     }
 
-    var TAG = "LIST POSKO "
+    private var TAG = "LIST POSKO "
     val listPosko: ArrayList<Posko?> = ArrayList()
 
     override fun onCreateView(
@@ -77,10 +76,10 @@ class PoskoListFragment: Fragment() {
 
     private fun fetchPoskoData() {
         FirebaseDatabase.getInstance().getReference("Posko")
-            .addListenerForSingleValueEvent(object  : ValueEventListener {
+            .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
-                    children.forEach {posko ->
+                    children.forEach { posko ->
                         val address = posko.child("address").value.toString()
                         val capacity = posko.child("capacity").value.toString().toLong()
                         val city = posko.child("city").value.toString()

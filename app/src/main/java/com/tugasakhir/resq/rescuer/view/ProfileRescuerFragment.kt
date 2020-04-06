@@ -21,7 +21,6 @@ import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.korban.view.EditProfileKorbanActivity
 import com.tugasakhir.resq.rescuer.adapter.HistoryRescuerAdapter
 import com.tugasakhir.resq.rescuer.model.Rescuer
-import kotlinx.android.synthetic.main.fragment_list_posko.*
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 
 class ProfileRescuerFragment : Fragment() {
