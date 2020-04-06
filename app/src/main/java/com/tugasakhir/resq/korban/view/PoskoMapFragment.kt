@@ -24,7 +24,7 @@ import android.Manifest
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 
-class PoskoKorbanFragment : Fragment(), OnMapReadyCallback {
+class PoskoMapFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var mMap: GoogleMap
@@ -78,7 +78,7 @@ class PoskoKorbanFragment : Fragment(), OnMapReadyCallback {
             ).showInfoWindow()
 
             gMap.setOnMarkerClickListener { marker ->
-                val detailPosko = DetailPoskoFragment.newInstance()
+                val detailPosko = PoskoDetailFragment.newInstance()
                 val transaction = activity!!.supportFragmentManager.beginTransaction()
                 transaction.replace(R.id.container, detailPosko)
                 transaction.addToBackStack(null)
@@ -90,8 +90,8 @@ class PoskoKorbanFragment : Fragment(), OnMapReadyCallback {
     }
 
     companion object {
-        fun newInstance(): PoskoKorbanFragment =
-            PoskoKorbanFragment()
+        fun newInstance(): PoskoMapFragment =
+            PoskoMapFragment()
     }
 
     private fun checkPermissions(): Boolean {

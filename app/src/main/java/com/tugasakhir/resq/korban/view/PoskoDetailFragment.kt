@@ -12,9 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.tugasakhir.resq.R
 import kotlinx.android.synthetic.main.fragment_detailposko_korban.*
-import java.util.*
 
-class DetailPoskoFragment : Fragment() {
+class PoskoDetailFragment : Fragment() {
 
     private lateinit var actionBar: ActionBar
 
@@ -56,7 +55,7 @@ class DetailPoskoFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): DetailPoskoFragment =
-            DetailPoskoFragment()
+        fun newInstance(): PoskoDetailFragment =
+            PoskoDetailFragment()
     }
 }
