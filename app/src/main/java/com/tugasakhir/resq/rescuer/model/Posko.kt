@@ -1,5 +1,7 @@
 package com.tugasakhir.resq.rescuer.model
 
+import java.io.Serializable
+
 class Posko (
     val idRescuer : String = "",
     val latitude : Double = 0.0,
@@ -19,4 +21,4 @@ class Posko (
     val contactName : String = "",
     val contactNumber : String = "",
     val isOpen : Boolean = true
-)
+) : Serializable

@@ -1,5 +1,6 @@
 package com.tugasakhir.resq.korban
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.view.PoskoDetailActivity
 import com.tugasakhir.resq.korban.view.PoskoDetailFragment
 import com.tugasakhir.resq.rescuer.model.Posko
 import kotlinx.android.synthetic.main.list_posko.view.*
+import java.io.Serializable
 
 class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
 
@@ -43,11 +46,15 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
         holder.textview_jarak.text = currentPosko?.city
 
         holder.itemView.posko_card.setOnClickListener {
-            val detailPosko = PoskoDetailFragment.newInstance()
-            val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.container, detailPosko)
-            transaction.addToBackStack(null)
-            transaction.commit()
+//            val detailPosko = PoskoDetailFragment.newInstance()
+//            val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
+//            transaction.replace(R.id.container, detailPosko)
+//            transaction.addToBackStack(null)
+//            transaction.commit()
+
+            val intent = Intent((context), PoskoDetailActivity::class.java)
+            intent.putExtra("EXTRA_POSKO", currentPosko as Serializable)
+            (context).startActivity(intent)
         }
     }
 
