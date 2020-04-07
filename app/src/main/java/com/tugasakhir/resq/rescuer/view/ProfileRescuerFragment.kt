@@ -95,6 +95,9 @@ class ProfileRescuerFragment : Fragment() {
 
             ref.addListenerForSingleValueEvent(rescuerFragment)
 
+            recyclerview_history.layoutManager = LinearLayoutManager(activity)
+            recyclerview_history.adapter = historyRescuerAdapter
+            recyclerview_history.isNestedScrollingEnabled  = false
             getHistoryRescuer()
 
             button_profile_editprofile.setOnClickListener {
@@ -150,8 +153,6 @@ class ProfileRescuerFragment : Fragment() {
                         }
                     }
 
-                    recyclerview_history.layoutManager = LinearLayoutManager(activity)
-                    recyclerview_history.adapter = historyRescuerAdapter
                     historyRescuerAdapter.setHelpedVictim(rescuerHistory)
                 }
 

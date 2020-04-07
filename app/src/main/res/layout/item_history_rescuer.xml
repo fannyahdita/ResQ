@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_history_rescuer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_light"
@@ -32,12 +33,12 @@
             android:id="@+id/textview_history_item_rescuer_datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
             android:fontFamily="@font/source_sans_pro"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/textview_history_item_rescuer_name"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="06/04/2020 16:00"/>
+            app:layout_constraintTop_toBottomOf="@id/textview_history_item_rescuer_name"
+            tools:text="06/04/2020 16:00" />
 
         <TextView
             android:id="@+id/textview_history_item_rescuer_help_type"
