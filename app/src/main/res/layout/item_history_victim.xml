@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_history_rescuer"
+    android:id="@+id/item_history_victim"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white_light"
@@ -19,7 +19,7 @@
         android:layout_marginBottom="5dp">
 
         <TextView
-            android:id="@+id/textview_history_item_rescuer_name"
+            android:id="@+id/textview_victim_history_item_rescuer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
@@ -30,28 +30,28 @@
             tools:text="Budi" />
 
         <TextView
-            android:id="@+id/textview_history_item_rescuer_datetime"
+            android:id="@+id/textview_victim_history_item_datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_history_item_rescuer_name"
+            app:layout_constraintTop_toBottomOf="@id/textview_victim_history_item_rescuer_name"
             tools:text="06/04/2020 16:00" />
 
         <TextView
-            android:id="@+id/textview_history_item_rescuer_help_type"
+            android:id="@+id/textview_victim_history_item_help_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_history_item_rescuer_datetime"
+            app:layout_constraintTop_toBottomOf="@id/textview_victim_history_item_datetime"
             tools:text="Bantuan Evakuasi" />
 
         <TextView
-            android:id="@+id/textview_history_item_rescuer_address"
+            android:id="@+id/textview_victim_history_item_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -59,7 +59,7 @@
             android:maxLines="1"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_history_item_rescuer_help_type"
+            app:layout_constraintTop_toBottomOf="@id/textview_victim_history_item_help_type"
             tools:text="Bukit Cimanggu City Blok M5B No 20 Cluster Royal Lakeside Kota Bogor" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

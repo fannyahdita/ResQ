@@ -20,6 +20,7 @@ import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.korban.view.EditProfileKorbanActivity
 import com.tugasakhir.resq.rescuer.adapter.HistoryRescuerAdapter
+import com.tugasakhir.resq.rescuer.adapter.HistoryVictimAdapter
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 
@@ -47,7 +48,9 @@ class ProfileRescuerFragment : Fragment() {
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private lateinit var rescuerHistory: ArrayList<KorbanTertolong>
+    private lateinit var victimHistory: ArrayList<KorbanTertolong>
     private var historyRescuerAdapter = HistoryRescuerAdapter()
+    private var historyVictimAdapter = HistoryVictimAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +66,7 @@ class ProfileRescuerFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         rescuerHistory = ArrayList()
+        victimHistory = ArrayList()
         button_logout.setOnClickListener {
             button_logout.setTextColor(resources.getColor(R.color.white_light))
             button_logout.setBackgroundResource(R.drawable.shape_bordered_button_clicked)
@@ -95,7 +99,13 @@ class ProfileRescuerFragment : Fragment() {
 
             ref.addListenerForSingleValueEvent(rescuerFragment)
 
-            getHistoryRescuer()
+            recyclerview_history.layoutManager = LinearLayoutManager(activity)
+            recyclerview_history.adapter = historyRescuerAdapter
+            recyclerview_history.isNestedScrollingEnabled = false
+
+            if (rescuerHistory.isEmpty()) {
+                getRescuerHistory()
+            }
 
             button_profile_editprofile.setOnClickListener {
                 val intent = Intent(activity, EditProfileRescuerActivity::class.java)
@@ -118,6 +128,14 @@ class ProfileRescuerFragment : Fragment() {
 
             ref.addListenerForSingleValueEvent(korbanFragment)
 
+            recyclerview_history.layoutManager = LinearLayoutManager(activity)
+            recyclerview_history.adapter = historyVictimAdapter
+            recyclerview_history.isNestedScrollingEnabled = false
+
+            if (victimHistory.isEmpty()) {
+                getVictimHistory()
+            }
+
             button_profile_editprofile.setOnClickListener {
                 val intent = Intent(activity, EditProfileKorbanActivity::class.java)
                 startActivity(intent)
@@ -125,7 +143,7 @@ class ProfileRescuerFragment : Fragment() {
         }
     }
 
-    private fun getHistoryRescuer() {
+    private fun getRescuerHistory() {
         val idRescuer = FirebaseAuth.getInstance().currentUser?.uid
         FirebaseDatabase.getInstance().getReference("KorbanTertolong")
             .addValueEventListener(object : ValueEventListener {
@@ -150,13 +168,66 @@ class ProfileRescuerFragment : Fragment() {
                         }
                     }
 
-                    recyclerview_history.layoutManager = LinearLayoutManager(activity)
-                    recyclerview_history.adapter = historyRescuerAdapter
                     historyRescuerAdapter.setHelpedVictim(rescuerHistory)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
                     Log.d("RescuerHistory", p0.message)
+                }
+            })
+    }
+
+    private fun getVictimHistory() {
+        val victimId = FirebaseAuth.getInstance().currentUser?.uid
+        FirebaseDatabase.getInstance().getReference("InfoKorban")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    var index = 0
+                    p0.children.forEach { infoVictim ->
+                        if (infoVictim.child("idKorban").value.toString() == victimId) {
+                            index++
+                            val infoVictimId = infoVictim.key.toString()
+                            getHelpedVictim(infoVictimId)
+                        }
+                    }
+                    historyVictimAdapter.setHistory(victimHistory)
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("Victim History Error", p0.message)
+                }
+            })
+    }
+
+    private fun getHelpedVictim(infoVictimId: String) {
+        FirebaseDatabase.getInstance().getReference("KorbanTertolong")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    p0.children.forEach {
+                        if (it.child("idInfoKorban").value.toString() == infoVictimId) {
+                            val idRescuer = it.child("idRescuer").value.toString()
+                            val date = it.child("date").value.toString()
+                            val isOnTheWay = it.child("onTheWay").value.toString().toBoolean()
+                            val isRescuerArrived =
+                                it.child("rescuerArrived").value.toString().toBoolean()
+                            val isFinished = it.child("finished").value.toString().toBoolean()
+                            val isAccepted = it.child("accepted").value.toString().toBoolean()
+
+                            if (isRescuerArrived) {
+                                val helpedVictim = KorbanTertolong(
+                                    idRescuer,
+                                    infoVictimId, isAccepted, isOnTheWay,
+                                    isRescuerArrived, isFinished, date
+                                )
+                                victimHistory.add(helpedVictim)
+                            }
+                            return
+                        }
+                    }
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("Victim History Error", p0.message)
                 }
             })
     }

@@ -17,6 +17,7 @@
     <string name="open_maps_actionbar">Peta</string>
     <string name="add_posko_actionbar">Tambah Posko</string>
     <string name="buku_saku_actionbar">Buku Saku</string>
+    <string name="history">Riwayat</string>
 
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>
