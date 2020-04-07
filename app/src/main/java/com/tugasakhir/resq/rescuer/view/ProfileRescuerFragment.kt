@@ -103,7 +103,6 @@ class ProfileRescuerFragment : Fragment() {
             recyclerview_history.adapter = historyRescuerAdapter
             recyclerview_history.isNestedScrollingEnabled = false
 
-
             getRescuerHistory()
 
             button_profile_editprofile.setOnClickListener {
@@ -130,6 +129,7 @@ class ProfileRescuerFragment : Fragment() {
             recyclerview_history.layoutManager = LinearLayoutManager(activity)
             recyclerview_history.adapter = historyVictimAdapter
             recyclerview_history.isNestedScrollingEnabled = false
+
             getVictimHistory()
 
             button_profile_editprofile.setOnClickListener {
@@ -190,12 +190,12 @@ class ProfileRescuerFragment : Fragment() {
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d("Victim History Error",p0.message)
+                    Log.d("Victim History Error", p0.message)
                 }
             })
     }
 
-    private fun getHelpedVictim(infoVictimId : String) {
+    private fun getHelpedVictim(infoVictimId: String) {
         FirebaseDatabase.getInstance().getReference("KorbanTertolong")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
@@ -204,14 +204,17 @@ class ProfileRescuerFragment : Fragment() {
                             val idRescuer = it.child("idRescuer").value.toString()
                             val date = it.child("date").value.toString()
                             val isOnTheWay = it.child("onTheWay").value.toString().toBoolean()
-                            val isRescuerArrived = it.child("rescuerArrived").value.toString()                                                     .toBoolean()
+                            val isRescuerArrived =
+                                it.child("rescuerArrived").value.toString().toBoolean()
                             val isFinished = it.child("finished").value.toString().toBoolean()
                             val isAccepted = it.child("accepted").value.toString().toBoolean()
 
                             if (isRescuerArrived) {
-                                val helpedVictim = KorbanTertolong(idRescuer,
+                                val helpedVictim = KorbanTertolong(
+                                    idRescuer,
                                     infoVictimId, isAccepted, isOnTheWay,
-                                    isRescuerArrived, isFinished, date)
+                                    isRescuerArrived, isFinished, date
+                                )
                                 victimHistory.add(helpedVictim)
                             }
                             return
