@@ -103,7 +103,9 @@ class ProfileRescuerFragment : Fragment() {
             recyclerview_history.adapter = historyRescuerAdapter
             recyclerview_history.isNestedScrollingEnabled = false
 
-            getRescuerHistory()
+            if (rescuerHistory.isEmpty()) {
+                getRescuerHistory()
+            }
 
             button_profile_editprofile.setOnClickListener {
                 val intent = Intent(activity, EditProfileRescuerActivity::class.java)
@@ -130,7 +132,9 @@ class ProfileRescuerFragment : Fragment() {
             recyclerview_history.adapter = historyVictimAdapter
             recyclerview_history.isNestedScrollingEnabled = false
 
-            getVictimHistory()
+            if (victimHistory.isEmpty()) {
+                getVictimHistory()
+            }
 
             button_profile_editprofile.setOnClickListener {
                 val intent = Intent(activity, EditProfileKorbanActivity::class.java)
