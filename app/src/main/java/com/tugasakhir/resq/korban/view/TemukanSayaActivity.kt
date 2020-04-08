@@ -22,8 +22,13 @@ class TemukanSayaActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
+        val lat = intent.getStringExtra(EXTRA_LAT)
+        val long = intent.getStringExtra(EXTRA_LONG)
+
         temukansaya_button.setOnClickListener {
             val intent = Intent(this, FormTemukanKorbanActivity::class.java)
+            intent.putExtra(EXTRA_LAT, lat)
+            intent.putExtra(EXTRA_LONG, long)
             startActivity(intent)
             finish()
         }
