@@ -36,16 +36,33 @@ class PoskoDetailActivity: AppCompatActivity() {
 
         getRescuerData(posko?.idRescuer)
 
+        var facility = ""
+        if (posko?.hasBed) {
+            facility += getString(R.string.add_posko_radio_button_bed) + "\n"
+        }
+        if (posko?.hasKitchen) {
+            facility += getString(R.string.add_posko_radio_button_kitchen) + "\n"
+        }
+        if (posko?.hasLogistic) {
+            facility += getString(R.string.add_posko_radio_button_logistic) + "\n"
+        }
+        if (posko?.hasMedic) {
+            facility += getString(R.string.add_posko_radio_button_medic) + "\n"
+        }
+        if (posko?.hasWC) {
+            facility += getString(R.string.add_posko_radio_button_wc)
+        }
+
         textview_lokasi_posko.text = posko?.poskoName
         textview_nilai_kapasitas.text = posko?.capacity.toString()
         textview_alamat_posko.text = posko?.mapAddress
+        textview_notes_posko.text = posko?.noteAddress
+        textview_fasilitas_value.text = facility
 
         tombol_petunjuk.setOnClickListener {
             val uri = "http://maps.google.com/maps?saddr=" + currentLat + "," + currentLong + "&daddr=" + posko?.latitude + "," + posko?.longitude
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             startActivity(intent)
-            finish()
-
         }
     }
 

@@ -91,11 +91,22 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/source_sans_pro"
                 android:layout_marginStart="20dp"
-                android:text="Jalan Agung Raya 2 RT 011 RW 04 Nomor 11 Lenteng Agung, Kecamatan jagakarsa, Jakarta Selatan"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/image_ping"
+                app:layout_constraintTop_toTopOf="@id/image_ping" />
+
+            <TextView
+                android:id="@+id/textview_notes_posko"
+                android:layout_width="230dp"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/source_sans_pro"
+                android:layout_marginStart="20dp"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/image_ping"
-                app:layout_constraintTop_toTopOf="@id/image_ping" />
+                app:layout_constraintTop_toBottomOf="@id/textview_alamat_posko" />
 
             <TableRow
                 android:id="@+id/hr"
@@ -104,7 +115,7 @@
                 android:background="@color/grey_dark"
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_alamat_posko"/>
+                app:layout_constraintTop_toBottomOf="@id/textview_notes_posko"/>
 
             <TextView
                 android:id="@+id/tombol_petunjuk"
@@ -131,7 +142,19 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_detail" />
+                app:layout_constraintTop_toBottomOf="@id/tombol_petunjuk" />
+
+            <TextView
+                android:id="@+id/textview_fasilitas_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_fasilitas" />
 
             <TextView
                 android:id="@+id/textview_ditambahkan_oleh"
@@ -144,7 +167,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_fasilitas" />
+                app:layout_constraintTop_toBottomOf="@id/textview_fasilitas_value" />
 
             <TextView
                 android:id="@+id/textview_penambah"
