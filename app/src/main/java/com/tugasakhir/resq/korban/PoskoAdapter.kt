@@ -20,10 +20,14 @@ import java.io.Serializable
 class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
 
     private var posko: List<Posko?> = ArrayList()
+    private var lat: String? = ""
+    private var long: String? = ""
     var TAG = "LIST POSKO "
 
-    fun setPosko(posko: ArrayList<Posko?>) {
+    fun setPosko(posko: ArrayList<Posko?>, lat: String?, long: String?) {
         this.posko = posko
+        this.lat = lat
+        this.long = long
         notifyDataSetChanged()
     }
 
@@ -47,21 +51,25 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
         holder.textview_jarak.text = currentPosko?.city
 
         val results = FloatArray(1)
-        Location.distanceBetween("-6.3302658".toDouble(), "106.8388629".toDouble(), "-6.353942".toDouble(), "106.832185".toDouble(), results)
+        Location.distanceBetween(lat!!.toDouble(), long!!.toDouble(), currentPosko?.latitude!!.toDouble(), currentPosko?.longitude!!.toDouble(), results)
 
-        val distance = results[0].toString().split(".")[0] + " m"
-        holder.textview_jarak.text = distance
+        val poskoDistance = results[0].toString().split(".")[0]
+        var fixDistance = ""
+
+        if (poskoDistance.length > 3) {
+            fixDistance = (poskoDistance.toInt() / 1000).toString() + " km"
+        } else {
+            fixDistance = poskoDistance + " m"
+        }
+
+        holder.textview_jarak.text = fixDistance
 
 
         holder.itemView.posko_card.setOnClickListener {
-//            val detailPosko = PoskoDetailFragment.newInstance()
-//            val transaction = (context as AppCompatActivity).supportFragmentManager.beginTransaction()
-//            transaction.replace(R.id.container, detailPosko)
-//            transaction.addToBackStack(null)
-//            transaction.commit()
-
             val intent = Intent((context), PoskoDetailActivity::class.java)
             intent.putExtra("EXTRA_POSKO", currentPosko as Serializable)
+            intent.putExtra("EXTRA_LAT", lat)
+            intent.putExtra("EXTRA_LONG", long)
             (context).startActivity(intent)
         }
     }

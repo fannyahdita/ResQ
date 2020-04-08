@@ -39,16 +39,26 @@ class PoskoListFragment: Fragment() {
         posko_recycler_view.layoutManager = LinearLayoutManager(activity)
         posko_recycler_view.adapter = poskoAdapter
 
-        fetchPoskoData()
+        val lat = arguments!!.getString("lat")
+        val long = arguments!!.getString("long")
+
+        fetchPoskoData(lat, long)
 
 
     }
 
     companion object {
-        fun newInstance(): PoskoListFragment = PoskoListFragment()
+        fun newInstance(lat: String, long: String): PoskoListFragment {
+            val args = Bundle()
+            args.putString("lat", lat)
+            args.putString("long", long)
+            val fragment = PoskoListFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 
-    private fun fetchPoskoData() {
+    private fun fetchPoskoData(lat: String?, long: String?) {
         FirebaseDatabase.getInstance().getReference("Posko")
             .addListenerForSingleValueEvent(object  : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
@@ -97,8 +107,7 @@ class PoskoListFragment: Fragment() {
                         listPosko.add(currentPosko)
 
                     }
-                    poskoAdapter.setPosko(listPosko)
-                    Toast.makeText(activity, listPosko.size.toString(), Toast.LENGTH_SHORT).show()
+                    poskoAdapter.setPosko(listPosko, lat, long)
                 }
 
 
