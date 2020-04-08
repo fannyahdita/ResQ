@@ -62,7 +62,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
                 edittext_edit_email_rescuer.setText(rescuer?.email)
                 edittext_edit_instansi_rescuer.setText(rescuer?.instansi)
                 edittext_edit_division_rescuer.setText(rescuer?.division)
-                edittext_id_division_rescuer.setText(rescuer?.employeeID)
+                edittext_id_rescuer.setText(rescuer?.employeeID)
             }
 
             override fun onCancelled(p0: DatabaseError) {
