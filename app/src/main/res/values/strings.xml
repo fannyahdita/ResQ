@@ -76,10 +76,13 @@
     <string name="button_otp_sendagain"><u>Kirim Ulang OTP</u></string>
     <string name="button_sendotp">Kirim</string>
 
-    //Profil Rescuer
+    //Profile Rescuer
     <string name="edit_profile_button">Ubah Profil</string>
     <string name="log_out_button">Keluar</string>
     <string name="history_title">Riwayat Pertolongan</string>
+
+    //Profile Victim
+    <string name="helped_by">Bantuan dilakukan oleh:</string>
 
     //temukan saya korban
     <string name="temukansaya_uppercase">TEMUKAN SAYA</string>

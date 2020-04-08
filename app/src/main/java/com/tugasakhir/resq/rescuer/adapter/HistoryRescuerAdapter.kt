@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.VictimInfoData
-import com.tugasakhir.resq.rescuer.view.DetailHistoryRescuerActivity
+import com.tugasakhir.resq.rescuer.view.detailHistory.DetailHistoryRescuerActivity
 import kotlinx.android.synthetic.main.item_history_rescuer.view.*
 import java.io.Serializable
 

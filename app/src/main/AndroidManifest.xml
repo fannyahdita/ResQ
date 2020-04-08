@@ -69,8 +69,7 @@
         <activity
             android:name=".korban.view.StatusTemukanKorbanActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.CustomTheme">
-        </activity>
+            android:theme="@style/AppTheme.CustomTheme"></activity>
 
         <activity
             android:name=".korban.view.PoskoDetailActivity"
@@ -78,16 +77,15 @@
 
         <activity
             android:name=".korban.view.EditProfileKorbanActivity"
-            android:theme="@style/AppTheme.CustomTheme">
-        </activity>
+            android:theme="@style/AppTheme.CustomTheme"></activity>
 
         <activity
             android:name=".rescuer.view.WebViewActivity"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-        android:name=".rescuer.view.EditProfileRescuerActivity"
-        android:theme="@style/AppTheme.CustomTheme" />
+            android:name=".rescuer.view.EditProfileRescuerActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".rescuer.view.HelpVictimActivity"
@@ -104,8 +102,13 @@
         <activity
             android:name=".rescuer.view.AddPoskoRescuerActivity"
             android:theme="@style/AppTheme.CustomTheme" />
+
         <activity
-            android:name=".rescuer.view.DetailHistoryRescuerActivity"
+            android:name=".rescuer.view.detailHistory.DetailHistoryRescuerActivity"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".rescuer.view.detailHistory.DetailHistoryVictimActivity"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <meta-data

@@ -190,7 +190,6 @@ class ProfileRescuerFragment : Fragment() {
                             getHelpedVictim(infoVictimId)
                         }
                     }
-                    historyVictimAdapter.setHistory(victimHistory)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -220,6 +219,7 @@ class ProfileRescuerFragment : Fragment() {
                                     isRescuerArrived, isFinished, date
                                 )
                                 victimHistory.add(helpedVictim)
+                                historyVictimAdapter.setHistory(victimHistory)
                             }
                             return
                         }

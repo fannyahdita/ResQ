@@ -13,43 +13,53 @@
         android:layout_marginEnd="30dp">
 
         <TextView
-            android:id="@+id/textview_detail_rescuer_history_name"
-            android:layout_width="0dp"
+            android:id="@+id/textview_title_rescuer"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
+            android:fontFamily="@font/source_sans_pro"
+            android:text="@string/helped_by"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textview_detail_victim_history_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:textAllCaps="true"
             android:textSize="27sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/textview_detail_rescuer_history_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title_rescuer"
             tools:text="Muhammad Daffa Nasrullah" />
 
         <TextView
-            android:id="@+id/textview_detail_rescuer_history_date"
+            android:id="@+id/textview_detail_victim_history_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:maxLines="2"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textview_detail_rescuer_history_name"
+            app:layout_constraintTop_toTopOf="@id/textview_detail_victim_history_help_type"
             tools:text="06/04/2020 16:00" />
 
         <TextView
-            android:id="@+id/textview_detail_rescuer_history_help_type"
-            android:layout_width="wrap_content"
+            android:id="@+id/textview_detail_victim_history_help_type"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/textview_detail_victim_history_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_detail_rescuer_history_name"
+            app:layout_constraintTop_toBottomOf="@id/textview_detail_victim_history_name"
             tools:text="Bantuan Evakuasi" />
 
         <TextView
-            android:id="@+id/textview_detail_rescuer_history_address"
+            android:id="@+id/textview_detail_victim_history_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -57,11 +67,11 @@
             android:textAlignment="viewStart"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_detail_rescuer_history_help_type"
+            app:layout_constraintTop_toBottomOf="@id/textview_detail_victim_history_help_type"
             tools:text="Bukit Cimanggu City Blok M5B nomor 20 Cluster Royal Lakeside Kota Bogor, Kelurahan Sukadamai, Kecamatan Tanah Sareal Kota Bogor 16165 Jawa Barat, Indonesia" />
 
         <TextView
-            android:id="@+id/textview_detail_rescuer_history_phone"
+            android:id="@+id/textview_detail_victim_history_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -69,7 +79,7 @@
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_detail_rescuer_history_address"
+            app:layout_constraintTop_toBottomOf="@id/textview_detail_victim_history_address"
             tools:text="081234567890" />
 
         <TextView
@@ -82,7 +92,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_detail_rescuer_history_phone" />
+            app:layout_constraintTop_toBottomOf="@id/textview_detail_victim_history_phone" />
 
         <TextView
             android:id="@+id/textview_history_number_of_elderly_victim"
