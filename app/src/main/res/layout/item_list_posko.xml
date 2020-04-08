@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/posko_card"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="wrap_content"
     android:background="@color/white_light"
     app:cardCornerRadius="5dp"
     app:cardElevation="4dp"
@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_marginEnd="20dp"
+        android:paddingVertical="5dp">
 
         <TextView
             android:id="@+id/textview_lokasi_posko"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:fontFamily="@font/source_sans_pro"
             android:textColor="@color/black_dark"
             android:textSize="18sp"
