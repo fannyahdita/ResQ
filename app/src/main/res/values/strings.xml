@@ -17,6 +17,7 @@
     <string name="open_maps_actionbar">Peta</string>
     <string name="add_posko_actionbar">Tambah Posko</string>
     <string name="buku_saku_actionbar">Buku Saku</string>
+    <string name="history">Riwayat</string>
 
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>
@@ -148,6 +149,8 @@
     <string name="fasilitas">Fasilitas : </string>
     <string name="posko_pembuat">Ditambahkan oleh : </string>
     <string name="posko_kontak">Kontak : </string>
+    <string name="title_recycler_view">POSKO TERDEKAT</string>
+    <string name="add_posko"><u>Tambahkan</u></string>
 
     //Edit Posko
     <string name="add_posko_name">Nama Posko</string>
