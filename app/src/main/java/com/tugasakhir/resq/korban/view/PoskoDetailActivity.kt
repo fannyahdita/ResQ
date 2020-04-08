@@ -31,6 +31,8 @@ class PoskoDetailActivity: AppCompatActivity() {
         actionBar.elevation = 0F
 
         val posko = intent.extras?.get("EXTRA_POSKO") as Posko
+        val currentLat = intent.getStringExtra("EXTRA_LAT")
+        val currentLong = intent.getStringExtra("EXTRA_LONG")
 
         getRescuerData(posko?.idRescuer)
 
@@ -39,7 +41,7 @@ class PoskoDetailActivity: AppCompatActivity() {
         textview_alamat_posko.text = posko?.address
 
         tombol_petunjuk.setOnClickListener {
-            val uri = "http://maps.google.com/maps?saddr=" + "-6.3302658" + "," + "106.8388629" + "&daddr=" + "-6.292016" + "," + "106.807769"
+            val uri = "http://maps.google.com/maps?saddr=" + currentLat + "," + currentLong + "&daddr=" + posko?.latitude + "," + posko?.longitude
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             startActivity(intent)
             finish()
