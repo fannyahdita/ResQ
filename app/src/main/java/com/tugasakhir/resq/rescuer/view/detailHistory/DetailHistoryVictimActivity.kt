@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer.view
+package com.tugasakhir.resq.rescuer.view.detailHistory
 
 import android.os.Bundle
 import android.text.Html
@@ -13,16 +13,16 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.VictimInfoData
-import kotlinx.android.synthetic.main.activity_detail_history_rescuer.*
+import kotlinx.android.synthetic.main.activity_detail_history_victim.*
 
-class DetailHistoryRescuerActivity : AppCompatActivity() {
+class DetailHistoryVictimActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private var victimInfoData = VictimInfoData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_history_rescuer)
+        setContentView(R.layout.activity_detail_history_victim)
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
@@ -35,17 +35,29 @@ class DetailHistoryRescuerActivity : AppCompatActivity() {
     }
 
     private fun setViews(helpedVictim: KorbanTertolong) {
-        textview_detail_rescuer_history_date.text = helpedVictim.date
+        textview_detail_victim_history_date.text = helpedVictim.date
+        FirebaseDatabase.getInstance().getReference("Rescuers/${helpedVictim.idRescuer}")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(p0: DataSnapshot) {
+                    textview_detail_victim_history_name.text = p0.child("name").value.toString()
+                    textview_detail_victim_history_phone.text = p0.child("phone").value.toString()
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("VictimHistoryDetail", p0.message)
+                }
+            })
+
         FirebaseDatabase.getInstance().getReference("InfoKorban/${helpedVictim.idInfoKorban}")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     val address = victimInfoData.getAddress(
                         p0.child("latitude").value.toString().toDouble(),
                         p0.child("longitude").value.toString().toDouble(),
-                        this@DetailHistoryRescuerActivity
+                        this@DetailHistoryVictimActivity
                     )
 
-                    textview_detail_rescuer_history_address.text = address
+                    textview_detail_victim_history_address.text = address
 
                     val helpType = when {
                         p0.child("bantuanEvakuasi").value.toString().toBoolean() -> {
@@ -59,49 +71,21 @@ class DetailHistoryRescuerActivity : AppCompatActivity() {
                         }
                     }
 
-                    textview_detail_rescuer_history_help_type.text = helpType
+                    textview_detail_victim_history_help_type.text = helpType
 
-                    textview_history_number_of_elderly_victim.text = Html.fromHtml(
-                        getString(
-                            R.string.number_of_elderly,
-                            p0.child("jumlahLansia").value.toString()
-                        )
-                    )
-                    textview_history_number_of_adult_victim.text = Html.fromHtml(
-                        getString(
-                            R.string.number_of_adults,
-                            p0.child("jumlahDewasa").value.toString()
-                        )
-                    )
-                    textview_history_number_of_child_victim.text = Html.fromHtml(
-                        getString(
-                            R.string.number_of_children,
-                            p0.child("jumlahAnak").value.toString()
-                        )
-                    )
+                    textview_history_number_of_elderly_victim.text =
+                        Html.fromHtml(getString(R.string.number_of_elderly, p0.child("jumlahLansia").value.toString()))
+                    textview_history_number_of_adult_victim.text =
+                        Html.fromHtml(getString(R.string.number_of_adults, p0.child("jumlahDewasa").value.toString()))
+                    textview_history_number_of_child_victim.text =
+                        Html.fromHtml(getString(R.string.number_of_children, p0.child("jumlahAnak").value.toString()))
 
-                    textview_history_victim_additional_information.text =
-                        p0.child("infoTambahan").value.toString()
+                    textview_history_victim_additional_information.text = p0.child("infoTambahan").value.toString()
 
-                    val idVictim = p0.child("idKorban").value.toString()
-
-                    FirebaseDatabase.getInstance().getReference("AkunKorban/$idVictim")
-                        .addValueEventListener(object : ValueEventListener {
-                            override fun onDataChange(p0: DataSnapshot) {
-                                textview_detail_rescuer_history_name.text =
-                                    p0.child("name").value.toString()
-                                textview_detail_rescuer_history_phone.text =
-                                    p0.child("phone").value.toString()
-                            }
-
-                            override fun onCancelled(p0: DatabaseError) {
-                                Log.d("DetailHistoryRescuer", p0.message)
-                            }
-                        })
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d("DetailHistoryRescuer", p0.message)
+                    Log.d("VictimHistoryDetail", p0.message)
                 }
             })
     }

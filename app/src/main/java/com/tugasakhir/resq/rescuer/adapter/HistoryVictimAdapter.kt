@@ -1,5 +1,6 @@
 package com.tugasakhir.resq.rescuer.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,9 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.VictimInfoData
+import com.tugasakhir.resq.rescuer.view.detailHistory.DetailHistoryVictimActivity
 import kotlinx.android.synthetic.main.item_history_victim.view.*
+import java.io.Serializable
 
 class HistoryVictimAdapter : RecyclerView.Adapter<HistoryVictimAdapter.ViewHolder>() {
 
@@ -69,6 +72,12 @@ class HistoryVictimAdapter : RecyclerView.Adapter<HistoryVictimAdapter.ViewHolde
                     Log.d("VictimAdapterError", p0.message)
                 }
             })
+
+        holder.itemView.item_history_victim.setOnClickListener {
+            val intent = Intent(holder.itemView.context, DetailHistoryVictimActivity::class.java)
+            intent.putExtra("helpedVictim", currentHistory as Serializable)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
