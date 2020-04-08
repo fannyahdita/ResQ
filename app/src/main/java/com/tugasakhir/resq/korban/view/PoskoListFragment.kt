@@ -72,6 +72,10 @@ class PoskoListFragment : Fragment() {
         if (role == "rescuer") {
             textview_add_posko_rescuer.visibility = View.VISIBLE
         }
+        textview_add_posko_rescuer.setOnClickListener {
+            val intent = Intent(activity, AddPoskoRescuerActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun fetchPoskoData(lat: String?, long: String?) {
