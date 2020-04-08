@@ -27,9 +27,11 @@ class PoskoListFragment : Fragment() {
 
     companion object {
         const val ROLE = ""
-        fun newInstance(isKorban: Boolean): PoskoListFragment {
+        fun newInstance(isKorban: Boolean, lat: String, long: String): PoskoListFragment {
             val fragment = PoskoListFragment()
             val bundle = Bundle()
+            bundle.putString("lat", lat)
+            bundle.putString("long", long)
             if (isKorban) {
                 bundle.putString(ROLE, "victim")
             } else {
@@ -58,7 +60,10 @@ class PoskoListFragment : Fragment() {
         posko_recycler_view.layoutManager = LinearLayoutManager(activity)
         posko_recycler_view.adapter = poskoAdapter
 
-        fetchPoskoData()
+        val lat = arguments!!.getString("lat")
+        val long = arguments!!.getString("long")
+
+        fetchPoskoData(lat, long)
 
     }
 
@@ -67,14 +72,9 @@ class PoskoListFragment : Fragment() {
         if (role == "rescuer") {
             textview_add_posko_rescuer.visibility = View.VISIBLE
         }
-
-        textview_add_posko_rescuer.setOnClickListener {
-            val intent = Intent(activity, AddPoskoRescuerActivity::class.java)
-            startActivity(intent)
-        }
     }
 
-    private fun fetchPoskoData() {
+    private fun fetchPoskoData(lat: String?, long: String?) {
         FirebaseDatabase.getInstance().getReference("Posko")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
@@ -123,8 +123,7 @@ class PoskoListFragment : Fragment() {
                         listPosko.add(currentPosko)
 
                     }
-                    poskoAdapter.setPosko(listPosko)
-                    Toast.makeText(activity, listPosko.size.toString(), Toast.LENGTH_SHORT).show()
+                    poskoAdapter.setPosko(listPosko, lat, long)
                 }
 
 

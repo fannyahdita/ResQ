@@ -28,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_temukansayaform_korban.progressba
 
 const val EXTRA_ID_INFOKORBAN = "com.tugasakhir.resq.korban.ID_INFOKORBAN"
 const val EXTRA_PREV_ACTIVITY = "com.tugasakhir.resq.korban.ID_PREV_ACTIVITY"
+const val EXTRA_LAT = "com.tugasakhir.resq.korban.LAT"
+const val EXTRA_LONG = "com.tugasakhir.resq.korban.LONG"
 
 class FormTemukanKorbanActivity : AppCompatActivity() {
 
@@ -42,8 +44,6 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
     var isMakanan: Boolean = false
     var isMedis: Boolean = false
     var idKorban: String = ""
-    val PERMISSION_ID = 42
-    lateinit var mFusedLocationClient: FusedLocationProviderClient
 
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -60,11 +60,11 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-
         ref = FirebaseDatabase.getInstance().getReference("InfoKorban")
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation()
+        lat = intent.getStringExtra(EXTRA_LAT)
+        long = intent.getStringExtra(EXTRA_LONG)
+
         getIdKorban()
 
         radio_jenisbantuan.setOnCheckedChangeListener { group, checkedId ->
@@ -195,91 +195,4 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
 
 
     }
-
-    @SuppressLint("MissingPermission")
-    private fun getLastLocation() {
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-                mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
-                    var location: Location? = task.result
-                    if (location == null) {
-                        requestNewLocationData()
-                    } else {
-                        long = location.longitude.toString()
-                        lat = location.latitude.toString()
-                    }
-                }
-            } else {
-                Toast.makeText(this, "Please turn on your location", Toast.LENGTH_LONG).show()
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-        } else {
-            requestPermissions()
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun requestNewLocationData() {
-        var mLocationRequest = LocationRequest()
-        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mLocationRequest.interval = 0
-        mLocationRequest.fastestInterval = 0
-        mLocationRequest.numUpdates = 1
-
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        mFusedLocationClient!!.requestLocationUpdates(
-            mLocationRequest,
-            mLocationCallback,
-            Looper.myLooper()
-        )
-    }
-
-    private val mLocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            var mLastLocation: Location = locationResult.lastLocation
-            long = mLastLocation.longitude.toString()
-            lat = mLastLocation.latitude.toString()
-        }
-    }
-
-    private fun isLocationEnabled(): Boolean {
-        var locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
-    }
-
-    private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-            &&
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            return true
-        }
-        return false
-    }
-
-    private fun requestPermissions() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
-            PERMISSION_ID
-        )
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == PERMISSION_ID) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLastLocation()
-            }
-        }
-    }
-
 }
