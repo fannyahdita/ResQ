@@ -43,7 +43,7 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
 
         val currentPosko = posko[position]
         holder.textview_lokasi_posko.text = currentPosko?.poskoName
-        holder.textview_alamat_posko.text = currentPosko?.address
+        holder.textview_alamat_posko.text = currentPosko?.mapAddress
         holder.textview_kapasitas.text = currentPosko?.capacity.toString()
         holder.textview_jarak.text = currentPosko?.city
 

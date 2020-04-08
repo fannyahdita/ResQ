@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DataSnapshot
@@ -16,7 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.PoskoAdapter
 import com.tugasakhir.resq.rescuer.model.Posko
-import com.tugasakhir.resq.rescuer.view.AddPoskoRescuerActivity
+import com.tugasakhir.resq.rescuer.view.AddPoskoLocationActivity
 import kotlinx.android.synthetic.main.fragment_list_posko.*
 
 class PoskoListFragment : Fragment() {
@@ -64,7 +63,6 @@ class PoskoListFragment : Fragment() {
         val long = arguments!!.getString("long")
 
         fetchPoskoData(lat, long)
-
     }
 
     override fun onResume() {
@@ -73,7 +71,7 @@ class PoskoListFragment : Fragment() {
             textview_add_posko_rescuer.visibility = View.VISIBLE
         }
         textview_add_posko_rescuer.setOnClickListener {
-            val intent = Intent(activity, AddPoskoRescuerActivity::class.java)
+            val intent = Intent(activity, AddPoskoLocationActivity::class.java)
             startActivity(intent)
         }
     }
@@ -84,7 +82,8 @@ class PoskoListFragment : Fragment() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach { posko ->
-                        val address = posko.child("address").value.toString()
+                        val mapAddress = posko.child("mapAddress").value.toString()
+                        val notesAddress = posko.child("noteAddress").value.toString()
                         val capacity = posko.child("capacity").value.toString().toLong()
                         val city = posko.child("city").value.toString()
                         val contactName = posko.child("contactName").value.toString()
@@ -111,7 +110,8 @@ class PoskoListFragment : Fragment() {
                             city,
                             district,
                             subDistrict,
-                            address,
+                            mapAddress,
+                            notesAddress,
                             capacity,
                             hasMedic,
                             hasKitchen,

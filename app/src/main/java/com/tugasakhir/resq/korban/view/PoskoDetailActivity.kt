@@ -38,7 +38,7 @@ class PoskoDetailActivity: AppCompatActivity() {
 
         textview_lokasi_posko.text = posko?.poskoName
         textview_nilai_kapasitas.text = posko?.capacity.toString()
-        textview_alamat_posko.text = posko?.address
+        textview_alamat_posko.text = posko?.mapAddress
 
         tombol_petunjuk.setOnClickListener {
             val uri = "http://maps.google.com/maps?saddr=" + currentLat + "," + currentLong + "&daddr=" + posko?.latitude + "," + posko?.longitude

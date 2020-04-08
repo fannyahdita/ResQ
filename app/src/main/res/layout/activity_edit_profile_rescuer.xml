@@ -167,7 +167,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/edittext_id_division_rescuer"
+            android:id="@+id/edittext_id_rescuer"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
