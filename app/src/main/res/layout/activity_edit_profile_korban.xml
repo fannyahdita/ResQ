@@ -22,7 +22,7 @@
             android:src="@drawable/ic_empty_pict" />
 
         <Button
-            android:id="@+id/butotn_edit_photo"
+            android:id="@+id/button_edit_photo"
             style="@style/OutlinedBorder"
             android:layout_width="wrap_content"
             android:layout_height="40dp"

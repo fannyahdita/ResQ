@@ -74,6 +74,7 @@ class SignUpRescuerActivity : AppCompatActivity() {
                     val rescuer = Rescuer(
                         name,
                         email,
+                        "",
                         phone,
                         instansi,
                         division,
