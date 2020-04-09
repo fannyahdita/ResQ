@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -146,6 +148,19 @@ class EditProfileRescuerActivity : AppCompatActivity() {
                 edittext_edit_instansi_rescuer.setText(rescuer?.instansi)
                 edittext_edit_division_rescuer.setText(rescuer?.division)
                 edittext_id_rescuer.setText(rescuer?.employeeID)
+
+                if(rescuer?.profilePhoto == "") {
+                    imageview_foto_placer.setImageResource(R.drawable.ic_empty_pict)
+                } else {
+                    Glide.with(this@EditProfileRescuerActivity)
+                        .load(rescuer?.profilePhoto)
+                        .apply(RequestOptions()
+                            .placeholder(R.drawable.ic_empty_pict)
+                            .centerCrop()
+                            .error(R.drawable.ic_empty_pict))
+                        .into(imageview_foto_placer)
+                }
+
             }
 
             override fun onCancelled(p0: DatabaseError) {
