@@ -40,7 +40,6 @@ class EditProfileRescuerActivity : AppCompatActivity() {
     private var data = Intent()
     private var resultCode = 0
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile_rescuer)
