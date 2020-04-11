@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_posko -> {
                     actionBar.title = getString(R.string.posko_actionbar)
-                    val poskoKorban = PoskoListFragment.newInstance(isKorban, lat, long)
+                    val poskoKorban = PoskoMapFragment.newInstance(isKorban, lat, long)
                     openFragment(poskoKorban)
                     return@OnNavigationItemSelectedListener true
                 }
