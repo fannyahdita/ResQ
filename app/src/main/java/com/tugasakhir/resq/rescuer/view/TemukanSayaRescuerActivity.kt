@@ -29,7 +29,7 @@ import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.InfoKorban
 import com.tugasakhir.resq.korban.model.KorbanTertolong
-import com.tugasakhir.resq.rescuer.VictimInfoData
+import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import kotlinx.android.synthetic.main.activity_temukansaya_rescuer.*
 import java.util.*
 

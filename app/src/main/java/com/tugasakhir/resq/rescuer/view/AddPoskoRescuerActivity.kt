@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.VictimInfoData
+import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import com.tugasakhir.resq.rescuer.model.Posko
 import kotlinx.android.synthetic.main.activity_add_posko_rescuer.*
 import java.util.*

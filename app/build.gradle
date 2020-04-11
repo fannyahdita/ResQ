@@ -42,10 +42,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.2.1'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
 
-    // Glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    // Glide v4 uses this new annotation processor -- see https://bumptech.github.io/glide/doc/generatedapi.html
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+    //Picasso
+    implementation "com.squareup.picasso:picasso:2.71828"
 
     //View
     implementation 'com.google.android.material:material:1.0.0'
@@ -53,5 +51,6 @@ dependencies {
     //gmaps
     implementation 'com.google.android.gms:play-services-location:17.0.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'androidx.exifinterface:exifinterface:1.1.0-beta01'
 
 }

@@ -23,15 +23,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.VictimInfoData
+import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import kotlinx.android.synthetic.main.activity_add_posko_location.*
+
+private const val PERMISSION_ID = 42
 
 class AddPoskoLocationActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var victimInfoData: VictimInfoData
-    private val permissionId = 42
+
     private var latitude: Double? = 0.0
     private var longitude: Double? = 0.0
     lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -141,7 +143,7 @@ class AddPoskoLocationActivity : AppCompatActivity() {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ),
-            permissionId
+            PERMISSION_ID
         )
     }
 

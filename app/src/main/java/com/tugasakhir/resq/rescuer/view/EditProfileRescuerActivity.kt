@@ -1,34 +1,46 @@
 package com.tugasakhir.resq.rescuer.view
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.rescuer.helper.ImagePicker
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.activity_edit_profile_rescuer.*
+import java.io.ByteArrayOutputStream
+
+private const val IMAGE_PICK_CODE = 1000
+private const val PERMISSION_CODE = 1001
 
 class EditProfileRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var ref: DatabaseReference
+    private var isPhotoProfileExist = ""
     private lateinit var photoURI: Uri
     private var photoURL = ""
     private var uid = ""
-    private val IMAGE_PICK_CODE = 1000
-    private val PERMISSION_CODE = 1001
+    private var data = Intent()
+    private var resultCode = 0
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile_rescuer)
@@ -46,16 +58,21 @@ class EditProfileRescuerActivity : AppCompatActivity() {
             progressbar_edit_profile_rescuer.visibility = View.VISIBLE
             button_save_profile.isEnabled = false
             if (button_change_photo.visibility == View.VISIBLE) {
-                uploadImage()
+                val bmp = ImagePicker.getImageFromResult(this, this.resultCode, this.data)
+                uploadImage(bmp!!)
             } else {
                 writeProfile()
             }
         }
 
         button_edit_photo.setOnClickListener {
-            pickImageFromGallery()
-            button_change_photo.visibility = View.VISIBLE
-            button_edit_photo.visibility = View.GONE
+            if (checkPermissions()) {
+                pickImageFromGallery()
+                button_change_photo.visibility = View.VISIBLE
+                button_edit_photo.visibility = View.GONE
+            } else {
+                requestPermissions()
+            }
         }
 
         button_change_photo.setOnClickListener {
@@ -74,14 +91,30 @@ class EditProfileRescuerActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             photoURI = data?.data!!
             imageview_foto_placer.setImageURI(data.data)
+            this.data = data
+            this.resultCode = resultCode
         }
     }
 
-    private fun uploadImage() {
+    private fun uploadImage(bmp: Bitmap) {
+        val stream = ByteArrayOutputStream()
+        bmp.compress(Bitmap.CompressFormat.PNG, 90, stream)
+        val data = stream.toByteArray()
+
         val idPhoto = "rescuerPhotoProfile/$uid.${System.currentTimeMillis()}"
         val ref = FirebaseStorage.getInstance().reference.child(idPhoto)
 
-        ref.putFile(photoURI).addOnSuccessListener {
+        if (isPhotoProfileExist != "") {
+            FirebaseStorage.getInstance().getReferenceFromUrl(isPhotoProfileExist).delete()
+                .addOnSuccessListener {
+                    Log.d("Delete Storage", "Succeed")
+                }
+                .addOnFailureListener{
+                    Log.d("Delete Storage", "Failed")
+                }
+        }
+
+        ref.putBytes(data).addOnSuccessListener {
             Toast.makeText(this, "Upload Image Succeeded", Toast.LENGTH_SHORT).show()
             ref.downloadUrl.addOnSuccessListener { uri ->
                 photoURL = uri.toString()
@@ -149,15 +182,18 @@ class EditProfileRescuerActivity : AppCompatActivity() {
                 edittext_edit_division_rescuer.setText(rescuer?.division)
                 edittext_id_rescuer.setText(rescuer?.employeeID)
 
-                if(rescuer?.profilePhoto == "") {
+                if (rescuer?.profilePhoto == "") {
                     imageview_foto_placer.setImageResource(R.drawable.ic_empty_pict)
+                    isPhotoProfileExist = ""
                 } else {
-                    Glide.with(this@EditProfileRescuerActivity)
+                    isPhotoProfileExist = rescuer?.profilePhoto.toString()
+                    Picasso.get()
                         .load(rescuer?.profilePhoto)
-                        .apply(RequestOptions()
-                            .placeholder(R.drawable.ic_empty_pict)
-                            .centerCrop()
-                            .error(R.drawable.ic_empty_pict))
+                        .rotate(90F)
+                        .fit()
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_empty_pict)
+                        .error(R.drawable.ic_empty_pict)
                         .into(imageview_foto_placer)
                 }
 
@@ -185,4 +221,26 @@ class EditProfileRescuerActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            PERMISSION_CODE
+        )
+    }
 }
+

@@ -16,7 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.InfoKorban
-import com.tugasakhir.resq.rescuer.VictimInfoData
+import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import kotlinx.android.synthetic.main.activity_help_victim.*
 
 class HelpVictimActivity : AppCompatActivity() {

@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
@@ -94,12 +93,13 @@ class ProfileRescuerFragment : Fragment() {
                     if(rescuer?.profilePhoto == "") {
                         image_profile.setImageResource(R.drawable.ic_empty_pict)
                     } else {
-                        Glide.with(this@ProfileRescuerFragment)
+                        Picasso.get()
                             .load(rescuer?.profilePhoto)
-                            .apply(RequestOptions()
-                                .placeholder(R.drawable.ic_empty_pict)
-                                .centerCrop()
-                                .error(R.drawable.ic_empty_pict))
+                            .rotate(90F)
+                            .fit()
+                            .centerCrop()
+                            .placeholder(R.drawable.ic_empty_pict)
+                            .error(R.drawable.ic_empty_pict)
                             .into(image_profile)
                     }
                 }
