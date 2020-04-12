@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.helper.ImagePicker
@@ -99,6 +100,22 @@ class EditProfileKorbanActivity : AppCompatActivity() {
                 val akunKorban = p0.getValue(AkunKorban::class.java)
                 edittext_edit_name_korban.setText(akunKorban?.name)
                 edittext_edit_phone_korban.setText(akunKorban?.phone)
+
+                if (akunKorban?.profilePhoto == "") {
+                    imageview_foto_placer_korban.setImageResource(R.drawable.ic_empty_pict)
+                    photoProfile = ""
+                } else {
+                    photoProfile = akunKorban?.profilePhoto.toString()
+                    Picasso.get()
+                        .load(akunKorban?.profilePhoto)
+                        .rotate(90F)
+                        .fit()
+                        .centerCrop()
+                        .placeholder(R.drawable.ic_empty_pict)
+                        .error(R.drawable.ic_empty_pict)
+                        .into(imageview_foto_placer_korban)
+                }
+
             }
 
             override fun onCancelled(p0: DatabaseError) {
@@ -161,7 +178,7 @@ class EditProfileKorbanActivity : AppCompatActivity() {
 
         FirebaseDatabase.getInstance().getReference("AkunKorban")
             .child(uid)
-            .child("photoProfile")
+            .child("profilePhoto")
             .setValue(url)
 
         Toast.makeText(this, getString(R.string.toast_profile_changed), Toast.LENGTH_LONG).show()
