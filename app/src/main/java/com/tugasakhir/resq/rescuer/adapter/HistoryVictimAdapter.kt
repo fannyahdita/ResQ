@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
-import com.tugasakhir.resq.rescuer.VictimInfoData
+import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import com.tugasakhir.resq.rescuer.view.detailHistory.DetailHistoryVictimActivity
 import kotlinx.android.synthetic.main.item_history_victim.view.*
 import java.io.Serializable
@@ -20,7 +20,8 @@ import java.io.Serializable
 class HistoryVictimAdapter : RecyclerView.Adapter<HistoryVictimAdapter.ViewHolder>() {
 
     private var history: List<KorbanTertolong> = ArrayList()
-    private var victimInfoData = VictimInfoData()
+    private var victimInfoData =
+        VictimInfoData()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)

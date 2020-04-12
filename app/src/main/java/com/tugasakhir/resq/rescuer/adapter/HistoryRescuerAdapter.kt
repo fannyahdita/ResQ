@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
-import com.tugasakhir.resq.rescuer.VictimInfoData
+import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import com.tugasakhir.resq.rescuer.view.detailHistory.DetailHistoryRescuerActivity
 import kotlinx.android.synthetic.main.item_history_rescuer.view.*
 import java.io.Serializable
@@ -79,7 +79,7 @@ class HistoryRescuerAdapter : RecyclerView.Adapter<HistoryRescuerAdapter.ViewHol
                     Log.d("History Rescuer Adapter", p0.message)
                 }
             })
-        holder.itemView.item_history_rescuer.setOnClickListener{
+        holder.itemView.item_history_rescuer.setOnClickListener {
             val intent = Intent(holder.itemView.context, DetailHistoryRescuerActivity::class.java)
             intent.putExtra("helpedVictim", currentHelpedVictim as Serializable)
             holder.itemView.context.startActivity(intent)

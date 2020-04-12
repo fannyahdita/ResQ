@@ -12,13 +12,14 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
-import com.tugasakhir.resq.rescuer.VictimInfoData
+import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import kotlinx.android.synthetic.main.activity_detail_history_rescuer.*
 
 class DetailHistoryRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
-    private var victimInfoData = VictimInfoData()
+    private var victimInfoData =
+        VictimInfoData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

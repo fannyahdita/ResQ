@@ -14,6 +14,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
@@ -89,6 +90,18 @@ class ProfileRescuerFragment : Fragment() {
                     textview_profile_name.text = rescuer?.name
                     textview_profile_rescuer_division.text = rescuer?.division
                     textview_profile_rescuer_phone.text = rescuer?.phone
+                    if(rescuer?.profilePhoto == "") {
+                        image_profile.setImageResource(R.drawable.ic_empty_pict)
+                    } else {
+                        Picasso.get()
+                            .load(rescuer?.profilePhoto)
+                            .rotate(90F)
+                            .fit()
+                            .centerCrop()
+                            .placeholder(R.drawable.ic_empty_pict)
+                            .error(R.drawable.ic_empty_pict)
+                            .into(image_profile)
+                    }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -118,6 +131,18 @@ class ProfileRescuerFragment : Fragment() {
                     val korban = p0.getValue(AkunKorban::class.java)
                     textview_profile_name.text = korban?.name
                     textview_profile_rescuer_division.text = korban?.phone
+                    if(korban?.profilePhoto == "") {
+                        image_profile.setImageResource(R.drawable.ic_empty_pict)
+                    } else {
+                        Picasso.get()
+                            .load(korban?.profilePhoto)
+                            .rotate(90F)
+                            .fit()
+                            .centerCrop()
+                            .placeholder(R.drawable.ic_empty_pict)
+                            .error(R.drawable.ic_empty_pict)
+                            .into(image_profile)
+                    }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {

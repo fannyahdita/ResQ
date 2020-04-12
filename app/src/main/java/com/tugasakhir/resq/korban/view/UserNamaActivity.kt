@@ -49,7 +49,7 @@ class UserNamaActivity : AppCompatActivity() {
         progressbar_name.visibility = View.VISIBLE
         button_signup_continue.isClickable = false
         button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button_clicked)
-        val korban = AkunKorban(name, phone, false)
+        val korban = AkunKorban(name, phone, "", false)
         FirebaseDatabase.getInstance().getReference("AkunKorban")
             .child(FirebaseAuth.getInstance().currentUser!!.uid)
             .setValue(korban).addOnCompleteListener { task ->
