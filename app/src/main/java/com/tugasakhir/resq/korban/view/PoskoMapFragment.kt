@@ -38,6 +38,7 @@ import com.tugasakhir.resq.korban.PoskoAdapter
 import com.tugasakhir.resq.rescuer.model.Posko
 import com.tugasakhir.resq.rescuer.view.AddPoskoLocationActivity
 import kotlinx.android.synthetic.main.fragment_list_posko.*
+import java.io.Serializable
 
 class PoskoMapFragment : Fragment(), OnMapReadyCallback {
 
@@ -55,6 +56,9 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
 
     private var TAG = "LIST POSKO "
     val listPosko: ArrayList<Posko?> = ArrayList()
+
+    var lat: String? = ""
+    var long: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,20 +79,11 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
         posko_recycler_view.layoutManager = LinearLayoutManager(activity)
         posko_recycler_view.adapter = poskoAdapter
 
-        val lat = arguments!!.getString("lat")
-        val long = arguments!!.getString("long")
-
-        fetchPoskoData(lat, long)
+        lat = arguments!!.getString("lat")
+        long = arguments!!.getString("long")
 
         bottomSheetBehavior = BottomSheetBehavior.from<RelativeLayout>(fragment_list_posko)
         setBottomSheetList()
-
-
-
-//        mapFragment = fragmentManager!!.findFragmentById(R.id.fragment_map_rescuer)
-//                as SupportMapFragment
-
-//        setMaps("-6.3302658", "106.8388629")
 
     }
 
@@ -118,7 +113,8 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
         })
     }
 
-    private fun setMaps(lat: String, long: String) {
+    private fun setMaps(lat: String, long: String, posko: Posko) {
+        Log.d("MASUK SET MAPS: ", posko.poskoName)
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(lat.toDouble(), long.toDouble())
 
@@ -135,16 +131,17 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
             }
             gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
             gMap.addMarker(
-                MarkerOptions().position(location).title("Test Map")
+                MarkerOptions().position(location).title(posko.poskoName)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             ).showInfoWindow()
 
             gMap.setOnMarkerClickListener { marker ->
-                val detailPosko = PoskoDetailFragment.newInstance()
-                val transaction = activity!!.supportFragmentManager.beginTransaction()
-                transaction.replace(R.id.container, detailPosko)
-                transaction.addToBackStack(null)
-                transaction.commit()
+                Log.d("MASUK MARKER CLICK : ", posko.poskoName)
+                val intent = Intent(activity, PoskoDetailActivity::class.java)
+                intent.putExtra("EXTRA_POSKO", posko as Serializable)
+                intent.putExtra("EXTRA_LAT", lat)
+                intent.putExtra("EXTRA_LONG", long)
+                activity?.startActivity(intent)
                 return@setOnMarkerClickListener true
             }
         }
@@ -197,7 +194,8 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap;
-        setMaps("-6.3302658", "106.8388629")
+
+        fetchPoskoData(lat, long)
     }
 
     override fun onResume() {
@@ -260,6 +258,7 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
                         )
 
                         listPosko.add(currentPosko)
+                        setMaps(latitude.toString(), longitude.toString(), currentPosko)
 
                     }
                     poskoAdapter.setPosko(listPosko, lat, long)
