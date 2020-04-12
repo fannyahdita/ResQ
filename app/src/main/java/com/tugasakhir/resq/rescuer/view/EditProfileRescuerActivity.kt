@@ -33,7 +33,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var ref: DatabaseReference
-    private var isPhotoProfileExist = ""
+    private var photoProfile = ""
     private lateinit var photoURI: Uri
     private var photoURL = ""
     private var uid = ""
@@ -103,8 +103,8 @@ class EditProfileRescuerActivity : AppCompatActivity() {
         val idPhoto = "rescuerPhotoProfile/$uid.${System.currentTimeMillis()}"
         val ref = FirebaseStorage.getInstance().reference.child(idPhoto)
 
-        if (isPhotoProfileExist != "") {
-            FirebaseStorage.getInstance().getReferenceFromUrl(isPhotoProfileExist).delete()
+        if (photoProfile != "") {
+            FirebaseStorage.getInstance().getReferenceFromUrl(photoProfile).delete()
                 .addOnSuccessListener {
                     Log.d("Delete Storage", "Succeed")
                 }
@@ -183,9 +183,9 @@ class EditProfileRescuerActivity : AppCompatActivity() {
 
                 if (rescuer?.profilePhoto == "") {
                     imageview_foto_placer.setImageResource(R.drawable.ic_empty_pict)
-                    isPhotoProfileExist = ""
+                    photoProfile = ""
                 } else {
-                    isPhotoProfileExist = rescuer?.profilePhoto.toString()
+                    photoProfile = rescuer?.profilePhoto.toString()
                     Picasso.get()
                         .load(rescuer?.profilePhoto)
                         .rotate(90F)
