@@ -2,6 +2,8 @@ package com.tugasakhir.resq.korban
 
 import android.content.Intent
 import android.location.Location
+import android.provider.Settings.Global.getString
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +46,7 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
         val currentPosko = posko[position]
         holder.textview_lokasi_posko.text = currentPosko?.poskoName
         holder.textview_alamat_posko.text = currentPosko?.mapAddress
-        holder.textview_kapasitas.text = currentPosko?.capacity.toString()
+        holder.textview_kapasitas.text = Html.fromHtml(context.resources.getString(R.string.number_of_kk, currentPosko?.capacity.toString()))
         holder.textview_jarak.text = currentPosko?.city
 
         val results = FloatArray(1)
