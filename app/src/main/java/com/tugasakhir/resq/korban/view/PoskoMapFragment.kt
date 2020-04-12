@@ -23,12 +23,8 @@ import com.tugasakhir.resq.R
 import android.Manifest
 import android.util.Log
 import android.widget.RelativeLayout
-import android.widget.ScrollView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -40,7 +36,7 @@ import com.tugasakhir.resq.rescuer.view.AddPoskoLocationActivity
 import kotlinx.android.synthetic.main.fragment_list_posko.*
 import java.io.Serializable
 
-class PoskoMapFragment : Fragment(), OnMapReadyCallback {
+class PoskoMapFragment : Fragment(){
 
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var mMap: GoogleMap
@@ -57,9 +53,6 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
     private var TAG = "LIST POSKO "
     val listPosko: ArrayList<Posko?> = ArrayList()
 
-    var lat: String? = ""
-    var long: String? = ""
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,17 +66,20 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map_rescuer) as SupportMapFragment
-        mapFragment?.getMapAsync(this)
+        mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map_posko) as SupportMapFragment
 
         posko_recycler_view.layoutManager = LinearLayoutManager(activity)
         posko_recycler_view.adapter = poskoAdapter
 
-        lat = arguments!!.getString("lat")
-        long = arguments!!.getString("long")
+        val currentLat = arguments!!.getString("lat")
+        val currentLong = arguments!!.getString("long")
+        setCurrentLoc(currentLat, currentLong)
 
         bottomSheetBehavior = BottomSheetBehavior.from<RelativeLayout>(fragment_list_posko)
         setBottomSheetList()
+
+        fetchPoskoData(currentLat, currentLong)
+
 
     }
 
@@ -98,23 +94,26 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                     }
                     BottomSheetBehavior.STATE_HIDDEN -> {
-
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
                     }
                     BottomSheetBehavior.STATE_DRAGGING -> {
-
                     }
                     BottomSheetBehavior.STATE_SETTLING -> {
-
                     }
                 }
             }
         })
     }
 
-    private fun setMaps(lat: String, long: String, posko: Posko) {
-        Log.d("MASUK SET MAPS: ", posko.poskoName)
+    private fun setCurrentLoc(currentLat: String?, currentLong: String?) {
+        mapFragment.getMapAsync { googleMap ->
+            val currentLoc =  LatLng(currentLat!!.toDouble(), currentLong!!.toDouble())
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 14f))
+        }
+    }
+
+    private fun setMaps(lat: String, long: String, poskoId: Int) {
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(lat.toDouble(), long.toDouble())
 
@@ -129,16 +128,14 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
             } else {
                 requestPermissions()
             }
-            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
             gMap.addMarker(
-                MarkerOptions().position(location).title(posko.poskoName)
+                MarkerOptions().position(location).title(poskoId.toString())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
-            ).showInfoWindow()
+            )
 
             gMap.setOnMarkerClickListener { marker ->
-                Log.d("MASUK MARKER CLICK : ", posko.poskoName)
                 val intent = Intent(activity, PoskoDetailActivity::class.java)
-                intent.putExtra("EXTRA_POSKO", posko as Serializable)
+                intent.putExtra("EXTRA_POSKO", listPosko[marker.title.toInt()-1] as Serializable)
                 intent.putExtra("EXTRA_LAT", lat)
                 intent.putExtra("EXTRA_LONG", long)
                 activity?.startActivity(intent)
@@ -146,23 +143,6 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
-    }
-
-    companion object {
-        const val ROLE = ""
-        fun newInstance(isKorban: Boolean, lat: String, long: String): PoskoMapFragment {
-            val fragment = PoskoMapFragment()
-            val bundle = Bundle()
-            bundle.putString("lat", lat)
-            bundle.putString("long", long)
-            if (isKorban) {
-                bundle.putString(ROLE, "victim")
-            } else {
-                bundle.putString(ROLE, "rescuer")
-            }
-            fragment.arguments = bundle
-            return fragment
-        }
     }
 
     private fun checkPermissions(): Boolean {
@@ -190,12 +170,6 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
             permissionId
         )
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap;
-
-        fetchPoskoData(lat, long)
     }
 
     override fun onResume() {
@@ -258,7 +232,7 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
                         )
 
                         listPosko.add(currentPosko)
-                        setMaps(latitude.toString(), longitude.toString(), currentPosko)
+                        setMaps(latitude.toString(), longitude.toString(), listPosko.size)
 
                     }
                     poskoAdapter.setPosko(listPosko, lat, long)
@@ -270,6 +244,23 @@ class PoskoMapFragment : Fragment(), OnMapReadyCallback {
                 }
             })
 
+    }
+
+    companion object {
+        const val ROLE = ""
+        fun newInstance(isKorban: Boolean, lat: String, long: String): PoskoMapFragment {
+            val fragment = PoskoMapFragment()
+            val bundle = Bundle()
+            bundle.putString("lat", lat)
+            bundle.putString("long", long)
+            if (isKorban) {
+                bundle.putString(ROLE, "victim")
+            } else {
+                bundle.putString(ROLE, "rescuer")
+            }
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
 
