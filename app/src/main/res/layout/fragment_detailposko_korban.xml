@@ -159,7 +159,6 @@
                 android:id="@+id/textview_ditambahkan_oleh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/posko_pembuat"
                 android:textColor="@color/black_dark"

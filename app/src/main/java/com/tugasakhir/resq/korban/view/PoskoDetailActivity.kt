@@ -8,6 +8,7 @@ import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Html
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
@@ -68,11 +69,11 @@ class PoskoDetailActivity: AppCompatActivity() {
             facility += getString(R.string.add_posko_radio_button_medic) + "\n"
         }
         if (posko?.hasWC) {
-            facility += getString(R.string.add_posko_radio_button_wc)
+            facility += getString(R.string.add_posko_radio_button_wc) + "\n"
         }
 
         textview_lokasi_posko.text = posko?.poskoName
-        textview_nilai_kapasitas.text = posko?.capacity.toString()
+        textview_nilai_kapasitas.text = Html.fromHtml(getString(R.string.number_of_kk, posko?.capacity.toString()))
         textview_alamat_posko.text = posko?.mapAddress
         textview_notes_posko.text = posko?.noteAddress
         textview_fasilitas_value.text = facility
