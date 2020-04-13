@@ -108,7 +108,6 @@ class EditProfileKorbanActivity : AppCompatActivity() {
                     photoProfile = akunKorban?.profilePhoto.toString()
                     Picasso.get()
                         .load(akunKorban?.profilePhoto)
-                        .rotate(90F)
                         .fit()
                         .centerCrop()
                         .placeholder(R.drawable.ic_empty_pict)

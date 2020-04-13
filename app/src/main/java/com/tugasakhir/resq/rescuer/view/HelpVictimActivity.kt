@@ -26,7 +26,7 @@ class HelpVictimActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private var idRescuer: String = ""
     private lateinit var victimInfoData: VictimInfoData
-    private var isOnTheWay : Boolean = false
+    private var isOnTheWay: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +49,18 @@ class HelpVictimActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach {
-                        Log.d("HelpVictim", "mau masuk euy ${it.child("rescuerArrived").value.toString()}}")
+                        Log.d(
+                            "HelpVictim",
+                            "mau masuk euy ${it.child("rescuerArrived").value.toString()}}"
+                        )
                         if (idRescuer == it.child("idRescuer").value.toString() &&
-                            it.child("rescuerArrived").value.toString() == "false") {
+                            it.child("rescuerArrived").value.toString() == "false"
+                        ) {
                             Log.d("HelpVictim", "masuk euy")
                             val helpedVictimId = it.key.toString()
                             val victimInfoId = it.child("idInfoKorban").value.toString()
                             isOnTheWay = it.child("OnTheWay").value.toString() == "true"
-                            if(isOnTheWay) {
+                            if (isOnTheWay) {
                                 button_rescuer_on_the_way.visibility = View.GONE
                                 button_rescuer_arrived.visibility = View.VISIBLE
                             }
@@ -77,37 +81,13 @@ class HelpVictimActivity : AppCompatActivity() {
             .child(victimInfoId)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    val latitude = p0.child("latitude").value.toString()
-                    val longitude = p0.child("longitude").value.toString()
-                    val elderly = p0.child("jumlahLansia").value.toString().toInt()
-                    val adult = p0.child("jumlahDewasa").value.toString().toInt()
-                    val children = p0.child("jumlahAnak").value.toString().toInt()
-                    val info = p0.child("infoTambahan").value.toString()
-                    val isFoodNeeded = p0.child("bantuanMakanan").value.toString().toBoolean()
-                    val isMedicNeeded = p0.child("bantuanMedis").value.toString().toBoolean()
-                    val isEvacuationNeeded =
-                        p0.child("bantuanEvakuasi").value.toString().toBoolean()
+                    val victimInfo = p0.getValue(InfoKorban::class.java)
                     val uid = p0.child("idKorban").value.toString()
-
                     FirebaseDatabase.getInstance().reference.child("AkunKorban/$uid")
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
-                                val victimInfo = InfoKorban(
-                                    uid,
-                                    latitude,
-                                    longitude,
-                                    elderly,
-                                    adult,
-                                    children,
-                                    info,
-                                    isFoodNeeded,
-                                    isMedicNeeded,
-                                    isEvacuationNeeded
-                                )
-
                                 val account = p0.getValue(AkunKorban::class.java)
-
-                                setLayout(victimInfo, account!!, helpedVictimId)
+                                setLayout(victimInfo!!, account!!, helpedVictimId)
                             }
 
                             override fun onCancelled(p0: DatabaseError) {
@@ -122,7 +102,7 @@ class HelpVictimActivity : AppCompatActivity() {
             })
     }
 
-    private fun setLayout(victimInfo: InfoKorban, account: AkunKorban?, helpedVictimId: String) {
+    private fun setLayout(victimInfo: InfoKorban?, account: AkunKorban?, helpedVictimId: String) {
         textview_name_victim_help.text = account?.name
         textview_phone_number_victim.text = account?.phone
         if (account?.profilePhoto != "") {
@@ -130,14 +110,13 @@ class HelpVictimActivity : AppCompatActivity() {
                 .load(account?.profilePhoto)
                 .fit()
                 .centerCrop()
-                .rotate(90F)
                 .placeholder(R.drawable.ic_empty_pict)
                 .error(R.drawable.ic_empty_pict)
                 .into(imageview_victim_photo)
         }
 
         val helpType = when {
-            victimInfo.bantuanMakanan -> {
+            victimInfo!!.bantuanMakanan -> {
                 "Bantuan Makanan"
             }
             victimInfo.bantuanMedis -> {

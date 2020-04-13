@@ -186,7 +186,6 @@ class EditProfileRescuerActivity : AppCompatActivity() {
                     photoProfile = rescuer?.profilePhoto.toString()
                     Picasso.get()
                         .load(rescuer?.profilePhoto)
-                        .rotate(90F)
                         .fit()
                         .centerCrop()
                         .placeholder(R.drawable.ic_empty_pict)
