@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_light">
 
-    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -15,29 +15,58 @@
 
         <TextView
             android:id="@+id/textview_name_victim_help"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:ellipsize="end"
             android:fontFamily="@font/source_sans_pro"
+            android:maxLines="2"
             android:textSize="27sp"
             android:textStyle="bold"
-            tools:text="Budi Haryono" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cardview"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Fannyah Dita Cahya Adalah Namaku" />
 
         <TextView
             android:id="@+id/textview_help_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/cardview"
+            app:layout_constraintTop_toBottomOf="@id/textview_name_victim_help"
             tools:text="Bantuan Evakuasi" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textview_name_victim_help"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageview_victim_photo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_empty_pict" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/textview_address_victim_help"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardview"
             tools:text="Bukit Cimanggu City Blok M5B no 20 Cluster Royal Lakeside, Tanah Sareal, Sukadamai, Kota Bogor, Jawa Barat, 16165 Indonesia" />
 
         <TextView
@@ -45,10 +74,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:autoLink="phone"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:autoLink="phone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_address_victim_help"
             tools:text="081234567890" />
 
         <TextView
@@ -59,7 +90,9 @@
             android:fontFamily="@font/source_sans_pro"
             android:text="@string/victim_number"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_phone_number_victim" />
 
         <TextView
             android:id="@+id/textview_number_of_elderly_victim"
@@ -67,6 +100,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title_victim_number"
             tools:text="0 Lansia" />
 
         <TextView
@@ -75,6 +110,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_number_of_elderly_victim"
             tools:text="0 Dewasa" />
 
         <TextView
@@ -83,6 +120,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_number_of_adult_victim"
             tools:text="0 Anak" />
 
         <TextView
@@ -93,7 +132,9 @@
             android:fontFamily="@font/source_sans_pro"
             android:text="@string/additional_info"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_number_of_child_victim" />
 
         <TextView
             android:id="@+id/textview_victim_additional_information"
@@ -101,59 +142,55 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_title_information"
             tools:text="Butuh bantuan untuk mengangkut ibu hamil" />
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <Button
+            android:id="@+id/button_open_maps_help"
+            style="@style/OutlinedBorder"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/open_maps"
+            app:layout_constraintEnd_toStartOf="@id/button_open_chat_help"
+            app:layout_constraintStart_toStartOf="@id/button_rescuer_on_the_way"
+            app:layout_constraintTop_toBottomOf="@id/textview_victim_additional_information" />
+
+        <Button
+            android:id="@+id/button_open_chat_help"
+            style="@style/OutlinedBorder"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/send_chat"
+            app:layout_constraintEnd_toEndOf="@id/button_rescuer_on_the_way"
+            app:layout_constraintStart_toEndOf="@id/button_open_maps_help"
+            app:layout_constraintTop_toBottomOf="@id/textview_victim_additional_information" />
+
+        <Button
+            android:id="@+id/button_rescuer_on_the_way"
+            style="@style/BlackButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp">
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/on_the_way_to_victim"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/button_open_maps_help"
+            tools:visibility="gone" />
 
-            <Button
-                android:id="@+id/button_open_maps_help"
-                style="@style/OutlinedBorder"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:text="@string/open_maps"
-                app:layout_constraintEnd_toStartOf="@id/button_open_chat_help"
-                app:layout_constraintStart_toStartOf="@id/button_rescuer_on_the_way"
-                app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/button_rescuer_arrived"
+            style="@style/BlackButton"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/finish_help_victim"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/button_open_maps_help"
+            tools:visibility="visible" />
 
-            <Button
-                android:id="@+id/button_open_chat_help"
-                style="@style/OutlinedBorder"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="5dp"
-                android:text="@string/send_chat"
-                app:layout_constraintEnd_toEndOf="@id/button_rescuer_on_the_way"
-                app:layout_constraintStart_toEndOf="@id/button_open_maps_help"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/button_rescuer_on_the_way"
-                style="@style/BlackButton"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/on_the_way_to_victim"
-                android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/button_open_maps_help"
-                tools:visibility="gone" />
-
-            <Button
-                android:id="@+id/button_rescuer_arrived"
-                style="@style/BlackButton"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:text="@string/finish_help_victim"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/button_open_maps_help"
-                tools:visibility="visible" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

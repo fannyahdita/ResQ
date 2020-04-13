@@ -13,8 +13,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.korban.model.InfoKorban
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import kotlinx.android.synthetic.main.activity_help_victim.*
@@ -103,8 +105,9 @@ class HelpVictimActivity : AppCompatActivity() {
                                     isEvacuationNeeded
                                 )
 
-                                setLayout(victimInfo, p0.child("name").value.toString(),
-                                    p0.child("phone").value.toString(), helpedVictimId)
+                                val account = p0.getValue(AkunKorban::class.java)
+
+                                setLayout(victimInfo, account!!, helpedVictimId)
                             }
 
                             override fun onCancelled(p0: DatabaseError) {
@@ -119,9 +122,20 @@ class HelpVictimActivity : AppCompatActivity() {
             })
     }
 
-    private fun setLayout(victimInfo: InfoKorban, victimName: String, victimNumber : String, helpedVictimId: String) {
-        textview_name_victim_help.text = victimName
-        textview_phone_number_victim.text = victimNumber
+    private fun setLayout(victimInfo: InfoKorban, account: AkunKorban?, helpedVictimId: String) {
+        textview_name_victim_help.text = account?.name
+        textview_phone_number_victim.text = account?.phone
+        if (account?.profilePhoto != "") {
+            Picasso.get()
+                .load(account?.profilePhoto)
+                .fit()
+                .centerCrop()
+                .rotate(90F)
+                .placeholder(R.drawable.ic_empty_pict)
+                .error(R.drawable.ic_empty_pict)
+                .into(imageview_victim_photo)
+        }
+
         val helpType = when {
             victimInfo.bantuanMakanan -> {
                 "Bantuan Makanan"
