@@ -5,6 +5,7 @@
     android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:paddingBottom="15dp"
+    android:id="@+id/card_1"
     android:background="@drawable/shape_call_center_1">
 
     <ImageView
