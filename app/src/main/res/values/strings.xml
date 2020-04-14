@@ -150,14 +150,15 @@
     <string name="petunjuk"><u>Dapatkan Petunjuk</u></string>
     <string name="kapasitas">Kapasitas : </string>
     <string name="fasilitas">Fasilitas : </string>
-    <string name="posko_pembuat">Ditambahkan oleh : </string>
-    <string name="posko_kontak">Kontak : </string>
+    <string name="koordinator_posko">Koordinator Posko : </string>
+    <string name="koordinator_posko_number">Kontak : </string>
     <string name="number_of_kk"><![CDATA[<b>%s</b> KK]]></string>
     <string name="capacity">Kapasitas : </string>
     <string name="close_posko">Tutup Posko</string>
     <string name="close_posko_warning">Apakah Anda yakin ingin menutup posko? Posko yang sudah ditutup tidak bisa dikembalikan</string>
     <string name="close_posko_positive">Tutup Posko</string>
     <string name="close_posko_negative">Batalkan</string>
+    <string name="rescuer_detail"><![CDATA[Posko ini ditambahkan oleh %s dari %s %s <br> Kontak : %s]]></string>
 
     //Posko List
     <string name="title_recycler_view">POSKO TERDEKAT</string>

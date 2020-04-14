@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Html
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -22,7 +23,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Posko
 import kotlinx.android.synthetic.main.fragment_detailposko_korban.*
@@ -77,6 +81,7 @@ class PoskoDetailActivity : AppCompatActivity() {
         textview_fasilitas_value.text = facility
         textview_penambah.text = posko.contactName
         textview_nilai_kontak.text = posko.contactNumber
+        rescuerData(posko.idRescuer)
 
         setMaps(posko.latitude, posko.longitude, posko.poskoName)
 
@@ -105,6 +110,23 @@ class PoskoDetailActivity : AppCompatActivity() {
             alertDialog.setNegativeButton(R.string.close_posko_negative ) { _, _ -> }
             alertDialog.create().show()
         }
+    }
+
+    private fun rescuerData(idRescuer : String) {
+        FirebaseDatabase.getInstance().getReference("Rescuers/$idRescuer")
+            .addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(p0: DataSnapshot) {
+                    val name = p0.child("name").value.toString()
+                    val division = p0.child("division").value.toString()
+                    val instansi = p0.child("instansi").value.toString()
+                    val phone = p0.child("phone").value.toString()
+                    textview_rescuer_info.text = Html.fromHtml(getString(R.string.rescuer_detail, name, division, instansi, phone))
+                }
+
+                override fun onCancelled(p0: DatabaseError) {
+                    Log.d("RescuerDataError", p0.message)
+                }
+            })
     }
 
     private fun setMaps(latitude: Double, longitude: Double, poskoName: String) {
