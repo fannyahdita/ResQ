@@ -18,8 +18,7 @@ import kotlinx.android.synthetic.main.activity_detail_history_rescuer.*
 class DetailHistoryRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
-    private var victimInfoData =
-        VictimInfoData()
+    private var victimInfoData = VictimInfoData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
