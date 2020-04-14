@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.tugasakhir.resq.R
 import android.Manifest
+import android.location.Location
 import android.util.Log
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,6 +36,9 @@ import com.tugasakhir.resq.rescuer.model.Posko
 import com.tugasakhir.resq.rescuer.view.AddPoskoLocationActivity
 import kotlinx.android.synthetic.main.fragment_list_posko.*
 import java.io.Serializable
+import java.util.*
+import kotlin.Comparator
+import kotlin.collections.ArrayList
 
 class PoskoMapFragment : Fragment(){
 
@@ -197,6 +201,7 @@ class PoskoMapFragment : Fragment(){
                         }
 
                     }
+                    compareLoc(listPosko, lat, long)
                     poskoAdapter.setPosko(listPosko, lat, long)
                 }
 
@@ -206,6 +211,26 @@ class PoskoMapFragment : Fragment(){
                 }
             })
 
+    }
+
+    private fun compareLoc(posko: ArrayList<Posko?>, currentLat: String?, currentLong: String?) : ArrayList<Posko?> {
+        val comp = object : Comparator<Posko?> {
+            override fun compare(posko1: Posko?, posko2: Posko?): Int {
+                val results1 = FloatArray(1)
+                Location.distanceBetween(currentLat!!.toDouble(), currentLong!!.toDouble(), posko1?.latitude!!.toDouble(), posko1.longitude.toDouble(), results1)
+                val distance1 = results1[0]
+
+                val results2 = FloatArray(1)
+                Location.distanceBetween(currentLat!!.toDouble(), currentLong!!.toDouble(), posko2?.latitude!!.toDouble(), posko2.longitude.toDouble(), results2)
+                val distance2 = results2[0]
+
+                return distance1.compareTo(distance2)
+            }
+
+        }
+
+        Collections.sort(posko, comp)
+        return posko
     }
 
     companion object {
