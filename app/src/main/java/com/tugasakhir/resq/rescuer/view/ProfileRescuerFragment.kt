@@ -95,6 +95,7 @@ class ProfileRescuerFragment : Fragment() {
                     } else {
                         Picasso.get()
                             .load(rescuer?.profilePhoto)
+                            .rotate(90F)
                             .fit()
                             .centerCrop()
                             .placeholder(R.drawable.ic_empty_pict)
@@ -135,6 +136,7 @@ class ProfileRescuerFragment : Fragment() {
                     } else {
                         Picasso.get()
                             .load(korban?.profilePhoto)
+                            .rotate(90F)
                             .fit()
                             .centerCrop()
                             .placeholder(R.drawable.ic_empty_pict)
@@ -173,10 +175,20 @@ class ProfileRescuerFragment : Fragment() {
                 override fun onDataChange(p0: DataSnapshot) {
                     p0.children.forEach {
                         if (it.child("idRescuer").value.toString() == idRescuer) {
-                            val isRescuerArrived = it.child("rescuerArrived").value.toString().toBoolean()
+                            val idVictimInfo = it.child("idInfoKorban").value.toString()
+                            val date = it.child("date").value.toString()
+                            val isOnTheWay = it.child("onTheWay").value.toString().toBoolean()
+                            val isRescuerArrived =
+                                it.child("rescuerArrived").value.toString().toBoolean()
+                            val isFinished = it.child("finished").value.toString().toBoolean()
+                            val isAccepted = it.child("accepted").value.toString().toBoolean()
+
                             if (isRescuerArrived) {
-                                val helpedVictim = it.getValue(KorbanTertolong::class.java)
-                                rescuerHistory.add(helpedVictim!!)
+                                val helpedVictim = KorbanTertolong(
+                                    idRescuer, idVictimInfo, isAccepted,
+                                    isOnTheWay, isRescuerArrived, isFinished, date
+                                )
+                                rescuerHistory.add(helpedVictim)
                             }
                         }
                     }
@@ -217,11 +229,21 @@ class ProfileRescuerFragment : Fragment() {
                 override fun onDataChange(p0: DataSnapshot) {
                     p0.children.forEach {
                         if (it.child("idInfoKorban").value.toString() == infoVictimId) {
+                            val idRescuer = it.child("idRescuer").value.toString()
+                            val date = it.child("date").value.toString()
+                            val isOnTheWay = it.child("onTheWay").value.toString().toBoolean()
                             val isRescuerArrived =
                                 it.child("rescuerArrived").value.toString().toBoolean()
+                            val isFinished = it.child("finished").value.toString().toBoolean()
+                            val isAccepted = it.child("accepted").value.toString().toBoolean()
+
                             if (isRescuerArrived) {
-                                val helpedVictim = it.getValue(KorbanTertolong::class.java)
-                                victimHistory.add(helpedVictim!!)
+                                val helpedVictim = KorbanTertolong(
+                                    idRescuer,
+                                    infoVictimId, isAccepted, isOnTheWay,
+                                    isRescuerArrived, isFinished, date
+                                )
+                                victimHistory.add(helpedVictim)
                                 historyVictimAdapter.setHistory(victimHistory)
                             }
                             return

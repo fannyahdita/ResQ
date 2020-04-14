@@ -6,12 +6,13 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,11 +21,10 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.helper.ImageAdjustment
+import com.tugasakhir.resq.rescuer.helper.ImagePicker
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.activity_edit_profile_rescuer.*
 import java.io.ByteArrayOutputStream
-import java.io.IOException
 
 private const val IMAGE_PICK_CODE = 1000
 private const val PERMISSION_CODE = 1001
@@ -39,7 +39,6 @@ class EditProfileRescuerActivity : AppCompatActivity() {
     private var uid = ""
     private var data = Intent()
     private var resultCode = 0
-    private lateinit var rotatedBitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +57,8 @@ class EditProfileRescuerActivity : AppCompatActivity() {
             progressbar_edit_profile_rescuer.visibility = View.VISIBLE
             button_save_profile.isEnabled = false
             if (button_change_photo.visibility == View.VISIBLE) {
-                uploadImage(rotatedBitmap)
+                val bmp = ImagePicker.getImageFromResult(this, this.resultCode, this.data)
+                uploadImage(bmp!!)
             } else {
                 writeProfile()
             }
@@ -89,21 +89,15 @@ class EditProfileRescuerActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             photoURI = data?.data!!
-            try {
-                val bitmap = MediaStore.Images.Media.getBitmap(this.applicationContext.contentResolver, photoURI)
-                rotatedBitmap = ImageAdjustment.rotateImageIfRequired(this, bitmap, photoURI)
-                imageview_foto_placer.setImageBitmap(rotatedBitmap)
-                this.data = data
-                this.resultCode = resultCode
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            imageview_foto_placer.setImageURI(data.data)
+            this.data = data
+            this.resultCode = resultCode
         }
     }
 
     private fun uploadImage(bmp: Bitmap) {
         val stream = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+        bmp.compress(Bitmap.CompressFormat.PNG, 90, stream)
         val data = stream.toByteArray()
 
         val idPhoto = "rescuerPhotoProfile/$uid.${System.currentTimeMillis()}"
@@ -114,7 +108,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Log.d("Delete Storage", "Succeed")
                 }
-                .addOnFailureListener {
+                .addOnFailureListener{
                     Log.d("Delete Storage", "Failed")
                 }
         }
@@ -194,6 +188,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
                     photoProfile = rescuer?.profilePhoto.toString()
                     Picasso.get()
                         .load(rescuer?.profilePhoto)
+                        .rotate(90F)
                         .fit()
                         .centerCrop()
                         .placeholder(R.drawable.ic_empty_pict)

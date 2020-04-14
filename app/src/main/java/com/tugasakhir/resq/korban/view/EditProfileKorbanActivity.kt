@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -21,10 +20,9 @@ import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
-import com.tugasakhir.resq.rescuer.helper.ImageAdjustment
+import com.tugasakhir.resq.rescuer.helper.ImagePicker
 import kotlinx.android.synthetic.main.activity_edit_profile_korban.*
 import java.io.ByteArrayOutputStream
-import java.io.IOException
 
 private const val IMAGE_PICK_CODE = 1000
 private const val PERMISSION_CODE = 1001
@@ -39,7 +37,6 @@ class EditProfileKorbanActivity : AppCompatActivity() {
     private var photoProfile = ""
     private var photoURL = ""
     private var resultCode = 0
-    private lateinit var rotatedBitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +69,8 @@ class EditProfileKorbanActivity : AppCompatActivity() {
             progressbar_edit_profile_korban.visibility = View.VISIBLE
             button_save_profile_korban.isEnabled = false
             if (button_change_photo_korban.visibility == View.VISIBLE) {
-                uploadImage(rotatedBitmap)
+                val bmp = ImagePicker.getImageFromResult(this, this.resultCode, this.data)
+                uploadImage(bmp!!)
             } else {
                 writeProfile()
             }
@@ -88,15 +86,9 @@ class EditProfileKorbanActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             photoURI = data?.data!!
-            try {
-                val bitmap = MediaStore.Images.Media.getBitmap(this.applicationContext.contentResolver, photoURI)
-                rotatedBitmap = ImageAdjustment.rotateImageIfRequired(this, bitmap, photoURI)
-                imageview_foto_placer_korban.setImageBitmap(rotatedBitmap)
-                this.data = data
-                this.resultCode = resultCode
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
+            imageview_foto_placer_korban.setImageURI(data.data)
+            this.data = data
+            this.resultCode = resultCode
         }
     }
 
@@ -116,6 +108,7 @@ class EditProfileKorbanActivity : AppCompatActivity() {
                     photoProfile = akunKorban?.profilePhoto.toString()
                     Picasso.get()
                         .load(akunKorban?.profilePhoto)
+                        .rotate(90F)
                         .fit()
                         .centerCrop()
                         .placeholder(R.drawable.ic_empty_pict)
