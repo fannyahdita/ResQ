@@ -14,9 +14,12 @@ public class ImageAdjustment {
     public static Bitmap rotateImageIfRequired(Context context, Bitmap img, Uri selectedImage) throws IOException {
         InputStream input = context.getContentResolver().openInputStream(selectedImage);
         ExifInterface ei;
-        ei = new ExifInterface(input);
+        int orientation = 0;
+        if (input != null) {
+            ei = new ExifInterface(input);
 
-        int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+            orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+        }
 
         switch (orientation) {
             case ExifInterface.ORIENTATION_ROTATE_90:

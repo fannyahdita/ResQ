@@ -89,7 +89,10 @@ class EditProfileKorbanActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             photoURI = data?.data!!
             try {
-                val bitmap = MediaStore.Images.Media.getBitmap(this.applicationContext.contentResolver, photoURI)
+                val bitmap = MediaStore.Images.Media.getBitmap(
+                    this.applicationContext.contentResolver,
+                    photoURI
+                )
                 rotatedBitmap = ImageAdjustment.rotateImageIfRequired(this, bitmap, photoURI)
                 imageview_foto_placer_korban.setImageBitmap(rotatedBitmap)
                 this.data = data

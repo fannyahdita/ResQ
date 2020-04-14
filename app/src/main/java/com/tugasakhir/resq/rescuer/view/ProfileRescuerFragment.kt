@@ -90,7 +90,7 @@ class ProfileRescuerFragment : Fragment() {
                     textview_profile_name.text = rescuer?.name
                     textview_profile_rescuer_division.text = rescuer?.division
                     textview_profile_rescuer_phone.text = rescuer?.phone
-                    if(rescuer?.profilePhoto == "") {
+                    if (rescuer?.profilePhoto == "") {
                         image_profile.setImageResource(R.drawable.ic_empty_pict)
                     } else {
                         Picasso.get()
@@ -130,7 +130,7 @@ class ProfileRescuerFragment : Fragment() {
                     val korban = p0.getValue(AkunKorban::class.java)
                     textview_profile_name.text = korban?.name
                     textview_profile_rescuer_division.text = korban?.phone
-                    if(korban?.profilePhoto == "") {
+                    if (korban?.profilePhoto == "") {
                         image_profile.setImageResource(R.drawable.ic_empty_pict)
                     } else {
                         Picasso.get()
@@ -173,7 +173,8 @@ class ProfileRescuerFragment : Fragment() {
                 override fun onDataChange(p0: DataSnapshot) {
                     p0.children.forEach {
                         if (it.child("idRescuer").value.toString() == idRescuer) {
-                            val isRescuerArrived = it.child("rescuerArrived").value.toString().toBoolean()
+                            val isRescuerArrived =
+                                it.child("rescuerArrived").value.toString().toBoolean()
                             if (isRescuerArrived) {
                                 val helpedVictim = it.getValue(KorbanTertolong::class.java)
                                 rescuerHistory.add(helpedVictim!!)

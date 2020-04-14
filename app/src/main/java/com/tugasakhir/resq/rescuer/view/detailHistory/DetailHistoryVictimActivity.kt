@@ -19,8 +19,7 @@ import kotlinx.android.synthetic.main.activity_detail_history_victim.*
 class DetailHistoryVictimActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
-    private var victimInfoData =
-        VictimInfoData()
+    private var victimInfoData = VictimInfoData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +43,7 @@ class DetailHistoryVictimActivity : AppCompatActivity() {
                     textview_detail_victim_history_name.text = p0.child("name").value.toString()
                     textview_detail_victim_history_phone.text = p0.child("phone").value.toString()
                     val profilePhoto = p0.child("profilePhoto").value.toString()
-                    if(profilePhoto != "") {
+                    if (profilePhoto != "") {
                         Picasso.get()
                             .load(profilePhoto)
                             .fit()
@@ -86,13 +85,29 @@ class DetailHistoryVictimActivity : AppCompatActivity() {
                     textview_detail_victim_history_help_type.text = helpType
 
                     textview_history_number_of_elderly_victim.text =
-                        Html.fromHtml(getString(R.string.number_of_elderly, p0.child("jumlahLansia").value.toString()))
+                        Html.fromHtml(
+                            getString(
+                                R.string.number_of_elderly,
+                                p0.child("jumlahLansia").value.toString()
+                            )
+                        )
                     textview_history_number_of_adult_victim.text =
-                        Html.fromHtml(getString(R.string.number_of_adults, p0.child("jumlahDewasa").value.toString()))
+                        Html.fromHtml(
+                            getString(
+                                R.string.number_of_adults,
+                                p0.child("jumlahDewasa").value.toString()
+                            )
+                        )
                     textview_history_number_of_child_victim.text =
-                        Html.fromHtml(getString(R.string.number_of_children, p0.child("jumlahAnak").value.toString()))
+                        Html.fromHtml(
+                            getString(
+                                R.string.number_of_children,
+                                p0.child("jumlahAnak").value.toString()
+                            )
+                        )
 
-                    textview_history_victim_additional_information.text = p0.child("infoTambahan").value.toString()
+                    textview_history_victim_additional_information.text =
+                        p0.child("infoTambahan").value.toString()
 
                 }
 
