@@ -3,6 +3,7 @@ package com.tugasakhir.resq.rescuer.model
 import java.io.Serializable
 
 class Posko (
+    val id : String = "",
     val idRescuer : String = "",
     val latitude : Double = 0.0,
     val longitude : Double = 0.0,
