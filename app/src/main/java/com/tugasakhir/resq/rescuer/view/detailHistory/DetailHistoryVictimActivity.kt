@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
@@ -42,6 +43,16 @@ class DetailHistoryVictimActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     textview_detail_victim_history_name.text = p0.child("name").value.toString()
                     textview_detail_victim_history_phone.text = p0.child("phone").value.toString()
+                    val profilePhoto = p0.child("profilePhoto").value.toString()
+                    if(profilePhoto != "") {
+                        Picasso.get()
+                            .load(profilePhoto)
+                            .fit()
+                            .centerCrop()
+                            .error(R.drawable.ic_empty_pict)
+                            .placeholder(R.drawable.ic_empty_pict)
+                            .into(imageview_rescuer_photo)
+                    }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
