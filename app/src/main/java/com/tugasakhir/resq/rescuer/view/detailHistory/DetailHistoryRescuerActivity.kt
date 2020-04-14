@@ -10,6 +10,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
@@ -92,6 +93,16 @@ class DetailHistoryRescuerActivity : AppCompatActivity() {
                                     p0.child("name").value.toString()
                                 textview_detail_rescuer_history_phone.text =
                                     p0.child("phone").value.toString()
+                                val photoURL = p0.child("profilePhoto").value.toString()
+                                if (photoURL != "") {
+                                    Picasso.get()
+                                        .load(photoURL)
+                                        .fit()
+                                        .centerCrop()
+                                        .placeholder(R.drawable.ic_empty_pict)
+                                        .error(R.drawable.ic_empty_pict)
+                                        .into(imageview_victim_photo)
+                                }
                             }
 
                             override fun onCancelled(p0: DatabaseError) {

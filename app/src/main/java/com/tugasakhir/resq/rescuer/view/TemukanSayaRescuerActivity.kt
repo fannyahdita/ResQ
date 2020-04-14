@@ -65,7 +65,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     }
 
     private fun setMaps(korban: InfoKorban, victimInfoId: String, isAccepted: Boolean, isOnTheWay: Boolean, isRescuerArrived: Boolean) {
-        Log.d("MASUK SETMAPS", victimInfoId)
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(korban.latitude.toDouble(), korban.longitude.toDouble())
             if (checkPermissions()) {
@@ -143,30 +142,19 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach { info ->
-                        val latitude = info.child("latitude").value.toString()
-                        val longitude = info.child("longitude").value.toString()
-                        val elderly = info.child("jumlahLansia").value.toString().toInt()
-                        val adult = info.child("jumlahDewasa").value.toString().toInt()
-                        val child = info.child("jumlahAnak").value.toString().toInt()
-                        val additionalInfo = info.child("infoTambahan").value.toString()
-                        val isFoodNeeded = info.child("bantuanMakanan").value.toString().toBoolean()
-                        val isMedicNeeded = info.child("bantuanMedis").value.toString().toBoolean()
-                        val isEvacuationNeeded =
-                            info.child("bantuanEvakuasi").value.toString().toBoolean()
-                        val uid = info.child("idKorban").value.toString()
+//                        val latitude = info.child("latitude").value.toString()
+//                        val longitude = info.child("longitude").value.toString()
+//                        val elderly = info.child("jumlahLansia").value.toString().toInt()
+//                        val adult = info.child("jumlahDewasa").value.toString().toInt()
+//                        val child = info.child("jumlahAnak").value.toString().toInt()
+//                        val additionalInfo = info.child("infoTambahan").value.toString()
+//                        val isFoodNeeded = info.child("bantuanMakanan").value.toString().toBoolean()
+//                        val isMedicNeeded = info.child("bantuanMedis").value.toString().toBoolean()
+//                        val isEvacuationNeeded =
+//                            info.child("bantuanEvakuasi").value.toString().toBoolean()
+//                        val uid = info.child("idKorban").value.toString()
 
-                        korban = InfoKorban(
-                            uid,
-                            latitude,
-                            longitude,
-                            elderly,
-                            adult,
-                            child,
-                            additionalInfo,
-                            isFoodNeeded,
-                            isMedicNeeded,
-                            isEvacuationNeeded
-                        )
+                        korban = info.getValue(InfoKorban::class.java)!!
 
                         getStatus(korban, info.key.toString())
                     }
@@ -179,17 +167,13 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     }
 
     private fun getStatus(korban: InfoKorban, victimInfoId: String) {
-        Log.d("MASUK GETSTATUS", victimInfoId)
         FirebaseDatabase.getInstance().reference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 if (p0.child("KorbanTertolong").exists()) {
                     val helpedVictim = p0.child("KorbanTertolong")
-                    Log.d("jumlah anak", helpedVictim.childrenCount.toString())
                     var index = 1
                     helpedVictim.children.forEach { helped ->
                         if (victimInfoId == helped.child("idInfoKorban").value.toString()) {
-                            Log.d("masuk sini", (victimInfoId == helped.child("idInfoKorban").value.toString()).toString())
-                            Log.d("rescuer arrived 1", (helped.child("rescuerArrived").value.toString()))
                             val isAccepted = helped.child("accepted").value.toString().toBoolean()
                             val isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
                             val isRescuerArrived = helped.child("rescuerArrived").value.toString().toBoolean()
@@ -197,7 +181,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                             index++
                             return
                         } else if (helpedVictim.childrenCount == index.toLong()) {
-                            Log.d("$victimInfoId masuk sini 2", "${helped.child("idInfoKorban").value}")
                             val isAccepted = false
                             val isOnTheWay = false
                             val isRescuerArrived = false
@@ -206,8 +189,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                         index++
                     }
                 } else {
-                    Log.d("korban tertolong", "kosong")
-                    Log.d("rescuer arrived, korban tertolong kosong", "rescuerArrived false dong")
                     val isAccepted = false
                     val isOnTheWay = false
                     val isRescuerArrived = false
@@ -216,7 +197,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(p0: DatabaseError) {
-                Log.d("TemukanSayaError : ", p0.message)
             }
         })
     }
