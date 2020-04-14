@@ -82,52 +82,33 @@ class PoskoListFragment : Fragment() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach { posko ->
-                        val mapAddress = posko.child("mapAddress").value.toString()
-                        val notesAddress = posko.child("noteAddress").value.toString()
-                        val capacity = posko.child("capacity").value.toString().toLong()
-                        val city = posko.child("city").value.toString()
-                        val contactName = posko.child("contactName").value.toString()
-                        val contactNumber = posko.child("contactNumber").value.toString()
-                        val createdAt = posko.child("createdAt").value.toString()
-                        val district = posko.child("district").value.toString()
-                        val hasBed = posko.child("hasBed").value.toString().toBoolean()
-                        val hasKitchen = posko.child("hasKitchen").value.toString().toBoolean()
-                        val hasLogistic = posko.child("hasLogistic").value.toString().toBoolean()
-                        val hasMedic = posko.child("hasMedic").value.toString().toBoolean()
-                        val hasWC = posko.child("hasWC").value.toString().toBoolean()
-                        val idRescuer = posko.child("idRescuer").value.toString()
-                        val latitude = posko.child("latitude").value.toString().toDouble()
-                        val longitude = posko.child("longitude").value.toString().toDouble()
+//                        val mapAddress = posko.child("mapAddress").value.toString()
+//                        val notesAddress = posko.child("noteAddress").value.toString()
+//                        val capacity = posko.child("capacity").value.toString().toLong()
+//                        val city = posko.child("city").value.toString()
+//                        val contactName = posko.child("contactName").value.toString()
+//                        val contactNumber = posko.child("contactNumber").value.toString()
+//                        val createdAt = posko.child("createdAt").value.toString()
+//                        val district = posko.child("district").value.toString()
+//                        val hasBed = posko.child("hasBed").value.toString().toBoolean()
+//                        val hasKitchen = posko.child("hasKitchen").value.toString().toBoolean()
+//                        val hasLogistic = posko.child("hasLogistic").value.toString().toBoolean()
+//                        val hasMedic = posko.child("hasMedic").value.toString().toBoolean()
+//                        val hasWC = posko.child("hasWC").value.toString().toBoolean()
+//                        val idRescuer = posko.child("idRescuer").value.toString()
+//                        val latitude = posko.child("latitude").value.toString().toDouble()
+//                        val longitude = posko.child("longitude").value.toString().toDouble()
                         val open = posko.child("open").value.toString().toBoolean()
-                        val poskoName = posko.child("poskoName").value.toString()
-                        val subDistrict = posko.child("subDistrict").value.toString()
+//                        val poskoName = posko.child("poskoName").value.toString()
+//                        val subDistrict = posko.child("subDistrict").value.toString()
 
-                        currentPosko = Posko(
-                            idRescuer,
-                            latitude,
-                            longitude,
-                            poskoName,
-                            city,
-                            district,
-                            subDistrict,
-                            mapAddress,
-                            notesAddress,
-                            capacity,
-                            hasMedic,
-                            hasKitchen,
-                            hasWC,
-                            hasLogistic,
-                            hasBed,
-                            createdAt,
-                            contactName,
-                            contactNumber,
-                            open
-                        )
-
-                        listPosko.add(currentPosko)
+                        if(open) {
+                            currentPosko = posko.getValue(Posko::class.java)!!
+                            listPosko.add(currentPosko)
+                        }
 
                     }
-                    poskoAdapter.setPosko(listPosko, lat, long)
+                    poskoAdapter.setPosko(listPosko, lat, long, role)
                 }
 
 

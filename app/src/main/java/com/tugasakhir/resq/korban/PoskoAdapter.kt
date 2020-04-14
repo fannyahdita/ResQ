@@ -21,12 +21,14 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
     private var posko: List<Posko?> = ArrayList()
     private var lat: String? = ""
     private var long: String? = ""
+    private var role = ""
     var TAG = "LIST POSKO "
 
-    fun setPosko(posko: ArrayList<Posko?>, lat: String?, long: String?) {
+    fun setPosko(posko: ArrayList<Posko?>, lat: String?, long: String?, role:String) {
         this.posko = posko
         this.lat = lat
         this.long = long
+        this.role = role
         notifyDataSetChanged()
     }
 
@@ -44,24 +46,24 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
         Log.d(TAG, position.toString())
 
         val currentPosko = posko[position]
-        holder.textview_lokasi_posko.text = currentPosko?.poskoName
-        holder.textview_alamat_posko.text = currentPosko?.mapAddress
-        holder.textview_kapasitas.text = Html.fromHtml(context.resources.getString(R.string.number_of_kk, currentPosko?.capacity.toString()))
-        holder.textview_jarak.text = currentPosko?.city
+        holder.itemView.textview_lokasi_posko.text = currentPosko?.poskoName
+        holder.itemView.textview_alamat_posko.text = currentPosko?.mapAddress
+        holder.itemView.textview_kapasitas.text = Html.fromHtml(context.resources.getString(R.string.number_of_kk, currentPosko?.capacity.toString()))
+        holder.itemView.textview_jarak.text = currentPosko?.city
 
         val results = FloatArray(1)
-        Location.distanceBetween(lat!!.toDouble(), long!!.toDouble(), currentPosko?.latitude!!.toDouble(), currentPosko?.longitude!!.toDouble(), results)
+        Location.distanceBetween(lat!!.toDouble(), long!!.toDouble(), currentPosko?.latitude!!.toDouble(), currentPosko.longitude.toDouble(), results)
 
         val poskoDistance = results[0].toString().split(".")[0]
         var fixDistance = ""
 
-        if (poskoDistance.length > 3) {
-            fixDistance = (poskoDistance.toInt() / 1000).toString() + " km"
+        fixDistance = if (poskoDistance.length > 3) {
+            (poskoDistance.toInt() / 1000).toString() + " km"
         } else {
-            fixDistance = poskoDistance + " m"
+            "$poskoDistance m"
         }
 
-        holder.textview_jarak.text = fixDistance
+        holder.itemView.textview_jarak.text = fixDistance
 
 
         holder.itemView.posko_card.setOnClickListener {
@@ -69,14 +71,10 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
             intent.putExtra("EXTRA_POSKO", currentPosko as Serializable)
             intent.putExtra("EXTRA_LAT", lat)
             intent.putExtra("EXTRA_LONG", long)
+            intent.putExtra("ROLE", role)
             (context).startActivity(intent)
         }
     }
 
-    class ViewHolder (view: View) : RecyclerView.ViewHolder(view){
-        val textview_lokasi_posko: TextView = view.textview_lokasi_posko
-        val textview_alamat_posko: TextView = view.textview_alamat_posko
-        val textview_kapasitas: TextView = view.textview_kapasitas
-        val textview_jarak: TextView = view.textview_jarak
-    }
+    class ViewHolder (view: View) : RecyclerView.ViewHolder(view)
 }
