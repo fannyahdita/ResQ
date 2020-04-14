@@ -43,7 +43,6 @@ import kotlin.collections.ArrayList
 class PoskoMapFragment : Fragment(){
 
     private lateinit var mapFragment: SupportMapFragment
-    private lateinit var mMap: GoogleMap
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private val permissionId = 42
@@ -63,7 +62,7 @@ class PoskoMapFragment : Fragment(){
     ): View? {
         firebaseAuth = FirebaseAuth.getInstance()
         user = firebaseAuth.currentUser!!
-        role = arguments?.getString(PoskoListFragment.ROLE).toString()
+        role = arguments?.getString(ROLE).toString()
         return inflater.inflate(R.layout.fragment_posko_korban, container, false)
     }
 
