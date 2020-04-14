@@ -94,6 +94,7 @@ class PoskoDetailActivity : AppCompatActivity() {
 
         if (uid == posko.idRescuer) {
             button_close_posko.visibility = View.VISIBLE
+            button_edit_posko.visibility = View.VISIBLE
         }
 
         button_close_posko.setOnClickListener {

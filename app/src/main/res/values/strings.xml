@@ -146,7 +146,7 @@
     <string name="password_profile">Ubah Kata Sandi</string>
     <string name="edit_profile_save">Simpan</string>
 
-    //Posko
+    //Posko Detail
     <string name="petunjuk"><u>Dapatkan Petunjuk</u></string>
     <string name="kapasitas">Kapasitas : </string>
     <string name="fasilitas">Fasilitas : </string>
@@ -159,6 +159,7 @@
     <string name="close_posko_positive">Tutup Posko</string>
     <string name="close_posko_negative">Batalkan</string>
     <string name="rescuer_detail"><![CDATA[Posko ini ditambahkan oleh %s dari %s %s <br> Kontak : %s]]></string>
+    <string name="edit_posko"><u>Ubah</u></string>
 
     //Posko List
     <string name="title_recycler_view">POSKO TERDEKAT</string>

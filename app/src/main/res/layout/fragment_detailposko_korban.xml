@@ -21,16 +21,31 @@
 
             <TextView
                 android:id="@+id/textview_lokasi_posko"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/raleway"
                 android:textColor="@color/black_dark"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/button_edit_posko"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Masjid Almujahidin" />
+
+            <TextView
+                android:id="@+id/button_edit_posko"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/edit_posko"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textview_lokasi_posko"
+                app:layout_constraintTop_toTopOf="@id/textview_lokasi_posko"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/textview_kapasitas"
@@ -207,10 +222,10 @@
                 android:id="@+id/textview_rescuer_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/source_sans_pro"
                 android:textColor="@color/grey_dark"
                 android:textSize="14sp"
-                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_kontak"
                 tools:text="Posko ini ditambahkan oleh Fannyah dari rescuer Aksi Cepat Tanggap" />
