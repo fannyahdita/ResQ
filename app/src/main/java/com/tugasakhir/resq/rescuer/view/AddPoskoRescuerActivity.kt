@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
@@ -128,20 +129,22 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
 
         val date = victimInfoData.getCurrentDateTime().toString("dd/MM/yyy HH:mm")
 
+
+        val ref = FirebaseDatabase.getInstance().getReference("Posko")
+        val idPosko = ref.push().key.toString()
+
         posko = Posko(
-            idRescuer, latitude!!, longitude!!, poskoName, city, district, subDistrict,
+            idPosko, idRescuer, latitude!!, longitude!!, poskoName, city, district, subDistrict,
             mapAddress, notesAddress, capacity.toLong(), hasMedic, hasKitchen, hasWC, hasLogistic, hasBed, date,
             contactName, contactNumber, true
         )
 
-        addPosko(posko)
+        addPosko(ref, posko)
     }
 
-    private fun addPosko(posko: Posko) {
-        val ref = FirebaseDatabase.getInstance().getReference("Posko")
-        val idPosko = ref.push().key.toString()
+    private fun addPosko(ref : DatabaseReference, posko: Posko) {
 
-        ref.child(idPosko).setValue(posko).addOnCompleteListener {
+        ref.child(posko.id).setValue(posko).addOnCompleteListener {
             if (it.isSuccessful) {
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()

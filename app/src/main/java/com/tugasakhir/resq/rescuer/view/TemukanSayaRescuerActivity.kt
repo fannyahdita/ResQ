@@ -142,20 +142,7 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach { info ->
-//                        val latitude = info.child("latitude").value.toString()
-//                        val longitude = info.child("longitude").value.toString()
-//                        val elderly = info.child("jumlahLansia").value.toString().toInt()
-//                        val adult = info.child("jumlahDewasa").value.toString().toInt()
-//                        val child = info.child("jumlahAnak").value.toString().toInt()
-//                        val additionalInfo = info.child("infoTambahan").value.toString()
-//                        val isFoodNeeded = info.child("bantuanMakanan").value.toString().toBoolean()
-//                        val isMedicNeeded = info.child("bantuanMedis").value.toString().toBoolean()
-//                        val isEvacuationNeeded =
-//                            info.child("bantuanEvakuasi").value.toString().toBoolean()
-//                        val uid = info.child("idKorban").value.toString()
-
                         korban = info.getValue(InfoKorban::class.java)!!
-
                         getStatus(korban, info.key.toString())
                     }
                 }

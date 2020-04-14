@@ -21,16 +21,31 @@
 
             <TextView
                 android:id="@+id/textview_lokasi_posko"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/raleway"
+                android:textColor="@color/black_dark"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/button_edit_posko"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Masjid Almujahidin" />
+
+            <TextView
+                android:id="@+id/button_edit_posko"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="Masjid Almujahidin"
+                android:text="@string/edit_posko"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textview_lokasi_posko"
+                app:layout_constraintTop_toTopOf="@id/textview_lokasi_posko"
+                tools:visibility="visible" />
 
             <TextView
                 android:id="@+id/textview_kapasitas"
@@ -38,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="Kapasitas : "
+                android:text="@string/capacity"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -50,11 +65,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="100 KK"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/textview_kapasitas"
-                app:layout_constraintTop_toTopOf="@id/textview_kapasitas" />
+                app:layout_constraintTop_toTopOf="@id/textview_kapasitas"
+                tools:text="100 KK" />
 
             <fragment
                 android:id="@+id/fragment_map"
@@ -64,16 +79,16 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_kapasitas"/>
+                app:layout_constraintTop_toBottomOf="@id/textview_kapasitas" />
 
             <RelativeLayout
+                android:id="@+id/alamat_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/alamat_box"
-                android:background="@drawable/shape_temukansaya_background"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginTop="20dp"
+                android:background="@drawable/shape_temukansaya_background"
                 android:paddingVertical="15dp"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fragment_map">
 
                 <ImageView
@@ -90,43 +105,43 @@
                     android:layout_width="230dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/image_marker"
                     android:fontFamily="@font/source_sans_pro"
                     android:textColor="@color/black_dark"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:layout_toRightOf="@id/image_marker" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textview_notes_posko"
                     android:layout_width="230dp"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/source_sans_pro"
-                    android:layout_marginStart="20dp"
-                    android:textColor="@color/black_dark"
-                    android:textSize="18sp"
                     android:layout_below="@id/textview_alamat_posko"
-                    android:layout_toEndOf="@id/image_marker"/>
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@id/image_marker"
+                    android:fontFamily="@font/source_sans_pro"
+                    android:textColor="@color/black_dark"
+                    android:textSize="18sp" />
 
                 <TableRow
                     android:id="@+id/hr"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/grey_dark"
+                    android:layout_below="@id/textview_notes_posko"
                     android:layout_marginTop="10dp"
-                    android:layout_below="@id/textview_notes_posko"/>
+                    android:background="@color/grey_dark" />
 
                 <TextView
                     android:id="@+id/tombol_petunjuk"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/source_sans_pro"
+                    android:layout_below="@id/hr"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/source_sans_pro"
                     android:text="@string/petunjuk"
-                    android:textColor="@color/black_dark"
-                    android:textSize="18sp"
                     android:textAlignment="center"
-                    android:layout_below="@id/hr" />
+                    android:textColor="@color/black_dark"
+                    android:textSize="18sp" />
 
             </RelativeLayout>
 
@@ -147,11 +162,10 @@
                 android:id="@+id/textview_fasilitas_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
                 android:fontFamily="@font/source_sans_pro"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
-                android:layout_marginStart="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_fasilitas" />
 
@@ -160,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="@string/posko_pembuat"
+                android:text="@string/koordinator_posko"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -171,21 +185,20 @@
                 android:id="@+id/textview_penambah"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro"
                 android:layout_marginStart="10dp"
-                android:text="Andi"
+                android:fontFamily="@font/source_sans_pro"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/textview_ditambahkan_oleh"
-                app:layout_constraintTop_toTopOf="@id/textview_ditambahkan_oleh"/>
+                app:layout_constraintTop_toTopOf="@id/textview_ditambahkan_oleh"
+                tools:text="Andi" />
 
             <TextView
                 android:id="@+id/textview_kontak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="@string/posko_kontak"
+                android:text="@string/koordinator_posko_number"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -196,13 +209,40 @@
                 android:id="@+id/textview_nilai_kontak"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro"
                 android:layout_marginStart="10dp"
-                android:text="0812121212"
+                android:autoLink="phone"
+                android:fontFamily="@font/source_sans_pro"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/textview_kontak"
-                app:layout_constraintTop_toTopOf="@id/textview_kontak"/>
+                app:layout_constraintTop_toTopOf="@id/textview_kontak"
+                tools:text="0812121212" />
+
+            <TextView
+                android:id="@+id/textview_rescuer_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:textColor="@color/grey_dark"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_kontak"
+                tools:text="Posko ini ditambahkan oleh Fannyah dari rescuer Aksi Cepat Tanggap" />
+
+            <Button
+                android:id="@+id/button_close_posko"
+                style="@style/BlackButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:text="@string/close_posko"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_rescuer_info"
+                tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -215,6 +255,5 @@
             android:layout_centerVertical="true"
             android:visibility="gone"
             tools:visibility="visible" />
-
     </RelativeLayout>
 </ScrollView>
