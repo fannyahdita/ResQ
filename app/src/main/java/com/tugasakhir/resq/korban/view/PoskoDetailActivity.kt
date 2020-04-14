@@ -9,7 +9,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Html
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -22,18 +21,15 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Posko
-import kotlinx.android.synthetic.main.activity_thank_you_rescuer.*
 import kotlinx.android.synthetic.main.fragment_detailposko_korban.*
 
 const val EXTRA_POSKO = "com.tugasakhir.resq.korban.POSKO"
 
-class PoskoDetailActivity: AppCompatActivity() {
+class PoskoDetailActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var mapFragment: SupportMapFragment
@@ -54,8 +50,7 @@ class PoskoDetailActivity: AppCompatActivity() {
         val posko = intent.extras?.get("EXTRA_POSKO") as Posko
         val currentLat = intent.getStringExtra("EXTRA_LAT")
         val currentLong = intent.getStringExtra("EXTRA_LONG")
-        val role = intent.getStringExtra("ROLE")
-
+        val uid = FirebaseAuth.getInstance().currentUser!!.uid
 
         var facility = ""
         if (posko.hasBed) {
@@ -75,7 +70,8 @@ class PoskoDetailActivity: AppCompatActivity() {
         }
 
         textview_lokasi_posko.text = posko.poskoName
-        textview_nilai_kapasitas.text = Html.fromHtml(getString(R.string.number_of_kk, posko?.capacity.toString()))
+        textview_nilai_kapasitas.text =
+            Html.fromHtml(getString(R.string.number_of_kk, posko?.capacity.toString()))
         textview_alamat_posko.text = posko.mapAddress
         textview_notes_posko.text = posko.noteAddress
         textview_fasilitas_value.text = facility
@@ -85,27 +81,28 @@ class PoskoDetailActivity: AppCompatActivity() {
         setMaps(posko.latitude, posko.longitude, posko.poskoName)
 
         tombol_petunjuk.setOnClickListener {
-            val uri = "http://maps.google.com/maps?saddr=" + currentLat + "," + currentLong + "&daddr=" + posko?.latitude + "," + posko?.longitude
+            val uri =
+                "http://maps.google.com/maps?saddr=" + currentLat + "," + currentLong + "&daddr=" + posko?.latitude + "," + posko?.longitude
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             startActivity(intent)
         }
 
-        if (role == "rescuer") {
+        if (uid == posko.idRescuer) {
             button_close_posko.visibility = View.VISIBLE
         }
 
         button_close_posko.setOnClickListener {
             val alertDialog = AlertDialog.Builder(this)
-            alertDialog.setTitle("Tutup Posko")
-            alertDialog.setMessage("Apakah Anda yakin ingin menutup posko? Posko yang sudah ditutup tidak bisa dikembalikan")
-            alertDialog.setPositiveButton("Tutup Posko"){_,_ ->
+            alertDialog.setTitle(R.string.close_posko)
+            alertDialog.setMessage(R.string.close_posko_warning)
+            alertDialog.setPositiveButton(R.string.close_posko_positive) { _, _ ->
                 FirebaseDatabase.getInstance().getReference("Posko/${posko.id}")
                     .child("open")
                     .setValue(false)
                 onBackPressed()
                 finish()
             }
-            alertDialog.setNegativeButton("Batalkan"){_,_ ->}
+            alertDialog.setNegativeButton(R.string.close_posko_negative ) { _, _ -> }
             alertDialog.create().show()
         }
     }

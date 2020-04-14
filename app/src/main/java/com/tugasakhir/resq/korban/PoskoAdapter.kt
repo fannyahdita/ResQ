@@ -21,14 +21,12 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
     private var posko: List<Posko?> = ArrayList()
     private var lat: String? = ""
     private var long: String? = ""
-    private var role = ""
     var TAG = "LIST POSKO "
 
-    fun setPosko(posko: ArrayList<Posko?>, lat: String?, long: String?, role:String) {
+    fun setPosko(posko: ArrayList<Posko?>, lat: String?, long: String?) {
         this.posko = posko
         this.lat = lat
         this.long = long
-        this.role = role
         notifyDataSetChanged()
     }
 
@@ -71,7 +69,6 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
             intent.putExtra("EXTRA_POSKO", currentPosko as Serializable)
             intent.putExtra("EXTRA_LAT", lat)
             intent.putExtra("EXTRA_LONG", long)
-            intent.putExtra("ROLE", role)
             (context).startActivity(intent)
         }
     }
