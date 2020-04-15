@@ -174,6 +174,16 @@ class PoskoMapFragment : Fragment(){
 
     override fun onResume() {
         super.onResume()
+
+        if (listPosko.isNotEmpty()) {
+            listPosko.clear()
+            poskoAdapter.notifyDataSetChanged()
+
+            val currentLat = arguments!!.getString("lat")
+            val currentLong = arguments!!.getString("long")
+            fetchPoskoData(currentLat, currentLong)
+        }
+
         if (role == "rescuer") {
             textview_add_posko_rescuer.visibility = View.VISIBLE
         }
