@@ -25,7 +25,6 @@ import android.location.Location
 import android.util.Log
 import android.widget.RelativeLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -52,8 +51,6 @@ class PoskoMapFragment : Fragment(){
     private val poskoAdapter = PoskoAdapter()
     private lateinit var currentPosko: Posko
     private var role = ""
-
-    private var TAG = "LIST POSKO "
     val listPosko: ArrayList<Posko?> = ArrayList()
 
     override fun onCreateView(
@@ -104,6 +101,8 @@ class PoskoMapFragment : Fragment(){
                     }
                     BottomSheetBehavior.STATE_SETTLING -> {
                     }
+                    BottomSheetBehavior.STATE_HALF_EXPANDED -> {
+                    }
                 }
             }
         })
@@ -116,7 +115,7 @@ class PoskoMapFragment : Fragment(){
         }
     }
 
-    private fun setMaps(lat: String, long: String, poskoId: Int) {
+    private fun setMaps(lat: String, long: String, poskoId: String?) {
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(lat.toDouble(), long.toDouble())
 
@@ -137,11 +136,23 @@ class PoskoMapFragment : Fragment(){
             )
 
             gMap.setOnMarkerClickListener { marker ->
-                val intent = Intent(activity, PoskoDetailActivity::class.java)
-                intent.putExtra("EXTRA_POSKO", listPosko[marker.title.toInt()-1] as Serializable)
-                intent.putExtra("EXTRA_LAT", lat)
-                intent.putExtra("EXTRA_LONG", long)
-                activity?.startActivity(intent)
+                FirebaseDatabase.getInstance().reference.child("Posko/${marker.title}")
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(p0: DataSnapshot) {
+                            val currPosko = p0.getValue(Posko::class.java)
+                            val intent = Intent(activity, PoskoDetailActivity::class.java)
+                            intent.putExtra("EXTRA_POSKO", currPosko as Serializable)
+                            intent.putExtra("EXTRA_LAT", lat)
+                            intent.putExtra("EXTRA_LONG", long)
+                            activity?.startActivity(intent)
+                        }
+
+
+                        override fun onCancelled(p0: DatabaseError) {
+                            Log.d("TemukanSayaError : ", p0.message)
+                        }
+                    })
+
                 return@setOnMarkerClickListener true
             }
         }
@@ -196,7 +207,7 @@ class PoskoMapFragment : Fragment(){
                         currentPosko = posko.getValue(Posko::class.java)!!
                         if(open) {
                             listPosko.add(currentPosko)
-                            setMaps(currentPosko.latitude.toString(), currentPosko.longitude.toString(), listPosko.size)
+                            setMaps(currentPosko.latitude.toString(), currentPosko.longitude.toString(), posko.key)
                         }
 
                     }
@@ -220,7 +231,7 @@ class PoskoMapFragment : Fragment(){
                 val distance1 = results1[0]
 
                 val results2 = FloatArray(1)
-                Location.distanceBetween(currentLat!!.toDouble(), currentLong!!.toDouble(), posko2?.latitude!!.toDouble(), posko2.longitude.toDouble(), results2)
+                Location.distanceBetween(currentLat.toDouble(), currentLong.toDouble(), posko2?.latitude!!.toDouble(), posko2.longitude.toDouble(), results2)
                 val distance2 = results2[0]
 
                 return distance1.compareTo(distance2)
