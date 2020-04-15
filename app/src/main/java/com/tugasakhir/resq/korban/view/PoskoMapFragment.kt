@@ -1,45 +1,43 @@
 package com.tugasakhir.resq.korban.view
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.tugasakhir.resq.R
-import android.Manifest
-import android.util.Log
-import android.widget.RelativeLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.PoskoAdapter
 import com.tugasakhir.resq.rescuer.model.Posko
 import com.tugasakhir.resq.rescuer.view.AddPoskoLocationActivity
 import kotlinx.android.synthetic.main.fragment_list_posko.*
 import java.io.Serializable
 
-class PoskoMapFragment : Fragment(){
+class PoskoMapFragment : Fragment() {
 
     private lateinit var mapFragment: SupportMapFragment
-    private lateinit var mMap: GoogleMap
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private val permissionId = 42
@@ -66,7 +64,8 @@ class PoskoMapFragment : Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map_posko) as SupportMapFragment
+        mapFragment =
+            childFragmentManager.findFragmentById(R.id.fragment_map_posko) as SupportMapFragment
 
         posko_recycler_view.layoutManager = LinearLayoutManager(activity)
         posko_recycler_view.adapter = poskoAdapter
@@ -84,7 +83,8 @@ class PoskoMapFragment : Fragment(){
     }
 
     private fun setBottomSheetList() {
-        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.setBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
             }
@@ -108,7 +108,7 @@ class PoskoMapFragment : Fragment(){
 
     private fun setCurrentLoc(currentLat: String?, currentLong: String?) {
         mapFragment.getMapAsync { googleMap ->
-            val currentLoc =  LatLng(currentLat!!.toDouble(), currentLong!!.toDouble())
+            val currentLoc = LatLng(currentLat!!.toDouble(), currentLong!!.toDouble())
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 14f))
         }
     }
@@ -117,11 +117,12 @@ class PoskoMapFragment : Fragment(){
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(lat.toDouble(), long.toDouble())
 
-            if(checkPermissions()) {
+            if (checkPermissions()) {
                 if (isLocationEnabled()) {
                     gMap.isMyLocationEnabled = true
                 } else {
-                    Toast.makeText(activity, "Please turn on your location", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "Please turn on your location", Toast.LENGTH_LONG)
+                        .show()
                     val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     startActivity(intent)
                 }
@@ -135,7 +136,7 @@ class PoskoMapFragment : Fragment(){
 
             gMap.setOnMarkerClickListener { marker ->
                 val intent = Intent(activity, PoskoDetailActivity::class.java)
-                intent.putExtra("EXTRA_POSKO", listPosko[marker.title.toInt()-1] as Serializable)
+                intent.putExtra("EXTRA_POSKO", listPosko[marker.title.toInt() - 1] as Serializable)
                 intent.putExtra("EXTRA_LAT", lat)
                 intent.putExtra("EXTRA_LONG", long)
                 activity?.startActivity(intent)
@@ -146,10 +147,12 @@ class PoskoMapFragment : Fragment(){
     }
 
     private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION
+        if (ActivityCompat.checkSelfPermission(
+                activity!!, Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
             &&
-            ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION
+            ActivityCompat.checkSelfPermission(
+                activity!!, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
@@ -158,7 +161,8 @@ class PoskoMapFragment : Fragment(){
     }
 
     private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager = activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -167,7 +171,10 @@ class PoskoMapFragment : Fragment(){
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             activity!!,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
             permissionId
         )
     }
@@ -176,6 +183,9 @@ class PoskoMapFragment : Fragment(){
         super.onResume()
 
         if (listPosko.isNotEmpty()) {
+            mapFragment.getMapAsync {
+                it.clear()
+            }
             listPosko.clear()
             poskoAdapter.notifyDataSetChanged()
 
@@ -201,9 +211,13 @@ class PoskoMapFragment : Fragment(){
                     children.forEach { posko ->
                         val open = posko.child("open").value.toString().toBoolean()
                         currentPosko = posko.getValue(Posko::class.java)!!
-                        if(open) {
+                        if (open) {
                             listPosko.add(currentPosko)
-                            setMaps(currentPosko.latitude.toString(), currentPosko.longitude.toString(), listPosko.size)
+                            setMaps(
+                                currentPosko.latitude.toString(),
+                                currentPosko.longitude.toString(),
+                                listPosko.size
+                            )
                         }
 
                     }
@@ -234,6 +248,4 @@ class PoskoMapFragment : Fragment(){
             return fragment
         }
     }
-
-
 }
