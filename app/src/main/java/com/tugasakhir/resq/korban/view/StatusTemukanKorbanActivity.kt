@@ -71,7 +71,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach {
-                        Log.d("ID KORBAN 1 : ", user)
+//                        Log.d("ID KORBAN 1 : ", user)
                         Log.d("ID KORBAN 2 : ", it.child("idKorban").value.toString())
 
                         if (user == it.child("idKorban").value.toString()) {
