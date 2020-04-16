@@ -147,6 +147,8 @@ class MainActivity : AppCompatActivity() {
                 finish()
             } else {
                 val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
+                intent.putExtra("EXTRA_LAT", lat)
+                intent.putExtra("EXTRA_LONG", long)
                 startActivity(intent)
                 finish()
             }

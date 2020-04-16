@@ -53,11 +53,19 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
 
         victimInfoData = VictimInfoData()
         idRescuer = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        val currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
+        val currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
 
         layout_detail_marker.visibility = View.GONE
 
         mapFragment = supportFragmentManager.findFragmentById(R.id.fragment_map_rescuer)
                 as SupportMapFragment
+
+        mapFragment.getMapAsync {
+            val currLocation = LatLng(currLat!!.toDouble(), currLong!!.toDouble())
+            it.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15F))
+            it.isMyLocationEnabled = true
+        }
 
         getAllDataVictim()
 
@@ -78,7 +86,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             } else {
                 requestPermissions()
             }
-            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 10f))
             when {
                 isAccepted or isOnTheWay -> {
                     Log.d(victimInfoId, "isAccepted or isOnTheWay")
