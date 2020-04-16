@@ -2,25 +2,17 @@ package com.tugasakhir.resq.korban.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Rescuer
-import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
-import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.*
-import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.button_batalkan
-import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.progressbar_name
 import kotlinx.android.synthetic.main.fragment_temukansayastatus2_korban.*
 
 class StatusAcceptedFragment : Fragment() {
@@ -44,6 +36,7 @@ class StatusAcceptedFragment : Fragment() {
 
         textview_nama_rescuer.text = rescuer.name
         textview_nomor_rescuer.text = rescuer.phone
+        textview_instansi_rescuer.text = rescuer.instansi
 
         if (rescuer?.profilePhoto == "") {
             image_status2.setImageResource(R.drawable.ic_empty_pict)
