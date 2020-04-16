@@ -66,6 +66,7 @@
                 android:textColor="@color/black_dark"
                 android:textAlignment="center"
                 android:text="08989898989"
+                android:autoLink="phone"
                 android:gravity="center"
                 android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
