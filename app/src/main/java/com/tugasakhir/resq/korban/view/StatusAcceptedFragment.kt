@@ -13,14 +13,19 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.rescuer.model.Rescuer
+import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.*
 import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.button_batalkan
 import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.progressbar_name
 import kotlinx.android.synthetic.main.fragment_temukansayastatus2_korban.*
 
 class StatusAcceptedFragment : Fragment() {
+
+    private lateinit var rescuer: Rescuer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,12 +40,22 @@ class StatusAcceptedFragment : Fragment() {
 
         val idInfoKorban = arguments!!.getString("idInfoKorban")
         val idKorbanTertolong = arguments!!.getString("idKorbanTertolong")
-        val rescuerName = arguments!!.getString("rescuerName")
-        val rescuerPhone = arguments!!.getString("rescuerPhone")
+        rescuer = arguments!!.getSerializable("rescuer") as Rescuer
 
-        textview_nama_rescuer.text = rescuerName
-        textview_nomor_rescuer.text = rescuerPhone
+        textview_nama_rescuer.text = rescuer.name
+        textview_nomor_rescuer.text = rescuer.phone
 
+        if (rescuer?.profilePhoto == "") {
+            image_status2.setImageResource(R.drawable.ic_empty_pict)
+        } else {
+            Picasso.get()
+                .load(rescuer?.profilePhoto)
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.ic_empty_pict)
+                .error(R.drawable.ic_empty_pict)
+                .into(image_status2)
+        }
 
         button_batalkan.setOnClickListener {
             val builder = AlertDialog.Builder(activity!!)
@@ -67,32 +82,15 @@ class StatusAcceptedFragment : Fragment() {
         }
     }
     companion object {
-        fun newInstance(idInfoKorban: String, idKorbanTertolong: String, rescuerName: String, rescuerPhone: String): StatusAcceptedFragment {
+        fun newInstance(idInfoKorban: String, idKorbanTertolong: String, rescuer: Rescuer?): StatusAcceptedFragment {
             val args = Bundle()
             args.putString("idInfoKorban", idInfoKorban)
             args.putString("idKorbanTertolong", idKorbanTertolong)
-            args.putString("rescuerName", rescuerName)
-            args.putString("rescuerPhone", rescuerPhone)
+            args.putSerializable("rescuer", rescuer)
             val fragment = StatusAcceptedFragment()
             fragment.arguments = args
             return fragment
         }
-    }
-
-    private fun getRescuerData(idRescuer: String?) {
-        FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    val name = p0.child("name").value
-                    val phone = p0.child("phone").value
-                    textview_nama_rescuer.text = name.toString()
-                    textview_nomor_rescuer.text = phone.toString()
-                }
-
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.d("TemukanSayaError : ", p0.message)
-                }
-            })
     }
 
     private fun removeData(idInfoKorban: String?, idKorbanTertolong: String?) {
