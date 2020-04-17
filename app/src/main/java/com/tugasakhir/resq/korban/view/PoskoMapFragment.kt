@@ -19,7 +19,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.tugasakhir.resq.R
 import android.Manifest
 import android.location.Location
 import android.util.Log
@@ -30,6 +29,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.PoskoAdapter
 import com.tugasakhir.resq.rescuer.model.Posko
 import com.tugasakhir.resq.rescuer.view.AddPoskoLocationActivity
@@ -39,7 +39,7 @@ import java.util.*
 import kotlin.Comparator
 import kotlin.collections.ArrayList
 
-class PoskoMapFragment : Fragment(){
+class PoskoMapFragment : Fragment() {
 
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var firebaseAuth: FirebaseAuth
@@ -66,7 +66,8 @@ class PoskoMapFragment : Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mapFragment = childFragmentManager.findFragmentById(R.id.fragment_map_posko) as SupportMapFragment
+        mapFragment =
+            childFragmentManager.findFragmentById(R.id.fragment_map_posko) as SupportMapFragment
 
         posko_recycler_view.layoutManager = LinearLayoutManager(activity)
         posko_recycler_view.adapter = poskoAdapter
@@ -79,12 +80,11 @@ class PoskoMapFragment : Fragment(){
         setBottomSheetList()
 
         fetchPoskoData(currentLat, currentLong)
-
-
     }
 
     private fun setBottomSheetList() {
-        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+        bottomSheetBehavior.setBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
             }
@@ -110,7 +110,7 @@ class PoskoMapFragment : Fragment(){
 
     private fun setCurrentLoc(currentLat: String?, currentLong: String?) {
         mapFragment.getMapAsync { googleMap ->
-            val currentLoc =  LatLng(currentLat!!.toDouble(), currentLong!!.toDouble())
+            val currentLoc = LatLng(currentLat!!.toDouble(), currentLong!!.toDouble())
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 14f))
         }
     }
@@ -119,11 +119,12 @@ class PoskoMapFragment : Fragment(){
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(lat.toDouble(), long.toDouble())
 
-            if(checkPermissions()) {
+            if (checkPermissions()) {
                 if (isLocationEnabled()) {
                     gMap.isMyLocationEnabled = true
                 } else {
-                    Toast.makeText(activity, "Please turn on your location", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "Please turn on your location", Toast.LENGTH_LONG)
+                        .show()
                     val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     startActivity(intent)
                 }
@@ -160,10 +161,12 @@ class PoskoMapFragment : Fragment(){
     }
 
     private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_COARSE_LOCATION
+        if (ActivityCompat.checkSelfPermission(
+                activity!!, Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
             &&
-            ActivityCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION
+            ActivityCompat.checkSelfPermission(
+                activity!!, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
@@ -172,7 +175,8 @@ class PoskoMapFragment : Fragment(){
     }
 
     private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager = activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -181,13 +185,29 @@ class PoskoMapFragment : Fragment(){
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             activity!!,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
             permissionId
         )
     }
 
     override fun onResume() {
         super.onResume()
+
+        if (listPosko.isNotEmpty()) {
+            mapFragment.getMapAsync {
+                it.clear()
+            }
+            listPosko.clear()
+            poskoAdapter.notifyDataSetChanged()
+
+            val currentLat = arguments!!.getString("lat")
+            val currentLong = arguments!!.getString("long")
+            fetchPoskoData(currentLat, currentLong)
+        }
+
         if (role == "rescuer") {
             textview_add_posko_rescuer.visibility = View.VISIBLE
         }
@@ -205,7 +225,7 @@ class PoskoMapFragment : Fragment(){
                     children.forEach { posko ->
                         val open = posko.child("open").value.toString().toBoolean()
                         currentPosko = posko.getValue(Posko::class.java)!!
-                        if(open) {
+                        if (open) {
                             listPosko.add(currentPosko)
                             setMaps(currentPosko.latitude.toString(), currentPosko.longitude.toString(), posko.key)
                         }
@@ -259,6 +279,4 @@ class PoskoMapFragment : Fragment(){
             return fragment
         }
     }
-
-
 }
