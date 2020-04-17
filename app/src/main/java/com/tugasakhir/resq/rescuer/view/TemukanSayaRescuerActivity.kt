@@ -53,23 +53,34 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
 
         victimInfoData = VictimInfoData()
         idRescuer = FirebaseAuth.getInstance().currentUser?.uid.toString()
-        val currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
-        val currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
 
         layout_detail_marker.visibility = View.GONE
 
         mapFragment = supportFragmentManager.findFragmentById(R.id.fragment_map_rescuer)
                 as SupportMapFragment
 
+
+        button_close_detail.setOnClickListener { layout_detail_marker.visibility = View.GONE }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        mapFragment.getMapAsync {
+            it.clear()
+        }
+
+        layout_detail_marker.visibility = View.GONE
+
+        getAllDataVictim()
+
+        val currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
+        val currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
         mapFragment.getMapAsync {
             val currLocation = LatLng(currLat!!.toDouble(), currLong!!.toDouble())
             it.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15F))
             it.isMyLocationEnabled = true
         }
-
-        getAllDataVictim()
-
-        button_close_detail.setOnClickListener { layout_detail_marker.visibility = View.GONE }
     }
 
     private fun setMaps(korban: InfoKorban, victimInfoId: String, isAccepted: Boolean, isOnTheWay: Boolean, isRescuerArrived: Boolean) {
@@ -213,7 +224,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                 setIsHelping()
                 val intent = Intent(this, HelpVictimActivity::class.java)
                 startActivity(intent)
-                finish()
             } else {
                 Log.d("KorbanTertolongError: ", it.exception?.message!!)
             }
