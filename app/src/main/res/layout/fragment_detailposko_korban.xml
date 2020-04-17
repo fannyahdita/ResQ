@@ -26,12 +26,12 @@
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/raleway"
                 android:textColor="@color/black_dark"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@id/button_edit_posko"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Masjid Almujahidin" />
+                tools:text="Masjid Almujahidin Deket Soreang" />
 
             <TextView
                 android:id="@+id/button_edit_posko"
@@ -48,6 +48,18 @@
                 tools:visibility="visible" />
 
             <TextView
+                android:id="@+id/textview_created_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:textColor="@color/grey_dark"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_lokasi_posko"
+                tools:text="04/17/2020 2:12" />
+
+            <TextView
                 android:id="@+id/textview_kapasitas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +70,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_lokasi_posko" />
+                app:layout_constraintTop_toBottomOf="@id/textview_created_at" />
 
             <TextView
                 android:id="@+id/textview_nilai_kapasitas"
@@ -71,15 +83,25 @@
                 app:layout_constraintTop_toTopOf="@id/textview_kapasitas"
                 tools:text="100 KK" />
 
-            <fragment
-                android:id="@+id/fragment_map"
-                android:name="com.google.android.gms.maps.SupportMapFragment"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardview"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_kapasitas" />
+                app:cardCornerRadius="5dp"
+                app:cardElevation="4dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_kapasitas">
+
+                <fragment
+                    android:id="@+id/fragment_map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp" />
+
+            </androidx.cardview.widget.CardView>
 
             <RelativeLayout
                 android:id="@+id/alamat_box"
@@ -89,7 +111,7 @@
                 android:background="@drawable/shape_temukansaya_background"
                 android:paddingVertical="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/fragment_map">
+                app:layout_constraintTop_toBottomOf="@id/cardview">
 
                 <ImageView
                     android:id="@+id/image_marker"
@@ -167,19 +189,47 @@
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_fasilitas" />
+                app:layout_constraintTop_toBottomOf="@id/textview_fasilitas"
+                tools:text="Dapur Umum" />
+
+            <TextView
+                android:id="@+id/textview_infotambahan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/information"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_fasilitas_value" />
+
+            <TextView
+                android:id="@+id/textview_info_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:textColor="@color/black_dark"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_infotambahan"
+                tools:text="Sudah tutup" />
+
 
             <TextView
                 android:id="@+id/textview_ditambahkan_oleh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/koordinator_posko"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_fasilitas_value" />
+                app:layout_constraintTop_toBottomOf="@id/textview_info_value" />
 
             <TextView
                 android:id="@+id/textview_penambah"
@@ -226,6 +276,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:textColor="@color/grey_dark"
                 android:textSize="14sp"
+                android:autoLink="phone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_kontak"
                 tools:text="Posko ini ditambahkan oleh Fannyah dari rescuer Aksi Cepat Tanggap" />

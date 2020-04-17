@@ -148,11 +148,13 @@
 
     //Posko Detail
     <string name="petunjuk"><u>Dapatkan Petunjuk</u></string>
-    <string name="kapasitas">Kapasitas : </string>
-    <string name="fasilitas">Fasilitas : </string>
+    <string name="kapasitas">Kapasitas: </string>
+    <string name="fasilitas">Fasilitas: </string>
+    <string name="information">Informasi Tambahan: </string>
     <string name="koordinator_posko">Koordinator Posko : </string>
     <string name="koordinator_posko_number">Kontak : </string>
     <string name="number_of_kk"><![CDATA[<b>%s</b> KK]]></string>
+    <string name="crated_at">Dibuat pada %s</string>
     <string name="capacity">Kapasitas : </string>
     <string name="close_posko">Tutup Posko</string>
     <string name="close_posko_warning">Apakah Anda yakin ingin menutup posko? Posko yang sudah ditutup tidak bisa dikembalikan</string>

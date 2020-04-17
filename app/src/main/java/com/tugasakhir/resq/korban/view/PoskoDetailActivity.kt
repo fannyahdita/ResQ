@@ -31,8 +31,6 @@ import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Posko
 import kotlinx.android.synthetic.main.fragment_detailposko_korban.*
 
-const val EXTRA_POSKO = "com.tugasakhir.resq.korban.POSKO"
-
 class PoskoDetailActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
@@ -81,13 +79,15 @@ class PoskoDetailActivity : AppCompatActivity() {
         textview_fasilitas_value.text = facility
         textview_penambah.text = posko.contactName
         textview_nilai_kontak.text = posko.contactNumber
+        textview_created_at.text = getString(R.string.crated_at, posko.createdAt)
+        textview_info_value.text = if (posko.additionalInfo == "") "-" else posko.additionalInfo
         rescuerData(posko.idRescuer)
 
         setMaps(posko.latitude, posko.longitude, posko.poskoName)
 
         tombol_petunjuk.setOnClickListener {
             val uri =
-                "http://maps.google.com/maps?saddr=" + currentLat + "," + currentLong + "&daddr=" + posko?.latitude + "," + posko?.longitude
+                "http://maps.google.com/maps?saddr=" + currentLat + "," + currentLong + "&daddr=" + posko.latitude + "," + posko.longitude
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
             startActivity(intent)
         }
@@ -108,20 +108,28 @@ class PoskoDetailActivity : AppCompatActivity() {
                 onBackPressed()
                 finish()
             }
-            alertDialog.setNegativeButton(R.string.close_posko_negative ) { _, _ -> }
+            alertDialog.setNegativeButton(R.string.close_posko_negative) { _, _ -> }
             alertDialog.create().show()
         }
     }
 
-    private fun rescuerData(idRescuer : String) {
+    private fun rescuerData(idRescuer: String) {
         FirebaseDatabase.getInstance().getReference("Rescuers/$idRescuer")
-            .addValueEventListener(object: ValueEventListener{
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     val name = p0.child("name").value.toString()
                     val division = p0.child("division").value.toString()
                     val instansi = p0.child("instansi").value.toString()
                     val phone = p0.child("phone").value.toString()
-                    textview_rescuer_info.text = Html.fromHtml(getString(R.string.rescuer_detail, name, division, instansi, phone))
+                    textview_rescuer_info.text = Html.fromHtml(
+                        getString(
+                            R.string.rescuer_detail,
+                            name,
+                            division,
+                            instansi,
+                            phone
+                        )
+                    )
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -150,7 +158,7 @@ class PoskoDetailActivity : AppCompatActivity() {
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
             ).showInfoWindow()
 
-            gMap.setOnMarkerClickListener { marker ->
+            gMap.setOnMarkerClickListener {
                 return@setOnMarkerClickListener true
             }
         }

@@ -51,14 +51,12 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
 
     private fun validatePosko() {
         val poskoName = edittext_edit_posko_name.text.toString().trim()
-        val city = edittext_edit_posko_city.text.toString().trim()
-        val district = edittext_edit_posko_district.text.toString().trim()
-        val subDistrict = edittext_edit_posko_sub_district.text.toString().trim()
         val mapAddress = edittext_edit_posko_address_generate.text.toString().trim()
         val notesAddress = edittext_edit_posko_address_notes.text.toString().trim()
         val capacity = edittext_edit_posko_capacity.text.toString().trim()
         val contactName = edittext_edit_posko_contact_name.text.toString().trim()
         val contactNumber = edittext_edit_posko_contact_number.text.toString().trim()
+        val additionalInfo = edittext_edit_posko_additional_info.text.toString().trim()
         var hasMedic = false
         var hasBed = false
         var hasKitchen = false
@@ -68,24 +66,6 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
         if (poskoName.isEmpty()) {
             edittext_edit_posko_name.error = getString(R.string.field_is_empty)
             edittext_edit_posko_name.requestFocus()
-            return
-        }
-
-        if (city.isEmpty()) {
-            edittext_edit_posko_city.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_city.requestFocus()
-            return
-        }
-
-        if (district.isEmpty()) {
-            edittext_edit_posko_district.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_district.requestFocus()
-            return
-        }
-
-        if (subDistrict.isEmpty()) {
-            edittext_edit_posko_sub_district.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_sub_district.requestFocus()
             return
         }
 
@@ -134,8 +114,8 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
         val idPosko = ref.push().key.toString()
 
         posko = Posko(
-            idPosko, idRescuer, latitude!!, longitude!!, poskoName, city, district, subDistrict,
-            mapAddress, notesAddress, capacity.toLong(), hasMedic, hasKitchen, hasWC, hasLogistic, hasBed, date,
+            idPosko, idRescuer, latitude!!, longitude!!, poskoName,
+            mapAddress, notesAddress, capacity.toLong(), hasMedic, hasKitchen, hasWC, hasLogistic, hasBed, additionalInfo, date,
             contactName, contactNumber, true
         )
 
@@ -152,12 +132,6 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
                 Log.d("AddNewPosko: ", it.exception?.message!!)
             }
         }
-    }
-
-    private fun getAddress(latitude: Double, longitude: Double): String {
-        val geocode = Geocoder(this, Locale.getDefault())
-        val address = geocode.getFromLocation(latitude, longitude, 1)
-        return address[0].getAddressLine(0)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

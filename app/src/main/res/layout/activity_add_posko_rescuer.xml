@@ -51,69 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="@string/add_posko_city"
-                android:textColor="@color/black_dark"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/edittext_edit_posko_city"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_border_edittext"
-                android:fontFamily="@font/source_sans_pro"
-                android:inputType="text"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                tools:text="Jakarta Selatan" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/add_posko_district"
-                android:textColor="@color/black_dark"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/edittext_edit_posko_district"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_border_edittext"
-                android:fontFamily="@font/source_sans_pro"
-                android:inputType="text"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                tools:text="Kebayoran Baru" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/add_posko_sub_district"
-                android:textColor="@color/black_dark"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/edittext_edit_posko_sub_district"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_border_edittext"
-                android:fontFamily="@font/source_sans_pro"
-                android:inputType="text"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                tools:text="Gandaria Utara" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_address_generate"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp" />
