@@ -55,12 +55,14 @@ class EditProfileRescuerActivity : AppCompatActivity() {
         imageview_foto_placer.setImageResource(R.drawable.ic_empty_pict)
         getRescuerData()
         button_save_profile.setOnClickListener {
-            progressbar_edit_profile_rescuer.visibility = View.VISIBLE
-            button_save_profile.isEnabled = false
-            if (button_change_photo.visibility == View.VISIBLE) {
-                uploadImage(rotatedBitmap)
-            } else {
-                writeProfile()
+            if (validateForm()) {
+                progressbar_edit_profile_rescuer.visibility = View.VISIBLE
+                button_save_profile.isEnabled = false
+                if (button_change_photo.visibility == View.VISIBLE) {
+                    uploadImage(rotatedBitmap)
+                } else {
+                    writeProfile()
+                }
             }
         }
 
@@ -80,6 +82,27 @@ class EditProfileRescuerActivity : AppCompatActivity() {
 
     }
 
+    private fun validateForm(): Boolean {
+        if (edittext_edit_name_rescuer.text.isEmpty()) {
+            edittext_edit_name_rescuer.error = getString(R.string.field_is_empty)
+            edittext_edit_name_rescuer.requestFocus()
+            return false
+        }
+
+        if (edittext_edit_phone_rescuer.text.isEmpty()) {
+            edittext_edit_phone_rescuer.error = getString(R.string.field_is_empty)
+            edittext_edit_phone_rescuer.requestFocus()
+            return false
+        }
+
+        if (edittext_edit_phone_rescuer.text.length !in 16 downTo 9) {
+            edittext_edit_phone_rescuer.error = getString(R.string.phone_is_not_valid)
+            edittext_edit_phone_rescuer.requestFocus()
+            return false
+        }
+        return true
+    }
+
     private fun pickImageFromGallery() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         intent.type = "image/*"
@@ -90,7 +113,10 @@ class EditProfileRescuerActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             photoURI = data?.data!!
             try {
-                val bitmap = MediaStore.Images.Media.getBitmap(this.applicationContext.contentResolver, photoURI)
+                val bitmap = MediaStore.Images.Media.getBitmap(
+                    this.applicationContext.contentResolver,
+                    photoURI
+                )
                 rotatedBitmap = ImageAdjustment.rotateImageIfRequired(this, bitmap, photoURI)
                 imageview_foto_placer.setImageBitmap(rotatedBitmap)
                 this.data = data
@@ -103,7 +129,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
 
     private fun uploadImage(bmp: Bitmap) {
         val stream = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+        bmp.compress(Bitmap.CompressFormat.JPEG, 50, stream)
         val data = stream.toByteArray()
 
         val idPhoto = "rescuerPhotoProfile/$uid.${System.currentTimeMillis()}"
@@ -120,7 +146,6 @@ class EditProfileRescuerActivity : AppCompatActivity() {
         }
 
         ref.putBytes(data).addOnSuccessListener {
-            Toast.makeText(this, "Upload Image Succeeded", Toast.LENGTH_SHORT).show()
             ref.downloadUrl.addOnSuccessListener { uri ->
                 photoURL = uri.toString()
                 writeProfile(photoURL)
@@ -133,7 +158,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
 
     private fun writeProfile(url: String) {
         val name = edittext_edit_name_rescuer.text.toString().trim()
-        val phone = edittext_edit_phone_rescuer.text.toString().trim()
+        val phone = "+62${edittext_edit_phone_rescuer.text.toString().trim()}"
 
         FirebaseDatabase.getInstance().getReference("Rescuers")
             .child(uid)
@@ -157,7 +182,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
 
     private fun writeProfile() {
         val name = edittext_edit_name_rescuer.text.toString().trim()
-        val phone = edittext_edit_phone_rescuer.text.toString().trim()
+        val phone = "+62${edittext_edit_phone_rescuer.text.toString().trim()}"
 
         FirebaseDatabase.getInstance().getReference("Rescuers")
             .child(uid)
@@ -181,7 +206,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 val rescuer = p0.getValue(Rescuer::class.java)
                 edittext_edit_name_rescuer.setText(rescuer?.name)
-                edittext_edit_phone_rescuer.setText(rescuer?.phone)
+                edittext_edit_phone_rescuer.setText(rescuer?.phone?.substring(3))
                 edittext_edit_email_rescuer.setText(rescuer?.email)
                 edittext_edit_instansi_rescuer.setText(rescuer?.instansi)
                 edittext_edit_division_rescuer.setText(rescuer?.division)
