@@ -74,7 +74,7 @@ class ProfileRescuerFragment : Fragment() {
             firebaseAuth.signOut()
             val intent = Intent(activity, OnboardingActivity::class.java)
             startActivity(intent)
-            activity!!.finish()
+            activity!!.finishAffinity()
         }
 
     }
