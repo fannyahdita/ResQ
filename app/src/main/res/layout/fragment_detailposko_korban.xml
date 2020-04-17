@@ -79,6 +79,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:textColor="@color/black_dark"
                 android:textSize="18sp"
+                android:layout_marginStart="5dp"
                 app:layout_constraintStart_toEndOf="@id/textview_kapasitas"
                 app:layout_constraintTop_toTopOf="@id/textview_kapasitas"
                 tools:text="100 KK" />

@@ -122,7 +122,7 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
         posko = Posko(
             idPosko, idRescuer, latitude!!, longitude!!, poskoName,
             mapAddress, notesAddress, capacity.toLong(), hasMedic, hasKitchen, hasWC, hasLogistic, hasBed, additionalInfo, date,
-            contactName, contactNumber, true
+            contactName, "+62$contactNumber", true
         )
 
         addPosko(ref, posko)
