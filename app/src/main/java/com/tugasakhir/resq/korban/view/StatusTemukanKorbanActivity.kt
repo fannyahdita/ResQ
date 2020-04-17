@@ -16,15 +16,16 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.rescuer.model.Rescuer
 
 
 class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var mHandler: Handler
+    private lateinit var rescuer: Rescuer
 
     var rescuerName: String = ""
-    var rescuerPhone: String = ""
 
     var isAlreadyFinished: Boolean = false
 
@@ -48,7 +49,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     }
 
-    val runnableCode = object: Runnable {
+    private val runnableCode = object: Runnable {
         override fun run() {
             getIdKorban()
 
@@ -124,13 +125,13 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
     private fun updateFragment(isAccepted: Boolean, isRunning: Boolean, isRescuerArrived: Boolean, idInfoKorban: String, idKorbanTertolong: String, idRescuer: String) {
         if (isRescuerArrived && !isAlreadyFinished && rescuerName != "") {
             isAlreadyFinished = true
-            val finishFragment = StatusFinishedFragment.newInstance(rescuerName, rescuerPhone, idInfoKorban, idKorbanTertolong)
+            val finishFragment = StatusFinishedFragment.newInstance(rescuer, idInfoKorban, idKorbanTertolong)
             openFragment(finishFragment)
         } else if (isRunning && rescuerName != "") {
-            val runningFragment = StatusRunningFragment.newInstance(rescuerName, rescuerPhone)
+            val runningFragment = StatusRunningFragment.newInstance(rescuer)
             openFragment(runningFragment)
         } else if (isAccepted && rescuerName != "") {
-            val acceptedFragment = StatusAcceptedFragment.newInstance(idInfoKorban, idKorbanTertolong, rescuerName, rescuerPhone)
+            val acceptedFragment = StatusAcceptedFragment.newInstance(idInfoKorban, idKorbanTertolong, rescuer)
             openFragment(acceptedFragment)
         }
     }
@@ -139,8 +140,8 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
+                    rescuer = p0.getValue(Rescuer::class.java)!!
                     rescuerName = p0.child("name").value.toString()
-                    rescuerPhone = p0.child("phone").value.toString()
                 }
 
                 override fun onCancelled(p0: DatabaseError) {

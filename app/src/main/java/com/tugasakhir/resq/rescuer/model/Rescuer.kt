@@ -1,5 +1,7 @@
 package com.tugasakhir.resq.rescuer.model
 
+import java.io.Serializable
+
 data class Rescuer(
     val name: String = "",
     val email: String = "",
@@ -9,6 +11,6 @@ data class Rescuer(
     val division: String = "",
     val employeeID: String = "",
     val isHelping: Boolean = false
-) {
+) : Serializable {
 
 }
