@@ -7,6 +7,7 @@
     <string name="profile_actionbar">Profil</string>
     <string name="home_actionbar">Beranda</string>
     <string name="posko_actionbar">Posko</string>
+    <string name="edit_posko_actionbar">Ubah Posko</string>
     <string name="signup_actionbar">Buat Akun</string>
     <string name="signin_actionbar">Masuk</string>
     <string name="otp_actionbar">Verifikasi OTP</string>
@@ -62,6 +63,7 @@
 
     //Form Error messages and Toast messages
     <string name="field_is_empty">Wajib diisi</string>
+    <string name="phone_is_not_valid">Nomor telepon tidak valid</string>
     <string name="password_must_six_char">Kata sandi minimal terdiri dari 6 karakter</string>
     <string name="password_is_not_matched">Kata sandi tidak sesuai</string>
     <string name="email_is_not_valid">Masukan email tidak sesuai</string>
@@ -167,7 +169,7 @@
     <string name="title_recycler_view">POSKO TERDEKAT</string>
     <string name="add_posko"><u>Tambahkan</u></string>
 
-    //Edit Posko
+    //Edit and Add Posko
     <string name="add_posko_name">Nama Posko</string>
     <string name="add_posko_name_detail">Sertakan nama lokasi seperti nama Sekolah atau Masjid atau sebutan tempat yang dapat mudah dikenali</string>
     <string name="add_posko_city">Kota Administratif</string>
@@ -187,6 +189,8 @@
     <string name="add_posko_contact_number">Nomor Telepon Koordinator Posko</string>
     <string name="add_posko_locate_me">Gunakan Lokasi</string>
     <string name="add_posko_make_posko">Buat Posko</string>
+    <string name="edit_posko_make_posko">Simpan</string>
     <string name="add_posko_button_location">Gunakan Lokasi</string>
+    <string name="phone_code">+62</string>
 
 </resources>

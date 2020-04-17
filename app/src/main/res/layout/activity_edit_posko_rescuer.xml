@@ -38,7 +38,7 @@
                 android:textStyle="italic" />
 
             <EditText
-                android:id="@+id/edittext_add_posko_name"
+                android:id="@+id/edittext_edit_posko_name"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="5dp"
@@ -60,7 +60,7 @@
 
 
             <EditText
-                android:id="@+id/edittext_add_posko_address_generate"
+                android:id="@+id/edittext_edit_posko_address_generate"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
@@ -84,7 +84,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edittext_add_posko_address_notes"
+                android:id="@+id/edittext_edit_posko_address_notes"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
@@ -106,7 +106,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edittext_add_posko_capacity"
+                android:id="@+id/edittext_edit_posko_capacity"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -181,7 +181,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edittext_add_posko_additional_info"
+                android:id="@+id/edittext_edit_posko_additional_info"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
@@ -202,7 +202,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/edittext_add_posko_contact_name"
+                android:id="@+id/edittext_edit_posko_contact_name"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
@@ -236,16 +236,16 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:paddingHorizontal="10dp"
-                    android:paddingVertical="5dp"
                     android:enabled="false"
+                    android:paddingVertical="5dp"
                     android:fontFamily="@font/source_sans_pro"
                     android:background="@drawable/shape_border_edittext"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/edittext_add_posko_contact_number"
+                    app:layout_constraintStart_toEndOf="@id/edittext_edit_posko_contact_number"
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <EditText
-                    android:id="@+id/edittext_add_posko_contact_number"
+                    android:id="@+id/edittext_edit_posko_contact_number"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:background="@drawable/shape_border_edittext"
@@ -269,7 +269,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
                 android:clickable="true"
-                android:text="@string/add_posko_make_posko" />
+                android:text="@string/edit_posko_make_posko" />
         </LinearLayout>
 
         <ProgressBar

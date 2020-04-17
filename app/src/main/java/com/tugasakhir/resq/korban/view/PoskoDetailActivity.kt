@@ -29,7 +29,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Posko
+import com.tugasakhir.resq.rescuer.view.EditPoskoRescuerActivity
 import kotlinx.android.synthetic.main.fragment_detailposko_korban.*
+import java.io.Serializable
 
 class PoskoDetailActivity : AppCompatActivity() {
 
@@ -110,6 +112,12 @@ class PoskoDetailActivity : AppCompatActivity() {
             }
             alertDialog.setNegativeButton(R.string.close_posko_negative) { _, _ -> }
             alertDialog.create().show()
+        }
+
+        button_edit_posko.setOnClickListener {
+            val intent = Intent(this, EditPoskoRescuerActivity::class.java)
+            intent.putExtra("EXTRA_POSKO", posko as Serializable)
+            startActivity(intent)
         }
     }
 
