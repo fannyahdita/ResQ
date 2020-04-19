@@ -1,6 +1,7 @@
 package com.tugasakhir.resq.korban.view
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -117,7 +118,7 @@ class PoskoDetailActivity : AppCompatActivity() {
         button_edit_posko.setOnClickListener {
             val intent = Intent(this, EditPoskoRescuerActivity::class.java)
             intent.putExtra("EXTRA_POSKO", posko as Serializable)
-            startActivity(intent)
+            startActivityForResult(intent, 100)
         }
     }
 
@@ -214,5 +215,45 @@ class PoskoDetailActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                val posko = data.getSerializableExtra("NEW_POSKO") as Posko
+                getDataAfterEdit(posko)
+            }
+        }
+    }
+
+    private fun getDataAfterEdit(posko : Posko) {
+        var facility = ""
+        if (posko.hasBed) {
+            facility += getString(R.string.add_posko_radio_button_bed) + "\n"
+        }
+        if (posko.hasKitchen) {
+            facility += getString(R.string.add_posko_radio_button_kitchen) + "\n"
+        }
+        if (posko.hasLogistic) {
+            facility += getString(R.string.add_posko_radio_button_logistic) + "\n"
+        }
+        if (posko.hasMedic) {
+            facility += getString(R.string.add_posko_radio_button_medic) + "\n"
+        }
+        if (posko.hasWC) {
+            facility += getString(R.string.add_posko_radio_button_wc) + "\n"
+        }
+
+        textview_lokasi_posko.text = posko.poskoName
+        textview_nilai_kapasitas.text =
+            Html.fromHtml(getString(R.string.number_of_kk, posko?.capacity.toString()))
+        textview_alamat_posko.text = posko.mapAddress
+        textview_notes_posko.text = posko.noteAddress
+        textview_fasilitas_value.text = facility
+        textview_penambah.text = posko.contactName
+        textview_nilai_kontak.text = posko.contactNumber
+        textview_created_at.text = getString(R.string.crated_at, posko.createdAt)
+        textview_info_value.text = if (posko.additionalInfo == "") "-" else posko.additionalInfo
+        rescuerData(posko.idRescuer)
     }
 }

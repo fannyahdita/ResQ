@@ -1,5 +1,7 @@
 package com.tugasakhir.resq.rescuer.view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Posko
 import kotlinx.android.synthetic.main.activity_edit_posko_rescuer.*
+import java.io.Serializable
 
 class EditPoskoRescuerActivity : AppCompatActivity() {
 
@@ -69,7 +72,7 @@ class EditPoskoRescuerActivity : AppCompatActivity() {
         checkbox_wc.isChecked = posko.hasWC
         edittext_edit_posko_additional_info.setText(posko.additionalInfo)
         edittext_edit_posko_contact_name.setText(posko.contactName)
-        edittext_edit_posko_contact_number.setText(posko.contactNumber)
+        edittext_edit_posko_contact_number.setText(posko.contactNumber.substring(3))
     }
 
     private fun validatePosko(posko: Posko) {
@@ -164,6 +167,9 @@ class EditPoskoRescuerActivity : AppCompatActivity() {
         FirebaseDatabase.getInstance().getReference("Posko/${posko.id}")
             .setValue(posko)
 
+        val intent = Intent()
+        intent.putExtra("NEW_POSKO", posko as Serializable)
+        setResult(Activity.RESULT_OK, intent)
         finish()
     }
 
