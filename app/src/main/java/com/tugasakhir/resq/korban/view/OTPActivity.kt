@@ -3,6 +3,8 @@ package com.tugasakhir.resq.korban.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.text.Html
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -42,9 +44,13 @@ class OTPActivity : AppCompatActivity() {
 
         val phone = intent.getStringExtra(EXTRA_PHONE)
 
+        textview_number_phone_otp.text = phone
+
         mAuth = FirebaseAuth.getInstance()
 
         verify(phone)
+
+        timer(60000,1000).start()
 
         Log.wtf("OTP PHONE: ", phone)
 
@@ -58,6 +64,8 @@ class OTPActivity : AppCompatActivity() {
         }
         button_sendagain.setOnClickListener {
             progressbar_otp.visibility = View.VISIBLE
+            button_sendagain.isEnabled = false
+            timer(60000,1000).start()
             verify(phone)
         }
 
@@ -66,8 +74,19 @@ class OTPActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                onBackPressed()
-                finish()
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle(R.string.dialog_box_batalkan)
+                builder.setMessage(R.string.dialog_box_batalkan_penjelasan)
+                builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
+                    onBackPressed()
+                    finish()
+                }
+
+                builder.setPositiveButton(R.string.alert_jangan_batalkan){_,_ ->
+
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -94,12 +113,12 @@ class OTPActivity : AppCompatActivity() {
         mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 Log.d("PHONE AUTH OTP", "onVerificationCompleted:$credential")
-                Toast.makeText(this@OTPActivity, "Kode verifikasi sudah terkirim", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@OTPActivity, "Kode verifikasi sudah terkirim", Toast.LENGTH_SHORT).show()
             }
 
             override fun onVerificationFailed(p0: FirebaseException) {
                 Log.w("PHONE AUTH OTP", "onVerificationFailed", p0)
-                Toast.makeText(this@OTPActivity, "Gagal mengirim kode verifikasi. Pastikan nomor yang dimasukkan benar.", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this@OTPActivity, "Gagal mengirim kode verifikasi. Pastikan nomor yang dimasukkan benar.", Toast.LENGTH_SHORT).show()
 
                 if (p0 is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
@@ -194,6 +213,20 @@ class OTPActivity : AppCompatActivity() {
                     }
                 }
             }
+    }
+
+    private fun timer(millisInFuture:Long,countDownInterval:Long): CountDownTimer {
+        return object: CountDownTimer(millisInFuture,countDownInterval){
+            override fun onTick(millisUntilFinished: Long){
+                count_down_timer.text = (millisUntilFinished / 1000).toString()
+//                count_down_timer.text =
+//                    Html.fromHtml(getString(R.string.cdt_otp, (millisUntilFinished / 1000).toString()))
+            }
+
+            override fun onFinish() {
+                button_sendagain.isEnabled = true
+            }
+        }
     }
 
 

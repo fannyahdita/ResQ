@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.resq.OnboardingActivity
@@ -61,9 +63,14 @@ class BuatAkunActivity : AppCompatActivity() {
     private fun registerUser() {
         val phone = "+62" + edittext_signup_phone.text.toString().trim()
 
-        if (phone.isEmpty()) {
+        if (phone.equals("+62")) {
             edittext_signup_phone.error = getString(R.string.field_is_empty)
             edittext_signup_phone.requestFocus()
+            return
+        } else if (!Patterns.PHONE.matcher(phone).matches() || phone.length < 12 || phone.length > 14) {
+            edittext_signup_phone.error = "Nomor yang anda masukan tidak valid"
+            edittext_signup_phone.requestFocus()
+            Toast.makeText(this, "Nomor telepon tidak valid", Toast.LENGTH_LONG).show()
             return
         }
 

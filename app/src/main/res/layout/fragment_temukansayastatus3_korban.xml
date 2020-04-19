@@ -1,174 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white_light">
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+    <View
+        android:id="@+id/view_profile_background"
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:background="@drawable/shape_profile_background"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_image_profile"
+        android:layout_width="97dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="20dp"
+        android:elevation="12dp"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_status3"
+            android:layout_width="97dp"
+            android:layout_height="97dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_empty_pict" />
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textview_nama_rescuer"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/source_sans_pro"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black_light"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_image_profile"
+        tools:text="Aviliani" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="40dp"
-            tools:context=".View.SettingProfileActivity">
+    <TextView
+        android:id="@+id/textview_nomor_rescuer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:fontFamily="@font/source_sans_pro"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black_dark"
+        android:textColorLink="@color/black_dark"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_nama_rescuer"
+        tools:text="08989898989" />
 
-            <View
-                android:id="@+id/view_profile_background"
-                android:layout_width="match_parent"
-                android:layout_height="305dp"
-                android:background="@drawable/shape_profile_background"
-                app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/textview_instansi_rescuer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/source_sans_pro"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textColor="@color/black_dark"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_nomor_rescuer"
+        tools:text="ACT Aksi Cepat Tanggap" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/layout_image_profile"
-                android:layout_width="97dp"
-                android:layout_height="97dp"
-                android:elevation="12dp"
-                android:layout_marginTop="40dp"
-                app:cardCornerRadius="50dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+    <Button
+        android:id="@+id/button_kirimpesan"
+        style="@style/BlackButton"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:clickable="true"
+        android:text="@string/button_kirimpesan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_instansi_rescuer" />
 
-                <ImageView
-                    android:id="@+id/image_status3"
-                    android:layout_width="97dp"
-                    android:layout_height="97dp"
-                    android:scaleType="centerCrop"
-                    tools:src="@drawable/ic_empty_pict" />
-            </androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/image_garis_status1"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_garis_status3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_profile_background" />
 
-            <TextView
-                android:id="@+id/textview_nama_rescuer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black_light"
-                android:text="Aviliani"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:textSize="22sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_image_profile"/>
+    <TextView
+        android:id="@+id/textview_status3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_status_temukansaya"
+        android:fontFamily="@font/raleway"
+        android:gravity="center"
+        android:text="@string/status_3"
+        android:textAlignment="center"
+        android:textColor="@color/black_dark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_profile_background" />
 
-            <TextView
-                android:id="@+id/textview_nomor_rescuer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro"
-                android:textColor="@color/black_dark"
-                android:textAlignment="center"
-                android:text="08989898989"
-                android:autoLink="phone"
-                android:gravity="center"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_nama_rescuer" />
+    <TextView
+        android:id="@+id/textview_status2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginVertical="26dp"
+        android:background="@drawable/bg_status_temukansaya_non"
+        android:fontFamily="@font/raleway"
+        android:gravity="center"
+        android:text="@string/status_2"
+        android:textAlignment="center"
+        android:textColor="@color/black_dark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_status3" />
 
-            <TextView
-                android:id="@+id/textview_instansi_rescuer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/source_sans_pro"
-                android:textColor="@color/black_dark"
-                android:textAlignment="center"
-                android:text="ACT Aksi Cepat Tanggap"
-                android:gravity="center"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_nomor_rescuer" />
+    <TextView
+        android:id="@+id/textview_status1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginVertical="26dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_status_temukansaya_non"
+        android:fontFamily="@font/raleway"
+        android:gravity="center"
+        android:text="@string/status_1"
+        android:textAlignment="center"
+        android:textColor="@color/black_dark"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textview_status2" />
 
-            <Button
-                android:id="@+id/button_kirimpesan"
-                style="@style/BlackButton"
-                android:layout_width="match_parent"
-                android:layout_height="36dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="20dp"
-                android:clickable="true"
-                android:text="@string/button_kirimpesan"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_instansi_rescuer" />
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/image_boat_gif"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/image_garis_status3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_marginStart="20dp"
-                android:src="@drawable/ic_garis_status3"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_profile_background"/>
 
-            <TextView
-                android:id="@+id/textview_status3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_marginStart="40dp"
-                android:background="@drawable/bg_status_temukansaya"
-                android:fontFamily="@font/raleway"
-                android:text="@string/status_3"
-                android:textColor="@color/black_dark"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view_profile_background" />
-
-            <TextView
-                android:id="@+id/textview_status2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="26dp"
-                android:layout_marginStart="40dp"
-                android:background="@drawable/bg_status_temukansaya_non"
-                android:fontFamily="@font/raleway"
-                android:text="@string/status_2"
-                android:textColor="@color/black_dark"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_status3" />
-
-            <TextView
-                android:id="@+id/textview_status1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginVertical="26dp"
-                android:layout_marginStart="40dp"
-                android:background="@drawable/bg_status_temukansaya_non"
-                android:fontFamily="@font/raleway"
-                android:text="@string/status_1"
-                android:textColor="@color/black_dark"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textSize="18sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textview_status2" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ProgressBar
-            android:id="@+id/progressbar_name"
-            style="@style/ProgressBarTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="gone"
-            tools:visibility="visible" />
-
-    </RelativeLayout>
-</ScrollView>
+    <ProgressBar
+        android:id="@+id/progressbar_name"
+        style="@style/ProgressBarTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+</androidx.constraintlayout.widget.ConstraintLayout>
