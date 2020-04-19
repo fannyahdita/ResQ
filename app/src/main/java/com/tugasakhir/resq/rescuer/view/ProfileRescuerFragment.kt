@@ -82,6 +82,11 @@ class ProfileRescuerFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+        val linearLayoutManager =  LinearLayoutManager(activity)
+        linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
+        recyclerview_history.layoutManager = linearLayoutManager
+
         if (role == "rescuer") {
             val ref = FirebaseDatabase.getInstance().getReference("Rescuers").child(user.uid)
             val rescuerFragment = object : ValueEventListener {
@@ -111,7 +116,7 @@ class ProfileRescuerFragment : Fragment() {
 
             ref.addListenerForSingleValueEvent(rescuerFragment)
 
-            recyclerview_history.layoutManager = LinearLayoutManager(activity)
+
             recyclerview_history.adapter = historyRescuerAdapter
             recyclerview_history.isNestedScrollingEnabled = false
 
@@ -151,7 +156,6 @@ class ProfileRescuerFragment : Fragment() {
 
             ref.addListenerForSingleValueEvent(korbanFragment)
 
-            recyclerview_history.layoutManager = LinearLayoutManager(activity)
             recyclerview_history.adapter = historyVictimAdapter
             recyclerview_history.isNestedScrollingEnabled = false
 

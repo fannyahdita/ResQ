@@ -1,8 +1,9 @@
 package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
-import android.location.Geocoder
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
@@ -42,7 +43,35 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
         latitude = location!![0].toDouble()
         longitude = location[1].toDouble()
 
-        edittext_add_posko_address_generate.setText(victimInfoData.getAddress(latitude!!, longitude!!, this))
+        edittext_add_posko_address_generate.setText(
+            victimInfoData.getAddress(
+                latitude!!,
+                longitude!!,
+                this
+            )
+        )
+
+        textview_max_char_name.text = getString(R.string.max_char_50, 0)
+        edittext_add_posko_name.addTextChangedListener(object : TextWatcher{
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_name.text = getString(R.string.max_char_50, p0?.length)
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
+        textview_max_char_info.text = getString(R.string.max_char_280, 0)
+        edittext_add_posko_additional_info.addTextChangedListener(object : TextWatcher{
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_info.text = getString(R.string.max_char_280, p0?.length)
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
 
         button_add_posko_finish.setOnClickListener {
             validatePosko()
@@ -87,7 +116,7 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
             return
         }
 
-        if(contactNumber.length in 14 downTo 7) {
+        if (contactNumber.length in 14 downTo 7) {
             edittext_add_posko_contact_number.error = getString(R.string.phone_is_not_valid)
             edittext_add_posko_contact_number.requestFocus()
             return
@@ -120,15 +149,30 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
         val idPosko = ref.push().key.toString()
 
         posko = Posko(
-            idPosko, idRescuer, latitude!!, longitude!!, poskoName,
-            mapAddress, notesAddress, capacity.toLong(), hasMedic, hasKitchen, hasWC, hasLogistic, hasBed, additionalInfo, date,
-            contactName, "+62$contactNumber", true
+            idPosko,
+            idRescuer,
+            latitude!!,
+            longitude!!,
+            poskoName,
+            mapAddress,
+            notesAddress,
+            capacity.toLong(),
+            hasMedic,
+            hasKitchen,
+            hasWC,
+            hasLogistic,
+            hasBed,
+            additionalInfo,
+            date,
+            contactName,
+            "+62$contactNumber",
+            true
         )
 
         addPosko(ref, posko)
     }
 
-    private fun addPosko(ref : DatabaseReference, posko: Posko) {
+    private fun addPosko(ref: DatabaseReference, posko: Posko) {
 
         ref.child(posko.id).setValue(posko).addOnCompleteListener {
             if (it.isSuccessful) {
