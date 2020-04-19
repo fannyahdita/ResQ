@@ -42,7 +42,7 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
         latitude = location!![0].toDouble()
         longitude = location[1].toDouble()
 
-        edittext_edit_posko_address_generate.setText(victimInfoData.getAddress(latitude!!, longitude!!, this))
+        edittext_add_posko_address_generate.setText(victimInfoData.getAddress(latitude!!, longitude!!, this))
 
         button_add_posko_finish.setOnClickListener {
             validatePosko()
@@ -50,15 +50,13 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
     }
 
     private fun validatePosko() {
-        val poskoName = edittext_edit_posko_name.text.toString().trim()
-        val city = edittext_edit_posko_city.text.toString().trim()
-        val district = edittext_edit_posko_district.text.toString().trim()
-        val subDistrict = edittext_edit_posko_sub_district.text.toString().trim()
-        val mapAddress = edittext_edit_posko_address_generate.text.toString().trim()
-        val notesAddress = edittext_edit_posko_address_notes.text.toString().trim()
-        val capacity = edittext_edit_posko_capacity.text.toString().trim()
-        val contactName = edittext_edit_posko_contact_name.text.toString().trim()
-        val contactNumber = edittext_edit_posko_contact_number.text.toString().trim()
+        val poskoName = edittext_add_posko_name.text.toString().trim()
+        val mapAddress = edittext_add_posko_address_generate.text.toString().trim()
+        val notesAddress = edittext_add_posko_address_notes.text.toString().trim()
+        val capacity = edittext_add_posko_capacity.text.toString().trim()
+        val contactName = edittext_add_posko_contact_name.text.toString().trim()
+        val contactNumber = edittext_add_posko_contact_number.text.toString().trim()
+        val additionalInfo = edittext_add_posko_additional_info.text.toString().trim()
         var hasMedic = false
         var hasBed = false
         var hasKitchen = false
@@ -66,44 +64,32 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
         var hasWC = false
 
         if (poskoName.isEmpty()) {
-            edittext_edit_posko_name.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_name.requestFocus()
-            return
-        }
-
-        if (city.isEmpty()) {
-            edittext_edit_posko_city.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_city.requestFocus()
-            return
-        }
-
-        if (district.isEmpty()) {
-            edittext_edit_posko_district.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_district.requestFocus()
-            return
-        }
-
-        if (subDistrict.isEmpty()) {
-            edittext_edit_posko_sub_district.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_sub_district.requestFocus()
+            edittext_add_posko_name.error = getString(R.string.field_is_empty)
+            edittext_add_posko_name.requestFocus()
             return
         }
 
         if (capacity.isEmpty()) {
-            edittext_edit_posko_capacity.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_capacity.requestFocus()
+            edittext_add_posko_capacity.error = getString(R.string.field_is_empty)
+            edittext_add_posko_capacity.requestFocus()
             return
         }
 
         if (contactName.isEmpty()) {
-            edittext_edit_posko_contact_name.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_contact_name.requestFocus()
+            edittext_add_posko_contact_name.error = getString(R.string.field_is_empty)
+            edittext_add_posko_contact_name.requestFocus()
             return
         }
 
         if (contactNumber.isEmpty()) {
-            edittext_edit_posko_contact_number.error = getString(R.string.field_is_empty)
-            edittext_edit_posko_contact_number.requestFocus()
+            edittext_add_posko_contact_number.error = getString(R.string.field_is_empty)
+            edittext_add_posko_contact_number.requestFocus()
+            return
+        }
+
+        if(contactNumber.length in 14 downTo 7) {
+            edittext_add_posko_contact_number.error = getString(R.string.phone_is_not_valid)
+            edittext_add_posko_contact_number.requestFocus()
             return
         }
 
@@ -134,9 +120,9 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
         val idPosko = ref.push().key.toString()
 
         posko = Posko(
-            idPosko, idRescuer, latitude!!, longitude!!, poskoName, city, district, subDistrict,
-            mapAddress, notesAddress, capacity.toLong(), hasMedic, hasKitchen, hasWC, hasLogistic, hasBed, date,
-            contactName, contactNumber, true
+            idPosko, idRescuer, latitude!!, longitude!!, poskoName,
+            mapAddress, notesAddress, capacity.toLong(), hasMedic, hasKitchen, hasWC, hasLogistic, hasBed, additionalInfo, date,
+            contactName, "+62$contactNumber", true
         )
 
         addPosko(ref, posko)
@@ -152,12 +138,6 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
                 Log.d("AddNewPosko: ", it.exception?.message!!)
             }
         }
-    }
-
-    private fun getAddress(latitude: Double, longitude: Double): String {
-        val geocode = Geocoder(this, Locale.getDefault())
-        val address = geocode.getFromLocation(latitude, longitude, 1)
-        return address[0].getAddressLine(0)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

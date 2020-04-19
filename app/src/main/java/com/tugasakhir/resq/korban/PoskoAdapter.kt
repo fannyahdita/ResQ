@@ -47,7 +47,6 @@ class PoskoAdapter : RecyclerView.Adapter<PoskoAdapter.ViewHolder>() {
         holder.itemView.textview_lokasi_posko.text = currentPosko?.poskoName
         holder.itemView.textview_alamat_posko.text = currentPosko?.mapAddress
         holder.itemView.textview_kapasitas.text = Html.fromHtml(context.resources.getString(R.string.number_of_kk, currentPosko?.capacity.toString()))
-        holder.itemView.textview_jarak.text = currentPosko?.city
 
         val results = FloatArray(1)
         Location.distanceBetween(lat!!.toDouble(), long!!.toDouble(), currentPosko?.latitude!!.toDouble(), currentPosko.longitude.toDouble(), results)

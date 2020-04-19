@@ -22,9 +22,12 @@ class ThankYouRescuerActivity : AppCompatActivity() {
         actionBar.elevation = 0F
 
         button_to_temukan_saya.setOnClickListener {
-            val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
-            startActivity(intent)
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }
