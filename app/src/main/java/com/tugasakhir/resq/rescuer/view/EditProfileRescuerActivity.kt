@@ -8,6 +8,8 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -79,6 +81,19 @@ class EditProfileRescuerActivity : AppCompatActivity() {
         button_change_photo.setOnClickListener {
             pickImageFromGallery()
         }
+
+        textview_max_char_name.text =
+            getString(R.string.max_char_50, edittext_edit_name_rescuer.text.length)
+        edittext_edit_name_rescuer.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun afterTextChanged(p0: Editable?) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_name.text = getString(R.string.max_char_50, p0?.length!!)
+            }
+        })
 
     }
 

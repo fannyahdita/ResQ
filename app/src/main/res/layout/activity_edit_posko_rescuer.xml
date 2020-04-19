@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white_light">
 
     <RelativeLayout
@@ -44,15 +44,22 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
+                android:hint="@string/add_posko_name"
                 android:inputType="text"
+                android:maxLength="50"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                tools:text="SDN 05 Pagi" />
+                android:paddingEnd="10dp" />
+
+            <TextView
+                android:id="@+id/textview_max_char_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                tools:text="20/150" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_address_generate"
                 android:textColor="@color/black_dark"
@@ -91,10 +98,10 @@
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
                 android:gravity="top|start"
+                android:hint="@string/add_posko_address_notes_2"
                 android:inputType="textMultiLine"
                 android:maxLines="5"
-                android:padding="10dp"
-                tools:text="Jl. Gandaria Utara No 30 Dekat yang jual ayam boraks" />
+                android:padding="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -112,10 +119,10 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
+                android:hint="@string/add_posko_capacity"
                 android:inputType="number"
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                tools:text="56" />
+                android:paddingEnd="10dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -188,14 +195,22 @@
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
                 android:gravity="top|start"
+                android:hint="@string/add_posko_additional_info"
                 android:inputType="textMultiLine"
+                android:maxLines="280"
                 android:padding="10dp"
                 tools:text="tersedia makanan untuk bayi " />
 
             <TextView
+                android:id="@+id/textview_max_char_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_gravity="end"
+                tools:text="20/150" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_contact_name"
                 android:textColor="@color/black_dark"
@@ -208,6 +223,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
+                android:hint="@string/add_posko_contact_name"
                 android:inputType="textPersonName"
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
@@ -231,32 +247,33 @@
                     android:id="@+id/textview_phone_code"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:background="@drawable/shape_border_edittext"
+                    android:enabled="false"
+                    android:fontFamily="@font/source_sans_pro"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
                     android:text="@string/phone_code"
                     android:textColor="@color/black_dark"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:paddingHorizontal="10dp"
-                    android:enabled="false"
-                    android:paddingVertical="5dp"
-                    android:fontFamily="@font/source_sans_pro"
-                    android:background="@drawable/shape_border_edittext"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintStart_toEndOf="@id/edittext_edit_posko_contact_number"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/edittext_edit_posko_contact_number"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
+                    android:layout_marginStart="5dp"
                     android:background="@drawable/shape_border_edittext"
                     android:fontFamily="@font/source_sans_pro"
+                    android:hint="@string/add_posko_contact_number"
                     android:inputType="phone"
-                    android:layout_marginStart="5dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
-                    app:layout_constraintTop_toTopOf="@id/textview_phone_code"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/textview_phone_code"
+                    app:layout_constraintTop_toTopOf="@id/textview_phone_code"
                     tools:text="81234567890" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -148,6 +148,9 @@
     <string name="password_profile">Ubah Kata Sandi</string>
     <string name="edit_profile_save">Simpan</string>
 
+    <string name="max_char_50">%d/50</string>
+    <string name="max_char_280">%d/280</string>
+
     //Posko Detail
     <string name="petunjuk"><u>Dapatkan Petunjuk</u></string>
     <string name="kapasitas">Kapasitas: </string>
@@ -177,6 +180,7 @@
     <string name="add_posko_sub_district">Kelurahan</string>
     <string name="add_posko_address_generate">Alamat</string>
     <string name="add_posko_address_notes">Keterangan Alamat Tambahan (bila ada)</string>
+    <string name="add_posko_address_notes_2">Keterangan Alamat Tambahan</string>
     <string name="add_posko_capacity">Kapasitas Kepala Keluarga</string>
     <string name="add_posko_facility">Fasilitas</string>
     <string name="add_posko_radio_button_bed">Tempat Tidur</string>
