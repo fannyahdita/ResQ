@@ -3,7 +3,8 @@ package com.tugasakhir.resq.rescuer.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
 import android.view.MenuItem
 import android.view.View
@@ -41,9 +42,24 @@ class SignUpRescuerActivity : AppCompatActivity() {
             finish()
         }
 
+        textview_max_char_name.text =
+            getString(R.string.max_char_50, edittext_signup_name.text.length)
+        edittext_signup_name.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_name.text = getString(R.string.max_char_50, p0?.length)
+            }
+        })
+
         button_signup_finish.setOnClickListener {
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            if(currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            if (currentFocus != null) inputMethodManager.hideSoftInputFromWindow(
                 currentFocus!!.applicationWindowToken, 0
             )
             registerUser()
@@ -62,9 +78,11 @@ class SignUpRescuerActivity : AppCompatActivity() {
         }
     }
 
-    private fun addNewRescuerAccount(email: String, password: String, name: String,
-                                     phone: String, employeeId: String,
-                                     instansi: String, division: String) {
+    private fun addNewRescuerAccount(
+        email: String, password: String, name: String,
+        phone: String, employeeId: String,
+        instansi: String, division: String
+    ) {
         progressbar_signup.visibility = View.VISIBLE
         button_signup_finish.isClickable = false
         button_signup_finish.setBackgroundResource(R.drawable.shape_filled_button_clicked)
@@ -150,7 +168,7 @@ class SignUpRescuerActivity : AppCompatActivity() {
             return
         }
 
-        if(phone.length !in 16 downTo 9) {
+        if (phone.length !in 16 downTo 9) {
             edittext_signup_phone.error = getString(R.string.phone_is_not_valid)
             edittext_signup_phone.requestFocus()
             return
@@ -162,7 +180,7 @@ class SignUpRescuerActivity : AppCompatActivity() {
             return
         }
 
-        if(password.length < 6) {
+        if (password.length < 6) {
             edittext_signup_password.error = getString(R.string.password_must_six_char)
             edittext_signup_password.requestFocus()
             return
