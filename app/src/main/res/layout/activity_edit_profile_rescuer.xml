@@ -95,16 +95,44 @@
                 android:textColor="@color/black_dark"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/edittext_edit_phone_rescuer"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_border_edittext"
-                android:fontFamily="@font/source_sans_pro"
-                android:inputType="phone"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <EditText
+                    android:id="@+id/textview_phone_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/phone_code"
+                    android:textColor="@color/black_dark"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="10dp"
+                    android:enabled="false"
+                    android:paddingVertical="5dp"
+                    android:fontFamily="@font/source_sans_pro"
+                    android:background="@drawable/shape_border_edittext"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/edittext_edit_phone_rescuer"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <EditText
+                    android:id="@+id/edittext_edit_phone_rescuer"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/shape_border_edittext"
+                    android:fontFamily="@font/source_sans_pro"
+                    android:inputType="phone"
+                    android:layout_marginStart="5dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintTop_toTopOf="@id/textview_phone_code"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/textview_phone_code"
+                    tools:text="81234567890" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:layout_width="wrap_content"

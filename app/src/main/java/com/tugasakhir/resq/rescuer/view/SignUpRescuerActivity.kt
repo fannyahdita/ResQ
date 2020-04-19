@@ -119,7 +119,7 @@ class SignUpRescuerActivity : AppCompatActivity() {
     private fun registerUser() {
         val name = edittext_signup_name.text.toString().trim()
         val email = edittext_signup_email.text.toString().trim()
-        val phone = edittext_signup_phone.text.toString().trim()
+        val phone = "+62${edittext_signup_phone.text.toString().trim()}"
         val employeeID = edittext_signup_employeenum.text.toString().trim()
         val password = edittext_signup_password.text.toString().trim()
         val repeatPassword = edittext_signup_repeat_password.text.toString().trim()
@@ -146,6 +146,12 @@ class SignUpRescuerActivity : AppCompatActivity() {
 
         if (phone.isEmpty()) {
             edittext_signup_phone.error = getString(R.string.field_is_empty)
+            edittext_signup_phone.requestFocus()
+            return
+        }
+
+        if(phone.length !in 16 downTo 9) {
+            edittext_signup_phone.error = getString(R.string.phone_is_not_valid)
             edittext_signup_phone.requestFocus()
             return
         }
@@ -180,8 +186,6 @@ class SignUpRescuerActivity : AppCompatActivity() {
             return
         }
 
-        Log.wtf("SIGN  UP: ", email)
-        Log.wtf("PASSWORD: ", password)
         addNewRescuerAccount(email, password, name, phone, employeeID, instansi, division)
 
     }
