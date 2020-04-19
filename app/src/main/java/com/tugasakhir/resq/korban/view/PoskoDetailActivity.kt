@@ -226,7 +226,7 @@ class PoskoDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDataAfterEdit(posko : Posko) {
+    private fun getDataAfterEdit(posko: Posko) {
         var facility = ""
         if (posko.hasBed) {
             facility += getString(R.string.add_posko_radio_button_bed) + "\n"
