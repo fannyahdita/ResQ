@@ -1,6 +1,8 @@
 package com.tugasakhir.resq.rescuer.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +10,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Posko
 import kotlinx.android.synthetic.main.activity_edit_posko_rescuer.*
+import kotlinx.android.synthetic.main.activity_edit_posko_rescuer.textview_max_char_name
+import kotlinx.android.synthetic.main.activity_edit_profile_rescuer.*
 
 class EditPoskoRescuerActivity : AppCompatActivity() {
 
@@ -25,6 +29,28 @@ class EditPoskoRescuerActivity : AppCompatActivity() {
         val posko = intent.extras?.get("EXTRA_POSKO") as Posko
 
         setData(posko)
+
+        textview_max_char_name.text = getString(R.string.max_char_50, edittext_edit_posko_name.text.length)
+        edittext_edit_posko_name.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_name.text = getString(R.string.max_char_50, p0?.length)
+            }
+        })
+
+        textview_max_char_info.text = getString(R.string.max_char_280, edittext_edit_posko_additional_info.text.length)
+        edittext_edit_posko_additional_info.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_info.text = getString(R.string.max_char_280, p0?.length)
+            }
+        })
 
         button_edit_posko_finish.setOnClickListener {
             validatePosko(posko)
@@ -84,7 +110,7 @@ class EditPoskoRescuerActivity : AppCompatActivity() {
             return
         }
 
-        if(contactNumber.length !in 14 downTo 7) {
+        if (contactNumber.length !in 14 downTo 7) {
             edittext_edit_posko_contact_number.error = getString(R.string.phone_is_not_valid)
             edittext_edit_posko_contact_number.requestFocus()
             return
@@ -110,10 +136,25 @@ class EditPoskoRescuerActivity : AppCompatActivity() {
             hasWC = true
         }
 
-        val newPosko =  Posko(
-            posko.id, posko.idRescuer, posko.latitude, posko.longitude, poskoName,
-            mapAddress, notesAddress, capacity.toLong(), hasMedic, hasKitchen, hasWC, hasLogistic, hasBed, additionalInfo, posko.createdAt,
-            contactName, "+62$contactNumber", true
+        val newPosko = Posko(
+            posko.id,
+            posko.idRescuer,
+            posko.latitude,
+            posko.longitude,
+            poskoName,
+            mapAddress,
+            notesAddress,
+            capacity.toLong(),
+            hasMedic,
+            hasKitchen,
+            hasWC,
+            hasLogistic,
+            hasBed,
+            additionalInfo,
+            posko.createdAt,
+            contactName,
+            "+62$contactNumber",
+            true
         )
 
         editPoskoToFirebase(newPosko)
