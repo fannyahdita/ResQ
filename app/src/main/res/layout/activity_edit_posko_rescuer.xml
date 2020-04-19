@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                tools:text="20/150"/>
+                tools:text="20/150" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                 android:background="@drawable/shape_border_edittext"
                 android:fontFamily="@font/source_sans_pro"
                 android:gravity="top|start"
-                android:hint="@string/add_posko_address_generate_2"
+                android:hint="@string/add_posko_address_notes_2"
                 android:inputType="textMultiLine"
                 android:maxLines="5"
                 android:padding="10dp" />

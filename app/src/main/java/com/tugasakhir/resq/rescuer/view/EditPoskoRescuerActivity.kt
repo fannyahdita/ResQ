@@ -10,8 +10,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Posko
 import kotlinx.android.synthetic.main.activity_edit_posko_rescuer.*
-import kotlinx.android.synthetic.main.activity_edit_posko_rescuer.textview_max_char_name
-import kotlinx.android.synthetic.main.activity_edit_profile_rescuer.*
 
 class EditPoskoRescuerActivity : AppCompatActivity() {
 
@@ -30,7 +28,8 @@ class EditPoskoRescuerActivity : AppCompatActivity() {
 
         setData(posko)
 
-        textview_max_char_name.text = getString(R.string.max_char_50, edittext_edit_posko_name.text.length)
+        textview_max_char_name.text =
+            getString(R.string.max_char_50, edittext_edit_posko_name.text.length)
         edittext_edit_posko_name.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 
@@ -41,7 +40,8 @@ class EditPoskoRescuerActivity : AppCompatActivity() {
             }
         })
 
-        textview_max_char_info.text = getString(R.string.max_char_280, edittext_edit_posko_additional_info.text.length)
+        textview_max_char_info.text =
+            getString(R.string.max_char_280, edittext_edit_posko_additional_info.text.length)
         edittext_edit_posko_additional_info.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 

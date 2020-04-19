@@ -82,7 +82,7 @@ class EditProfileRescuerActivity : AppCompatActivity() {
             pickImageFromGallery()
         }
 
-        edittext_edit_name_rescuer.addTextChangedListener(object : TextWatcher{
+        edittext_edit_name_rescuer.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
 
