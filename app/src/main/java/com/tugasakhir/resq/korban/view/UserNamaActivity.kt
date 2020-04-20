@@ -3,6 +3,8 @@ package com.tugasakhir.resq.korban.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -42,6 +44,17 @@ class UserNamaActivity : AppCompatActivity() {
             Log.wtf("NAMANYA ADALAH  : ", name)
             korbanDatabase(name, phone!!)
         }
+
+        textview_max_char_name.text = getString(R.string.max_char_50,0)
+        edittext_signup_name.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) { }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_name.text = getString(R.string.max_char_50, p0?.length)
+            }
+        })
 
     }
 
