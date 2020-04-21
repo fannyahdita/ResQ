@@ -1,6 +1,7 @@
 package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -121,6 +122,11 @@ class HelpVictimActivity : AppCompatActivity() {
     private fun setLayout(victimInfo: InfoKorban?, account: AkunKorban?, helpedVictimId: String) {
         textview_name_victim_help.text = account?.name
         textview_phone_number_victim.text = account?.phone
+        textview_call.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse(("tel:${Uri.encode(account?.phone)}")))
+            startActivity(intent)
+        }
+
         if (account?.profilePhoto != "") {
             Picasso.get()
                 .load(account?.profilePhoto)
