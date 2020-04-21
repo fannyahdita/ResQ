@@ -40,7 +40,7 @@ class ChatMessageVictimActivity : AppCompatActivity() {
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    Log.d("ErrorChatRescuer", p0.message)
+                    Log.d("ErrorChatVictim", p0.message)
                 }
             })
 
