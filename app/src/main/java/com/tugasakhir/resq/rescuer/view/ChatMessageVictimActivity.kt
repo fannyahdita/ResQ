@@ -2,6 +2,7 @@ package com.tugasakhir.resq.rescuer.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -106,6 +107,16 @@ class ChatMessageVictimActivity : AppCompatActivity() {
             override fun onChildRemoved(p0: DataSnapshot) {}
         })
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
 
 class ChatToItemVictim(val text: String, val user: Rescuer) : Item<ViewHolder>() {
@@ -122,6 +133,7 @@ class ChatToItemVictim(val text: String, val user: Rescuer) : Item<ViewHolder>()
             .placeholder(R.drawable.ic_empty_pict)
             .into(image)
     }
+
 }
 
 class ChatFromItemVictim(val text: String, val user: AkunKorban) : Item<ViewHolder>() {
