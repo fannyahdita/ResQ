@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_chat_message.*
 import kotlinx.android.synthetic.main.item_chat_from_row.view.*
 import kotlinx.android.synthetic.main.item_chat_to_row.view.*
 
-class ChatMessageRescuerActivity : AppCompatActivity() {
+class ChatMessageVictimActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var victim: AkunKorban
@@ -30,12 +30,12 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_message)
 
-        victim = intent.getSerializableExtra("victim") as AkunKorban
+        rescuer = intent.getSerializableExtra("rescuer") as Rescuer
         FirebaseDatabase.getInstance()
-            .getReference("Rescuers/${FirebaseAuth.getInstance().currentUser?.uid}")
+            .getReference("AkunKorban/${FirebaseAuth.getInstance().currentUser?.uid}")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    rescuer = p0.getValue(Rescuer::class.java)!!
+                    victim = p0.getValue(AkunKorban::class.java)!!
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -45,7 +45,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
-        actionBar.title = victim.name
+        actionBar.title = rescuer.name
         actionBar.elevation = 0F
 
         messageListener()
@@ -61,7 +61,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private fun performSend() {
         val text = edittext_chat.text.toString()
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
-        val toId = victim.id
+        val toId = rescuer.id
 
 //        val ref = FirebaseDatabase.getInstance().getReference("Messages").push()
         val ref = FirebaseDatabase.getInstance().getReference("User_Messages/$fromId/$toId").push()
@@ -81,7 +81,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
 
     private fun messageListener() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
-        val toId = victim.id
+        val toId = rescuer.id
         val ref = FirebaseDatabase.getInstance().getReference("User_Messages/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
@@ -92,9 +92,9 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
 
                 if (chat != null) {
                     if (chat.fromId == FirebaseAuth.getInstance().uid) {
-                        adapter.add(ChatFromItem(chat.text, rescuer))
+                        adapter.add(ChatFromItemVictim(chat.text, victim))
                     } else {
-                        adapter.add(ChatToItem(chat.text, victim))
+                        adapter.add(ChatToItemVictim(chat.text, rescuer))
                     }
                 }
             }
@@ -108,7 +108,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     }
 }
 
-class ChatToItem(val text: String, val user: AkunKorban) : Item<ViewHolder>() {
+class ChatToItemVictim(val text: String, val user: Rescuer) : Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.item_chat_from_row
     }
@@ -124,7 +124,7 @@ class ChatToItem(val text: String, val user: AkunKorban) : Item<ViewHolder>() {
     }
 }
 
-class ChatFromItem(val text: String, val user: Rescuer) : Item<ViewHolder>() {
+class ChatFromItemVictim(val text: String, val user: AkunKorban) : Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.item_chat_to_row
     }

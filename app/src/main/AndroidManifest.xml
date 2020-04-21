@@ -121,7 +121,10 @@
             android:name=".rescuer.view.EditPoskoRescuerActivity"
             android:theme="@style/AppTheme.CustomTheme" />
 
-        <activity android:name=".rescuer.view.ChatMessageActivity"
+        <activity android:name=".rescuer.view.ChatMessageRescuerActivity"
+            android:theme="@style/AppTheme.CustomTheme"/>
+
+        <activity android:name=".rescuer.view.ChatMessageVictimActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
 
         <meta-data

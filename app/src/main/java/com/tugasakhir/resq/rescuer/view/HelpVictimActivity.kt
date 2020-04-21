@@ -47,7 +47,7 @@ class HelpVictimActivity : AppCompatActivity() {
         idRescuer = FirebaseAuth.getInstance().currentUser!!.uid
 
         button_open_chat_help.setOnClickListener {
-            val intent = Intent(this, ChatMessageActivity::class.java)
+            val intent = Intent(this, ChatMessageRescuerActivity::class.java)
             intent.putExtra("victim", account as Serializable)
             startActivity(intent)
         }
