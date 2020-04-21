@@ -64,9 +64,9 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         val toId = rescuer.id
 
 //        val ref = FirebaseDatabase.getInstance().getReference("Messages").push()
-        val ref = FirebaseDatabase.getInstance().getReference("User_Messages/$fromId/$toId").push()
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId").push()
         val toRef =
-            FirebaseDatabase.getInstance().getReference("User_Messages/$toId/$fromId").push()
+            FirebaseDatabase.getInstance().getReference("Messages/$toId/$fromId").push()
         val chat = Chat(ref.key!!, text, fromId!!, toId, System.currentTimeMillis() / 1000)
 
         ref.setValue(chat)
@@ -82,7 +82,7 @@ class ChatMessageVictimActivity : AppCompatActivity() {
     private fun messageListener() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = rescuer.id
-        val ref = FirebaseDatabase.getInstance().getReference("User_Messages/$fromId/$toId")
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}

@@ -173,6 +173,10 @@ class HelpVictimActivity : AppCompatActivity() {
                 .child("onTheWay").setValue(false)
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
                 .child("rescuerArrived").setValue(true)
+            FirebaseDatabase.getInstance().reference.child("Messages/$idRescuer/${account?.id}")
+                .removeValue()
+            FirebaseDatabase.getInstance().reference.child("Messages/${account?.id}/$idRescuer")
+                .removeValue()
 
             //isHelping false
             FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")

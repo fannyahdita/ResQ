@@ -2,6 +2,7 @@ package com.tugasakhir.resq.rescuer.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -63,10 +64,9 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
 
-//        val ref = FirebaseDatabase.getInstance().getReference("Messages").push()
-        val ref = FirebaseDatabase.getInstance().getReference("User_Messages/$fromId/$toId").push()
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId").push()
         val toRef =
-            FirebaseDatabase.getInstance().getReference("User_Messages/$toId/$fromId").push()
+            FirebaseDatabase.getInstance().getReference("Messages/$toId/$fromId").push()
         val chat = Chat(ref.key!!, text, fromId!!, toId, System.currentTimeMillis() / 1000)
 
         ref.setValue(chat)
@@ -82,7 +82,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private fun messageListener() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
-        val ref = FirebaseDatabase.getInstance().getReference("User_Messages/$fromId/$toId")
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -105,6 +105,16 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
 
             override fun onChildRemoved(p0: DataSnapshot) {}
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
 
