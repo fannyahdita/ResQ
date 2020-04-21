@@ -83,6 +83,7 @@ class SignUpRescuerActivity : AppCompatActivity() {
         phone: String, employeeId: String,
         instansi: String, division: String
     ) {
+        val id = FirebaseAuth.getInstance().currentUser!!.uid
         progressbar_signup.visibility = View.VISIBLE
         button_signup_finish.isClickable = false
         button_signup_finish.setBackgroundResource(R.drawable.shape_filled_button_clicked)
@@ -90,6 +91,7 @@ class SignUpRescuerActivity : AppCompatActivity() {
             .addOnCompleteListener { p0 ->
                 if (p0.isSuccessful) {
                     val rescuer = Rescuer(
+                        id,
                         name,
                         email,
                         "",
