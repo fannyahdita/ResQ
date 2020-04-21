@@ -26,14 +26,12 @@ class HelpVictimActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private var idRescuer: String = ""
     private lateinit var victimInfoData: VictimInfoData
-    private var isOnTheWay: Boolean = false
     private var currLat : String? = ""
     private var currLong : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help_victim)
-
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
@@ -64,7 +62,7 @@ class HelpVictimActivity : AppCompatActivity() {
                             Log.d("HelpVictim", "masuk euy")
                             val helpedVictimId = it.key.toString()
                             val victimInfoId = it.child("idInfoKorban").value.toString()
-                            isOnTheWay = it.child("OnTheWay").value.toString() == "true"
+                            val isOnTheWay = it.child("onTheWay").value.toString().toBoolean()
                             if (isOnTheWay) {
                                 button_rescuer_on_the_way.visibility = View.GONE
                                 button_rescuer_arrived.visibility = View.VISIBLE
