@@ -20,6 +20,7 @@ import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.korban.model.InfoKorban
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import kotlinx.android.synthetic.main.activity_help_victim.*
+import java.io.Serializable
 
 class HelpVictimActivity : AppCompatActivity() {
 
@@ -28,6 +29,7 @@ class HelpVictimActivity : AppCompatActivity() {
     private lateinit var victimInfoData: VictimInfoData
     private var currLat : String? = ""
     private var currLong : String? = ""
+    private lateinit var account : AkunKorban
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,17 @@ class HelpVictimActivity : AppCompatActivity() {
 
         victimInfoData = VictimInfoData()
         idRescuer = FirebaseAuth.getInstance().currentUser!!.uid
+
+        button_open_chat_help.setOnClickListener {
+            val intent = Intent(this, ChatMessageActivity::class.java)
+            intent.putExtra("victim", account as Serializable)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         getVictims()
     }
 
@@ -89,8 +102,8 @@ class HelpVictimActivity : AppCompatActivity() {
                     FirebaseDatabase.getInstance().reference.child("AkunKorban/$uid")
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
-                                val account = p0.getValue(AkunKorban::class.java)
-                                setLayout(victimInfo!!, account!!, helpedVictimId)
+                                account = p0.getValue(AkunKorban::class.java)!!
+                                setLayout(victimInfo!!, account, helpedVictimId)
                             }
 
                             override fun onCancelled(p0: DatabaseError) {

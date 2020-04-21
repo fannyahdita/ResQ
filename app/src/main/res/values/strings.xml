@@ -201,4 +201,8 @@
     <string name="add_posko_button_location">Gunakan Lokasi</string>
     <string name="phone_code">+62</string>
 
+    //chat
+    <string name="button_send">Kirim</string>
+    <string name="enter_message">Tulis pesan</string>
+
 </resources>
