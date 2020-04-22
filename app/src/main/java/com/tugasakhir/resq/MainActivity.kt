@@ -173,7 +173,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (doubleBackToExitPressedOnce) {
-            finish()
+            finishAffinity()
         }
 
         this.doubleBackToExitPressedOnce = true
