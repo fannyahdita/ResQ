@@ -1,12 +1,10 @@
 package com.tugasakhir.resq.rescuer.view
 
-import android.Manifest
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.LocationManager
+import android.location.Location
 import android.os.Bundle
-import android.provider.Settings
+import android.os.Looper
 import android.text.Html
 import android.util.Log
 import android.view.MenuItem
@@ -14,7 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -25,7 +23,6 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.InfoKorban
 import com.tugasakhir.resq.korban.model.KorbanTertolong
@@ -39,10 +36,10 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var korban: InfoKorban
     private lateinit var victimInfoData: VictimInfoData
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var idRescuer = ""
-    private val permissionId = 42
-    private var currLat : String? = ""
-    private var currLong : String? = ""
+    private var currLat: Double = 0.0
+    private var currLong: Double = 0.0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +50,9 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        setLocation()
 
         victimInfoData = VictimInfoData()
         idRescuer = FirebaseAuth.getInstance().currentUser?.uid.toString()
@@ -65,32 +65,20 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         button_close_detail.setOnClickListener { layout_detail_marker.visibility = View.GONE }
 
         getAllDataVictim()
-
-        currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
-        currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
-        mapFragment.getMapAsync {
-            val currLocation = LatLng(currLat!!.toDouble(), currLong!!.toDouble())
-            it.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15F))
-            it.isMyLocationEnabled = true
-        }
     }
 
-
-
-    private fun setMaps(korban: InfoKorban, victimInfoId: String, isAccepted: Boolean, isOnTheWay: Boolean, isRescuerArrived: Boolean) {
+    private fun setMaps(
+        korban: InfoKorban,
+        victimInfoId: String,
+        isAccepted: Boolean,
+        isOnTheWay: Boolean,
+        isRescuerArrived: Boolean
+    ) {
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(korban.latitude.toDouble(), korban.longitude.toDouble())
-            if (checkPermissions()) {
-                if (isLocationEnabled()) {
-                    gMap.isMyLocationEnabled = true
-                } else {
-                    Toast.makeText(this, "Please turn on your location", Toast.LENGTH_LONG).show()
-                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivity(intent)
-                }
-            } else {
-                requestPermissions()
-            }
+            val currLocation = LatLng(currLat, currLong)
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15F))
+            gMap.isMyLocationEnabled = true
             when {
                 isAccepted or isOnTheWay -> {
                     Log.d(victimInfoId, "isAccepted or isOnTheWay")
@@ -175,7 +163,8 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                         if (victimInfoId == helped.child("idInfoKorban").value.toString()) {
                             val isAccepted = helped.child("accepted").value.toString().toBoolean()
                             val isOnTheWay = helped.child("onTheWay").value.toString().toBoolean()
-                            val isRescuerArrived = helped.child("rescuerArrived").value.toString().toBoolean()
+                            val isRescuerArrived =
+                                helped.child("rescuerArrived").value.toString().toBoolean()
                             setMaps(korban, victimInfoId, isAccepted, isOnTheWay, isRescuerArrived)
                             index++
                             return
@@ -217,8 +206,6 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             if (it.isSuccessful) {
                 setIsHelping()
                 val intent = Intent(this, HelpVictimActivity::class.java)
-                intent.putExtra("EXTRA_LAT", currLat)
-                intent.putExtra("EXTRA_LONG", currLong)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
                 finish()
@@ -246,37 +233,40 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-            &&
-            ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            return true
+    private fun setLocation() {
+        fusedLocationClient.lastLocation.addOnCompleteListener(this) {
+            val location = it.result
+            if (location == null) {
+                requestNewLocationData()
+            } else {
+                currLat = location.latitude
+                currLong = location.longitude
+            }
         }
-        return false
     }
 
-    private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager =
-            getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationData() {
+        val mLocationRequest = LocationRequest()
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = 0
+        mLocationRequest.fastestInterval = 0
+        mLocationRequest.numUpdates = 1
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.requestLocationUpdates(
+            mLocationRequest,
+            mLocationCallback,
+            Looper.myLooper()
         )
     }
 
-    private fun requestPermissions() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ),
-            permissionId
-        )
+    private val mLocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            val mLastLocation: Location = locationResult.lastLocation
+            currLong = mLastLocation.longitude
+            currLat = mLastLocation.latitude
+        }
     }
 }
 

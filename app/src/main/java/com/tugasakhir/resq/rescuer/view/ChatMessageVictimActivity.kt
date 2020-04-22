@@ -64,7 +64,6 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = rescuer.id
 
-//        val ref = FirebaseDatabase.getInstance().getReference("Messages").push()
         val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId").push()
         val toRef =
             FirebaseDatabase.getInstance().getReference("Messages/$toId/$fromId").push()
