@@ -10,6 +10,8 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -128,6 +130,18 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
             status = 2
             displayNumber(dewasa_displayInt)
         }
+
+        textview_max_char_info.text = getString(R.string.max_char_280, 0)
+        edittext_infotambahan.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) { }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_info.text = getString(R.string.max_char_280, p0?.length)
+            }
+        })
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

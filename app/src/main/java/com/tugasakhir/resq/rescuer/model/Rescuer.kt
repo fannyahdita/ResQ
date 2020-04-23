@@ -3,6 +3,7 @@ package com.tugasakhir.resq.rescuer.model
 import java.io.Serializable
 
 data class Rescuer(
+    val id: String = "",
     val name: String = "",
     val email: String = "",
     val profilePhoto : String = "",

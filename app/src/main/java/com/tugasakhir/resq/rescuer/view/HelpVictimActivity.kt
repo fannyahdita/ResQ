@@ -1,6 +1,7 @@
 package com.tugasakhir.resq.rescuer.view
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -20,26 +21,42 @@ import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.korban.model.InfoKorban
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import kotlinx.android.synthetic.main.activity_help_victim.*
+import java.io.Serializable
 
 class HelpVictimActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private var idRescuer: String = ""
     private lateinit var victimInfoData: VictimInfoData
-    private var isOnTheWay: Boolean = false
+    private var currLat : String? = ""
+    private var currLong : String? = ""
+    private lateinit var account : AkunKorban
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help_victim)
-
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
+        currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
+        currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
+
         victimInfoData = VictimInfoData()
         idRescuer = FirebaseAuth.getInstance().currentUser!!.uid
+
+        button_open_chat_help.setOnClickListener {
+            val intent = Intent(this, ChatMessageRescuerActivity::class.java)
+            intent.putExtra("victim", account as Serializable)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         getVictims()
     }
 
@@ -59,7 +76,7 @@ class HelpVictimActivity : AppCompatActivity() {
                             Log.d("HelpVictim", "masuk euy")
                             val helpedVictimId = it.key.toString()
                             val victimInfoId = it.child("idInfoKorban").value.toString()
-                            isOnTheWay = it.child("OnTheWay").value.toString() == "true"
+                            val isOnTheWay = it.child("onTheWay").value.toString().toBoolean()
                             if (isOnTheWay) {
                                 button_rescuer_on_the_way.visibility = View.GONE
                                 button_rescuer_arrived.visibility = View.VISIBLE
@@ -86,8 +103,8 @@ class HelpVictimActivity : AppCompatActivity() {
                     FirebaseDatabase.getInstance().reference.child("AkunKorban/$uid")
                         .addValueEventListener(object : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
-                                val account = p0.getValue(AkunKorban::class.java)
-                                setLayout(victimInfo!!, account!!, helpedVictimId)
+                                account = p0.getValue(AkunKorban::class.java)!!
+                                setLayout(victimInfo!!, account, helpedVictimId)
                             }
 
                             override fun onCancelled(p0: DatabaseError) {
@@ -105,6 +122,11 @@ class HelpVictimActivity : AppCompatActivity() {
     private fun setLayout(victimInfo: InfoKorban?, account: AkunKorban?, helpedVictimId: String) {
         textview_name_victim_help.text = account?.name
         textview_phone_number_victim.text = account?.phone
+        textview_call.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse(("tel:${Uri.encode(account?.phone)}")))
+            startActivity(intent)
+        }
+
         if (account?.profilePhoto != "") {
             Picasso.get()
                 .load(account?.profilePhoto)
@@ -158,11 +180,20 @@ class HelpVictimActivity : AppCompatActivity() {
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
                 .child("rescuerArrived").setValue(true)
 
+            //delete chats
+            FirebaseDatabase.getInstance().reference.child("Messages/$idRescuer/${account?.id}")
+                .removeValue()
+            FirebaseDatabase.getInstance().reference.child("Messages/${account?.id}/$idRescuer")
+                .removeValue()
+
             //isHelping false
             FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")
                 .child("helping").setValue(false)
             //intent ke halaman maps
             val intent = Intent(this, ThankYouRescuerActivity::class.java)
+            intent.putExtra("EXTRA_LAT", currLat)
+            intent.putExtra("EXTRA_LONG", currLong)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }

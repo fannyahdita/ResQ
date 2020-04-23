@@ -41,6 +41,9 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     private lateinit var victimInfoData: VictimInfoData
     private var idRescuer = ""
     private val permissionId = 42
+    private var currLat : String? = ""
+    private var currLong : String? = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,29 +62,20 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         mapFragment = supportFragmentManager.findFragmentById(R.id.fragment_map_rescuer)
                 as SupportMapFragment
 
-
         button_close_detail.setOnClickListener { layout_detail_marker.visibility = View.GONE }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        mapFragment.getMapAsync {
-            it.clear()
-        }
-
-        layout_detail_marker.visibility = View.GONE
 
         getAllDataVictim()
 
-        val currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
-        val currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
+        currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
+        currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
         mapFragment.getMapAsync {
             val currLocation = LatLng(currLat!!.toDouble(), currLong!!.toDouble())
             it.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15F))
             it.isMyLocationEnabled = true
         }
     }
+
+
 
     private fun setMaps(korban: InfoKorban, victimInfoId: String, isAccepted: Boolean, isOnTheWay: Boolean, isRescuerArrived: Boolean) {
         mapFragment.getMapAsync { gMap ->
@@ -223,7 +217,11 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
             if (it.isSuccessful) {
                 setIsHelping()
                 val intent = Intent(this, HelpVictimActivity::class.java)
+                intent.putExtra("EXTRA_LAT", currLat)
+                intent.putExtra("EXTRA_LONG", currLong)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
+                finish()
             } else {
                 Log.d("KorbanTertolongError: ", it.exception?.message!!)
             }
@@ -240,19 +238,12 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                onBackPressed()
                 finish()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
     private fun checkPermissions(): Boolean {
