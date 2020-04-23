@@ -10,8 +10,6 @@ import kotlinx.android.synthetic.main.activity_thank_you_rescuer.*
 class ThankYouRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
-    private var currLat : String? = ""
-    private var currLong : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,13 +21,8 @@ class ThankYouRescuerActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
-        currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
-        currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
-
         button_to_temukan_saya.setOnClickListener {
             val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
-            intent.putExtra("EXTRA_LAT", currLat)
-            intent.putExtra("EXTRA_LONG", currLong)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()

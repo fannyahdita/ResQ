@@ -28,8 +28,6 @@ class HelpVictimActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private var idRescuer: String = ""
     private lateinit var victimInfoData: VictimInfoData
-    private var currLat : String? = ""
-    private var currLong : String? = ""
     private lateinit var account : AkunKorban
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +38,6 @@ class HelpVictimActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
-
-        currLat = intent.getStringExtra("EXTRA_LAT")?.toString()
-        currLong = intent.getStringExtra("EXTRA_LONG")?.toString()
 
         victimInfoData = VictimInfoData()
         idRescuer = FirebaseAuth.getInstance().currentUser!!.uid
@@ -191,8 +186,6 @@ class HelpVictimActivity : AppCompatActivity() {
                 .child("helping").setValue(false)
             //intent ke halaman maps
             val intent = Intent(this, ThankYouRescuerActivity::class.java)
-            intent.putExtra("EXTRA_LAT", currLat)
-            intent.putExtra("EXTRA_LONG", currLong)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
