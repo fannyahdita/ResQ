@@ -55,10 +55,10 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         messageListener()
 
         val linearLayoutManager = LinearLayoutManager(this)
-//        linearLayoutManager.stackFromEnd = true
+        linearLayoutManager.stackFromEnd = true
         recyclerview_chat.layoutManager = linearLayoutManager
         recyclerview_chat.adapter = adapter
-        recyclerview_chat.smoothScrollToPosition(adapter.itemCount)
+        recyclerview_chat.scrollToPosition(adapter.itemCount)
 
         button_send.setOnClickListener {
             if (edittext_chat.text.toString() != "") {

@@ -55,7 +55,7 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         messageListener()
 
         val linearLayoutManager = LinearLayoutManager(this)
-//        linearLayoutManager.stackFromEnd = true
+        linearLayoutManager.stackFromEnd = true
         recyclerview_chat.layoutManager = linearLayoutManager
         recyclerview_chat.adapter = adapter
         recyclerview_chat.smoothScrollToPosition(adapter.itemCount)
