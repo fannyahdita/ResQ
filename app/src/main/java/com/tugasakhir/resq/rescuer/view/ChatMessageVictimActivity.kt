@@ -26,6 +26,7 @@ class ChatMessageVictimActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private lateinit var victim: AkunKorban
     private lateinit var rescuer: Rescuer
+    private var idHelpedVictim = ""
     val adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,7 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_message)
 
         rescuer = intent.getSerializableExtra("rescuer") as Rescuer
+        idHelpedVictim = intent.getStringExtra("id")!!
         FirebaseDatabase.getInstance()
             .getReference("AkunKorban/${FirebaseAuth.getInstance().currentUser?.uid}")
             .addValueEventListener(object : ValueEventListener {
@@ -68,9 +70,12 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         val toId = rescuer.id
 
 //        val ref = FirebaseDatabase.getInstance().getReference("Messages").push()
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId").push()
+        val ref =
+            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
+                .push()
         val toRef =
-            FirebaseDatabase.getInstance().getReference("Messages/$toId/$fromId").push()
+            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$toId/$fromId")
+                .push()
         val chat = Chat(ref.key!!, text, fromId!!, toId, getCurrentDateTime().toString("HH:mm"))
 
         ref.setValue(chat)
@@ -86,7 +91,8 @@ class ChatMessageVictimActivity : AppCompatActivity() {
     private fun messageListener() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = rescuer.id
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId")
+        val ref =
+            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}

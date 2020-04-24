@@ -80,7 +80,7 @@ class StatusAcceptedFragment : Fragment() {
         button_kirimpesan.setOnClickListener {
             val intent = Intent(activity, ChatMessageVictimActivity::class.java)
             intent.putExtra("rescuer", rescuer as Serializable)
-            intent.putExtra("id", idInfoKorban)
+            intent.putExtra("id", idKorbanTertolong)
             startActivity(intent)
         }
     }

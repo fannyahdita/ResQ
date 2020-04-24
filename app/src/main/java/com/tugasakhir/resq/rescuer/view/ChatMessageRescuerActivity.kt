@@ -26,6 +26,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private lateinit var victim: AkunKorban
     private lateinit var rescuer: Rescuer
+    private var idHelpedVictim = ""
     val adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_message)
 
         victim = intent.getSerializableExtra("victim") as AkunKorban
+        idHelpedVictim = intent.getStringExtra("id")!!
         FirebaseDatabase.getInstance()
             .getReference("Rescuers/${FirebaseAuth.getInstance().currentUser?.uid}")
             .addValueEventListener(object : ValueEventListener {
@@ -67,9 +69,9 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
 
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId").push()
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId").push()
         val toRef =
-            FirebaseDatabase.getInstance().getReference("Messages/$toId/$fromId").push()
+            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$toId/$fromId").push()
         val chat = Chat(ref.key!!, text, fromId!!, toId, getCurrentDateTime().toString("HH:mm"))
 
         ref.setValue(chat)
@@ -85,7 +87,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private fun messageListener() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId")
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
