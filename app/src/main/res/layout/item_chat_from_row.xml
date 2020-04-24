@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="12dp">
 
     <TextView
@@ -19,6 +20,18 @@
         android:textColor="@color/black_dark"
         app:layout_constraintStart_toEndOf="@id/imageview_from"
         app:layout_constraintTop_toTopOf="@id/imageview_from" />
+
+    <TextView
+        android:id="@+id/textview_from_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/source_sans_pro"
+        android:textSize="12sp"
+        android:textColor="@color/black_dark"
+        app:layout_constraintBottom_toBottomOf="@id/textView_from_row"
+        app:layout_constraintStart_toEndOf="@id/textView_from_row"
+        tools:text="10:00"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imageview_from"

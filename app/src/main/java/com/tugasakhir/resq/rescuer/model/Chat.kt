@@ -5,6 +5,6 @@ data class Chat(
     val text: String = "",
     val fromId: String = "",
     val toId: String = "",
-    val timestamp: Long = 0
+    val time: String = ""
 ) {
 }
