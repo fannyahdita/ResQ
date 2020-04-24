@@ -1,5 +1,14 @@
 package com.tugasakhir.resq.rescuer.view
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -9,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
+import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
@@ -26,6 +36,14 @@ class ChatMessageVictimActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private lateinit var victim: AkunKorban
     private lateinit var rescuer: Rescuer
+
+    private lateinit var notificationManager : NotificationManager
+    private lateinit var notificationChannel: NotificationChannel
+    private lateinit var builder: Notification.Builder
+    private val channelId = "com.tugasakhir.resq.rescuer.view"
+    private val description = "test notification"
+
+
     private var helpedVictimId = ""
     val adapter = GroupAdapter<ViewHolder>()
 
@@ -59,6 +77,8 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         recyclerview_chat.layoutManager = linearLayoutManager
         recyclerview_chat.adapter = adapter
         recyclerview_chat.smoothScrollToPosition(adapter.itemCount)
+
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         button_send.setOnClickListener {
             if (edittext_chat.text.toString() != "") {
@@ -103,6 +123,7 @@ class ChatMessageVictimActivity : AppCompatActivity() {
                         adapter.add(ChatFromItemVictim(chat, victim))
                     } else {
                         adapter.add(ChatToItemVictim(chat, rescuer))
+                        sendNotification(chat.text)
                     }
                 }
             }
@@ -127,6 +148,30 @@ class ChatMessageVictimActivity : AppCompatActivity() {
 
     private fun getCurrentDateTime(): java.util.Date {
         return Calendar.getInstance().time
+    }
+
+    private fun sendNotification(text: String) {
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.GREEN
+            notificationChannel.enableVibration(false)
+            notificationManager.createNotificationChannel(notificationChannel)
+
+            builder = Notification.Builder(this, channelId)
+                .setContentTitle("Anda mendapat pesan baru")
+                .setContentText(text)
+                .setSmallIcon(R.drawable.ic_akun_icon)
+                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_beranda_icon))
+                .setContentIntent(pendingIntent)
+
+        }
+
+        notificationManager.notify(1234, builder.build())
+
     }
 }
 
