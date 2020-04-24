@@ -26,7 +26,6 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private lateinit var victim: AkunKorban
     private lateinit var rescuer: Rescuer
-    private var helpedVictimId = ""
     val adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +33,6 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_message)
 
         victim = intent.getSerializableExtra("victim") as AkunKorban
-        helpedVictimId = intent.getStringExtra("id")!!
         FirebaseDatabase.getInstance()
             .getReference("Rescuers/${FirebaseAuth.getInstance().currentUser?.uid}")
             .addValueEventListener(object : ValueEventListener {
@@ -58,12 +56,9 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         linearLayoutManager.stackFromEnd = true
         recyclerview_chat.layoutManager = linearLayoutManager
         recyclerview_chat.adapter = adapter
-        recyclerview_chat.scrollToPosition(adapter.itemCount)
 
         button_send.setOnClickListener {
-            if (edittext_chat.text.toString() != "") {
-                performSend()
-            }
+            performSend()
         }
     }
 
@@ -72,9 +67,9 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
 
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$helpedVictimId/$fromId/$toId").push()
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId").push()
         val toRef =
-            FirebaseDatabase.getInstance().getReference("Messages/$helpedVictimId/$toId/$fromId").push()
+            FirebaseDatabase.getInstance().getReference("Messages/$toId/$fromId").push()
         val chat = Chat(ref.key!!, text, fromId!!, toId, getCurrentDateTime().toString("HH:mm"))
 
         ref.setValue(chat)
@@ -90,7 +85,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private fun messageListener() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$helpedVictimId/$fromId/$toId")
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -129,11 +124,10 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         return Calendar.getInstance().time
     }
 
-}
-
-private fun Date.toString(s: String, locale: Locale = Locale.getDefault()): String {
-    val formatter = java.text.SimpleDateFormat(s, locale)
-    return formatter.format(this)
+    private fun Date.toString(s: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = java.text.SimpleDateFormat(s, locale)
+        return formatter.format(this)
+    }
 }
 
 class ChatToItem(val chat: Chat, val user: AkunKorban) : Item<ViewHolder>() {
