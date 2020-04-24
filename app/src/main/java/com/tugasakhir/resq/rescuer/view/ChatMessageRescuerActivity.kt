@@ -19,12 +19,14 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_message.*
 import kotlinx.android.synthetic.main.item_chat_from_row.view.*
 import kotlinx.android.synthetic.main.item_chat_to_row.view.*
+import java.util.*
 
 class ChatMessageRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var victim: AkunKorban
     private lateinit var rescuer: Rescuer
+    private var helpedVictimId = ""
     val adapter = GroupAdapter<ViewHolder>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +34,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_message)
 
         victim = intent.getSerializableExtra("victim") as AkunKorban
+        helpedVictimId = intent.getStringExtra("id")!!
         FirebaseDatabase.getInstance()
             .getReference("Rescuers/${FirebaseAuth.getInstance().currentUser?.uid}")
             .addValueEventListener(object : ValueEventListener {
@@ -51,11 +54,16 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
 
         messageListener()
 
-        recyclerview_chat.layoutManager = LinearLayoutManager(this)
+        val linearLayoutManager = LinearLayoutManager(this)
+//        linearLayoutManager.stackFromEnd = true
+        recyclerview_chat.layoutManager = linearLayoutManager
         recyclerview_chat.adapter = adapter
+        recyclerview_chat.smoothScrollToPosition(adapter.itemCount)
 
         button_send.setOnClickListener {
-            performSend()
+            if (edittext_chat.text.toString() != "") {
+                performSend()
+            }
         }
     }
 
@@ -64,10 +72,10 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
 
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId").push()
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$helpedVictimId/$fromId/$toId").push()
         val toRef =
-            FirebaseDatabase.getInstance().getReference("Messages/$toId/$fromId").push()
-        val chat = Chat(ref.key!!, text, fromId!!, toId, System.currentTimeMillis() / 1000)
+            FirebaseDatabase.getInstance().getReference("Messages/$helpedVictimId/$toId/$fromId").push()
+        val chat = Chat(ref.key!!, text, fromId!!, toId, getCurrentDateTime().toString("HH:mm"))
 
         ref.setValue(chat)
             .addOnSuccessListener {
@@ -82,7 +90,7 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private fun messageListener() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$fromId/$toId")
+        val ref = FirebaseDatabase.getInstance().getReference("Messages/$helpedVictimId/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -92,9 +100,9 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
 
                 if (chat != null) {
                     if (chat.fromId == FirebaseAuth.getInstance().uid) {
-                        adapter.add(ChatFromItem(chat.text, rescuer))
+                        adapter.add(ChatFromItem(chat, rescuer))
                     } else {
-                        adapter.add(ChatToItem(chat.text, victim))
+                        adapter.add(ChatToItem(chat, victim))
                     }
                 }
             }
@@ -116,36 +124,48 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }
+
 }
 
-class ChatToItem(val text: String, val user: AkunKorban) : Item<ViewHolder>() {
+private fun Date.toString(s: String, locale: Locale = Locale.getDefault()): String {
+    val formatter = java.text.SimpleDateFormat(s, locale)
+    return formatter.format(this)
+}
+
+class ChatToItem(val chat: Chat, val user: AkunKorban) : Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.item_chat_from_row
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textView_from_row.text = text
+        viewHolder.itemView.textView_from_row.text = chat.text
         val image = viewHolder.itemView.imageview_from
         Picasso.get()
             .load(user.profilePhoto)
             .error(R.drawable.ic_empty_pict)
             .placeholder(R.drawable.ic_empty_pict)
             .into(image)
+        viewHolder.itemView.textview_from_time.text = chat.time
     }
 }
 
-class ChatFromItem(val text: String, val user: Rescuer) : Item<ViewHolder>() {
+class ChatFromItem(val chat: Chat, val user: Rescuer) : Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.item_chat_to_row
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
-        viewHolder.itemView.textView_to_row.text = text
+        viewHolder.itemView.textView_to_row.text = chat.text
         val image = viewHolder.itemView.image_to
         Picasso.get()
             .load(user.profilePhoto)
             .error(R.drawable.ic_empty_pict)
             .placeholder(R.drawable.ic_empty_pict)
             .into(image)
+        viewHolder.itemView.textview_to_time.text = chat.time
     }
 }
