@@ -20,6 +20,7 @@ import java.io.Serializable
 class StatusAcceptedFragment : Fragment() {
 
     private lateinit var rescuer: Rescuer
+    private var idKorbanTertolong = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +33,8 @@ class StatusAcceptedFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val idInfoKorban = arguments!!.getString("idInfoKorban")
-        val idKorbanTertolong = arguments!!.getString("idKorbanTertolong")
+        val idInfoKorban = arguments?.getString("idInfoKorban")
+        idKorbanTertolong = arguments?.getString("idKorbanTertolong")!!
         rescuer = arguments!!.getSerializable("rescuer") as Rescuer
 
         textview_nama_rescuer.text = rescuer.name
@@ -79,6 +80,7 @@ class StatusAcceptedFragment : Fragment() {
         button_kirimpesan.setOnClickListener {
             val intent = Intent(activity, ChatMessageVictimActivity::class.java)
             intent.putExtra("rescuer", rescuer as Serializable)
+            intent.putExtra("id", idInfoKorban)
             startActivity(intent)
         }
     }

@@ -29,6 +29,7 @@ class HelpVictimActivity : AppCompatActivity() {
     private var idRescuer: String = ""
     private lateinit var victimInfoData: VictimInfoData
     private lateinit var account : AkunKorban
+    private var helpedVictimId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +46,7 @@ class HelpVictimActivity : AppCompatActivity() {
         button_open_chat_help.setOnClickListener {
             val intent = Intent(this, ChatMessageRescuerActivity::class.java)
             intent.putExtra("victim", account as Serializable)
+            intent.putExtra("id", helpedVictimId)
             startActivity(intent)
         }
     }
@@ -69,7 +71,7 @@ class HelpVictimActivity : AppCompatActivity() {
                             it.child("rescuerArrived").value.toString() == "false"
                         ) {
                             Log.d("HelpVictim", "masuk euy")
-                            val helpedVictimId = it.key.toString()
+                            helpedVictimId = it.key.toString()
                             val victimInfoId = it.child("idInfoKorban").value.toString()
                             val isOnTheWay = it.child("onTheWay").value.toString().toBoolean()
                             if (isOnTheWay) {

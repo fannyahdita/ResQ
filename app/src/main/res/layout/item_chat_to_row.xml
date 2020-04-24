@@ -15,10 +15,22 @@
         android:fontFamily="@font/source_sans_pro"
         android:maxWidth="240dp"
         android:padding="16dp"
-        android:text="This is my long message, I want to tell you something"
         android:textColor="@color/black_dark"
         app:layout_constraintEnd_toStartOf="@id/image_to"
-        app:layout_constraintTop_toTopOf="@id/image_to" />
+        app:layout_constraintTop_toTopOf="@id/image_to"
+        tools:text="This is my long message, I want to tell you something" />
+
+    <TextView
+        android:id="@+id/textview_to_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/source_sans_pro"
+        android:textColor="@color/black_dark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/textView_to_row"
+        app:layout_constraintEnd_toStartOf="@id/textView_to_row"
+        tools:text="10:00" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_to"
