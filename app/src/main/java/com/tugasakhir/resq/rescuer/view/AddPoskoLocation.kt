@@ -2,6 +2,7 @@ package com.tugasakhir.resq.rescuer.view
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -33,6 +34,7 @@ class AddPoskoLocationActivity : AppCompatActivity() {
     private lateinit var actionBar: ActionBar
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var victimInfoData: VictimInfoData
+    private lateinit var rp : List<ActivityManager.RunningAppProcessInfo>
 
     private var latitude: Double? = 0.0
     private var longitude: Double? = 0.0
@@ -79,6 +81,9 @@ class AddPoskoLocationActivity : AppCompatActivity() {
             intent.putExtra("location", "$latitude $longitude")
             startActivity(intent)
         }
+
+        val am = this.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        rp = am.runningAppProcesses
 
     }
 
