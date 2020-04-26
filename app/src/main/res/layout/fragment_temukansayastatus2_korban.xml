@@ -58,7 +58,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/source_sans_pro"
         android:textColor="@color/black_light"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/image_status2"
         app:layout_constraintTop_toTopOf="@id/image_status2"
@@ -72,7 +72,7 @@
         android:fontFamily="@font/source_sans_pro"
         android:textColor="@color/black_dark"
         android:textColorLink="@color/black_dark"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/textview_nama_rescuer"
         app:layout_constraintStart_toEndOf="@id/image_status2"
         app:layout_constraintStart_toStartOf="@id/textview_nama_rescuer"
@@ -85,7 +85,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/source_sans_pro"
         android:textColor="@color/black_dark"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/textview_nomor_rescuer"
         app:layout_constraintStart_toStartOf="@id/textview_nama_rescuer"
         tools:text="ACT Aksi Cepat Tanggap" />
@@ -139,6 +139,7 @@
         android:textAlignment="center"
         android:textColor="@color/grey_dark"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_profile_background" />
 
@@ -155,6 +156,7 @@
         android:textAlignment="center"
         android:textColor="@color/black_dark"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_status3" />
 
@@ -172,6 +174,7 @@
         android:textAlignment="center"
         android:textColor="@color/black_dark"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_status2" />
 

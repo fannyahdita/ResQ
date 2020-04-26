@@ -26,7 +26,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/signup_name_rescuer"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -57,7 +57,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/signup_email_rescuer"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -81,7 +81,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/signup_phone_rescuer"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -100,7 +100,7 @@
                     android:paddingVertical="5dp"
                     android:text="@string/phone_code"
                     android:textColor="@color/black_dark"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@id/edittext_signup_phone"
                     app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +132,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/signup_instansi_rescuer"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <Spinner
@@ -150,7 +150,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/signup_division_rescuer"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <Spinner
@@ -168,7 +168,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/signup_employeeid_rescuer"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -192,7 +192,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/signup_password_rescuer"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -216,7 +216,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/signup_repeat_rescuer"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
             <EditText
@@ -249,7 +249,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="5dp"
                 android:text="@string/button_tosignin"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
