@@ -60,7 +60,9 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         recyclerview_chat.adapter = adapter
 
         button_send.setOnClickListener {
-            performSend()
+            if (edittext_chat.text.toString() != "") {
+                performSend()
+            }
         }
     }
 
