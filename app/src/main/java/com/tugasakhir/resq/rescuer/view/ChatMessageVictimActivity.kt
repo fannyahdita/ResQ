@@ -1,14 +1,8 @@
 package com.tugasakhir.resq.rescuer.view
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -18,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
-import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.NotificationService
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer
@@ -29,6 +23,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_message.*
 import kotlinx.android.synthetic.main.item_chat_from_row.view.*
 import kotlinx.android.synthetic.main.item_chat_to_row.view.*
+import java.io.Serializable
 import java.util.*
 
 class ChatMessageVictimActivity : AppCompatActivity() {
@@ -39,14 +34,11 @@ class ChatMessageVictimActivity : AppCompatActivity() {
     private var idHelpedVictim = ""
 
     private lateinit var notificationManager : NotificationManager
-    private lateinit var notificationChannel: NotificationChannel
-    private lateinit var builder: Notification.Builder
-    private val channelId = "com.tugasakhir.resq.rescuer.view"
-    private val description = "test notification"
 
+    private var isServiceRunningFromActivity = false
 
-    private var helpedVictimId = ""
     val adapter = GroupAdapter<ViewHolder>()
+    private lateinit var intentService : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +70,16 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         recyclerview_chat.layoutManager = linearLayoutManager
         recyclerview_chat.adapter = adapter
 
+        intentService = Intent(this, NotificationService::class.java)
+        intentService.putExtra("id", idHelpedVictim)
+        intentService.putExtra("rescuer", rescuer as Serializable)
+
+        if (!isServiceRunning(NotificationService::class.java)) {
+            isServiceRunningFromActivity = true
+            startService(intentService)
+        }
+
+
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         button_send.setOnClickListener {
@@ -90,7 +92,6 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = rescuer.id
 
-//        val ref = FirebaseDatabase.getInstance().getReference("Messages").push()
         val ref =
             FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
                 .push()
@@ -126,7 +127,6 @@ class ChatMessageVictimActivity : AppCompatActivity() {
                         adapter.add(ChatFromItemVictim(chat, victim))
                     } else {
                         adapter.add(ChatToItemVictim(chat, rescuer))
-                        sendNotification(chat.text)
                     }
                 }
             }
@@ -153,28 +153,19 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         return Calendar.getInstance().time
     }
 
-    private fun sendNotification(text: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationChannel = NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.GREEN
-            notificationChannel.enableVibration(false)
-            notificationManager.createNotificationChannel(notificationChannel)
-
-            builder = Notification.Builder(this, channelId)
-                .setContentTitle("Anda mendapat pesan baru")
-                .setContentText(text)
-                .setSmallIcon(R.drawable.ic_akun_icon)
-                .setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.ic_beranda_icon))
-                .setContentIntent(pendingIntent)
-
+    private fun isServiceRunning(serviceClass : Class<*>) : Boolean {
+        val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (service in am.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.name.equals(service.service.className)) {
+                return true
+            }
         }
+        return false
+    }
 
-        notificationManager.notify(1234, builder.build())
-
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService(intentService)
     }
 
     private fun Date.toString(s: String, locale: Locale = Locale.getDefault()): String {
