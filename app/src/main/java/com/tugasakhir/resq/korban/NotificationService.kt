@@ -131,11 +131,11 @@ class NotificationService : Service() {
             val builder = Notification.Builder(applicationContext, channelId)
                 .setContentTitle("Anda mendapat pesan baru")
                 .setContentText(text)
-                .setSmallIcon(R.drawable.ic_akun_icon)
+                .setSmallIcon(R.drawable.ic_logo_round)
                 .setLargeIcon(
                     BitmapFactory.decodeResource(
                         applicationContext?.resources,
-                        R.drawable.ic_beranda_icon
+                        R.drawable.ic_logo_transparent
                     )
                 )
                 .setContentIntent(pendingIntent)
