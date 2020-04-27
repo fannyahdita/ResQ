@@ -1,5 +1,8 @@
 package com.tugasakhir.resq.rescuer.view
 
+import android.app.*
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -10,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.NotificationService
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer
@@ -19,6 +23,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_message.*
 import kotlinx.android.synthetic.main.item_chat_from_row.view.*
 import kotlinx.android.synthetic.main.item_chat_to_row.view.*
+import java.io.Serializable
 import java.util.*
 
 class ChatMessageVictimActivity : AppCompatActivity() {
@@ -27,7 +32,13 @@ class ChatMessageVictimActivity : AppCompatActivity() {
     private lateinit var victim: AkunKorban
     private lateinit var rescuer: Rescuer
     private var idHelpedVictim = ""
+
+    private lateinit var notificationManager : NotificationManager
+
+    private var isServiceRunningFromActivity = false
+
     val adapter = GroupAdapter<ViewHolder>()
+    private lateinit var intentService : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +70,18 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         recyclerview_chat.layoutManager = linearLayoutManager
         recyclerview_chat.adapter = adapter
 
+        intentService = Intent(this, NotificationService::class.java)
+        intentService.putExtra("id", idHelpedVictim)
+        intentService.putExtra("rescuer", rescuer as Serializable)
+
+        if (!isServiceRunning(NotificationService::class.java)) {
+            isServiceRunningFromActivity = true
+            startService(intentService)
+        }
+
+
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         button_send.setOnClickListener {
             performSend()
         }
@@ -69,7 +92,6 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = rescuer.id
 
-//        val ref = FirebaseDatabase.getInstance().getReference("Messages").push()
         val ref =
             FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
                 .push()
@@ -129,6 +151,21 @@ class ChatMessageVictimActivity : AppCompatActivity() {
 
     private fun getCurrentDateTime(): Date {
         return Calendar.getInstance().time
+    }
+
+    private fun isServiceRunning(serviceClass : Class<*>) : Boolean {
+        val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (service in am.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.name.equals(service.service.className)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService(intentService)
     }
 
     private fun Date.toString(s: String, locale: Locale = Locale.getDefault()): String {

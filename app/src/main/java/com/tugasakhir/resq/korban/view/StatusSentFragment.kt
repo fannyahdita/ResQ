@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
-import kotlinx.android.synthetic.main.activity_temukansayaform_korban.*
 import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.*
 import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.progressbar_name
 
@@ -70,11 +68,8 @@ class StatusSentFragment : Fragment() {
                 override fun onDataChange(p0: DataSnapshot) {
                     val children = p0.children
                     children.forEach {
-                        Log.d("ID KORBAN 1 : ", user)
-                        Log.d("ID KORBAN 2 : ", it.child("idKorban").value.toString())
 
                         if (user == it.child("idKorban").value.toString()) {
-                            Toast.makeText(activity!!, "Sudah dapet idInfoKorban : " + it.child("idKorban").value.toString(), Toast.LENGTH_LONG).show()
                             confirmRemoveData(it.key.toString())
                         }
 
