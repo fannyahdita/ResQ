@@ -54,7 +54,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/name_edit_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_name_rescuer"
@@ -83,7 +84,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/phone_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -131,7 +133,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/email_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_email_rescuer"
@@ -153,7 +156,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/instansi_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_instansi_rescuer"
@@ -175,7 +179,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/division_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_division_rescuer"
@@ -195,9 +200,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/source_sans_pro"
-                android:text="@string/division_profile"
+                android:text="@string/employeeid_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_id_rescuer"

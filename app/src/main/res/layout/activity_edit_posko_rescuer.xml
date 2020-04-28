@@ -26,7 +26,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_name"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,7 +64,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_address_generate"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
 
             <EditText
@@ -88,7 +90,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_address_notes"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_posko_address_notes"
@@ -110,7 +113,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_capacity"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_posko_capacity"
@@ -131,7 +135,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_facility"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <CheckBox
                 android:id="@+id/checkbox_medic"
@@ -185,7 +190,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_additional_info"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_posko_additional_info"
@@ -214,7 +220,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_contact_name"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_posko_contact_name"
@@ -236,7 +243,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/add_posko_contact_number"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
