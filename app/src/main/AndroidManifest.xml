@@ -127,6 +127,20 @@
         <activity android:name=".rescuer.view.ChatMessageVictimActivity"
             android:theme="@style/AppTheme.CustomTheme"/>
 
+        <receiver
+            android:name=".korban.NotificationReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name=".korban.NotificationService"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".korban.NotificationService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
