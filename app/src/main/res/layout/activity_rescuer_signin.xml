@@ -71,10 +71,4 @@
         android:visibility="gone"
         tools:visibility="visible" />
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/image_boat_gif" />
-
 </RelativeLayout>
