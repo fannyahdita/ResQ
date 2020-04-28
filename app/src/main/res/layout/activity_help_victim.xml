@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     android:background="@color/white_light">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:paddingBottom="30dp"
         android:layout_marginEnd="30dp"
         android:orientation="vertical">
 
@@ -18,14 +20,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:ellipsize="end"
             android:fontFamily="@font/source_sans_pro"
             android:maxLines="2"
-            android:textSize="27sp"
+            android:textSize="25sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardview"
+            app:layout_constraintStart_toEndOf="@id/imageview_victim_photo"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Fannyah Dita Cahya Adalah Namaku" />
 
@@ -36,28 +38,38 @@
             android:layout_marginStart="20dp"
             android:fontFamily="@font/source_sans_pro"
             android:textSize="20sp"
-            app:layout_constraintStart_toEndOf="@id/cardview"
+            app:layout_constraintStart_toEndOf="@id/imageview_victim_photo"
             app:layout_constraintTop_toBottomOf="@id/textview_name_victim_help"
             tools:text="Bantuan Evakuasi" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            app:cardCornerRadius="50dp"
-            android:elevation="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageview_victim_photo"
+            android:layout_width="97dp"
+            android:layout_height="97dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toStartOf="@id/textview_name_victim_help"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_empty_pict" />
 
-            <ImageView
-                android:id="@+id/imageview_victim_photo"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_empty_pict" />
-        </androidx.cardview.widget.CardView>
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:id="@+id/cardview"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            app:cardCornerRadius="50dp"-->
+        <!--            android:elevation="12dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintEnd_toStartOf="@id/textview_name_victim_help"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/imageview_victim_photo"-->
+        <!--                android:layout_width="100dp"-->
+        <!--                android:layout_height="100dp"-->
+        <!--                android:src="@drawable/ic_empty_pict" />-->
+        <!--        </androidx.cardview.widget.CardView>-->
 
         <TextView
             android:id="@+id/textview_address_victim_help"
@@ -65,18 +77,18 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/source_sans_pro"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardview"
+            app:layout_constraintTop_toBottomOf="@id/imageview_victim_photo"
             tools:text="Bukit Cimanggu City Blok M5B no 20 Cluster Royal Lakeside, Tanah Sareal, Sukadamai, Kota Bogor, Jawa Barat, 16165 Indonesia" />
 
         <TextView
             android:id="@+id/textview_phone_number_victim"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/source_sans_pro"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/textview_call"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,19 +99,19 @@
             android:id="@+id/textview_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/call_rescuer"
             android:fontFamily="@font/source_sans_pro"
-            android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="@id/textview_phone_number_victim"
+            android:text="@string/call_rescuer"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textview_phone_number_victim"
-            app:layout_constraintTop_toBottomOf="@id/textview_address_victim_help"/>
+            app:layout_constraintTop_toBottomOf="@id/textview_address_victim_help"
+            app:layout_constraintTop_toTopOf="@id/textview_phone_number_victim" />
 
         <TextView
             android:id="@+id/textview_title_victim_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/source_sans_pro"
             android:text="@string/victim_number"
             android:textSize="20sp"
@@ -112,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_title_victim_number"
             tools:text="0 Lansia" />
@@ -122,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_number_of_elderly_victim"
             tools:text="0 Dewasa" />
@@ -132,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_number_of_adult_victim"
             tools:text="0 Anak" />
@@ -141,7 +153,7 @@
             android:id="@+id/textview_title_information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:fontFamily="@font/source_sans_pro"
             android:text="@string/additional_info"
             android:textSize="20sp"
@@ -154,7 +166,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_title_information"
             tools:text="Butuh bantuan untuk mengangkut ibu hamil" />
@@ -199,6 +211,7 @@
             style="@style/BlackButton"
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginTop="10dp"
             android:text="@string/finish_help_victim"
             android:visibility="gone"

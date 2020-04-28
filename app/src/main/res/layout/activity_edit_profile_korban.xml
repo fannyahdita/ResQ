@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_light">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,21 +19,13 @@
             android:paddingEnd="30dp"
             android:paddingBottom="30dp">
 
-            <androidx.cardview.widget.CardView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageview_foto_placer_korban"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:elevation="12dp"
-                app:cardCornerRadius="50dp">
-
-                <ImageView
-                    android:id="@+id/imageview_foto_placer_korban"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_empty_pict" />
-            </androidx.cardview.widget.CardView>
+                tools:src="@drawable/ic_empty_pict" />
 
             <Button
                 android:id="@+id/button_edit_photo_korban"
@@ -62,7 +54,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/name_edit_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edittext_edit_name_korban"
@@ -82,7 +74,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/phone_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/edittext_edit_phone_korban"

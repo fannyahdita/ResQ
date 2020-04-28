@@ -83,7 +83,9 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         button_send.setOnClickListener {
-            performSend()
+            if (edittext_chat.text.toString() != "") {
+                performSend()
+            }
         }
     }
 

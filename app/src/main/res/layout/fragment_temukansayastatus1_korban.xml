@@ -7,9 +7,9 @@
 
     <ImageView
         android:id="@+id/image_status1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/ic_status_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +20,7 @@
         style="@style/BlackButton"
         android:layout_width="140dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:clickable="true"
         android:text="@string/button_batalkan"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_garis_status1"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_batalkan" />
 
     <TextView
@@ -49,7 +49,8 @@
         android:text="@string/status_3"
         android:textAlignment="center"
         android:textColor="@color/grey_dark"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_batalkan" />
 
@@ -65,8 +66,9 @@
         android:text="@string/status_2"
         android:textAlignment="center"
         android:textColor="@color/grey_dark"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_status3" />
 
     <TextView
@@ -80,21 +82,20 @@
         android:fontFamily="@font/raleway"
         android:gravity="center"
         android:text="@string/status_1"
-        android:textAlignment="center"
         android:textColor="@color/black_dark"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_status2" />
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/image_boat_gif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+<!--    <pl.droidsonroids.gif.GifImageView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="@drawable/image_boat_gif"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <ProgressBar
         android:id="@+id/progressbar_name"

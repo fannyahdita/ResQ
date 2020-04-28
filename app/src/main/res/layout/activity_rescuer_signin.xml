@@ -57,7 +57,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:text="@string/button_tosignup"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -70,11 +70,5 @@
         android:layout_centerVertical="true"
         android:visibility="gone"
         tools:visibility="visible" />
-
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/image_boat_gif" />
 
 </RelativeLayout>
