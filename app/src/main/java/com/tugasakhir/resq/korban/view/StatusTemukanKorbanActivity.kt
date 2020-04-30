@@ -1,6 +1,13 @@
 package com.tugasakhir.resq.korban.view
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -14,12 +21,17 @@ import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.fragment_main_status_korban.*
+import java.util.*
 
 
 class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var rescuer: Rescuer
+    private lateinit var notificationManager: NotificationManager
+
+    private val channelId = "com.tugasakhir.resq.korban.view"
+    private val description = "status notification"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,9 +44,16 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         actionBar.title = getString(R.string.temukansaya_actionbar)
         actionBar.elevation = 0F
 
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
         updateStatus()
         getIdKorban()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getIdKorban()
     }
 
     private fun updateStatus() {
@@ -127,6 +146,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 if (p0.child("idInfoKorban").value.toString() == idInfoKorban) {
+                    sendNotification(getString(R.string.status_2), "Tim penolong telah menerima permintaan bantuanmu dan akan segera menuju ke tempatmu")
                     getRescuerData(p0.child("idRescuer").value.toString(),
                         p0.child("accepted").value!!.equals(true),
                         p0.child("onTheWay").value!!.equals(true),
@@ -165,6 +185,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                         idKorbanTertolong
                     )
                 } else if (p0.key.toString() == "onTheWay") {
+                    sendNotification(getString(R.string.status_3), rescuer.name +" sudah menuju ke tempatmu")
                     updateFragment(
                         false,
                         true,
@@ -222,6 +243,47 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         transaction.commit()
     }
 
+    private fun sendNotification(title: String, text: String) {
+        val intent = Intent(applicationContext, StatusTemukanKorbanActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        val notificationChannel =
+            NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+        notificationChannel.enableLights(true)
+        notificationChannel.lightColor = Color.GREEN
+        notificationChannel.enableVibration(false)
+        notificationManager.createNotificationChannel(notificationChannel)
+
+        val builder = Notification.Builder(applicationContext, channelId)
+            .setContentTitle(title)
+            .setContentText(text)
+            .setSubText(getCurrentDateTime().toString("HH:mm"))
+            .setSmallIcon(R.drawable.ic_logo_transparent)
+            .setLargeIcon(
+                BitmapFactory.decodeResource(
+                    applicationContext?.resources,
+                    R.drawable.ic_logo_round
+                )
+            )
+            .setContentIntent(pendingIntent)
+
+        notificationManager.notify(1234, builder.build())
+    }
+
+    private fun getCurrentDateTime(): Date {
+        return Calendar.getInstance().time
+    }
+
+    private fun Date.toString(s: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = java.text.SimpleDateFormat(s, locale)
+        return formatter.format(this)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -237,7 +299,6 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         super.onBackPressed()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish()
     }
 
 }
