@@ -191,7 +191,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
             val finishFragment = StatusFinishedFragment.newInstance(rescuer, idInfoKorban, idKorbanTertolong)
             openFragment(finishFragment)
         } else if (isRunning) {
-            val runningFragment = StatusRunningFragment.newInstance(rescuer)
+            val runningFragment = StatusRunningFragment.newInstance(rescuer, idKorbanTertolong)
             openFragment(runningFragment)
         } else if (isAccepted) {
             val acceptedFragment = StatusAcceptedFragment.newInstance(idInfoKorban, idKorbanTertolong, rescuer)
