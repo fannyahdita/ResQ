@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -17,6 +18,8 @@ import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer
+import com.tugasakhir.resq.rescuer.view.ChatMessageRescuerActivity
+import com.tugasakhir.resq.rescuer.view.ChatMessageVictimActivity
 import java.io.Serializable
 
 class NotificationService : Service() {
@@ -104,24 +107,14 @@ class NotificationService : Service() {
     private fun isAppInBackground() : Boolean {
         var isInBackground = true
 
+
         val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        runningProcess = am.runningAppProcesses
-        for (processInfo in runningProcess) {
-            if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                var index = 1
-                for (activeProcess in processInfo.pkgList) {
-                    if (activeProcess.equals(packageName)) {
-                        isInBackground = false
-                    }
-                    index++
-                }
-            } else {
-                taskInfo = am.getRunningTasks(1)
-                val componentInfo = taskInfo.get(0).topActivity
-                if (componentInfo?.packageName.equals(packageName)) {
-                    isInBackground = false
-                }
-            }
+        taskInfo = am.getRunningTasks(1)
+        val componentInfo = taskInfo.get(0).topActivity
+        if (componentInfo?.className.equals(ChatMessageRescuerActivity::class.java.name) ||
+            componentInfo?.className.equals(ChatMessageVictimActivity::class.java.name)) {
+
+            isInBackground = false
         }
         return isInBackground
     }
@@ -129,12 +122,21 @@ class NotificationService : Service() {
 
 
     private fun sendNotification(text: String?, isInBackground : Boolean, time: String) {
-        val name = if (isVictim) {
-            rescuer.name
+        val intent: Intent
+        val name: String
+
+        if (isVictim) {
+            intent = Intent(applicationContext, ChatMessageVictimActivity::class.java)
+            intent.putExtra("id", idHelpedVictim)
+            intent.putExtra("rescuer", rescuer as Serializable)
+            name = rescuer.name
         } else {
-            victim.name
+            intent = Intent(applicationContext, ChatMessageRescuerActivity::class.java)
+            intent.putExtra("id", idHelpedVictim)
+            intent.putExtra("victim", victim as Serializable)
+            name = victim.name
         }
-        val intent = Intent(applicationContext, MainActivity::class.java)
+
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,
