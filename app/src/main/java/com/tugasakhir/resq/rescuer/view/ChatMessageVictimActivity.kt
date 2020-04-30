@@ -33,10 +33,6 @@ class ChatMessageVictimActivity : AppCompatActivity() {
     private lateinit var rescuer: Rescuer
     private var idHelpedVictim = ""
 
-    private lateinit var notificationManager : NotificationManager
-
-    private var isServiceRunningFromActivity = false
-
     val adapter = GroupAdapter<ViewHolder>()
     private lateinit var intentService : Intent
 
@@ -72,15 +68,12 @@ class ChatMessageVictimActivity : AppCompatActivity() {
 
         intentService = Intent(this, NotificationService::class.java)
         intentService.putExtra("id", idHelpedVictim)
+        intentService.putExtra("previous", "victim")
         intentService.putExtra("rescuer", rescuer as Serializable)
 
         if (!isServiceRunning(NotificationService::class.java)) {
-            isServiceRunningFromActivity = true
             startService(intentService)
         }
-
-
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         button_send.setOnClickListener {
             performSend()
