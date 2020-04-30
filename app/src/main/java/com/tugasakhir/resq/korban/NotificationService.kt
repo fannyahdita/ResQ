@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import java.io.Serializable
@@ -24,7 +25,9 @@ class NotificationService : Service() {
     private val description = "test notification"
 
     private lateinit var rescuer: Rescuer
+    private lateinit var victim: AkunKorban
     private var idHelpedVictim = ""
+    private var isVictim = false
 
     private lateinit var runningProcess : List<ActivityManager.RunningAppProcessInfo>
     private lateinit var taskInfo : List<ActivityManager.RunningTaskInfo>
@@ -34,7 +37,13 @@ class NotificationService : Service() {
         super.onStartCommand(intent, flags, startId)
 
         idHelpedVictim = intent?.getStringExtra("id")!!
-        rescuer = intent.getSerializableExtra("rescuer") as Rescuer
+
+        if (intent?.getStringExtra("previous") == "victim") {
+            rescuer = intent.getSerializableExtra("rescuer") as Rescuer
+            isVictim = true
+        } else {
+            victim = intent.getSerializableExtra("victim") as AkunKorban
+        }
 
         checkingChat()
 
@@ -45,7 +54,12 @@ class NotificationService : Service() {
         super.onDestroy()
         val intentBroadcast = Intent(this, NotificationReceiver::class.java)
         intentBroadcast.putExtra("id", idHelpedVictim)
-        intentBroadcast.putExtra("rescuer", rescuer as Serializable)
+        if (isVictim) {
+            intentBroadcast.putExtra("rescuer", rescuer as Serializable)
+        } else {
+            intentBroadcast.putExtra("victim", victim as Serializable)
+        }
+        intentBroadcast.putExtra("previous", "victim")
         sendBroadcast(intentBroadcast)
     }
 
@@ -55,9 +69,15 @@ class NotificationService : Service() {
 
     private fun checkingChat() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
-        val toId = rescuer.id
+        val toId = if (isVictim) {
+            rescuer.id
+        } else {
+            victim.id
+        }
+
         val ref =
             FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
+
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -67,7 +87,7 @@ class NotificationService : Service() {
 
                 if (chat != null) {
                     if (chat.fromId != FirebaseAuth.getInstance().uid) {
-                        sendNotification(chat.text, isAppInBackground())
+                        sendNotification(chat.text, isAppInBackground(), chat.time)
                     }
                 }
             }
@@ -108,7 +128,12 @@ class NotificationService : Service() {
 
 
 
-    private fun sendNotification(text: String?, isInBackground : Boolean) {
+    private fun sendNotification(text: String?, isInBackground : Boolean, time: String) {
+        val name = if (isVictim) {
+            rescuer.name
+        } else {
+            victim.name
+        }
         val intent = Intent(applicationContext, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
@@ -129,13 +154,14 @@ class NotificationService : Service() {
             notificationManager.createNotificationChannel(notificationChannel)
 
             val builder = Notification.Builder(applicationContext, channelId)
-                .setContentTitle("Anda mendapat pesan baru")
+                .setContentTitle(name)
                 .setContentText(text)
-                .setSmallIcon(R.drawable.ic_logo_round)
+                .setSubText(time)
+                .setSmallIcon(R.drawable.ic_logo_transparent)
                 .setLargeIcon(
                     BitmapFactory.decodeResource(
                         applicationContext?.resources,
-                        R.drawable.ic_logo_transparent
+                        R.drawable.ic_logo_round
                     )
                 )
                 .setContentIntent(pendingIntent)
