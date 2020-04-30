@@ -110,7 +110,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
 
     private fun isKorbanTertolong(idInfoKorban: String) {
         progressbar_name.visibility = View.GONE
-        val statusSent = StatusSentFragment.newInstance()
+        val statusSent = StatusSentFragment.newInstance(idInfoKorban)
         openFragment(statusSent)
 
         val ref = FirebaseDatabase.getInstance().getReference("KorbanTertolong")

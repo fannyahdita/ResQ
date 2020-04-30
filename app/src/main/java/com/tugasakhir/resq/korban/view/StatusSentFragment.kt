@@ -31,6 +31,8 @@ class StatusSentFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val idInfoKorban = arguments?.getString("idInfoKorban")
+
         button_batalkan.setOnClickListener {
 
             val builder = AlertDialog.Builder(activity!!)
@@ -38,7 +40,7 @@ class StatusSentFragment : Fragment() {
             builder.setMessage(R.string.alert_batalkan_status1)
             builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
                 progressbar_name.visibility = View.VISIBLE
-                removeData()
+                removeData(idInfoKorban)
 
                 val user = FirebaseAuth.getInstance().currentUser?.uid
                 FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
@@ -58,50 +60,17 @@ class StatusSentFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(): StatusSentFragment = StatusSentFragment()
+        fun newInstance(idInfoKorban: String): StatusSentFragment {
+            val args = Bundle()
+            args.putString("idInfoKorban", idInfoKorban)
+            val fragment = StatusSentFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 
-    private fun removeData() {
-        val user = FirebaseAuth.getInstance().currentUser?.uid
-        FirebaseDatabase.getInstance().getReference("InfoKorban")
-            .addListenerForSingleValueEvent(object  : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    val children = p0.children
-                    children.forEach {
-
-                        if (user == it.child("idKorban").value.toString()) {
-                            confirmRemoveData(it.key.toString())
-                        }
-
-                    }
-                }
-
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.d("TemukanSayaError : ", p0.message)                }
-            })
-    }
-
-    private fun confirmRemoveData(userId: String) {
-        var index = 1
-        FirebaseDatabase.getInstance().getReference("KorbanTertolong")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(p0: DataSnapshot) {
-                    val children = p0.children
-                    children.forEach {
-
-                        if (userId == it.child("idInfoKorban").value.toString()) {
-                            return
-                        } else if (p0.childrenCount == index.toLong()) {
-                            FirebaseDatabase.getInstance().reference.child("InfoKorban/$userId").removeValue()
-                        }
-                        index++
-                    }
-                }
-
-                override fun onCancelled(p0: DatabaseError) {
-                    Log.d("TemukanSayaError : ", p0.message)
-                }
-            })
-
+    private fun removeData(idInfoKorban: String?) {
+        FirebaseDatabase.getInstance().reference.child("InfoKorban/$idInfoKorban").removeValue()
+        progressbar_name.visibility = View.GONE
     }
 }
