@@ -140,11 +140,15 @@ class ChatToItem(val chat: Chat, val user: AkunKorban) : Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_from_row.text = chat.text
         val image = viewHolder.itemView.imageview_from
-        Picasso.get()
-            .load(user.profilePhoto)
-            .error(R.drawable.ic_empty_pict)
-            .placeholder(R.drawable.ic_empty_pict)
-            .into(image)
+        if (user.profilePhoto == "") {
+            image.setImageResource(R.drawable.ic_empty_pict)
+        } else {
+            Picasso.get()
+                .load(user.profilePhoto)
+                .error(R.drawable.ic_empty_pict)
+                .placeholder(R.drawable.ic_empty_pict)
+                .into(image)
+        }
         viewHolder.itemView.textview_from_time.text = chat.time
     }
 }
@@ -157,11 +161,15 @@ class ChatFromItem(val chat: Chat, val user: Rescuer) : Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_to_row.text = chat.text
         val image = viewHolder.itemView.image_to
-        Picasso.get()
-            .load(user.profilePhoto)
-            .error(R.drawable.ic_empty_pict)
-            .placeholder(R.drawable.ic_empty_pict)
-            .into(image)
+        if (user.profilePhoto == "") {
+            image.setImageResource(R.drawable.ic_empty_pict)
+        } else {
+            Picasso.get()
+                .load(user.profilePhoto)
+                .error(R.drawable.ic_empty_pict)
+                .placeholder(R.drawable.ic_empty_pict)
+                .into(image)
+        }
         viewHolder.itemView.textview_to_time.text = chat.time
     }
 }
