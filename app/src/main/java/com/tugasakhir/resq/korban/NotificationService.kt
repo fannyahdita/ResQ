@@ -9,10 +9,7 @@ import android.os.Build
 import android.os.IBinder
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
@@ -81,6 +78,17 @@ class NotificationService : Service() {
         val ref =
             FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
 
+        var childLength = 0
+        var index = 0
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                childLength = p0.childrenCount.toInt()
+            }
+
+        })
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -88,7 +96,8 @@ class NotificationService : Service() {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val chat = p0.getValue(Chat::class.java)
 
-                if (chat != null) {
+                if (chat != null && childLength <= ++index) {
+                    Toast.makeText(applicationContext, index.toString(), Toast.LENGTH_SHORT).show()
                     if (chat.fromId != FirebaseAuth.getInstance().uid) {
                         sendNotification(chat.text, isAppInBackground(), chat.time)
                     }
