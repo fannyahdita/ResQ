@@ -33,10 +33,6 @@ class ChatMessageVictimActivity : AppCompatActivity() {
     private lateinit var rescuer: Rescuer
     private var idHelpedVictim = ""
 
-    private lateinit var notificationManager : NotificationManager
-
-    private var isServiceRunningFromActivity = false
-
     val adapter = GroupAdapter<ViewHolder>()
     private lateinit var intentService : Intent
 
@@ -72,15 +68,12 @@ class ChatMessageVictimActivity : AppCompatActivity() {
 
         intentService = Intent(this, NotificationService::class.java)
         intentService.putExtra("id", idHelpedVictim)
+        intentService.putExtra("previous", "victim")
         intentService.putExtra("rescuer", rescuer as Serializable)
 
         if (!isServiceRunning(NotificationService::class.java)) {
-            isServiceRunningFromActivity = true
             startService(intentService)
         }
-
-
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         button_send.setOnClickListener {
             if (edittext_chat.text.toString() != "") {
@@ -184,11 +177,15 @@ class ChatToItemVictim(val chat: Chat, val user: Rescuer) : Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_from_row.text = chat.text
         val image = viewHolder.itemView.imageview_from
-        Picasso.get()
-            .load(user.profilePhoto)
-            .error(R.drawable.ic_empty_pict)
-            .placeholder(R.drawable.ic_empty_pict)
-            .into(image)
+        if (user.profilePhoto == "") {
+            image.setImageResource(R.drawable.ic_empty_pict)
+        } else {
+            Picasso.get()
+                .load(user.profilePhoto)
+                .error(R.drawable.ic_empty_pict)
+                .placeholder(R.drawable.ic_empty_pict)
+                .into(image)
+        }
         viewHolder.itemView.textview_from_time.text = chat.time
     }
 
@@ -202,11 +199,15 @@ class ChatFromItemVictim(val chat: Chat, val user: AkunKorban) : Item<ViewHolder
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_to_row.text = chat.text
         val image = viewHolder.itemView.image_to
-        Picasso.get()
-            .load(user.profilePhoto)
-            .error(R.drawable.ic_empty_pict)
-            .placeholder(R.drawable.ic_empty_pict)
-            .into(image)
+        if (user.profilePhoto == "") {
+            image.setImageResource(R.drawable.ic_empty_pict)
+        } else {
+            Picasso.get()
+                .load(user.profilePhoto)
+                .error(R.drawable.ic_empty_pict)
+                .placeholder(R.drawable.ic_empty_pict)
+                .into(image)
+        }
         viewHolder.itemView.textview_to_time.text = chat.time
     }
 }
