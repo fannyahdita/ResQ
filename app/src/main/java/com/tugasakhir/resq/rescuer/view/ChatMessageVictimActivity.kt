@@ -76,7 +76,9 @@ class ChatMessageVictimActivity : AppCompatActivity() {
         }
 
         button_send.setOnClickListener {
-            performSend()
+            if (edittext_chat.text.toString() != "") {
+                performSend()
+            }
         }
     }
 

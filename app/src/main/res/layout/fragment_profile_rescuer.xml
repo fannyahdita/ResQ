@@ -13,25 +13,18 @@
         android:background="@drawable/shape_profile_background"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/layout_image_profile"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_profile"
         android:layout_width="97dp"
         android:layout_height="97dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
         android:elevation="12dp"
-        app:cardCornerRadius="50dp"
+        app:civ_border_color="@color/black_dark"
+        app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/image_profile"
-            android:layout_width="97dp"
-            android:layout_height="97dp"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/ic_empty_pict" />
-    </androidx.cardview.widget.CardView>
-
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_empty_pict" />
 
     <TextView
         android:id="@+id/textview_profile_name"
@@ -42,7 +35,7 @@
         android:fontFamily="@font/raleway"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/layout_image_profile"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Andi Burhanuddin" />
 
@@ -54,7 +47,7 @@
         android:fontFamily="@font/raleway"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/layout_image_profile"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
         app:layout_constraintTop_toBottomOf="@id/textview_profile_name"
         tools:text="Rescuer" />
 
@@ -66,7 +59,7 @@
         android:fontFamily="@font/raleway"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/layout_image_profile"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
         app:layout_constraintTop_toBottomOf="@id/textview_profile_rescuer_division"
         tools:text="Rescuer" />
 
@@ -80,7 +73,7 @@
         android:paddingHorizontal="10dp"
         android:text="@string/edit_profile_button"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@id/layout_image_profile"
+        app:layout_constraintStart_toEndOf="@id/image_profile"
         app:layout_constraintTop_toBottomOf="@id/textview_profile_rescuer_phone" />
 
     <Button
@@ -100,8 +93,8 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="80dp"
         android:overScrollMode="ifContentScrolls"
+        android:paddingBottom="80dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/view_profile_background">
 
@@ -119,7 +112,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/raleway"
                 android:text="@string/history_title"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
 

@@ -27,7 +27,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/tv_bantuan"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -73,7 +73,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/tv_jumlahorang"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/radio_jenisbantuan" />
@@ -86,7 +86,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/tv_lansia"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_jumlahorang" />
 
@@ -150,7 +150,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/tv_dewasa"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_usialansia" />
 
@@ -214,7 +214,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/tv_anak"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_usiadewasa" />
 
@@ -278,7 +278,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/tv_infotambahan"
                 android:textColor="@color/black_dark"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textview_usiaanak" />

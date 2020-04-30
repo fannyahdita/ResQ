@@ -77,7 +77,9 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
 
 
         button_send.setOnClickListener {
-            performSend()
+            if (edittext_chat.text.toString() != "") {
+                performSend()
+            }
         }
     }
 
@@ -86,9 +88,12 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
 
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId").push()
+        val ref =
+            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
+                .push()
         val toRef =
-            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$toId/$fromId").push()
+            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$toId/$fromId")
+                .push()
         val chat = Chat(ref.key!!, text, fromId!!, toId, getCurrentDateTime().toString("HH:mm"))
 
         ref.setValue(chat)
@@ -104,7 +109,8 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private fun messageListener() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
         val toId = victim.id
-        val ref = FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
+        val ref =
+            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
