@@ -17,6 +17,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
@@ -86,7 +87,21 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
         }
 
         button_send.setOnClickListener {
-            getDataKorban()
+            if (integer_number_lansia.text.toString().trim() == "0"
+                && integer_number_dewasa.text.toString().trim() == "0"
+                && integer_number_anak.text.toString().trim() == "0") {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Gagal mengirimkan data")
+                builder.setMessage("Pastikan kamu memasukkan jumlah korban")
+
+                builder.setPositiveButton("oke"){_,_ ->
+
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            } else {
+                getDataKorban()
+            }
         }
 
         decrease_lansia.setOnClickListener {
