@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.MenuItem
@@ -24,6 +25,8 @@ class SignUpRescuerActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var firebaseAuth: FirebaseAuth
+    private var passwordShown = false
+    private var repeatPasswordShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +68,42 @@ class SignUpRescuerActivity : AppCompatActivity() {
             registerUser()
         }
 
+        button_show_password.setOnClickListener {
+            val cursor = edittext_signup_password.selectionStart
+            if (!passwordShown) {
+                passwordShown = true
+                button_show_password.setImageResource(R.drawable.ic_password_hide)
+                edittext_signup_password.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
+                edittext_signup_password.setSelection(cursor)
+            } else {
+                passwordShown = false
+                button_show_password.setImageResource(R.drawable.ic_password_show)
+                edittext_signup_password.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+                edittext_signup_password.setSelection(cursor)
+            }
+        }
+        button_show_repeat_password.setOnClickListener {
+            val cursor = edittext_signup_repeat_password.selectionStart
+            if (!repeatPasswordShown) {
+                repeatPasswordShown = true
+                button_show_repeat_password.setImageResource(R.drawable.ic_password_hide)
+                edittext_signup_repeat_password.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
+                edittext_signup_repeat_password.setSelection(cursor)
+            } else {
+                repeatPasswordShown = false
+                button_show_repeat_password.setImageResource(R.drawable.ic_password_show)
+                edittext_signup_repeat_password.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+                edittext_signup_repeat_password.setSelection(cursor)
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

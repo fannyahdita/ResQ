@@ -184,53 +184,91 @@
                 android:paddingEnd="10dp"
                 tools:text="ACT56788" />
 
-            <TextView
-                android:id="@+id/textview_signup_password"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/signup_password_rescuer"
-                android:textColor="@color/black_dark"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="10dp">
 
-            <EditText
-                android:id="@+id/edittext_signup_password"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_border_edittext"
-                android:fontFamily="@font/source_sans_pro"
-                android:hint="@string/signup_password_rescuer"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                tools:text="1234567" />
+                <TextView
+                    android:id="@+id/textview_signup_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/source_sans_pro"
+                    android:text="@string/signup_password_rescuer"
+                    android:textColor="@color/black_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textview_signup_repeat_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/source_sans_pro"
-                android:text="@string/signup_repeat_rescuer"
-                android:textColor="@color/black_dark"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/edittext_signup_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_border_edittext"
+                    android:fontFamily="@font/source_sans_pro"
+                    android:hint="@string/signup_password_rescuer"
+                    android:inputType="textPassword"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_signup_password"
+                    tools:text="1234567" />
 
-            <EditText
-                android:id="@+id/edittext_signup_repeat_password"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/shape_border_edittext"
-                android:fontFamily="@font/source_sans_pro"
-                android:hint="@string/signup_repeat_rescuer"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                tools:text="1234567" />
+                <ImageView
+                    android:id="@+id/button_show_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_password_show"
+                    app:layout_constraintBottom_toBottomOf="@id/edittext_signup_password"
+                    app:layout_constraintEnd_toEndOf="@id/edittext_signup_password"
+                    app:layout_constraintTop_toTopOf="@id/edittext_signup_password" />
+
+                <TextView
+                    android:id="@+id/textview_signup_repeat_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/source_sans_pro"
+                    android:text="@string/signup_repeat_rescuer"
+                    android:textColor="@color/black_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edittext_signup_password" />
+
+                <EditText
+                    android:id="@+id/edittext_signup_repeat_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_border_edittext"
+                    android:fontFamily="@font/source_sans_pro"
+                    android:hint="@string/signup_repeat_rescuer"
+                    android:inputType="textPassword"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textview_signup_repeat_password"
+                    tools:text="1234567" />
+
+                <ImageView
+                    android:id="@+id/button_show_repeat_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_password_show"
+                    app:layout_constraintBottom_toBottomOf="@id/edittext_signup_repeat_password"
+                    app:layout_constraintEnd_toEndOf="@id/edittext_signup_repeat_password"
+                    app:layout_constraintTop_toTopOf="@id/edittext_signup_repeat_password" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <Button
                 android:id="@+id/button_signup_finish"
@@ -250,7 +288,6 @@
                 android:layout_marginTop="5dp"
                 android:text="@string/button_tosignin"
                 android:textSize="16sp" />
-
         </LinearLayout>
 
         <ProgressBar
