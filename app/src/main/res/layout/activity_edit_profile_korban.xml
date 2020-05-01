@@ -54,7 +54,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/name_edit_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_name_korban"
@@ -74,7 +75,8 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:text="@string/phone_profile"
                 android:textColor="@color/black_dark"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edittext_edit_phone_korban"
