@@ -1,11 +1,15 @@
 package com.tugasakhir.resq.rescuer.view
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.MenuItem
@@ -13,19 +17,23 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import kotlinx.android.synthetic.main.activity_open_maps.*
 
 class OpenMapsActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var mapFragment: SupportMapFragment
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
+    private var currLat: Double = 0.0
+    private var currLong: Double = 0.0
     private val permissionId = 42
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +44,8 @@ class OpenMapsActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(true)
         actionBar.title = getString(R.string.open_maps_actionbar)
         actionBar.elevation = 0F
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         val bundle = intent.extras
         val location = bundle?.getString("location")?.split(" ")
@@ -48,6 +58,13 @@ class OpenMapsActivity : AppCompatActivity() {
                 as SupportMapFragment
 
         setMaps(latitude, longitude)
+
+        button_direction.setOnClickListener {
+            val uri =
+                "http://maps.google.com/maps?saddr=$currLat,$currLong&daddr=$latitude,$longitude"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+            startActivity(intent)
+        }
     }
 
     private fun setMaps(latitude: Double, longitude: Double) {
@@ -101,6 +118,42 @@ class OpenMapsActivity : AppCompatActivity() {
             ),
             permissionId
         )
+    }
+
+    private fun setLocation() {
+        fusedLocationClient.lastLocation.addOnCompleteListener(this) {
+            val location = it.result
+            if (location == null) {
+                requestNewLocationData()
+            } else {
+                currLat = location.latitude
+                currLong = location.longitude
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun requestNewLocationData() {
+        val mLocationRequest = LocationRequest()
+        mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        mLocationRequest.interval = 0
+        mLocationRequest.fastestInterval = 0
+        mLocationRequest.numUpdates = 1
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.requestLocationUpdates(
+            mLocationRequest,
+            mLocationCallback,
+            Looper.myLooper()
+        )
+    }
+
+    private val mLocationCallback = object : LocationCallback() {
+        override fun onLocationResult(locationResult: LocationResult) {
+            val mLastLocation: Location = locationResult.lastLocation
+            currLong = mLastLocation.longitude
+            currLat = mLastLocation.latitude
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
