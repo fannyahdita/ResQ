@@ -74,7 +74,7 @@ class OpenMapsActivity : AppCompatActivity() {
                 if (isLocationEnabled()) {
                     it.isMyLocationEnabled = true
                 } else {
-                    Toast.makeText(this, "Please turn on your location", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.turn_on_location), Toast.LENGTH_LONG).show()
                     val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     startActivity(intent)
                 }

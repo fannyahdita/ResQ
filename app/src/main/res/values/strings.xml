@@ -72,6 +72,7 @@
     <string name="toast_exit">Tekan sekali lagi untuk keluar</string>
     <string name="toast_profile_changed">"Profi berhasil diubah"</string>
     <string name="victim_already_handled">Korban sedang dalam proses bantuan</string>
+    <string name="turn_on_location">Mohon aktifkan pengaturan lokasi</string>
 
     //OTP korban
     <string name="message_otp">Masukkan 6 digit angka yang masuk melalui pesan ke nomor:</string>
