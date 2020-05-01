@@ -5,17 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
-import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Rescuer
-import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.*
-import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.button_batalkan
+import com.tugasakhir.resq.rescuer.view.ChatMessageVictimActivity
 import kotlinx.android.synthetic.main.fragment_temukansayastatus3_korban.*
+import java.io.Serializable
 
 class StatusRunningFragment : Fragment() {
 
@@ -32,6 +28,7 @@ class StatusRunningFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val idKorbanTertolong = arguments?.getString("idKorbanTertolong")!!
         rescuer = arguments!!.getSerializable("rescuer") as Rescuer
 
         textview_nama_rescuer.text = rescuer.name
@@ -50,11 +47,19 @@ class StatusRunningFragment : Fragment() {
                 .into(image_status3)
         }
 
+        button_kirimpesan.setOnClickListener {
+            val intent = Intent(activity, ChatMessageVictimActivity::class.java)
+            intent.putExtra("rescuer", rescuer as Serializable)
+            intent.putExtra("id", idKorbanTertolong)
+            startActivity(intent)
+        }
+
     }
     companion object {
-        fun newInstance(rescuer: Rescuer?): StatusRunningFragment {
+        fun newInstance(rescuer: Rescuer?, idKorbanTertolong: String): StatusRunningFragment {
             val args = Bundle()
             args.putSerializable("rescuer", rescuer)
+            args.putString("idKorbanTertolong", idKorbanTertolong)
             val fragment = StatusRunningFragment()
             fragment.arguments = args
             return fragment

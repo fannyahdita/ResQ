@@ -1,5 +1,8 @@
 package com.tugasakhir.resq.rescuer.view
 
+import android.app.ActivityManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -10,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.NotificationService
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer
@@ -19,6 +23,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_chat_message.*
 import kotlinx.android.synthetic.main.item_chat_from_row.view.*
 import kotlinx.android.synthetic.main.item_chat_to_row.view.*
+import java.io.Serializable
 import java.util.*
 
 class ChatMessageRescuerActivity : AppCompatActivity() {
@@ -28,6 +33,8 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
     private lateinit var rescuer: Rescuer
     private var idHelpedVictim = ""
     val adapter = GroupAdapter<ViewHolder>()
+
+    private lateinit var intentService : Intent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +65,16 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         linearLayoutManager.stackFromEnd = true
         recyclerview_chat.layoutManager = linearLayoutManager
         recyclerview_chat.adapter = adapter
+
+        intentService = Intent(this, NotificationService::class.java)
+        intentService.putExtra("id", idHelpedVictim)
+        intentService.putExtra("previous", "rescuer")
+        intentService.putExtra("victim", victim as Serializable)
+
+        if (!isServiceRunning(NotificationService::class.java)) {
+            startService(intentService)
+        }
+
 
         button_send.setOnClickListener {
             if (edittext_chat.text.toString() != "") {
@@ -136,6 +153,16 @@ class ChatMessageRescuerActivity : AppCompatActivity() {
         val formatter = java.text.SimpleDateFormat(s, locale)
         return formatter.format(this)
     }
+
+    private fun isServiceRunning(serviceClass : Class<*>) : Boolean {
+        val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (service in am.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.name.equals(service.service.className)) {
+                return true
+            }
+        }
+        return false
+    }
 }
 
 class ChatToItem(val chat: Chat, val user: AkunKorban) : Item<ViewHolder>() {
@@ -146,11 +173,15 @@ class ChatToItem(val chat: Chat, val user: AkunKorban) : Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_from_row.text = chat.text
         val image = viewHolder.itemView.imageview_from
-        Picasso.get()
-            .load(user.profilePhoto)
-            .error(R.drawable.ic_empty_pict)
-            .placeholder(R.drawable.ic_empty_pict)
-            .into(image)
+        if (user.profilePhoto == "") {
+            image.setImageResource(R.drawable.ic_empty_pict)
+        } else {
+            Picasso.get()
+                .load(user.profilePhoto)
+                .error(R.drawable.ic_empty_pict)
+                .placeholder(R.drawable.ic_empty_pict)
+                .into(image)
+        }
         viewHolder.itemView.textview_from_time.text = chat.time
     }
 }
@@ -163,11 +194,15 @@ class ChatFromItem(val chat: Chat, val user: Rescuer) : Item<ViewHolder>() {
     override fun bind(viewHolder: ViewHolder, position: Int) {
         viewHolder.itemView.textView_to_row.text = chat.text
         val image = viewHolder.itemView.image_to
-        Picasso.get()
-            .load(user.profilePhoto)
-            .error(R.drawable.ic_empty_pict)
-            .placeholder(R.drawable.ic_empty_pict)
-            .into(image)
+        if (user.profilePhoto == "") {
+            image.setImageResource(R.drawable.ic_empty_pict)
+        } else {
+            Picasso.get()
+                .load(user.profilePhoto)
+                .error(R.drawable.ic_empty_pict)
+                .placeholder(R.drawable.ic_empty_pict)
+                .into(image)
+        }
         viewHolder.itemView.textview_to_time.text = chat.time
     }
 }

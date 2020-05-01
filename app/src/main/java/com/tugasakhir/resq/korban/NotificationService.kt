@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -14,8 +15,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer
+import com.tugasakhir.resq.rescuer.view.ChatMessageRescuerActivity
+import com.tugasakhir.resq.rescuer.view.ChatMessageVictimActivity
 import java.io.Serializable
 
 class NotificationService : Service() {
@@ -24,7 +28,9 @@ class NotificationService : Service() {
     private val description = "test notification"
 
     private lateinit var rescuer: Rescuer
+    private lateinit var victim: AkunKorban
     private var idHelpedVictim = ""
+    private var isVictim = false
 
     private lateinit var runningProcess : List<ActivityManager.RunningAppProcessInfo>
     private lateinit var taskInfo : List<ActivityManager.RunningTaskInfo>
@@ -34,7 +40,13 @@ class NotificationService : Service() {
         super.onStartCommand(intent, flags, startId)
 
         idHelpedVictim = intent?.getStringExtra("id")!!
-        rescuer = intent.getSerializableExtra("rescuer") as Rescuer
+
+        if (intent?.getStringExtra("previous") == "victim") {
+            rescuer = intent.getSerializableExtra("rescuer") as Rescuer
+            isVictim = true
+        } else {
+            victim = intent.getSerializableExtra("victim") as AkunKorban
+        }
 
         checkingChat()
 
@@ -45,7 +57,12 @@ class NotificationService : Service() {
         super.onDestroy()
         val intentBroadcast = Intent(this, NotificationReceiver::class.java)
         intentBroadcast.putExtra("id", idHelpedVictim)
-        intentBroadcast.putExtra("rescuer", rescuer as Serializable)
+        if (isVictim) {
+            intentBroadcast.putExtra("rescuer", rescuer as Serializable)
+        } else {
+            intentBroadcast.putExtra("victim", victim as Serializable)
+        }
+        intentBroadcast.putExtra("previous", "victim")
         sendBroadcast(intentBroadcast)
     }
 
@@ -55,9 +72,15 @@ class NotificationService : Service() {
 
     private fun checkingChat() {
         val fromId = FirebaseAuth.getInstance().currentUser?.uid
-        val toId = rescuer.id
+        val toId = if (isVictim) {
+            rescuer.id
+        } else {
+            victim.id
+        }
+
         val ref =
             FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
+
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -67,7 +90,7 @@ class NotificationService : Service() {
 
                 if (chat != null) {
                     if (chat.fromId != FirebaseAuth.getInstance().uid) {
-                        sendNotification(chat.text, isAppInBackground())
+                        sendNotification(chat.text, isAppInBackground(), chat.time)
                     }
                 }
             }
@@ -84,32 +107,36 @@ class NotificationService : Service() {
     private fun isAppInBackground() : Boolean {
         var isInBackground = true
 
+
         val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        runningProcess = am.runningAppProcesses
-        for (processInfo in runningProcess) {
-            if (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
-                var index = 1
-                for (activeProcess in processInfo.pkgList) {
-                    if (activeProcess.equals(packageName)) {
-                        isInBackground = false
-                    }
-                    index++
-                }
-            } else {
-                taskInfo = am.getRunningTasks(1)
-                val componentInfo = taskInfo.get(0).topActivity
-                if (componentInfo?.packageName.equals(packageName)) {
-                    isInBackground = false
-                }
-            }
+        taskInfo = am.getRunningTasks(1)
+        val componentInfo = taskInfo.get(0).topActivity
+        if (componentInfo?.className.equals(ChatMessageRescuerActivity::class.java.name) ||
+            componentInfo?.className.equals(ChatMessageVictimActivity::class.java.name)) {
+
+            isInBackground = false
         }
         return isInBackground
     }
 
 
 
-    private fun sendNotification(text: String?, isInBackground : Boolean) {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+    private fun sendNotification(text: String?, isInBackground : Boolean, time: String) {
+        val intent: Intent
+        val name: String
+
+        if (isVictim) {
+            intent = Intent(applicationContext, ChatMessageVictimActivity::class.java)
+            intent.putExtra("id", idHelpedVictim)
+            intent.putExtra("rescuer", rescuer as Serializable)
+            name = rescuer.name
+        } else {
+            intent = Intent(applicationContext, ChatMessageRescuerActivity::class.java)
+            intent.putExtra("id", idHelpedVictim)
+            intent.putExtra("victim", victim as Serializable)
+            name = victim.name
+        }
+
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,
@@ -129,13 +156,14 @@ class NotificationService : Service() {
             notificationManager.createNotificationChannel(notificationChannel)
 
             val builder = Notification.Builder(applicationContext, channelId)
-                .setContentTitle("Anda mendapat pesan baru")
+                .setContentTitle(name)
                 .setContentText(text)
-                .setSmallIcon(R.drawable.ic_logo_round)
+                .setSubText(time)
+                .setSmallIcon(R.drawable.ic_logo_transparent)
                 .setLargeIcon(
                     BitmapFactory.decodeResource(
                         applicationContext?.resources,
-                        R.drawable.ic_logo_transparent
+                        R.drawable.ic_logo_round
                     )
                 )
                 .setContentIntent(pendingIntent)
