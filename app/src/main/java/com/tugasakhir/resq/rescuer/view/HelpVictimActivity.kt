@@ -166,22 +166,22 @@ class HelpVictimActivity : AppCompatActivity() {
             button_rescuer_arrived.visibility = View.VISIBLE
             button_rescuer_on_the_way.visibility = View.GONE
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
+                .child("accepted").setValue(false)
+            FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
                 .child("onTheWay").setValue(true)
         }
 
         button_rescuer_arrived.setOnClickListener {
-            FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
-                .child("accepted").setValue(false)
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
                 .child("onTheWay").setValue(false)
             FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$helpedVictimId")
                 .child("rescuerArrived").setValue(true)
 
             //delete chats
-            FirebaseDatabase.getInstance().reference.child("Messages/$idRescuer/${account?.id}")
-                .removeValue()
-            FirebaseDatabase.getInstance().reference.child("Messages/${account?.id}/$idRescuer")
-                .removeValue()
+//            FirebaseDatabase.getInstance().reference.child("Messages/$helpedVictimId/$idRescuer/${account?.id}")
+//                .removeValue()
+//            FirebaseDatabase.getInstance().reference.child("Messages/$helpedVictimId/${account?.id}/$idRescuer")
+//                .removeValue()
 
             //isHelping false
             FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")

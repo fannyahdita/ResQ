@@ -72,6 +72,7 @@
     <string name="toast_exit">Tekan sekali lagi untuk keluar</string>
     <string name="toast_profile_changed">"Profi berhasil diubah"</string>
     <string name="victim_already_handled">Korban sedang dalam proses bantuan</string>
+    <string name="turn_on_location">Mohon aktifkan pengaturan lokasi</string>
 
     //OTP korban
     <string name="message_otp">Masukkan 6 digit angka yang masuk melalui pesan ke nomor:</string>
@@ -139,6 +140,7 @@
     <string name="thank_you"><b>TERIMA KASIH TELAH MEMBANTU</b></string>
     <string name="go_to_temukan_saya">Kembali ke Peta Korban</string>
     <string name="call_rescuer"><u>Hubungi</u></string>
+    <string name="direction">Dapatkan petunjuk</string>
 
     //Edit Profil
     <string name="choose_photo_edit">Ubah Foto Profil</string>
@@ -205,5 +207,6 @@
     //chat
     <string name="button_send">Kirim</string>
     <string name="enter_message">Tulis pesan</string>
+
 
 </resources>
