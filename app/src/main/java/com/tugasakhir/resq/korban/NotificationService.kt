@@ -9,10 +9,7 @@ import android.os.Build
 import android.os.IBinder
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
@@ -48,7 +45,27 @@ class NotificationService : Service() {
             victim = intent.getSerializableExtra("victim") as AkunKorban
         }
 
-        checkingChat()
+        val fromId = FirebaseAuth.getInstance().currentUser?.uid
+        val toId = if (isVictim) {
+            rescuer.id
+        } else {
+            victim.id
+        }
+
+        val ref =
+            FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
+
+        ref.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                val childrenLength = p0.childrenCount.toInt()
+                checkingChat(fromId, toId, childrenLength)
+            }
+        })
+
+
 
         return START_STICKY
     }
@@ -70,17 +87,12 @@ class NotificationService : Service() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    private fun checkingChat() {
-        val fromId = FirebaseAuth.getInstance().currentUser?.uid
-        val toId = if (isVictim) {
-            rescuer.id
-        } else {
-            victim.id
-        }
+    private fun checkingChat(fromId : String?, toId : String, childrenLength : Int) {
 
         val ref =
             FirebaseDatabase.getInstance().getReference("Messages/$idHelpedVictim/$fromId/$toId")
 
+        var index = 0
 
         ref.addChildEventListener(object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {}
@@ -88,7 +100,8 @@ class NotificationService : Service() {
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val chat = p0.getValue(Chat::class.java)
 
-                if (chat != null) {
+                if (chat != null && childrenLength < ++index) {
+                    Toast.makeText(applicationContext, index.toString(), Toast.LENGTH_SHORT).show()
                     if (chat.fromId != FirebaseAuth.getInstance().uid) {
                         sendNotification(chat.text, isAppInBackground(), chat.time)
                     }
