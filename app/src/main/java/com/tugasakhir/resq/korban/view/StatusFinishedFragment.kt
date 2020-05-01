@@ -18,28 +18,22 @@ import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import com.tugasakhir.resq.rescuer.model.Rescuer
-import kotlinx.android.synthetic.main.activity_detail_history_victim.*
 import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.*
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.textview_detail_victim_history_address
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.textview_detail_victim_history_help_type
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.textview_detail_victim_history_name
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.textview_detail_victim_history_phone
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.textview_history_number_of_adult_victim
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.textview_history_number_of_child_victim
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.textview_history_number_of_elderly_victim
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.textview_history_victim_additional_information
+import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.view.*
 
 class StatusFinishedFragment : Fragment() {
 
     private lateinit var rescuer: Rescuer
     private var victimInfoData = VictimInfoData()
+    private var root: View? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_temukansayaselesai_korban, container, false)
+        root = inflater.inflate(R.layout.fragment_temukansayaselesai_korban, container, false)
+        return root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -95,17 +89,17 @@ class StatusFinishedFragment : Fragment() {
             override fun onDataChange(p0: DataSnapshot) {
 
                 if (p0.child("bantuanEvakuasi").value.toString() == "true") {
-                    textview_detail_victim_history_help_type.text = getString(R.string.rb_evakuasi)
+                    root!!.textview_detail_victim_history_help_type.text = getString(R.string.rb_evakuasi)
                 } else if (p0.child("bantuanMakanan").value.toString() == "true") {
-                    textview_detail_victim_history_help_type.text = getString(R.string.rb_makanan)
+                    root!!.textview_detail_victim_history_help_type.text = getString(R.string.rb_makanan)
                 } else if (p0.child("bantuanMedis").value.toString() == "true") {
-                    textview_detail_victim_history_help_type.text = getString(R.string.rb_medis)
+                    root!!.textview_detail_victim_history_help_type.text = getString(R.string.rb_medis)
                 }
-                textview_history_number_of_elderly_victim.text =
+                root!!.textview_history_number_of_elderly_victim.text =
                     Html.fromHtml(getString(R.string.number_of_elderly, p0.child("jumlahLansia").value.toString()))
-                textview_history_number_of_adult_victim.text =
+                root!!.textview_history_number_of_adult_victim.text =
                     Html.fromHtml(getString(R.string.number_of_adults, p0.child("jumlahDewasa").value.toString()))
-                textview_history_number_of_child_victim.text =
+                root!!.textview_history_number_of_child_victim.text =
                     Html.fromHtml(getString(R.string.number_of_children, p0.child("jumlahAnak").value.toString()))
 
                 val address = victimInfoData.getAddress(
@@ -114,14 +108,14 @@ class StatusFinishedFragment : Fragment() {
                     context!!
                 )
 
-                textview_detail_victim_history_address.text = address
+                root!!.textview_detail_victim_history_address.text = address
 
                 Log.d("INFOKORBAN JUMLAH LANSIA ", p0.child("jumlahLansia").value.toString())
                 Log.d("INFOKORBAN JUMLAH DEWASA ", p0.child("jumlahDewasa").value.toString())
                 Log.d("INFOKORBAN JUMLAH ANAK ", p0.child("jumlahAnak").value.toString())
                 Log.d("INFOKORBAN INFO TAMBAHAN ", p0.child("infoTambahan").value.toString())
 
-                textview_history_victim_additional_information.text = p0.child("infoTambahan").value.toString()
+                root!!.textview_history_victim_additional_information.text = p0.child("infoTambahan").value.toString()
             }
 
             override fun onCancelled(p0: DatabaseError) {
