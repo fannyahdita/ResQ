@@ -123,7 +123,7 @@ class PoskoMapFragment : Fragment() {
                 if (isLocationEnabled()) {
                     gMap.isMyLocationEnabled = true
                 } else {
-                    Toast.makeText(activity, "Please turn on your location", Toast.LENGTH_LONG)
+                    Toast.makeText(activity, "getString(R.string.turn_on_location) location", Toast.LENGTH_LONG)
                         .show()
                     val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                     startActivity(intent)

@@ -116,7 +116,7 @@ class AddPoskoRescuerActivity : AppCompatActivity() {
             return
         }
 
-        if (contactNumber.length in 14 downTo 7) {
+        if (contactNumber.length !in 14 downTo 7) {
             edittext_add_posko_contact_number.error = getString(R.string.phone_is_not_valid)
             edittext_add_posko_contact_number.requestFocus()
             return
