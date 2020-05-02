@@ -13,6 +13,7 @@ import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.Menu
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +32,7 @@ import com.tugasakhir.resq.rescuer.view.HomeFragment
 import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
 import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_thank_you_rescuer.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -81,6 +83,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        image_loading_backgroung.postDelayed({
+            image_loading_backgroung.visibility = View.GONE
+            progressbar_loading.visibility = View.GONE
+        }, 3000)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
