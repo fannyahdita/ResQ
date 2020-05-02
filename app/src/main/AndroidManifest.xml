@@ -37,12 +37,7 @@
             android:name=".MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.CustomTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-
-        </activity>
+            android:theme="@style/AppTheme.CustomTheme"/>
 
         <activity
             android:name=".rescuer.view.SignUpRescuerActivity"
