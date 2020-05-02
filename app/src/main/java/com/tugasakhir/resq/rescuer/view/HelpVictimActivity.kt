@@ -43,6 +43,7 @@ class HelpVictimActivity : AppCompatActivity() {
         victimInfoData = VictimInfoData()
         idRescuer = FirebaseAuth.getInstance().currentUser!!.uid
 
+        textview_status.text = getString(R.string.help_accepted)
         button_open_chat_help.setOnClickListener {
             val intent = Intent(this, ChatMessageRescuerActivity::class.java)
             intent.putExtra("victim", account as Serializable)
@@ -77,6 +78,7 @@ class HelpVictimActivity : AppCompatActivity() {
                             if (isOnTheWay) {
                                 button_rescuer_on_the_way.visibility = View.GONE
                                 button_rescuer_arrived.visibility = View.VISIBLE
+                                textview_status.text = getString(R.string.help_otw)
                             }
                             getInfoVictim(victimInfoId, helpedVictimId)
                         }
@@ -178,10 +180,10 @@ class HelpVictimActivity : AppCompatActivity() {
                 .child("rescuerArrived").setValue(true)
 
             //delete chats
-//            FirebaseDatabase.getInstance().reference.child("Messages/$helpedVictimId/$idRescuer/${account?.id}")
-//                .removeValue()
-//            FirebaseDatabase.getInstance().reference.child("Messages/$helpedVictimId/${account?.id}/$idRescuer")
-//                .removeValue()
+            FirebaseDatabase.getInstance().reference.child("Messages/$helpedVictimId/$idRescuer/${account?.id}")
+                .removeValue()
+            FirebaseDatabase.getInstance().reference.child("Messages/$helpedVictimId/${account?.id}/$idRescuer")
+                .removeValue()
 
             //isHelping false
             FirebaseDatabase.getInstance().reference.child("Rescuers/$idRescuer")
