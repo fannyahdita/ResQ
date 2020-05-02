@@ -177,6 +177,7 @@ class NotificationService : Service() {
                     )
                 )
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
 
             notificationManager.notify(1234, builder.build())
         }

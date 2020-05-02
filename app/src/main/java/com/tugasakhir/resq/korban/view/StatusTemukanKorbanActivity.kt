@@ -177,6 +177,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
                 Log.d("ON CHILD CHANGE :", p0.key.toString())
                 if (p0.key.toString() == "rescuerArrived") {
+                    sendNotification("Permintaan bantuan selesai", "Semoga bantuan yang diberikan bermanfaat")
                     updateFragment(
                         false,
                         false,
@@ -240,7 +241,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.container, fragment)
         transaction.addToBackStack(null)
-        transaction.commit()
+        transaction.commitAllowingStateLoss()
     }
 
     private fun sendNotification(title: String, text: String) {
@@ -271,6 +272,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                 )
             )
             .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
 
         notificationManager.notify(1234, builder.build())
     }
@@ -287,8 +289,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -299,6 +300,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         super.onBackPressed()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
 }
