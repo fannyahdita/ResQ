@@ -7,10 +7,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.IBinder
-import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.tugasakhir.resq.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
@@ -101,7 +99,6 @@ class NotificationService : Service() {
                 val chat = p0.getValue(Chat::class.java)
 
                 if (chat != null && childrenLength < ++index) {
-                    Toast.makeText(applicationContext, index.toString(), Toast.LENGTH_SHORT).show()
                     if (chat.fromId != FirebaseAuth.getInstance().uid) {
                         sendNotification(chat.text, isAppInBackground(), chat.time)
                     }
@@ -180,6 +177,7 @@ class NotificationService : Service() {
                     )
                 )
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
 
             notificationManager.notify(1234, builder.build())
         }

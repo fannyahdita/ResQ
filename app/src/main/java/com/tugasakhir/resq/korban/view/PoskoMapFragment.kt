@@ -115,7 +115,7 @@ class PoskoMapFragment : Fragment() {
         }
     }
 
-    private fun setMaps(lat: String, long: String, poskoId: String?) {
+    private fun setMaps(lat: String, long: String, poskoId: String?, currLat: String?, currLong: String?) {
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(lat.toDouble(), long.toDouble())
 
@@ -143,8 +143,8 @@ class PoskoMapFragment : Fragment() {
                             val currPosko = p0.getValue(Posko::class.java)
                             val intent = Intent(activity, PoskoDetailActivity::class.java)
                             intent.putExtra("EXTRA_POSKO", currPosko as Serializable)
-                            intent.putExtra("EXTRA_LAT", lat)
-                            intent.putExtra("EXTRA_LONG", long)
+                            intent.putExtra("EXTRA_LAT", currLat)
+                            intent.putExtra("EXTRA_LONG", currLong)
                             activity?.startActivity(intent)
                         }
 
@@ -227,7 +227,7 @@ class PoskoMapFragment : Fragment() {
                         currentPosko = posko.getValue(Posko::class.java)!!
                         if (open) {
                             listPosko.add(currentPosko)
-                            setMaps(currentPosko.latitude.toString(), currentPosko.longitude.toString(), posko.key)
+                            setMaps(currentPosko.latitude.toString(), currentPosko.longitude.toString(), posko.key, lat, long)
                         }
 
                     }
