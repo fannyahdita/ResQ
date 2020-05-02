@@ -46,6 +46,7 @@ class OpenMapsActivity : AppCompatActivity() {
         actionBar.elevation = 0F
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        setLocation()
 
         val bundle = intent.extras
         val location = bundle?.getString("location")?.split(" ")
