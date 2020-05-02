@@ -184,7 +184,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                         idInfoKorban,
                         idKorbanTertolong
                     )
-                } else if (p0.key.toString() == "onTheWay") {
+                } else if (p0.key.toString() == "accepted") {
                     sendNotification(getString(R.string.status_3), rescuer.name +" sudah menuju ke tempatmu")
                     updateFragment(
                         false,
