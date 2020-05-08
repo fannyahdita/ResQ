@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer.adapter
+package com.tugasakhir.resq.korban.adapter
 
 import android.content.Intent
 import android.util.Log
@@ -13,7 +13,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
-import com.tugasakhir.resq.rescuer.view.detailHistory.DetailHistoryVictimActivity
+import com.tugasakhir.resq.korban.view.DetailHistoryVictimActivity
 import kotlinx.android.synthetic.main.item_history_victim.view.*
 import java.io.Serializable
 
@@ -26,7 +26,9 @@ class HistoryVictimAdapter : RecyclerView.Adapter<HistoryVictimAdapter.ViewHolde
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_history_victim, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

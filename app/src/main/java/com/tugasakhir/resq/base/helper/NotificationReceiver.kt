@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.korban
+package com.tugasakhir.resq.base.helper
 
 import android.content.BroadcastReceiver
 import android.content.Context

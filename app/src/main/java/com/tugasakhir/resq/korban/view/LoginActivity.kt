@@ -11,7 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.tugasakhir.resq.OnboardingActivity
+import com.tugasakhir.resq.base.view.OnboardingActivity
 import com.tugasakhir.resq.R
 import kotlinx.android.synthetic.main.activity_korban_buatakun.*
 

@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer.view
+package com.tugasakhir.resq.base.view
 
 import android.content.Intent
 import android.net.Uri

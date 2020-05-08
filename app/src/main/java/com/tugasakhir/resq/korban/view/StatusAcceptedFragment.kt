@@ -10,10 +10,9 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Picasso
-import com.tugasakhir.resq.MainActivity
+import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Rescuer
-import com.tugasakhir.resq.rescuer.view.ChatMessageVictimActivity
 import kotlinx.android.synthetic.main.fragment_temukansayastatus2_korban.*
 import java.io.Serializable
 

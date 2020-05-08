@@ -1,18 +1,16 @@
-package com.tugasakhir.resq.korban
+package com.tugasakhir.resq.base.adapter
 
 import android.content.Intent
 import android.location.Location
-import android.provider.Settings.Global.getString
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.view.PoskoDetailActivity
-import com.tugasakhir.resq.rescuer.model.Posko
+import com.tugasakhir.resq.base.view.PoskoDetailActivity
+import com.tugasakhir.resq.base.model.Posko
 import kotlinx.android.synthetic.main.item_list_posko.view.*
 import java.io.Serializable
 

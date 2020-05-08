@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.korban
+package com.tugasakhir.resq.base.helper
 
 import android.app.*
 import android.content.Context
@@ -14,7 +14,7 @@ import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import com.tugasakhir.resq.rescuer.view.ChatMessageRescuerActivity
-import com.tugasakhir.resq.rescuer.view.ChatMessageVictimActivity
+import com.tugasakhir.resq.korban.view.ChatMessageVictimActivity
 import java.io.Serializable
 
 class NotificationService : Service() {

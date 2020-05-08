@@ -1,14 +1,13 @@
-package com.tugasakhir.resq.rescuer.view
+package com.tugasakhir.resq.base.view
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.adapter.WaterLevelAdapter
-import com.tugasakhir.resq.rescuer.model.WaterGate
+import com.tugasakhir.resq.base.adapter.WaterLevelAdapter
+import com.tugasakhir.resq.base.model.WaterGate
 import kotlinx.android.synthetic.main.activity_water_level.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -52,7 +51,15 @@ class WaterLevelActivity : AppCompatActivity() {
                 val level = jsonObject.getLong("tinggi_air")
                 val status = jsonObject.getString("status_siaga")
 
-                val waterGate = WaterGate(name, location, latitude, longitude, datetime, level, status)
+                val waterGate = WaterGate(
+                    name,
+                    location,
+                    latitude,
+                    longitude,
+                    datetime,
+                    level,
+                    status
+                )
 
                 waterGatesList.add(waterGate)
             }

@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer.view
+package com.tugasakhir.resq.korban.view
 
 import android.app.*
 import android.content.Context
@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.NotificationService
+import com.tugasakhir.resq.base.helper.NotificationService
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer
@@ -119,9 +119,19 @@ class ChatMessageVictimActivity : AppCompatActivity() {
 
                 if (chat != null) {
                     if (chat.fromId == FirebaseAuth.getInstance().uid) {
-                        adapter.add(ChatFromItemVictim(chat, victim))
+                        adapter.add(
+                            ChatFromItemVictim(
+                                chat,
+                                victim
+                            )
+                        )
                     } else {
-                        adapter.add(ChatToItemVictim(chat, rescuer))
+                        adapter.add(
+                            ChatToItemVictim(
+                                chat,
+                                rescuer
+                            )
+                        )
                     }
                 }
             }

@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer.view.detailHistory
+package com.tugasakhir.resq.rescuer.view
 
 import android.os.Bundle
 import android.text.Html

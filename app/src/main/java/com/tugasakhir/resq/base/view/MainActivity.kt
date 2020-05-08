@@ -1,4 +1,4 @@
-package com.tugasakhir.resq
+package com.tugasakhir.resq.base.view
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -26,13 +26,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.view.*
 import com.tugasakhir.resq.rescuer.view.HelpVictimActivity
-import com.tugasakhir.resq.rescuer.view.HomeFragment
-import com.tugasakhir.resq.rescuer.view.ProfileRescuerFragment
 import com.tugasakhir.resq.rescuer.view.TemukanSayaRescuerActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_thank_you_rescuer.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -71,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_akun -> {
                     actionBar.title = getString(R.string.profile_actionbar)
-                    val profileRescuerFragment = ProfileRescuerFragment.newInstance(isKorban)
+                    val profileRescuerFragment = ProfileFragment.newInstance(isKorban)
                     openFragment(profileRescuerFragment)
                     return@OnNavigationItemSelectedListener true
                 }

@@ -1,9 +1,10 @@
-package com.tugasakhir.resq
+package com.tugasakhir.resq.base.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.tugasakhir.resq.R
 
 class SplashActivity : AppCompatActivity() {
 

@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".base.view.SplashActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -29,12 +29,12 @@
         </activity>
 
         <activity
-            android:name=".OnboardingActivity"
+            android:name=".base.view.OnboardingActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".base.view.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme"/>
@@ -86,7 +86,7 @@
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".korban.view.PoskoDetailActivity"
+            android:name=".base.view.PoskoDetailActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
@@ -125,12 +125,12 @@
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".rescuer.view.detailHistory.DetailHistoryRescuerActivity"
+            android:name=".rescuer.view.DetailHistoryRescuerActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".rescuer.view.detailHistory.DetailHistoryVictimActivity"
+            android:name=".korban.view.DetailHistoryVictimActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
@@ -150,16 +150,16 @@
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".rescuer.view.ChatMessageVictimActivity"
+            android:name=".korban.view.ChatMessageVictimActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
-        <activity android:name=".rescuer.view.WaterLevelActivity"
+        <activity android:name=".base.view.WaterLevelActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme"/>
 
         <receiver
-            android:name=".korban.NotificationReceiver"
+            android:name=".base.helper.NotificationReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name=".korban.NotificationService" />
@@ -167,7 +167,7 @@
         </receiver>
 
         <service
-            android:name=".korban.NotificationService"
+            android:name=".base.helper.NotificationService"
             android:enabled="true"
             android:exported="false"></service>
 
