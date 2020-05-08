@@ -23,8 +23,18 @@ class ThankYouRescuerActivity : AppCompatActivity() {
 
         button_to_temukan_saya.setOnClickListener {
             val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, TemukanSayaRescuerActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
     }
 }

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_light">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="30dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="40dp">
+
+            <TextView
+                android:id="@+id/textview_bantuan_selesai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:gravity="center"
+                android:text="@string/bantuan_selesai"
+                android:textColor="@color/black_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textview_title_rescuer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/helped_by"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_bantuan_selesai" />
+
+            <TextView
+                android:id="@+id/textview_detail_victim_history_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/source_sans_pro"
+                android:maxLines="2"
+                android:textAllCaps="true"
+                android:textSize="27sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageview_rescuer_pict"
+                app:layout_constraintTop_toTopOf="@id/imageview_rescuer_pict"
+                tools:text="Muhammad Daffa Nasrullah Adalah Namaku" />
+
+            <TextView
+                android:id="@+id/textview_detail_victim_history_phone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:autoLink="phone"
+                android:fontFamily="@font/source_sans_pro"
+                android:maxLines="2"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@id/textview_detail_victim_history_name"
+                app:layout_constraintTop_toBottomOf="@id/textview_detail_victim_history_name"
+                tools:text="08989898989" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageview_rescuer_pict"
+                android:layout_width="97dp"
+                android:layout_height="97dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_title_rescuer"
+                tools:src="@drawable/ic_empty_pict" />
+
+            <TextView
+                android:id="@+id/textview_detail_victim_history_help_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imageview_rescuer_pict"
+                tools:text="Bantuan Evakuasi" />
+
+            <TextView
+                android:id="@+id/textview_detail_victim_history_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:textAlignment="viewStart"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_detail_victim_history_help_type"
+                tools:text="Bukit Cimanggu City Blok M5B nomor 20 Cluster Royal Lakeside Kota Bogor, Kelurahan Sukadamai, Kecamatan Tanah Sareal Kota Bogor 16165 Jawa Barat, Indonesia" />
+
+            <TextView
+                android:id="@+id/textview_title_victim_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/victim_number"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_detail_victim_history_address" />
+
+            <TextView
+                android:id="@+id/textview_history_number_of_elderly_victim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_title_victim_number"
+                tools:text="0 Lansia" />
+
+            <TextView
+                android:id="@+id/textview_history_number_of_adult_victim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_history_number_of_elderly_victim"
+                tools:text="0 Dewasa" />
+
+            <TextView
+                android:id="@+id/textview_history_number_of_child_victim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_history_number_of_adult_victim"
+                tools:text="0 Anak" />
+
+            <TextView
+                android:id="@+id/textview_title_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/source_sans_pro"
+                android:text="@string/additional_info"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_history_number_of_child_victim" />
+
+            <TextView
+                android:id="@+id/textview_history_victim_additional_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/source_sans_pro"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_title_information"
+                tools:text="Butuh bantuan untuk mengangkut ibu hamil" />
+
+            <Button
+                android:id="@+id/button_selesai"
+                style="@style/BlackButton"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:clickable="true"
+                android:text="@string/finish_help_victim"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textview_history_victim_additional_information" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressbar_phone"
+            style="@style/ProgressBarTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+    </RelativeLayout>
+</ScrollView>

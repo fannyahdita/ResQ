@@ -7,6 +7,7 @@
     <string name="profile_actionbar">Profil</string>
     <string name="home_actionbar">Beranda</string>
     <string name="posko_actionbar">Posko</string>
+    <string name="edit_posko_actionbar">Ubah Posko</string>
     <string name="signup_actionbar">Buat Akun</string>
     <string name="signin_actionbar">Masuk</string>
     <string name="otp_actionbar">Verifikasi OTP</string>
@@ -15,6 +16,9 @@
     <string name="water_level_actionbar">Ketinggian Muka Air</string>
     <string name="edit_profil_actionbar">Ubah Profil</string>
     <string name="open_maps_actionbar">Peta</string>
+    <string name="add_posko_actionbar">Tambah Posko</string>
+    <string name="buku_saku_actionbar">Buku Saku</string>
+    <string name="history">Riwayat</string>
 
     //onboarding
     <string name="button_onboard_victim">Bantu Saya</string>
@@ -53,12 +57,17 @@
 
     // Home
     <string name="location_home">Lokasi Anda</string>
-    <string name="tips_title_home"><![CDATA[<b>Tangkas Tanggap Tangguh</b><br>Menghadapi Bencana Banjir]]></string>
-    <string name="waterlevel_button">Informasi ketinggian Pintu Air</string>
+    <string name="tips_title_home">Buku Saku Tanggap Tangkas Tangguh Menghadapi Bencana</string>
+    <string name="waterlevel_title">Ketinggian Muka Air</string>
     <string name="bnpb_home">Badan Nasional Penanggulangan Bencana</string>
+    <string name="height_title">Ketinggian:</string>
+    <string name="last_updated_title">Pembaruan terakhir pada:</string>
+    <string name="height_value">%d cm</string>
+    <string name="greetings">Selamat datang, %s</string>
 
     //Form Error messages and Toast messages
     <string name="field_is_empty">Wajib diisi</string>
+    <string name="phone_is_not_valid">Nomor telepon tidak valid</string>
     <string name="password_must_six_char">Kata sandi minimal terdiri dari 6 karakter</string>
     <string name="password_is_not_matched">Kata sandi tidak sesuai</string>
     <string name="email_is_not_valid">Masukan email tidak sesuai</string>
@@ -67,16 +76,24 @@
     <string name="toast_exit">Tekan sekali lagi untuk keluar</string>
     <string name="toast_profile_changed">"Profi berhasil diubah"</string>
     <string name="victim_already_handled">Korban sedang dalam proses bantuan</string>
+    <string name="turn_on_location">Mohon aktifkan pengaturan lokasi</string>
 
     //OTP korban
-    <string name="message_otp">Masukkan 4 digit angka yang masuk melalui pesan. Jangan berikan OTP kepada orang lain.</string>
+    <string name="message_otp">Masukkan 6 digit angka yang masuk melalui pesan ke nomor:</string>
+    <string name="otp_not_tell_anyone">Jangan berikan OTP kepada orang lain</string>
     <string name="button_otp_sendagain"><u>Kirim Ulang OTP</u></string>
     <string name="button_sendotp">Kirim</string>
+    <string name="cdt_otp"><![CDATA[00 : %s]]></string>
+    <string name="dialog_box_batalkan">Kembali dan batalkan kode OTP?</string>
+    <string name="dialog_box_batalkan_penjelasan">Kode OTP yang telah dikirimkan melalui SMS akan hangus jika kamu kembali dan kamu harus meminta ulang</string>
 
-    //Profil Rescuer
+    //Profile Rescuer
     <string name="edit_profile_button">Ubah Profil</string>
     <string name="log_out_button">Keluar</string>
     <string name="history_title">Riwayat Pertolongan</string>
+
+    //Profile Victim
+    <string name="helped_by">Bantuan dilakukan oleh:</string>
 
     //temukan saya korban
     <string name="temukansaya_uppercase">TEMUKAN SAYA</string>
@@ -105,11 +122,16 @@
     <string name="alert_batalkan">Batalkan Permintaan Bantuan</string>
     <string name="alert_jangan_batalkan">Jangan Batalkan</string>
     <string name="alert_tetap_batalkan">Tetap Batalkan</string>
+    <string name="bantuan_selesai">Bantuan selesai</string>
+    <string name="rincian_bantuan">Rincian</string>
+    <string name="rincian_rescuer">Dibantu oleh</string>
+    <string name="jenis_bantuan">Jenis Bantuan : </string>
 
     //temukan saya rescuer
     <string name="button_victim_data">Data Korban</string>
     <string name="button_i_want_to_help">Saya Ingin Membantu</string>
     <string name="lat_long"><![CDATA[%s, %s]]></string>
+    <string name="distance">%s dari lokasi Anda</string>
     <string name="detail_victim"><![CDATA[<br><b>%s</b><br><br>%s<br><br><b>Jumlah Orang:</b><br>%s lansia<br>%s dewasa<br>%s anak<br><br><b>Info Tambahan:</b><br>%s]]></string>
     <string name="victim_number">Jumlah Orang:</string>
     <string name="additional_info">Informasi Tambahan:</string>
@@ -122,6 +144,10 @@
     <string name="finish_help_victim">Selesai</string>
     <string name="thank_you"><b>TERIMA KASIH TELAH MEMBANTU</b></string>
     <string name="go_to_temukan_saya">Kembali ke Peta Korban</string>
+    <string name="call_rescuer"><u>Hubungi</u></string>
+    <string name="direction">Dapatkan petunjuk</string>
+    <string name="help_otw">Bantuan dalam perjalanan</string>
+    <string name="help_accepted">Permintaan bantuan diterima</string>
 
     //Edit Profil
     <string name="choose_photo_edit">Ubah Foto Profil</string>
@@ -131,15 +157,63 @@
     <string name="phone_profile">No. HP</string>
     <string name="instansi_profile">Instansi</string>
     <string name="division_profile">Divisi</string>
-    <string name="employeeid_profile">EmployeeID</string>
+    <string name="employeeid_profile">No. ID Karyawan</string>
     <string name="email_profile">Email</string>
     <string name="password_profile">Ubah Kata Sandi</string>
     <string name="edit_profile_save">Simpan</string>
 
-    //Posko
+    <string name="max_char_50">%d/50</string>
+    <string name="max_char_280">%d/280</string>
+
+    //Posko Detail
     <string name="petunjuk"><u>Dapatkan Petunjuk</u></string>
-    <string name="kapasitas">Kapasitas : </string>
-    <string name="fasilitas">Fasilitas : </string>
-    <string name="posko_pembuat">Ditambahkan oleh : </string>
-    <string name="posko_kontak">Kontak : </string>
+    <string name="kapasitas">Kapasitas: </string>
+    <string name="fasilitas">Fasilitas: </string>
+    <string name="information">Informasi Tambahan: </string>
+    <string name="koordinator_posko">Koordinator Posko : </string>
+    <string name="koordinator_posko_number">Kontak : </string>
+    <string name="number_of_kk"><![CDATA[<b>%s</b> KK]]></string>
+    <string name="crated_at">Dibuat pada %s</string>
+    <string name="capacity">Kapasitas: </string>
+    <string name="close_posko">Tutup Posko</string>
+    <string name="close_posko_warning">Apakah Anda yakin ingin menutup posko? Posko yang sudah ditutup tidak bisa dikembalikan</string>
+    <string name="close_posko_positive">Tutup Posko</string>
+    <string name="close_posko_negative">Batalkan</string>
+    <string name="rescuer_detail"><![CDATA[Posko ini ditambahkan oleh %s dari %s %s <br> Kontak : %s]]></string>
+    <string name="edit_posko"><u>Ubah</u></string>
+
+    //Posko List
+    <string name="title_recycler_view">POSKO TERDEKAT</string>
+    <string name="add_posko"><u>Tambahkan</u></string>
+
+    //Edit and Add Posko
+    <string name="add_posko_name">Nama Posko</string>
+    <string name="add_posko_name_detail">Sertakan nama lokasi seperti nama Sekolah atau Masjid atau sebutan tempat yang dapat mudah dikenali</string>
+    <string name="add_posko_city">Kota Administratif</string>
+    <string name="add_posko_district">Kecamatan</string>
+    <string name="add_posko_sub_district">Kelurahan</string>
+    <string name="add_posko_address_generate">Alamat</string>
+    <string name="add_posko_address_notes">Keterangan Alamat Tambahan (bila ada)</string>
+    <string name="add_posko_address_notes_2">Keterangan Alamat Tambahan</string>
+    <string name="add_posko_capacity">Kapasitas Kepala Keluarga</string>
+    <string name="add_posko_facility">Fasilitas</string>
+    <string name="add_posko_radio_button_bed">Tempat Tidur</string>
+    <string name="add_posko_radio_button_medic">Medis</string>
+    <string name="add_posko_radio_button_logistic">Logistik (Makanan dan Baju Bersih)</string>
+    <string name="add_posko_radio_button_kitchen">Dapur Umum</string>
+    <string name="add_posko_radio_button_wc">WC Umum</string>
+    <string name="add_posko_additional_info">Keterangan Tambahan</string>
+    <string name="add_posko_contact_name">Nama Koordinator Posko</string>
+    <string name="add_posko_contact_number">Nomor Telepon Koordinator Posko</string>
+    <string name="add_posko_locate_me">Gunakan Lokasi</string>
+    <string name="add_posko_make_posko">Buat Posko</string>
+    <string name="edit_posko_make_posko">Simpan</string>
+    <string name="add_posko_button_location">Gunakan Lokasi</string>
+    <string name="phone_code">+62</string>
+
+    //chat
+    <string name="button_send">Kirim</string>
+    <string name="enter_message">Tulis pesan</string>
+
+
 </resources>

@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +18,8 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".base.view.SplashActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,59 +29,76 @@
         </activity>
 
         <activity
-            android:name=".OnboardingActivity"
+            android:name=".base.view.OnboardingActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".base.view.MainActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme"/>
 
         <activity
             android:name=".rescuer.view.SignUpRescuerActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".rescuer.view.SignInRescuerActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".rescuer.view.TemukanSayaRescuerActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".korban.view.BuatAkunActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".korban.view.OTPActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".korban.view.UserNamaActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".korban.view.TemukanSayaActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".korban.view.FormTemukanKorbanActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".korban.view.StatusTemukanKorbanActivity"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.CustomTheme">
-        </activity>
-
-        <activity
-            android:name=".rescuer.view.WaterLevelActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-        android:name=".rescuer.view.EditProfileRescuerActivity"
-        android:theme="@style/AppTheme.CustomTheme" />
+            android:name=".base.view.PoskoDetailActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".korban.view.EditProfileKorbanActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".rescuer.view.EditProfileRescuerActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".rescuer.view.HelpVictimActivity"
@@ -86,11 +106,62 @@
 
         <activity
             android:name=".rescuer.view.OpenMapsActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
             android:name=".rescuer.view.ThankYouRescuerActivity"
+            android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".rescuer.view.AddPoskoRescuerActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".rescuer.view.DetailHistoryRescuerActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".korban.view.DetailHistoryVictimActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".rescuer.view.AddPoskoLocationActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".rescuer.view.EditPoskoRescuerActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".rescuer.view.ChatMessageRescuerActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+        <activity
+            android:name=".korban.view.ChatMessageVictimActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme" />
+
+
+        <receiver
+            android:name=".base.helper.NotificationReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name=".korban.NotificationService" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".base.helper.NotificationService"
+            android:enabled="true"
+            android:exported="false"></service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

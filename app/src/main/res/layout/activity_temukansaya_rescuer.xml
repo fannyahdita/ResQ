@@ -40,7 +40,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/source_sans_pro"
             android:maxLines="1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/button_close_detail"
@@ -48,15 +48,15 @@
             tools:text="Bukit Cimanggu City Blok M5B No 20 Cluster Royal Lake side kacecamatan hshdhhrjdfh" />
 
         <TextView
-            android:id="@+id/textview_victim_latitude_longitude"
+            android:id="@+id/textview_victim_distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/source_sans_pro"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textview_victim_address"
-            tools:text="-56.86520173, 67.97981735" />
+            tools:text="200 m dari lokasi Anda" />
 
         <Button
             android:id="@+id/button_detail_victim"
@@ -67,7 +67,7 @@
             android:text="@string/button_victim_data"
             app:layout_constraintEnd_toEndOf="@id/button_i_want_to_help"
             app:layout_constraintStart_toStartOf="@id/button_i_want_to_help"
-            app:layout_constraintTop_toBottomOf="@id/textview_victim_latitude_longitude" />
+            app:layout_constraintTop_toBottomOf="@id/textview_victim_distance" />
 
         <Button
             android:id="@+id/button_i_want_to_help"

@@ -3,6 +3,8 @@ package com.tugasakhir.resq.korban.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -11,7 +13,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.tugasakhir.resq.MainActivity
+import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
 import kotlinx.android.synthetic.main.activity_korban_nama.*
@@ -43,15 +45,27 @@ class UserNamaActivity : AppCompatActivity() {
             korbanDatabase(name, phone!!)
         }
 
+        textview_max_char_name.text = getString(R.string.max_char_50,0)
+        edittext_signup_name.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) { }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                textview_max_char_name.text = getString(R.string.max_char_50, p0?.length)
+            }
+        })
+
     }
 
     private fun korbanDatabase(name: String, phone: String) {
         progressbar_name.visibility = View.VISIBLE
         button_signup_continue.isClickable = false
         button_signup_continue.setBackgroundResource(R.drawable.shape_filled_button_clicked)
-        val korban = AkunKorban(name, phone, false)
+        val id = FirebaseAuth.getInstance().currentUser!!.uid
+        val korban = AkunKorban(id, name, phone, "", false)
         FirebaseDatabase.getInstance().getReference("AkunKorban")
-            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .child(id)
             .setValue(korban).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
 

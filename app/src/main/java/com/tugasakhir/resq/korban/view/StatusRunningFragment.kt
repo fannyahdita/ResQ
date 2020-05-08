@@ -5,15 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.tugasakhir.resq.MainActivity
+import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
-import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.*
+import com.tugasakhir.resq.rescuer.model.Rescuer
+import kotlinx.android.synthetic.main.fragment_temukansayastatus3_korban.*
+import java.io.Serializable
 
 class StatusRunningFragment : Fragment() {
+
+    private lateinit var rescuer: Rescuer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,27 +27,41 @@ class StatusRunningFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        button_batalkan.setOnClickListener {
-            val builder = AlertDialog.Builder(activity!!)
-            builder.setTitle(R.string.alert_batalkan)
-            builder.setMessage(R.string.alert_batalkan_status3)
-            builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
-                val user = FirebaseAuth.getInstance().currentUser?.uid
-                FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
+        val idKorbanTertolong = arguments?.getString("idKorbanTertolong")!!
+        rescuer = arguments!!.getSerializable("rescuer") as Rescuer
 
-                val intent = Intent(activity, MainActivity::class.java)
-                startActivity(intent)
-                activity!!.finish()
-            }
+        textview_nama_rescuer.text = rescuer.name
+        textview_nomor_rescuer.text = rescuer.phone
+        textview_instansi_rescuer.text = rescuer.instansi
 
-            builder.setPositiveButton(R.string.alert_jangan_batalkan){_,_ ->
-
-            }
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
+        if (rescuer?.profilePhoto == "") {
+            image_status3.setImageResource(R.drawable.ic_empty_pict)
+        } else {
+            Picasso.get()
+                .load(rescuer?.profilePhoto)
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.ic_empty_pict)
+                .error(R.drawable.ic_empty_pict)
+                .into(image_status3)
         }
+
+        button_kirimpesan.setOnClickListener {
+            val intent = Intent(activity, ChatMessageVictimActivity::class.java)
+            intent.putExtra("rescuer", rescuer as Serializable)
+            intent.putExtra("id", idKorbanTertolong)
+            startActivity(intent)
+        }
+
     }
     companion object {
-        fun newInstance(): StatusRunningFragment = StatusRunningFragment()
+        fun newInstance(rescuer: Rescuer?, idKorbanTertolong: String): StatusRunningFragment {
+            val args = Bundle()
+            args.putSerializable("rescuer", rescuer)
+            args.putString("idKorbanTertolong", idKorbanTertolong)
+            val fragment = StatusRunningFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

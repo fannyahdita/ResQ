@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer
+package com.tugasakhir.resq.rescuer.helper
 
 import android.content.Context
 import android.location.Geocoder
@@ -11,7 +11,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.InfoKorban
-import java.text.SimpleDateFormat
 import java.util.*
 
 class VictimInfoData {
