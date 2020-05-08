@@ -1,0 +1,191 @@
+{"watergates" : [
+  {
+    "nama_pintu_air": "Bendung. Cibalok - Gadog",
+    "lokasi": "Ciliwung",
+    "latitude": -6.653417,
+    "longitude": 106.869551,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 170,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "Bendung. Katulampa (Hulu)",
+    "lokasi": "Ciliwung",
+    "latitude": -6.633167,
+    "longitude": 106.836806,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 260,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "PS. Depok",
+    "lokasi": "Ciliwung",
+    "latitude": -6.400514,
+    "longitude": 106.832143,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 1070,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "PA. Manggarai",
+    "lokasi": "Ciliwung",
+    "latitude": -6.207825,
+    "longitude": 106.848458,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 6280,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "PS. Krukut Hulu",
+    "lokasi": "Krukut",
+    "latitude": -6.3439,
+    "longitude": 106.798874,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 230,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "Pompa Cideng",
+    "lokasi": "Cideng Siantar",
+    "latitude": -6.173271,
+    "longitude": 106.806351,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 50,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "P.A. Karet",
+    "lokasi": "Banjir Kanal Barat",
+    "latitude": -6.197901,
+    "longitude": 106.810075,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 3280,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "P.A. Marina Ancol",
+    "lokasi": "Laut",
+    "latitude": -6.125585,
+    "longitude": 106.830154,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 1720,
+    "status_siaga": "Status : Siaga 3"
+  },
+  {
+    "nama_pintu_air": "Pompa Pasar Ikan",
+    "lokasi": "Laut",
+    "latitude": -6.126132,
+    "longitude": 106.809783,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 1710,
+    "status_siaga": "Status : Siaga 3"
+  },
+  {
+    "nama_pintu_air": "Pompa. Pluit",
+    "lokasi": "Waduk Pluit",
+    "latitude": -6.109642,
+    "longitude": 106.796954,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": -1880,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "PS. Pesanggrahan",
+    "lokasi": "Pesanggrahan",
+    "latitude": -6.397111,
+    "longitude": 106.771825,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 900,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "PS. Angke Hulu",
+    "lokasi": "Angke",
+    "latitude": -6.220047,
+    "longitude": 106.694137,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 710,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "PS. Sunter Hulu",
+    "lokasi": "Sunter",
+    "latitude": -6.31792,
+    "longitude": 106.920901,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 670,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "PA. Pulo Gadung",
+    "lokasi": "Sunter",
+    "latitude": -6.191,
+    "longitude": 106.904194,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 3260,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "Pompa Yos Sudarso 1",
+    "lokasi": "Sunter Timur",
+    "latitude": -6.155547,
+    "longitude": 106.885975,
+    "tanggal": "5/7/2020 22:10",
+    "tinggi_air": 1460,
+    "status_siaga": "Status : Siaga 3"
+  },
+  {
+    "nama_pintu_air": "PS. Cipinang Hulu",
+    "lokasi": "Cipinang Hulu",
+    "latitude": -6.374264,
+    "longitude": 106.883862,
+    "tanggal": "5/8/2020 13:00",
+    "tinggi_air": 860,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "Pompa Kali Duri (Kalijodo)",
+    "lokasi": "Kali Duri",
+    "latitude": -6.14232,
+    "longitude": 106.79039,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 1780,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "P.A. Istiqlal",
+    "lokasi": "Ciliwung",
+    "latitude": -6.168254,
+    "longitude": 106.83135,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 1930,
+    "status_siaga": "Status : Normal"
+  },
+  {
+    "nama_pintu_air": "P.A. Jembatan Merah",
+    "lokasi": "Ciliwung",
+    "latitude": -6.149068,
+    "longitude": 106.834214,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 1670,
+    "status_siaga": "Status : Siaga 2"
+  },
+  {
+    "nama_pintu_air": "P.A. Flusing Ancol",
+    "lokasi": "Ciliwung",
+    "latitude": -6.129859,
+    "longitude": 106.831254,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 2020,
+    "status_siaga": "Status : Siaga 3"
+  },
+  {
+    "nama_pintu_air": "P.A. Hek",
+    "lokasi": "Kali Baru Timur",
+    "latitude": -6.287305,
+    "longitude": 106.87063,
+    "tanggal": "5/8/2020 13:10",
+    "tinggi_air": 1790,
+    "status_siaga": "Status : Normal"
+  }
+]}

@@ -111,11 +111,10 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
                     return@setOnMarkerClickListener true
                 }
                 layout_detail_marker.visibility = View.VISIBLE
-                textview_victim_latitude_longitude.text = Html.fromHtml(
+                textview_victim_distance.text = Html.fromHtml(
                     getString(
-                        R.string.lat_long,
-                        marker.position.latitude.toString(),
-                        marker.position.longitude.toString()
+                        R.string.distance,
+                        getDistance(marker.position.latitude, marker.position.longitude)
                     )
                 )
                 textview_victim_address.text =
@@ -215,6 +214,21 @@ class TemukanSayaRescuerActivity : AppCompatActivity() {
         }
     }
 
+    private fun getDistance(victimLat: Double, victimLong: Double) : String {
+        val result = FloatArray(1)
+        Location.distanceBetween(currLat, currLong, victimLat, victimLong, result)
+
+        val poskoDistance = result[0].toString().split(".")[0]
+        var fixDistance = ""
+
+        fixDistance = if (poskoDistance.length > 3) {
+            (poskoDistance.toInt() / 1000).toString() + " km"
+        } else {
+            "$poskoDistance m"
+        }
+
+        return fixDistance
+    }
     private fun setIsHelping() {
         FirebaseDatabase.getInstance().getReference("Rescuers")
             .child(idRescuer)

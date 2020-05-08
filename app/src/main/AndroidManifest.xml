@@ -154,6 +154,10 @@
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
+        <activity android:name=".rescuer.view.WaterLevelActivity"
+            android:screenOrientation="nosensor"
+            android:theme="@style/AppTheme.CustomTheme"/>
+
         <receiver
             android:name=".korban.NotificationReceiver"
             android:enabled="true">
