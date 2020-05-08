@@ -57,9 +57,13 @@
 
     // Home
     <string name="location_home">Lokasi Anda</string>
-    <string name="tips_title_home"><![CDATA[<b>Buku Saku</b><br>Menghadapi Bencana]]></string>
-    <string name="waterlevel_button">Informasi ketinggian Pintu Air</string>
+    <string name="tips_title_home">Buku Saku Tanggap Tangkas Tangguh Menghadapi Bencana</string>
+    <string name="waterlevel_title">Ketinggian Muka Air</string>
     <string name="bnpb_home">Badan Nasional Penanggulangan Bencana</string>
+    <string name="height_title">Ketinggian:</string>
+    <string name="last_updated_title">Pembaruan terakhir pada:</string>
+    <string name="height_value">%d cm</string>
+    <string name="greetings">Selamat datang, %s</string>
 
     //Form Error messages and Toast messages
     <string name="field_is_empty">Wajib diisi</string>

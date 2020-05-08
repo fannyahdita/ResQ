@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_beranda -> {
                     actionBar.title = getString(R.string.app_name_actionbar)
-                    val homeFragment = HomeFragment.newInstance()
+                    val homeFragment = HomeFragment.newInstance(isKorban)
                     openFragment(homeFragment)
                     return@OnNavigationItemSelectedListener true
                 }
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
 
-        val homeFragment = HomeFragment.newInstance()
+        val homeFragment = HomeFragment.newInstance(isKorban)
         openFragment(homeFragment)
 
         val user = FirebaseAuth.getInstance().currentUser?.uid

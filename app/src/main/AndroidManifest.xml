@@ -96,11 +96,6 @@
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".rescuer.view.WebViewActivity"
-            android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.CustomTheme" />
-
-        <activity
             android:name=".rescuer.view.EditProfileRescuerActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
@@ -154,9 +149,6 @@
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 
-        <activity android:name=".base.view.WaterLevelActivity"
-            android:screenOrientation="nosensor"
-            android:theme="@style/AppTheme.CustomTheme"/>
 
         <receiver
             android:name=".base.helper.NotificationReceiver"
