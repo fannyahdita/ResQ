@@ -13,8 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import com.tugasakhir.resq.MainActivity
-import com.tugasakhir.resq.OnboardingActivity
+import com.tugasakhir.resq.base.view.MainActivity
+import com.tugasakhir.resq.base.view.OnboardingActivity
 import com.tugasakhir.resq.R
 import kotlinx.android.synthetic.main.activity_rescuer_signin.*
 

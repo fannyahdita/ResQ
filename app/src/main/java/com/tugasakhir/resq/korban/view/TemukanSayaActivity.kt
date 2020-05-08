@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.tugasakhir.resq.MainActivity
+import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
 import kotlinx.android.synthetic.main.activity_temukansaya_korban.*
 

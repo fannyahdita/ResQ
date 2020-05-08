@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.NotificationService
+import com.tugasakhir.resq.base.helper.NotificationService
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.rescuer.model.Chat
 import com.tugasakhir.resq.rescuer.model.Rescuer

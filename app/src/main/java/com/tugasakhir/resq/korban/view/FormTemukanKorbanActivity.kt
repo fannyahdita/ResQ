@@ -1,15 +1,7 @@
 package com.tugasakhir.resq.korban.view
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
-import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -19,11 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.tugasakhir.resq.MainActivity
+import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.InfoKorban
 import kotlinx.android.synthetic.main.activity_temukansayaform_korban.*

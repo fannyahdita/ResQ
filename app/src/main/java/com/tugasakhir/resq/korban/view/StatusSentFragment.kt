@@ -2,18 +2,14 @@ package com.tugasakhir.resq.korban.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.tugasakhir.resq.MainActivity
+import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
 import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.*
 import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.progressbar_name

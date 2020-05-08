@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.korban.view
+package com.tugasakhir.resq.base.view
 
 import android.content.Context
 import android.content.Intent
@@ -30,8 +30,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.PoskoAdapter
-import com.tugasakhir.resq.rescuer.model.Posko
+import com.tugasakhir.resq.base.adapter.PoskoAdapter
+import com.tugasakhir.resq.base.model.Posko
 import com.tugasakhir.resq.rescuer.view.AddPoskoLocationActivity
 import kotlinx.android.synthetic.main.fragment_list_posko.*
 import java.io.Serializable

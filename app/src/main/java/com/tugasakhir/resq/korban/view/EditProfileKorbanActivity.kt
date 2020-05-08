@@ -21,7 +21,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
-import com.tugasakhir.resq.rescuer.helper.ImageAdjustment
+import com.tugasakhir.resq.base.helper.ImageAdjustment
 import kotlinx.android.synthetic.main.activity_edit_profile_korban.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException

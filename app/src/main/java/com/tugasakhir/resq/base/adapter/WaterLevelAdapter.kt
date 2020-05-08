@@ -1,11 +1,11 @@
-package com.tugasakhir.resq.rescuer.adapter
+package com.tugasakhir.resq.base.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.model.WaterGate
+import com.tugasakhir.resq.base.model.WaterGate
 import kotlinx.android.synthetic.main.item_water_level.view.*
 
 class WaterLevelAdapter  : RecyclerView.Adapter<WaterLevelAdapter.ViewHolder>() {

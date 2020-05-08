@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.rescuer.view
+package com.tugasakhir.resq.base.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,25 +15,25 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
-import com.tugasakhir.resq.OnboardingActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.korban.view.EditProfileKorbanActivity
 import com.tugasakhir.resq.rescuer.adapter.HistoryRescuerAdapter
-import com.tugasakhir.resq.rescuer.adapter.HistoryVictimAdapter
+import com.tugasakhir.resq.korban.adapter.HistoryVictimAdapter
 import com.tugasakhir.resq.rescuer.model.Rescuer
+import com.tugasakhir.resq.rescuer.view.EditProfileRescuerActivity
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
 
-class ProfileRescuerFragment : Fragment() {
+class ProfileFragment : Fragment() {
 
     private var role = ""
 
     companion object {
         const val ROLE = ""
 
-        fun newInstance(isKorban: Boolean): ProfileRescuerFragment {
-            val fragment = ProfileRescuerFragment()
+        fun newInstance(isKorban: Boolean): ProfileFragment {
+            val fragment = ProfileFragment()
             val bundle = Bundle()
             if (isKorban) {
                 bundle.putString(ROLE, "victim")
@@ -51,7 +51,8 @@ class ProfileRescuerFragment : Fragment() {
     private lateinit var rescuerHistory: ArrayList<KorbanTertolong>
     private lateinit var victimHistory: ArrayList<KorbanTertolong>
     private var historyRescuerAdapter = HistoryRescuerAdapter()
-    private var historyVictimAdapter = HistoryVictimAdapter()
+    private var historyVictimAdapter =
+        HistoryVictimAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

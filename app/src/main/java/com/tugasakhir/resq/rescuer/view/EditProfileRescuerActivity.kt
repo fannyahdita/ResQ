@@ -22,7 +22,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.helper.ImageAdjustment
+import com.tugasakhir.resq.base.helper.ImageAdjustment
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.activity_edit_profile_rescuer.*
 import java.io.ByteArrayOutputStream

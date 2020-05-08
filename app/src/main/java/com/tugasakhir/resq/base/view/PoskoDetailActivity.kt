@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.korban.view
+package com.tugasakhir.resq.base.view
 
 import android.Manifest
 import android.app.Activity
@@ -29,7 +29,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.model.Posko
+import com.tugasakhir.resq.base.model.Posko
 import com.tugasakhir.resq.rescuer.view.EditPoskoRescuerActivity
 import kotlinx.android.synthetic.main.fragment_detailposko_korban.*
 import java.io.Serializable

@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.korban.model
+package com.tugasakhir.resq.base.model
 
 import java.io.Serializable
 

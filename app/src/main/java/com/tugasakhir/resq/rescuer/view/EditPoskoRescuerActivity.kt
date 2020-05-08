@@ -10,7 +10,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.rescuer.model.Posko
+import com.tugasakhir.resq.base.model.Posko
 import kotlinx.android.synthetic.main.activity_edit_posko_rescuer.*
 import java.io.Serializable
 

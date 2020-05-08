@@ -1,10 +1,11 @@
-package com.tugasakhir.resq
+package com.tugasakhir.resq.base.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.view.BuatAkunActivity
 import com.tugasakhir.resq.rescuer.view.SignInRescuerActivity
 import kotlinx.android.synthetic.main.activity_onboarding.*

@@ -1,4 +1,4 @@
-package com.tugasakhir.resq.korban
+package com.tugasakhir.resq.base.adapter
 
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.model.CallCenter
+import com.tugasakhir.resq.base.model.CallCenter
 import kotlinx.android.synthetic.main.card_call_center_1.view.*
 
 class CallCenterAdapter : RecyclerView.Adapter<CallCenterAdapter.ViewHolder>() {
