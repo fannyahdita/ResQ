@@ -1,55 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@color/white_light"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textview_greetings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/raleway"
+        android:maxLines="2"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        tools:text="Selamat datang, Fannyah Dita Cahya HaiHai" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/button_buku_saku"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white_light"
-        android:orientation="vertical"
-        android:paddingBottom="60dp">
-
-        <Button
-            android:id="@+id/button_waterlevel_beranda"
-            style="@style/OutlinedBorder"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:paddingStart="30dp"
-            android:paddingEnd="30dp"
-            android:text="@string/waterlevel_button" />
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_border_textview"
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/textview_tips_home"
-            android:layout_width="wrap_content"
+            android:id="@+id/title"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="25dp"
             android:fontFamily="@font/raleway"
-            android:textSize="18sp"
-            tools:text="Tangkas Tanggap Tangguh"
-            tools:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textview_bnpb_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/raleway"
-            android:text="@string/bnpb_home"
-            android:textSize="16sp" />
+            android:text="@string/tips_title_home"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/imageview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/button_buku_saku"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_buku_saku_3" />
+            android:id="@+id/imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_buku_saku_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
-    </LinearLayout>
-</ScrollView>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/raleway"
+            android:text="@string/bnpb_home"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@id/imageview"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_light"
+        android:layout_marginTop="20dp"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:overScrollMode="ifContentScrolls">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+            <TextView
+                android:id="@+id/textview_water_level_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:fontFamily="@font/raleway"
+                android:maxLines="2"
+                android:text="@string/waterlevel_title"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_water_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="18dp"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_water_level" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
