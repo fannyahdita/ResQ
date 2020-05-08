@@ -32,11 +32,11 @@ class HomeFragment : Fragment() {
         button_waterlevel_beranda.setOnClickListener {
             button_waterlevel_beranda.setBackgroundResource(R.drawable.shape_bordered_button_clicked)
             button_waterlevel_beranda.setTextColor(resources.getColor(R.color.white_dark))
-            val bundle = Bundle()
-            bundle.putString("actionbar", getString(R.string.water_level_actionbar))
-            bundle.putString("link", "https://bpbd.jakarta.go.id/waterlevel")
-            val intent = Intent(activity, WebViewActivity::class.java)
-            intent.putExtras(bundle)
+//            val bundle = Bundle()
+//            bundle.putString("actionbar", getString(R.string.water_level_actionbar))
+//            bundle.putString("link", "https://bpbd.jakarta.go.id/waterlevel")
+            val intent = Intent(activity, WaterLevelActivity::class.java)
+//            intent.putExtras(bundle)
             startActivity(intent)
         }
 
