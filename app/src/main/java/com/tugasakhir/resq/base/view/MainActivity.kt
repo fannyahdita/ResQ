@@ -90,9 +90,6 @@ class MainActivity : AppCompatActivity() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         getLastLocation()
 
-        val homeFragment = HomeFragment.newInstance(isKorban)
-        openFragment(homeFragment)
-
         val user = FirebaseAuth.getInstance().currentUser?.uid
 
         setIsHelping(user!!)
@@ -101,6 +98,10 @@ class MainActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
+
+                    val homeFragment = HomeFragment.newInstance(isKorban)
+                    openFragment(homeFragment)
+
                     if (isKorban) {
                         isAskingHelp = p0.child("askingHelp").value!!.toString() == "true"
                         Log.d("isAsking 1", isAskingHelp.toString())
@@ -128,7 +129,6 @@ class MainActivity : AppCompatActivity() {
             disableNavigation(navigationView)
             showTemukanSaya(isKorban)
         }
-
     }
 
     private fun showTemukanSaya(isKorban: Boolean) {
@@ -215,7 +215,11 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             } else {
-                Toast.makeText(this, "getString(R.string.turn_on_location) location", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this,
+                    "getString(R.string.turn_on_location) location",
+                    Toast.LENGTH_LONG
+                ).show()
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 startActivity(intent)
             }
@@ -249,17 +253,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
     }
 
     private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
             &&
-            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION
+            ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             return true
@@ -270,7 +277,10 @@ class MainActivity : AppCompatActivity() {
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
             PERMISSION_ID
         )
     }
