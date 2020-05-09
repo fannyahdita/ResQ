@@ -53,22 +53,20 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        role = arguments?.getString(ROLE).toString()
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        role = arguments?.getString(ProfileFragment.ROLE).toString()
-
         val uid = FirebaseAuth.getInstance().currentUser?.uid
 
-        if (role == "rescuer") {
-            FirebaseDatabase.getInstance().getReference("Rescuers/$uid")
+        if (role == "victim") {
+            FirebaseDatabase.getInstance().getReference("AkunKorban/${uid}/name")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
                         textview_greetings.text =
-                            getString(R.string.greetings, p0.child("name").value)
+                            getString(R.string.greetings, p0.value)
                     }
 
                     override fun onCancelled(p0: DatabaseError) {
@@ -76,22 +74,23 @@ class HomeFragment : Fragment() {
                     }
                 })
         } else {
-            FirebaseDatabase.getInstance().getReference("AkunKorban/$uid")
+            FirebaseDatabase.getInstance().getReference("Rescuers/${uid}/name")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(p0: DataSnapshot) {
                         textview_greetings.text =
-                            getString(R.string.greetings, p0.child("name").value)
+                            getString(R.string.greetings, p0.value)
                     }
 
                     override fun onCancelled(p0: DatabaseError) {
                         Log.d("HomeError", p0.message)
                     }
                 })
+
         }
+
         addToList()
         recyclerview_water_level.adapter = adapter
         recyclerview_water_level.layoutManager = LinearLayoutManager(activity)
-
 
         button_buku_saku.setOnClickListener {
             val intent =
@@ -103,7 +102,6 @@ class HomeFragment : Fragment() {
     private fun addToList() {
         try {
             val jsonArray = JSONObject(loadJson()!!).getJSONArray("watergates")
-
 
             for (i in 0 until jsonArray.length()) {
                 val jsonObject = jsonArray.getJSONObject(i)
@@ -135,7 +133,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadJson(): String? {
-        var json = ""
+        val json: String
 
         try {
             val inputStream: InputStream =
