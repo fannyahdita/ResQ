@@ -130,17 +130,8 @@ class SignUpRescuerActivity : AppCompatActivity() {
             .addOnCompleteListener { p0 ->
                 if (p0.isSuccessful) {
                     val id = FirebaseAuth.getInstance().currentUser!!.uid
-                    val rescuer = Rescuer(
-                        id,
-                        name,
-                        email,
-                        "",
-                        phone,
-                        instansi,
-                        division,
-                        employeeId,
-                        false
-                    )
+                    val rescuer =
+                        Rescuer(id, name, email, "", phone, instansi, division, employeeId, false)
                     FirebaseDatabase.getInstance().getReference("Rescuers")
                         .child(FirebaseAuth.getInstance().currentUser!!.uid)
                         .setValue(rescuer).addOnCompleteListener { task ->

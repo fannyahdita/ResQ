@@ -38,7 +38,6 @@ class SignInRescuerActivity : AppCompatActivity() {
         button_signin_tosignup.setOnClickListener {
             val intent = Intent(this, SignUpRescuerActivity::class.java)
             startActivity(intent)
-            finish()
         }
 
         button_signin_finish.setOnClickListener {
