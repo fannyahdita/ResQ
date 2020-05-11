@@ -34,7 +34,7 @@
     <string name="signup_phone_rescuer">No. HP</string>
     <string name="signup_instansi_rescuer">Instansi</string>
     <string name="signup_division_rescuer">Divisi</string>
-    <string name="signup_employeeid_rescuer">No. ID Karyawan</string>
+    <string name="signup_employeeid_rescuer">No. ID Relawan</string>
     <string name="signup_password_rescuer">Kata Sandi</string>
     <string name="signup_repeat_rescuer">Ulangi Kata Sandi</string>
     <string name="button_tosignin"> Sudah Punya Akun? <u>Masuk</u></string>
