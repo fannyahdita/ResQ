@@ -1,6 +1,7 @@
 package com.tugasakhir.resq.base.view
 
 import android.content.Intent
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -23,19 +24,26 @@ import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
+import java.util.*
+import kotlin.Comparator
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
     private var role = ""
-    private var waterGatesList: ArrayList<WaterGate> = ArrayList()
+    private var currLat = ""
+    private var currLong = ""
+    private var waterGatesList: ArrayList<WaterGate?> = ArrayList()
     private var adapter = WaterLevelAdapter()
 
     companion object {
 
         const val ROLE = ""
-        fun newInstance(isKorban: Boolean): HomeFragment {
+        fun newInstance(isKorban: Boolean, lat: String, long: String): HomeFragment {
             val fragment = HomeFragment()
             val bundle = Bundle()
+            bundle.putString("lat", lat)
+            bundle.putString("long", long)
             if (isKorban) {
                 bundle.putString(ROLE, "victim")
             } else {
@@ -54,6 +62,8 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         role = arguments?.getString(ROLE).toString()
+        currLat = arguments?.getString("lat").toString()
+        currLong = arguments?.getString("long").toString()
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -122,10 +132,10 @@ class HomeFragment : Fragment() {
                     level,
                     status
                 )
-
                 waterGatesList.add(waterGate)
             }
 
+            compareLoc(waterGatesList, currLat, currLong)
             adapter.setWaterGates(waterGatesList)
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -151,4 +161,24 @@ class HomeFragment : Fragment() {
         return json
     }
 
+    private fun compareLoc(waterGates: ArrayList<WaterGate?>, currentLat: String?, currentLong: String?) : ArrayList<WaterGate?> {
+        val comp = object : Comparator<WaterGate?> {
+            override fun compare(waterGate1: WaterGate?, waterGate2: WaterGate?): Int {
+                val results1 = FloatArray(1)
+                if (waterGate1 != null && waterGate2 != null) {
+                    Location.distanceBetween(currentLat!!.toDouble(), currentLong!!.toDouble(), waterGate1.latitude, waterGate1.longitude, results1)
+                    val distance1 = results1[0]
+
+                    val results2 = FloatArray(1)
+                    Location.distanceBetween(currentLat.toDouble(), currentLong.toDouble(), waterGate2.latitude, waterGate2.longitude, results2)
+                    val distance2 = results2[0]
+                    return distance1.compareTo(distance2)
+                }
+                return 0
+            }
+
+        }
+        Collections.sort(waterGates, comp)
+        return waterGates
+    }
 }

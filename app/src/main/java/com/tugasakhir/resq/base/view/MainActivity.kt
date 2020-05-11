@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_beranda -> {
                     actionBar.title = getString(R.string.app_name_actionbar)
-                    val homeFragment = HomeFragment.newInstance(isKorban)
+                    val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
                     openFragment(homeFragment)
                     return@OnNavigationItemSelectedListener true
                 }
@@ -98,8 +98,8 @@ class MainActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
-
-                    val homeFragment = HomeFragment.newInstance(isKorban)
+                    getLastLocation()
+                    val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
                     openFragment(homeFragment)
 
                     if (isKorban) {

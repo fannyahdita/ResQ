@@ -15,8 +15,8 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.activity_rescuer_signup.*
 
