@@ -34,6 +34,7 @@ class HomeFragment : Fragment() {
     private var currLat = ""
     private var currLong = ""
     private var waterGatesList: ArrayList<WaterGate?> = ArrayList()
+    private var waterGatesClosest: ArrayList<WaterGate?> = ArrayList()
     private var adapter = WaterLevelAdapter()
 
     companion object {
@@ -98,9 +99,16 @@ class HomeFragment : Fragment() {
 
         }
 
-        addToList()
+        addToTopFiveList()
         recyclerview_water_level.adapter = adapter
         recyclerview_water_level.layoutManager = LinearLayoutManager(activity)
+
+        textview_see_more.setOnClickListener {
+            adapter.notifyItemRangeRemoved(0,5)
+            addToFullList()
+            adapter.notifyDataSetChanged()
+            textview_see_more.visibility = View.GONE
+        }
 
         button_buku_saku.setOnClickListener {
             val intent =
@@ -109,7 +117,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun addToList() {
+    private fun addToFullList() {
         try {
             val jsonArray = JSONObject(loadJson()!!).getJSONArray("watergates")
 
@@ -136,7 +144,41 @@ class HomeFragment : Fragment() {
             }
 
             compareLoc(waterGatesList, currLat, currLong)
-            adapter.setWaterGates(waterGatesList)
+            adapter.setWaterGates(waterGatesList, currLat.toDouble(), currLong.toDouble())
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun addToTopFiveList() {
+        try {
+            val jsonArray = JSONObject(loadJson()!!).getJSONArray("watergates")
+
+            for (i in 0 until 5) {
+                val jsonObject = jsonArray.getJSONObject(i)
+                val name = jsonObject.getString("nama_pintu_air")
+                val location = jsonObject.getString("lokasi")
+                val latitude = jsonObject.getDouble("latitude")
+                val longitude = jsonObject.getDouble("longitude")
+                val datetime = jsonObject.getString("tanggal")
+                val level = jsonObject.getLong("tinggi_air")
+                val status = jsonObject.getString("status_siaga")
+
+                val waterGate = WaterGate(
+                    name,
+                    location,
+                    latitude,
+                    longitude,
+                    datetime,
+                    level,
+                    status
+                )
+                waterGatesClosest.add(waterGate)
+            }
+
+            compareLoc(waterGatesClosest, currLat, currLong)
+            adapter.setWaterGates(waterGatesClosest, currLat.toDouble(), currLong.toDouble())
+            adapter.notifyDataSetChanged()
         } catch (e: JSONException) {
             e.printStackTrace()
         }
