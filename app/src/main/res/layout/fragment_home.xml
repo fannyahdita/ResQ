@@ -46,10 +46,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:src="@drawable/ic_buku_saku_small"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="0dp"
@@ -65,8 +65,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/grey_light"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="@color/grey_light" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="100dp">
+            android:paddingBottom="110dp">
 
             <TextView
                 android:id="@+id/textview_water_level_title"
@@ -98,8 +98,20 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="18dp"
-                tools:itemCount="10"
+                tools:itemCount="5"
                 tools:listitem="@layout/item_water_level" />
+
+            <TextView
+                android:id="@+id/textview_see_more"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/raleway"
+                android:gravity="center"
+                android:text="@string/see_more"
+                android:textSize="16sp"
+                android:textStyle="bold" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>
