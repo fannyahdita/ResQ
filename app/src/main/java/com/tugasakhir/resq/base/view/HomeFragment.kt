@@ -104,8 +104,9 @@ class HomeFragment : Fragment() {
         recyclerview_water_level.layoutManager = LinearLayoutManager(activity)
 
         textview_see_more.setOnClickListener {
+            val finalList = compareLoc(waterGatesList, currLat, currLong)
             adapter.notifyItemRangeRemoved(0,5)
-            adapter.setWaterGates(waterGatesList, currLat.toDouble(), currLong.toDouble())
+            adapter.setWaterGates(finalList, currLat.toDouble(), currLong.toDouble())
             adapter.notifyDataSetChanged()
             textview_see_more.visibility = View.GONE
         }
@@ -143,7 +144,6 @@ class HomeFragment : Fragment() {
                 waterGatesList.add(waterGate)
             }
 
-            compareLoc(waterGatesList, currLat, currLong)
             addTop5List()
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -151,8 +151,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun addTop5List() {
+        val finalList = compareLoc(waterGatesList, currLat, currLong)
         for(i in 0 until 5) {
-            waterGatesClosest.add(waterGatesList[i])
+            waterGatesClosest.add(finalList[i])
         }
 
         adapter.setWaterGates(waterGatesClosest, currLat.toDouble(), currLong.toDouble())
