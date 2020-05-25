@@ -88,7 +88,10 @@ class MainActivity : AppCompatActivity() {
         }, 3000)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation()
+        getLastLocation { location ->
+            lat = location.latitude.toString()
+            long = location.longitude.toString()
+        }
 
         val user = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -98,9 +101,12 @@ class MainActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
-                    getLastLocation()
-                    val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
-                    openFragment(homeFragment)
+                    getLastLocation { location ->
+                        lat = location.latitude.toString()
+                        long = location.longitude.toString()
+                        val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
+                        openFragment(homeFragment)
+                    }
 
                     if (isKorban) {
                         isAskingHelp = p0.child("askingHelp").value!!.toString() == "true"
@@ -202,16 +208,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("MissingPermission")
-    private fun getLastLocation() {
+    private fun getLastLocation(resultHandler: (Location) -> Unit) {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
-                mFusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
-                    val location: Location? = task.result
+                mFusedLocationClient.lastLocation.addOnSuccessListener { location ->
                     if (location == null) {
                         requestNewLocationData()
                     } else {
-                        long = location.longitude.toString()
-                        lat = location.latitude.toString()
+                        resultHandler(location)
                     }
                 }
             } else {
@@ -292,7 +296,10 @@ class MainActivity : AppCompatActivity() {
     ) {
         if (requestCode == PERMISSION_ID) {
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                getLastLocation()
+                getLastLocation { location ->
+                    lat = location.latitude.toString()
+                    long = location.longitude.toString()
+                }
             }
         }
     }
