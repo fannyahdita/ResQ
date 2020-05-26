@@ -142,14 +142,18 @@ class MainActivity : AppCompatActivity() {
             if (isAskingHelp) {
                 val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
                 intent.putExtra(EXTRA_PREV_ACTIVITY, "Main")
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-                finish()
+//                finish()
             } else {
                 val intent = Intent(this, TemukanSayaActivity::class.java)
                 intent.putExtra(EXTRA_LAT, lat)
                 intent.putExtra(EXTRA_LONG, long)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-                finish()
+//                finish()
             }
         } else {
             if (isHelping) {
