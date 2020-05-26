@@ -159,8 +159,7 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+                onBackPressed()
                 finish()
                 true
             }
