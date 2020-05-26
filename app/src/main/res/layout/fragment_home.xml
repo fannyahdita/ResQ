@@ -7,18 +7,6 @@
     android:background="@color/white_light"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textview_greetings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/raleway"
-        android:maxLines="2"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:text="Selamat datang, Fannyah Dita Cahya HaiHai" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/button_buku_saku"
         android:layout_width="match_parent"

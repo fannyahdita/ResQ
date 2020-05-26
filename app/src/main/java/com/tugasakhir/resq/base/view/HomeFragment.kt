@@ -70,34 +70,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
-
-        if (role == "victim") {
-            FirebaseDatabase.getInstance().getReference("AkunKorban/${uid}/name")
-                .addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
-                        textview_greetings.text =
-                            getString(R.string.greetings, p0.value)
-                    }
-
-                    override fun onCancelled(p0: DatabaseError) {
-                        Log.d("HomeError", p0.message)
-                    }
-                })
-        } else {
-            FirebaseDatabase.getInstance().getReference("Rescuers/${uid}/name")
-                .addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(p0: DataSnapshot) {
-                        textview_greetings.text =
-                            getString(R.string.greetings, p0.value)
-                    }
-
-                    override fun onCancelled(p0: DatabaseError) {
-                        Log.d("HomeError", p0.message)
-                    }
-                })
-
-        }
 
         addWaterGateList()
         recyclerview_water_level.adapter = adapter
