@@ -2,7 +2,7 @@ package com.tugasakhir.resq.korban.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +14,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
-import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
+import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import kotlinx.android.synthetic.main.fragment_temukansayastatus2_korban.*
 import java.io.Serializable
@@ -60,18 +60,19 @@ class StatusAcceptedFragment : Fragment() {
             val builder = AlertDialog.Builder(activity!!)
             builder.setTitle(R.string.alert_batalkan)
             builder.setMessage(R.string.alert_batalkan_status2)
-            builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
+            builder.setNegativeButton(R.string.alert_tetap_batalkan) { _, _ ->
                 progressbar_name.visibility = View.VISIBLE
                 removeData(idInfoKorban, idKorbanTertolong)
                 val user = FirebaseAuth.getInstance().currentUser?.uid
-                FirebaseDatabase.getInstance().reference.child("AkunKorban/$user").child("askingHelp").setValue(false)
+                FirebaseDatabase.getInstance().reference.child("AkunKorban/$user")
+                    .child("askingHelp").setValue(false)
 
                 val intent = Intent(activity, MainActivity::class.java)
                 startActivity(intent)
                 activity!!.finish()
             }
 
-            builder.setPositiveButton(R.string.alert_jangan_batalkan){_,_ ->
+            builder.setPositiveButton(R.string.alert_jangan_batalkan) { _, _ ->
 
             }
             val dialog: AlertDialog = builder.create()
@@ -85,8 +86,13 @@ class StatusAcceptedFragment : Fragment() {
             startActivity(intent)
         }
     }
+
     companion object {
-        fun newInstance(idInfoKorban: String, idKorbanTertolong: String, rescuer: Rescuer?): StatusAcceptedFragment {
+        fun newInstance(
+            idInfoKorban: String,
+            idKorbanTertolong: String,
+            rescuer: Rescuer?
+        ): StatusAcceptedFragment {
             val args = Bundle()
             args.putString("idInfoKorban", idInfoKorban)
             args.putString("idKorbanTertolong", idKorbanTertolong)
@@ -98,23 +104,31 @@ class StatusAcceptedFragment : Fragment() {
     }
 
     private fun removeData(idInfoKorban: String?, idKorbanTertolong: String?) {
-        notifyRescuerWhenCancelled(idKorbanTertolong){
-            FirebaseDatabase.getInstance().reference.child("Rescuers/$it").child("helping").setValue(false)
-            FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$idKorbanTertolong").removeValue()
+        notifyRescuerWhenCancelled(idKorbanTertolong) {
+            FirebaseDatabase.getInstance().reference.child("Rescuers/$it").child("helping")
+                .setValue(false)
+            FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$idKorbanTertolong")
+                .removeValue()
             FirebaseDatabase.getInstance().reference.child("InfoKorban/$idInfoKorban").removeValue()
         }
         progressbar_name.visibility = View.GONE
     }
 
-    private fun notifyRescuerWhenCancelled(idKorbanTertolong: String?, resulHandler: (String) -> Unit) {
+    private fun notifyRescuerWhenCancelled(
+        idKorbanTertolong: String?,
+        resulHandler: (String) -> Unit
+    ) {
         FirebaseDatabase.getInstance().reference.child("KorbanTertolong/$idKorbanTertolong")
-            .addValueEventListener(object : ValueEventListener{
+            .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
-                    resulHandler(p0.child("idRescuer").value.toString())
+                    val id = p0.child("idRescuer").value.toString()
+                    if (id != "null") {
+                        resulHandler(id)
+                    }
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
-                    TODO("Not yet implemented")
+                    Log.d("RemoveRescuer", p0.message)
                 }
             })
     }
