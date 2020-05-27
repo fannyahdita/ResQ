@@ -97,6 +97,23 @@ class OTPActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.dialog_box_batalkan)
+        builder.setMessage(R.string.dialog_box_batalkan_penjelasan)
+        builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
+            onBackPressed()
+            finish()
+        }
+
+        builder.setPositiveButton(R.string.alert_jangan_batalkan){_,_ ->
+
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
+    }
+
     private fun verify(phone: String) {
         Log.d("PHONE AUTH OTP", "PHONE VERIFICATION")
         verificationCallbacks()
