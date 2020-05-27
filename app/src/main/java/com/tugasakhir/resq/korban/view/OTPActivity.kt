@@ -75,23 +75,6 @@ class OTPActivity : AppCompatActivity() {
 
     }
 
-    override fun onBackPressed() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(R.string.dialog_box_batalkan)
-        builder.setMessage(R.string.dialog_box_batalkan_penjelasan)
-        builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
-            finish()
-        }
-
-        builder.setPositiveButton(R.string.alert_jangan_batalkan){_,_ ->
-
-        }
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-        true
-
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -99,6 +82,7 @@ class OTPActivity : AppCompatActivity() {
                 builder.setTitle(R.string.dialog_box_batalkan)
                 builder.setMessage(R.string.dialog_box_batalkan_penjelasan)
                 builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
+                    onBackPressed()
                     finish()
                 }
 
@@ -188,39 +172,40 @@ class OTPActivity : AppCompatActivity() {
         mAuth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("PHONE AUTH OTP", "signInWithCredential:success")
 
                     val user = task.result?.user?.uid
+                    var index = 1
 
-                    FirebaseDatabase.getInstance().reference.child("AkunKorban/$user")
-                        .addValueEventListener(object : ValueEventListener {
+                    FirebaseDatabase.getInstance().getReference("AkunKorban")
+                        .addListenerForSingleValueEvent(object  : ValueEventListener {
                             override fun onDataChange(p0: DataSnapshot) {
-                                if (p0.exists()) {
-                                    progressbar_otp.visibility = View.GONE
-                                    openActivity(false, phone)
-                                } else {
-                                    progressbar_otp.visibility = View.GONE
-                                    openActivity(true, phone)
+                                val akun = p0.children
+                                akun.forEach {
+
+                                    if (user == it.key.toString()) {
+                                        progressbar_otp.visibility = View.GONE
+                                        openActivity(false, phone)
+                                    } else if (p0.childrenCount == index.toLong()) {
+                                        progressbar_otp.visibility = View.GONE
+                                        openActivity(true, phone)
+                                    }
+                                    index++
+
                                 }
                             }
 
                             override fun onCancelled(p0: DatabaseError) {
-                                Log.d("DatabaseReference : ", "user with id $user is not exist")
-                            }
+                                Log.d("TemukanSayaError : ", p0.message)                }
                         })
 
+                    // ...
                 } else {
                     // false OTP input
                     progressbar_otp.visibility = View.GONE
                     button_sendotp.isClickable = true
                     button_sendotp.setBackgroundResource(R.drawable.shape_filled_button)
-                    val builder = AlertDialog.Builder(this@OTPActivity)
-                    builder.setTitle("Verifikasi Gagal")
-                    builder.setMessage("Pastikan kode verifikasi yang Anda masukkan benar")
-                    builder.setNeutralButton("Oke"){_,_ ->
-
-                    }
-                    val dialog: AlertDialog = builder.create()
-                    dialog.show()
                     Log.w("PHONE AUTH OTP", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
@@ -254,6 +239,8 @@ class OTPActivity : AppCompatActivity() {
         return object: CountDownTimer(millisInFuture,countDownInterval){
             override fun onTick(millisUntilFinished: Long){
                 count_down_timer.text = (millisUntilFinished / 1000).toString()
+//                count_down_timer.text =
+//                    Html.fromHtml(getString(R.string.cdt_otp, (millisUntilFinished / 1000).toString()))
             }
 
             override fun onFinish() {
