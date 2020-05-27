@@ -20,8 +20,8 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
-import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.base.helper.ImageAdjustment
+import com.tugasakhir.resq.korban.model.AkunKorban
 import kotlinx.android.synthetic.main.activity_edit_profile_korban.*
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -86,6 +86,7 @@ class EditProfileKorbanActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             photoURI = data?.data!!
             try {
@@ -138,7 +139,7 @@ class EditProfileKorbanActivity : AppCompatActivity() {
 
     private fun uploadImage(bmp: Bitmap) {
         val stream = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.PNG, 90, stream)
+        bmp.compress(Bitmap.CompressFormat.PNG, 50, stream)
         val data = stream.toByteArray()
 
         val idPhoto = "victimPhotoProfile/$uid.${System.currentTimeMillis()}"
