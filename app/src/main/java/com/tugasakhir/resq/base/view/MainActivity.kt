@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.navigation_beranda -> {
                     actionBar.title = getString(R.string.app_name_actionbar)
-                    val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
+                    val homeFragment = HomeFragment.newInstance(lat, long)
                     openFragment(homeFragment)
                     return@OnNavigationItemSelectedListener true
                 }
@@ -91,6 +91,8 @@ class MainActivity : AppCompatActivity() {
         getLastLocation { location ->
             lat = location.latitude.toString()
             long = location.longitude.toString()
+            val homeFragment = HomeFragment.newInstance(lat, long)
+            openFragment(homeFragment)
         }
 
         val user = FirebaseAuth.getInstance().currentUser?.uid
@@ -101,13 +103,6 @@ class MainActivity : AppCompatActivity() {
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
                     isKorban = p0.exists()
-                    getLastLocation { location ->
-                        lat = location.latitude.toString()
-                        long = location.longitude.toString()
-                        val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
-                        openFragment(homeFragment)
-                    }
-
                     if (isKorban) {
                         isAskingHelp = p0.child("askingHelp").value!!.toString() == "true"
                         Log.d("isAsking 1", isAskingHelp.toString())

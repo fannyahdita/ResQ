@@ -30,7 +30,6 @@ import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
-    private var role = ""
     private var currLat = ""
     private var currLong = ""
     private var waterGatesList: ArrayList<WaterGate?> = ArrayList()
@@ -40,16 +39,11 @@ class HomeFragment : Fragment() {
     companion object {
 
         const val ROLE = ""
-        fun newInstance(isKorban: Boolean, lat: String, long: String): HomeFragment {
+        fun newInstance(lat: String, long: String): HomeFragment {
             val fragment = HomeFragment()
             val bundle = Bundle()
             bundle.putString("lat", lat)
             bundle.putString("long", long)
-            if (isKorban) {
-                bundle.putString(ROLE, "victim")
-            } else {
-                bundle.putString(ROLE, "rescuer")
-            }
 
             fragment.arguments = bundle
             return fragment
@@ -62,14 +56,14 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        role = arguments?.getString(ROLE).toString()
-        currLat = arguments?.getString("lat").toString()
-        currLong = arguments?.getString("long").toString()
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        currLat = arguments?.getString("lat").toString()
+        currLong = arguments?.getString("long").toString()
 
         addWaterGateList()
         recyclerview_water_level.adapter = adapter
