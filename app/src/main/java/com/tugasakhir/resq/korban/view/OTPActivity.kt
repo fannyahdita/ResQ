@@ -75,6 +75,23 @@ class OTPActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.dialog_box_batalkan)
+        builder.setMessage(R.string.dialog_box_batalkan_penjelasan)
+        builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
+            finish()
+        }
+
+        builder.setPositiveButton(R.string.alert_jangan_batalkan){_,_ ->
+
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+        true
+
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -82,7 +99,6 @@ class OTPActivity : AppCompatActivity() {
                 builder.setTitle(R.string.dialog_box_batalkan)
                 builder.setMessage(R.string.dialog_box_batalkan_penjelasan)
                 builder.setNegativeButton(R.string.alert_tetap_batalkan){_,_ ->
-                    onBackPressed()
                     finish()
                 }
 
