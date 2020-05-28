@@ -122,6 +122,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                         } else if (p0.childrenCount == index.toLong()) {
                             isKorbanTertolong(idInfoKorban)
                         }
+                        index++
                     }
                 }
 
