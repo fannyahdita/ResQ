@@ -141,7 +141,6 @@ class MainActivity : AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-//                finish()
             } else {
                 val intent = Intent(this, TemukanSayaActivity::class.java)
                 intent.putExtra(EXTRA_LAT, lat)
@@ -149,7 +148,6 @@ class MainActivity : AppCompatActivity() {
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-//                finish()
             }
         } else {
             if (isHelping) {
