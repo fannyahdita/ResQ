@@ -27,7 +27,6 @@ class NotificationService : Service() {
     private var idHelpedVictim = ""
     private var isVictim = false
 
-    private lateinit var runningProcess : List<ActivityManager.RunningAppProcessInfo>
     private lateinit var taskInfo : List<ActivityManager.RunningTaskInfo>
 
 
@@ -157,29 +156,50 @@ class NotificationService : Service() {
         val notificationManager =
             applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && isInBackground) {
-            val notificationChannel =
-                NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.GREEN
-            notificationChannel.enableVibration(false)
-            notificationManager.createNotificationChannel(notificationChannel)
+        if (isInBackground) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val notificationChannel =
+                    NotificationChannel(channelId, description, NotificationManager.IMPORTANCE_HIGH)
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.GREEN
+                notificationChannel.enableVibration(false)
+                notificationManager.createNotificationChannel(notificationChannel)
 
-            val builder = Notification.Builder(applicationContext, channelId)
-                .setContentTitle(name)
-                .setContentText(text)
-                .setSubText(time)
-                .setSmallIcon(R.drawable.ic_logo_transparent)
-                .setLargeIcon(
-                    BitmapFactory.decodeResource(
-                        applicationContext?.resources,
-                        R.drawable.ic_logo_round
+                val builder = Notification.Builder(applicationContext, channelId)
+                    .setContentTitle(name)
+                    .setContentText(text)
+                    .setSubText(time)
+                    .setSmallIcon(R.drawable.ic_logo_transparent)
+                    .setLargeIcon(
+                        BitmapFactory.decodeResource(
+                            applicationContext?.resources,
+                            R.drawable.ic_logo_round
+                        )
                     )
-                )
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
 
-            notificationManager.notify(1234, builder.build())
+                notificationManager.notify(1234, builder.build())
+            }
+            else {
+                val builder = Notification.Builder(applicationContext)
+                    .setContentTitle(name)
+                    .setContentText(text)
+                    .setSubText(time)
+                    .setSmallIcon(R.drawable.ic_logo_transparent)
+                    .setLargeIcon(
+                        BitmapFactory.decodeResource(
+                            applicationContext?.resources,
+                            R.drawable.ic_logo_round
+                        )
+                    )
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+
+                notificationManager.notify(1234, builder.build())
+            }
+
         }
+
     }
 }
