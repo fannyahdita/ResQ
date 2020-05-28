@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     val PERMISSION_ID = 42
     lateinit var mFusedLocationClient: FusedLocationProviderClient
 
+
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             item.isCheckable = true
@@ -85,14 +86,17 @@ class MainActivity : AppCompatActivity() {
         image_loading_backgroung.postDelayed({
             image_loading_backgroung.visibility = View.GONE
             progressbar_loading.visibility = View.GONE
+            getLastLocation { location ->
+                lat = location.latitude.toString()
+                long = location.longitude.toString()
+                val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
+                openFragment(homeFragment)
+            }
         }, 3000)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        getLastLocation { location ->
-            lat = location.latitude.toString()
-            long = location.longitude.toString()
-            val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
-            openFragment(homeFragment)
+        if(!checkPermissions()) {
+            requestPermissions()
         }
 
         val user = FirebaseAuth.getInstance().currentUser?.uid
@@ -207,26 +211,22 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun getLastLocation(resultHandler: (Location) -> Unit) {
-        if (checkPermissions()) {
-            if (isLocationEnabled()) {
-                mFusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                    if (location == null) {
-                        requestNewLocationData()
-                    } else {
-                        resultHandler(location)
-                    }
+        if (isLocationEnabled()) {
+            mFusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location == null) {
+                    requestNewLocationData()
+                } else {
+                    resultHandler(location)
                 }
-            } else {
-                Toast.makeText(
-                    this,
-                    "getString(R.string.turn_on_location) location",
-                    Toast.LENGTH_LONG
-                ).show()
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
             }
         } else {
-            requestPermissions()
+            Toast.makeText(
+                this,
+                "getString(R.string.turn_on_location) location",
+                Toast.LENGTH_LONG
+            ).show()
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(intent)
         }
     }
 
