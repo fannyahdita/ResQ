@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -72,10 +73,21 @@ class ProfileFragment : Fragment() {
         button_logout.setOnClickListener {
             button_logout.setTextColor(resources.getColor(R.color.white_light))
             button_logout.setBackgroundResource(R.drawable.shape_bordered_button_clicked)
-            firebaseAuth.signOut()
-            val intent = Intent(activity, OnboardingActivity::class.java)
-            startActivity(intent)
-            activity!!.finish()
+            val builder = AlertDialog.Builder(activity!!)
+            builder.setTitle(R.string.confirm_logout)
+            builder.setNegativeButton(R.string.yes){_,_ ->
+                firebaseAuth.signOut()
+                val intent = Intent(activity, OnboardingActivity::class.java)
+                startActivity(intent)
+                activity!!.finish()
+            }
+
+            builder.setPositiveButton(R.string.no){_,_ ->
+
+            }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+
         }
 
     }

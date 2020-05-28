@@ -220,5 +220,8 @@
     <string name="button_send">Kirim</string>
     <string name="enter_message">Tulis pesan</string>
 
+    <string name="confirm_logout">Apakah Anda yakin ingin keluar?</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
 
 </resources>
