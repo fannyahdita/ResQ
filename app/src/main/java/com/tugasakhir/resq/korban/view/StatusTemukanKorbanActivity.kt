@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -88,6 +89,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
         FirebaseDatabase.getInstance().getReference("KorbanTertolong")
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(p0: DataSnapshot) {
+                    var index = 1
                     val children = p0.children
                     children.forEach {
 
@@ -117,9 +119,10 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
                             )
                             checkStatus(it.key.toString(), idInfoKorban)
                             return
+                        } else if (p0.childrenCount == index.toLong()) {
+                            isKorbanTertolong(idInfoKorban)
                         }
                     }
-                    isKorbanTertolong(idInfoKorban)
                 }
 
                 override fun onCancelled(p0: DatabaseError) {
@@ -308,7 +311,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                finish()
+                onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
