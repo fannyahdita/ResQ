@@ -223,6 +223,14 @@ class OTPActivity : AppCompatActivity() {
                     progressbar_otp.visibility = View.GONE
                     button_sendotp.isClickable = true
                     button_sendotp.setBackgroundResource(R.drawable.shape_filled_button)
+                    val builder = AlertDialog.Builder(this@OTPActivity)
+                    builder.setTitle("Verifikasi Gagal")
+                    builder.setMessage("Pastikan kode verifikasi yang Anda masukkan benar")
+                    builder.setNeutralButton("Oke"){_,_ ->
+
+                    }
+                    val dialog: AlertDialog = builder.create()
+                    dialog.show()
                     Log.w("PHONE AUTH OTP", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
