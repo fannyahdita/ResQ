@@ -204,6 +204,7 @@ class OTPActivity : AppCompatActivity() {
                                     if (user == it.key.toString()) {
                                         progressbar_otp.visibility = View.GONE
                                         openActivity(false, phone)
+                                        return
                                     } else if (p0.childrenCount == index.toLong()) {
                                         progressbar_otp.visibility = View.GONE
                                         openActivity(true, phone)
