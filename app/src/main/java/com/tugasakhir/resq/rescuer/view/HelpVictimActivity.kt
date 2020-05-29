@@ -134,6 +134,8 @@ class HelpVictimActivity : AppCompatActivity() {
                 .placeholder(R.drawable.ic_empty_pict)
                 .error(R.drawable.ic_empty_pict)
                 .into(imageview_victim_photo)
+        } else {
+            imageview_victim_photo.setImageResource(R.drawable.ic_empty_pict)
         }
 
         val helpType = when {

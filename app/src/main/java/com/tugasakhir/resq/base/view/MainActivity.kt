@@ -80,23 +80,24 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if(!checkPermissions()) {
+            requestPermissions()
+        }
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         image_loading_backgroung.postDelayed({
             image_loading_backgroung.visibility = View.GONE
             progressbar_loading.visibility = View.GONE
-            getLastLocation { location ->
-                lat = location.latitude.toString()
-                long = location.longitude.toString()
-                val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
-                openFragment(homeFragment)
-            }
         }, 3000)
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        if(!checkPermissions()) {
-            requestPermissions()
+        getLastLocation { location ->
+            lat = location.latitude.toString()
+            long = location.longitude.toString()
+            val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
+            openFragment(homeFragment)
         }
 
         val user = FirebaseAuth.getInstance().currentUser?.uid
@@ -297,6 +298,8 @@ class MainActivity : AppCompatActivity() {
                 getLastLocation { location ->
                     lat = location.latitude.toString()
                     long = location.longitude.toString()
+                    val homeFragment = HomeFragment.newInstance(isKorban, lat, long)
+                    openFragment(homeFragment)
                 }
             }
         }
