@@ -51,13 +51,18 @@ class BuatAkunActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(this, OnboardingActivity::class.java)
-                startActivity(intent)
-                finish()
+                onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, OnboardingActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun registerUser() {
@@ -67,7 +72,7 @@ class BuatAkunActivity : AppCompatActivity() {
             edittext_signup_phone.error = getString(R.string.field_is_empty)
             edittext_signup_phone.requestFocus()
             return
-        } else if (!Patterns.PHONE.matcher(phone).matches() || phone.length < 12 || phone.length > 14) {
+        } else if (!Patterns.PHONE.matcher(phone).matches() || phone.length < 12 || phone.length > 15) {
             edittext_signup_phone.error = "Nomor yang anda masukan tidak valid"
             edittext_signup_phone.requestFocus()
             Toast.makeText(this, "Nomor telepon tidak valid", Toast.LENGTH_LONG).show()

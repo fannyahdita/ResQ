@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.model.Rescuer
-import kotlinx.android.synthetic.main.fragment_temukansayastatus3_korban.*
+import kotlinx.android.synthetic.main.fragment_status3_korban.*
 import java.io.Serializable
 
 class StatusRunningFragment : Fragment() {
@@ -21,7 +21,7 @@ class StatusRunningFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_temukansayastatus3_korban, container, false)
+        return inflater.inflate(R.layout.fragment_status3_korban, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

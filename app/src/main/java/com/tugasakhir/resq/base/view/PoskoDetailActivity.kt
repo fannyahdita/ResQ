@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.base.model.Posko
 import com.tugasakhir.resq.rescuer.view.EditPoskoRescuerActivity
-import kotlinx.android.synthetic.main.fragment_detailposko_korban.*
+import kotlinx.android.synthetic.main.activity_detailposko_korban.*
 import java.io.Serializable
 
 class PoskoDetailActivity : AppCompatActivity() {
@@ -42,7 +42,7 @@ class PoskoDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_detailposko_korban)
+        setContentView(R.layout.activity_detailposko_korban)
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)

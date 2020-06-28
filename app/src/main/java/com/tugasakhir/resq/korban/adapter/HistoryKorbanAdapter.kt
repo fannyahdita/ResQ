@@ -13,11 +13,11 @@ import com.google.firebase.database.ValueEventListener
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
-import com.tugasakhir.resq.korban.view.DetailHistoryVictimActivity
+import com.tugasakhir.resq.korban.view.DetailHistoryKorbanActivity
 import kotlinx.android.synthetic.main.item_history_victim.view.*
 import java.io.Serializable
 
-class HistoryVictimAdapter : RecyclerView.Adapter<HistoryVictimAdapter.ViewHolder>() {
+class HistoryKorbanAdapter : RecyclerView.Adapter<HistoryKorbanAdapter.ViewHolder>() {
 
     private var history: List<KorbanTertolong> = ArrayList()
     private var victimInfoData =
@@ -77,7 +77,7 @@ class HistoryVictimAdapter : RecyclerView.Adapter<HistoryVictimAdapter.ViewHolde
             })
 
         holder.itemView.item_history_victim.setOnClickListener {
-            val intent = Intent(holder.itemView.context, DetailHistoryVictimActivity::class.java)
+            val intent = Intent(holder.itemView.context, DetailHistoryKorbanActivity::class.java)
             intent.putExtra("helpedVictim", currentHistory as Serializable)
             holder.itemView.context.startActivity(intent)
         }

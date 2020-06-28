@@ -18,8 +18,8 @@ import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
 import com.tugasakhir.resq.rescuer.model.Rescuer
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.*
-import kotlinx.android.synthetic.main.fragment_temukansayaselesai_korban.view.*
+import kotlinx.android.synthetic.main.fragment_ringkasan_korban.*
+import kotlinx.android.synthetic.main.fragment_ringkasan_korban.view.*
 
 class StatusFinishedFragment : Fragment() {
 
@@ -32,7 +32,7 @@ class StatusFinishedFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        root = inflater.inflate(R.layout.fragment_temukansayaselesai_korban, container, false)
+        root = inflater.inflate(R.layout.fragment_ringkasan_korban, container, false)
         return root
     }
 

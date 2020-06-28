@@ -146,12 +146,13 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
                 textview_max_char_info.text = getString(R.string.max_char_280, p0?.length)
             }
         })
-
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, TemukanSayaActivity::class.java)
+        intent.putExtra(EXTRA_LAT, lat)
+        intent.putExtra(EXTRA_LONG, long)
         startActivity(intent)
         finish()
     }
@@ -205,7 +206,7 @@ class FormTemukanKorbanActivity : AppCompatActivity() {
         ref.child(userId).setValue(korban).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 progressbar_name.visibility = View.GONE
-                val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
+                val intent = Intent(this, StatusTemukanSayaActivity::class.java)
                 intent.putExtra(EXTRA_ID_INFOKORBAN, userId)
                 intent.putExtra(EXTRA_PREV_ACTIVITY, "Form")
                 startActivity(intent)

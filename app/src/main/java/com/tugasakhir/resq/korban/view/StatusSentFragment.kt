@@ -11,8 +11,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.tugasakhir.resq.base.view.MainActivity
 import com.tugasakhir.resq.R
-import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.*
-import kotlinx.android.synthetic.main.fragment_temukansayastatus1_korban.progressbar_name
+import kotlinx.android.synthetic.main.fragment_status1_korban.*
+import kotlinx.android.synthetic.main.fragment_status1_korban.progressbar_name
 
 class StatusSentFragment : Fragment() {
 
@@ -21,7 +21,7 @@ class StatusSentFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_temukansayastatus1_korban, container, false)
+        return inflater.inflate(R.layout.fragment_status1_korban, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

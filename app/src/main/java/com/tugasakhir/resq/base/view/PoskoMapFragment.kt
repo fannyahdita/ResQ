@@ -1,16 +1,10 @@
 package com.tugasakhir.resq.base.view
 
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.LocationManager
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
@@ -19,7 +13,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import android.Manifest
 import android.location.Location
 import android.util.Log
 import android.widget.RelativeLayout
@@ -74,7 +67,7 @@ class PoskoMapFragment : Fragment() {
 
         val currentLat = arguments!!.getString("lat")
         val currentLong = arguments!!.getString("long")
-        setCurrentLoc(currentLat, currentLong)
+//        setCurrentLoc(currentLat, currentLong)
 
         bottomSheetBehavior = BottomSheetBehavior.from<RelativeLayout>(fragment_list_posko)
         setBottomSheetList()
@@ -108,29 +101,20 @@ class PoskoMapFragment : Fragment() {
         })
     }
 
-    private fun setCurrentLoc(currentLat: String?, currentLong: String?) {
-        mapFragment.getMapAsync { googleMap ->
-            val currentLoc = LatLng(currentLat!!.toDouble(), currentLong!!.toDouble())
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 14f))
-        }
-    }
+//    private fun setCurrentLoc(currentLat: String?, currentLong: String?) {
+//        mapFragment.getMapAsync { googleMap ->
+//            val currentLoc = LatLng(currentLat!!.toDouble(), currentLong!!.toDouble())
+//            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 14f))
+//        }
+//    }
 
     private fun setMaps(lat: String, long: String, poskoId: String?, currLat: String?, currLong: String?) {
         mapFragment.getMapAsync { gMap ->
             val location = LatLng(lat.toDouble(), long.toDouble())
+            val currentLoc = LatLng(currLat!!.toDouble(), currLong!!.toDouble())
+            gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLoc, 14f))
+            gMap.isMyLocationEnabled = true
 
-            if (checkPermissions()) {
-                if (isLocationEnabled()) {
-                    gMap.isMyLocationEnabled = true
-                } else {
-                    Toast.makeText(activity, "getString(R.string.turn_on_location) location", Toast.LENGTH_LONG)
-                        .show()
-                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivity(intent)
-                }
-            } else {
-                requestPermissions()
-            }
             gMap.addMarker(
                 MarkerOptions().position(location).title(poskoId.toString())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
@@ -157,41 +141,8 @@ class PoskoMapFragment : Fragment() {
                 return@setOnMarkerClickListener true
             }
         }
-
     }
 
-    private fun checkPermissions(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                activity!!, Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-            &&
-            ActivityCompat.checkSelfPermission(
-                activity!!, Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            return true
-        }
-        return false
-    }
-
-    private fun isLocationEnabled(): Boolean {
-        val locationManager: LocationManager =
-            activity!!.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
-    }
-
-    private fun requestPermissions() {
-        ActivityCompat.requestPermissions(
-            activity!!,
-            arrayOf(
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ),
-            permissionId
-        )
-    }
 
     override fun onResume() {
         super.onResume()

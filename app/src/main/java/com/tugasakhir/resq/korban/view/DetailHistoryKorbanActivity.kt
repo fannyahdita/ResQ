@@ -14,16 +14,16 @@ import com.squareup.picasso.Picasso
 import com.tugasakhir.resq.R
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.rescuer.helper.VictimInfoData
-import kotlinx.android.synthetic.main.activity_detail_history_victim.*
+import kotlinx.android.synthetic.main.activity_detail_history_korban.*
 
-class DetailHistoryVictimActivity : AppCompatActivity() {
+class DetailHistoryKorbanActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private var victimInfoData = VictimInfoData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail_history_victim)
+        setContentView(R.layout.activity_detail_history_korban)
 
         actionBar = this.supportActionBar!!
         actionBar.setDisplayHomeAsUpEnabled(true)
@@ -65,7 +65,7 @@ class DetailHistoryVictimActivity : AppCompatActivity() {
                     val address = victimInfoData.getAddress(
                         p0.child("latitude").value.toString().toDouble(),
                         p0.child("longitude").value.toString().toDouble(),
-                        this@DetailHistoryVictimActivity
+                        this@DetailHistoryKorbanActivity
                     )
 
                     textview_detail_victim_history_address.text = address

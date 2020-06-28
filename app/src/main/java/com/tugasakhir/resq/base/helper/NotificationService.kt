@@ -128,8 +128,6 @@ class NotificationService : Service() {
         return isInBackground
     }
 
-
-
     private fun sendNotification(text: String?, isInBackground : Boolean, time: String) {
         val intent: Intent
         val name: String

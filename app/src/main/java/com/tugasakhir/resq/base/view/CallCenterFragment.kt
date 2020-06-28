@@ -124,36 +124,6 @@ class CallCenterFragment : Fragment() {
                 "021-43931063"
             )
         )
-        sarCallCenterList.add(
-            CallCenter(
-                "Jakarta Selatan",
-                "021-7515054"
-            )
-        )
-        sarCallCenterList.add(
-            CallCenter(
-                "Jakarta Timur",
-                "021-85904904"
-            )
-        )
-        sarCallCenterList.add(
-            CallCenter(
-                "Jakarta Pusat",
-                "021-6344215"
-            )
-        )
-        sarCallCenterList.add(
-            CallCenter(
-                "Jakarta Barat",
-                "021-5682284"
-            )
-        )
-        sarCallCenterList.add(
-            CallCenter(
-                "Jakarta Utara",
-                "021-43931063"
-            )
-        )
 
         sarCallCenterAdapter.setCallCenter(sarCallCenterList)
     }

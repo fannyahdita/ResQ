@@ -21,7 +21,7 @@ import com.tugasakhir.resq.korban.model.AkunKorban
 import com.tugasakhir.resq.korban.model.KorbanTertolong
 import com.tugasakhir.resq.korban.view.EditProfileKorbanActivity
 import com.tugasakhir.resq.rescuer.adapter.HistoryRescuerAdapter
-import com.tugasakhir.resq.korban.adapter.HistoryVictimAdapter
+import com.tugasakhir.resq.korban.adapter.HistoryKorbanAdapter
 import com.tugasakhir.resq.rescuer.model.Rescuer
 import com.tugasakhir.resq.rescuer.view.EditProfileRescuerActivity
 import kotlinx.android.synthetic.main.fragment_profile_rescuer.*
@@ -53,7 +53,7 @@ class ProfileFragment : Fragment() {
     private lateinit var victimHistory: ArrayList<KorbanTertolong>
     private var historyRescuerAdapter = HistoryRescuerAdapter()
     private var historyVictimAdapter =
-        HistoryVictimAdapter()
+        HistoryKorbanAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

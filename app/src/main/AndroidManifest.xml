@@ -80,7 +80,7 @@
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".korban.view.StatusTemukanKorbanActivity"
+            android:name=".korban.view.StatusTemukanSayaActivity"
             android:launchMode="singleTask"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
@@ -125,7 +125,7 @@
             android:theme="@style/AppTheme.CustomTheme" />
 
         <activity
-            android:name=".korban.view.DetailHistoryVictimActivity"
+            android:name=".korban.view.DetailHistoryKorbanActivity"
             android:screenOrientation="nosensor"
             android:theme="@style/AppTheme.CustomTheme" />
 

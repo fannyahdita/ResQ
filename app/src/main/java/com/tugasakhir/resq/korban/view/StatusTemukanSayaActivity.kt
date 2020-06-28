@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -26,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_main_status_korban.*
 import java.util.*
 
 
-class StatusTemukanKorbanActivity : AppCompatActivity() {
+class StatusTemukanSayaActivity : AppCompatActivity() {
 
     private lateinit var actionBar: ActionBar
     private lateinit var rescuer: Rescuer
@@ -250,7 +249,7 @@ class StatusTemukanKorbanActivity : AppCompatActivity() {
     }
 
     private fun sendNotification(title: String, text: String) {
-        val intent = Intent(applicationContext, StatusTemukanKorbanActivity::class.java)
+        val intent = Intent(applicationContext, StatusTemukanSayaActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,

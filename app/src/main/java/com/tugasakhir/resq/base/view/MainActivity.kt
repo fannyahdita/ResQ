@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
     private fun showTemukanSaya(isKorban: Boolean) {
         if (isKorban) {
             if (isAskingHelp) {
-                val intent = Intent(this, StatusTemukanKorbanActivity::class.java)
+                val intent = Intent(this, StatusTemukanSayaActivity::class.java)
                 intent.putExtra(EXTRA_PREV_ACTIVITY, "Main")
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
